@@ -1,0 +1,341 @@
+------------------------------------------------------------------------------
+      Contribution of libburnia-project.org to the GNU Operating System
+------------------------------------------------------------------------------
+GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
+Derived from and supported by libburnia-project.org, published via:
+http://scdbackup.sourceforge.net/xorriso_eng.html
+http://scdbackup.sourceforge.net/xorriso-0.4.9.tar.gz
+Provided under GPL version 3 or later. No warranty.
+------------------------------------------------------------------------------
+
+
+xorriso is a program which copies file objects from POSIX compliant
+filesystems into Rock Ridge enhanced ISO 9660 filesystems and allows
+session-wise manipulation of such filesystems. It can load the management
+information of existing ISO images and it writes the session results to
+optical media or to filesystem objects.
+Vice versa xorriso is able to restore file objects from ISO 9660 filesystems.
+
+A special property of xorriso is that it needs neither an external ISO 9660
+formatter program nor an external burn program for CD or DVD but rather
+incorporates the libraries of libburnia-project.org .
+
+Currently it is fully supported on GNU/Linux with kernels >= 2.4 and on
+FreeBSD versions with ATAPI/CAM support enabled in the kernel, see atapicam(4).
+On other X/Open compliant systems there will only be POSIX i/o with disk
+file objects, but no direct MMC operation on CD/DVD/BD drives.
+
+By using this software you agree to the disclaimer at the end of this text:
+"... without even the implied warranty ..."
+
+
+                   Compilation, First Glimpse, Installation
+
+The most simple way to get xorriso from source code is the xorriso standalone
+tarball.
+
+Prerequisites:
+The tarball contains everything that is needed except the following system
+components:
+   libc, libpthread
+   plus on FreeBSD: libiconv, libcam, IDE and SATA drives need atapicam
+Optional at compile time are:
+   libreadline and the readline-dev headers make dialog mode more convenient.
+   on GNU/Linux: libacl and libacl-devel allow getting and setting ACLs.
+   zlib and zlib-devel allow zisofs compression.
+If they were present at compile time, then the optional libraries have to
+be present at runtime, too.
+
+Obtain xorriso-0.4.9.tar.gz, take it to a directory of your choice and do:
+
+    tar xzf xorriso-0.4.9.tar.gz
+    cd xorriso-0.4.9
+
+Within that directory execute:
+
+    ./configure --prefix=/usr
+    make
+
+This will produce a binary named
+    ./xorriso/xorriso
+
+If you want xorriso to report a "Build timestamp" with its option -version :
+    make buildstamped
+
+You may strip the binary to reduce it in size
+    strip ./xorriso/xorriso
+
+You may copy or move it to a directory where it can be found by the shell,
+or you may execute xorriso at the place where it was built,
+or you may execute as superuser:
+    make install
+
+For general concepts, options and usage examples see
+    man 1 xorriso
+
+This man page is part of the tarball as
+    xorriso/xorriso.1
+You may get a first glimpse by
+    man ./xorriso/xorriso.1
+
+It gets installed with "make install" but may also be placed manually in the
+./man1 directory below one of the directories mentioned in environment
+variable $MANPATH.
+
+The installation creates several alias links pointing to the xorriso binary:
+    xorrisofs  starts xorriso with -as mkisofs emulation already enabled
+    xorrecord  starts xorriso with -as cdrecord emulation already enabled
+    osirrox    starts with -osirrox image-to-disk copying already enabled
+
+If you want to avoid dependecy on libreadline although the libreadline
+development package is installed, then rather build xorriso by:
+    ./configure --prefix=/usr --disable-libreadline 
+    make clean ; make
+Never omit the "make clean" command after switching libreadline enabling.
+Other deliberate dependency reduction options of ./configure are:
+    --disable-libacl   avoid use of ACL functions like acl_to_text()
+    --disable-xattr    avoid use of xattr functions like listxattr()
+    --disable-zlib     avoid use of zlib functions like compress2()
+
+xorriso brings own system adapters which allow burning optical media on
+GNU/Linux and FreeBSD. Alternatively it can use libcdio-0.83 or later for
+sending commands to optical drives:
+    --enable-libcdio
+
+xorriso allows to use external processes as file content filters. This is
+a potential security risk which may be avoided by ./configure option
+    --disable-external-filters
+
+By default the filter feature is disabled if effective user id and real
+user id differ. This ban can be lifted by
+    --enable-external-filters-setuid
+
+Sometimes xorriso will yield better write performance on GNU/Linux if 64 KB are
+transmitted in each write operation rather than 32 KB. See option -dvd_obs .
+64k can be made default at configure time by:
+    --enable-dvd-obs-64k
+
+For xorriso -as cdrecord emulation only:
+In some situations GNU/Linux may deliver a better write performance to drives
+if the track input is read with O_DIRECT (see man 2 open). The included libburn
+and the cdrecord emulation of xorriso can be told to use this peculiar read
+mode by:
+    --enable-track-src-odirect
+
+
+                       Drives and Disk File Objects 
+
+The user of libisoburn applications needs rw-permission for the CD/DVD/BD
+drives which shall be used, even if only reading is intended.
+A list of rw-accessible drives can be obtained by
+
+    xorriso -devices
+
+CD devices which offer no rw-permission are invisible to normal users.
+The superuser should be able to see any usable drive and then set the
+permissions as needed.
+
+The output of  xorriso -devices  might look like
+
+0  -dev '/dev/sr0' rwrw-- :  'TSSTcorp' 'CDDVDW SH-S203B' 
+1  -dev '/dev/hda' rwrw-- :  'HL-DT-ST' 'DVD-ROM GDR8162B' 
+
+Full and insecure enabling of both for everybody would look like
+    chmod a+rw /dev/sr0 /dev/hda
+This is equivalent to the traditional setup chmod a+x,u+s cdrecord.
+
+I strongly discourage to run xorriso with setuid root or via sudo !
+It is not checked for the necessary degree of hacker safety.
+
+Consider to put all authorized users into group "floppy", to chgrp the
+device file to that group and to disallow w-access to others.
+
+
+A possible source of problems are hald or other automounters. 
+If you can spot a process "hald-addon-storage" with the address of
+your desired drive, then consider to kill it.
+
+If you cannot get rid of the automounter that easily, try whether it helps
+to always load the drive tray manually before starting a write run of
+xorriso. Wait until the drive light is off.
+Better try to unmount an eventually mounted media before a write run.
+
+
+Besides true optical drives, xorriso can also address disk files as input or
+output drives. By default paths to files under /dev are accepted only if the
+device represents a real optical drive. Other device files may be addressed
+by prepending "stdio:" to the path.
+Like:
+    xorriso -dev stdio:/dev/sdb ...more arguments...
+This rule may be changed by xorriso option -drive_class.
+Prefix "mmc:" causes a path to be accepted only if it is a real optical drive
+which is accessible by generic SCSI/MMC commands.
+
+
+                              Testing
+
+We are quite sure that libisofs produces accurate representations of the disk
+files. This opinion is founded on a lot of test burns and checks by a little
+test program which compares files from the mounted image with the orignals
+on disk. It uses the normal POSIX filesystem calls, i.e. no libburnia stuff.
+
+This program is not installed systemwide but stays in the installation
+directory of the xorriso tarball as  test/compare_file . Usually it is
+run as -exec payload of a find command. It demands at least three arguments:
+The path of the first file to compare, the prefix1 to be cut off from path
+and the prefix2 which gets prepended afterwards to obtain the path of the
+second file to compare.
+As further argument there can be -no_ctime which suppresses the comparison
+of ctime date stamps.
+The exit value is 0 if no difference was detected, non-0 else.
+
+Example: After
+   xorriso ... -pathspecs on -add /=/original/dir -- -commit_eject all
+   mount /media/dvd
+   cd test
+compare tree /media/dvd with tree /original/dir :
+   find /original/dir -exec ./compare_file '{}' /original/dir /media/dvd ';' \
+   | less
+and vice versa:
+   find /media/dvd -exec ./compare_file '{}' /media/dvd /original/dir ';' \
+   | less
+
+
+                             File Formats
+
+                             Sector Maps
+
+Sector maps describe the valid and invalid blocks on a media or a disk copy of
+a media. xorriso creates and reads these file with its option -check_media.
+
+The file begins with 32 bytes of cleartext of which the last one is a
+newline character. The first 25 say "xorriso sector bitmap v2 ", the
+remaining six characters give the size of the info text as decimal number.
+This number of bytes follows the first 32 and will not be interpreted
+by xorriso. They are rather to inform a human reader about the media type
+and its track layout.
+After the info text there are two 4 byte signed integers, most significant
+byte first. The first one, N, gives the number of bits in the following bitmap
+and the second number S gives the number of 2 KiB blocks governed by a single
+bit in the map. Then come the bits in form of 8-bit bytes.
+Data block M is covered by bit B=M/S in the map, bit number B is stored in
+byte B/8 as bit B%8. A valid readable data block has its bit set to 1.
+
+                             Checksum Tags
+
+Checksum tags are data blocks inside an ISO 9660 image which do not belong to
+any file but rather tell the MD5 of a certain range of data blocks.
+
+The superblock checksum tag is written after the ECMA-119 volume descriptors.
+The tree checksum tag is written after the ECMA-119 directory entries.
+The session checksum tag is written after all payload including the checksum
+array. (Then follows eventual padding.)
+
+The tags are single lines of printable text, padded by 0 bytes. They have
+the following format:
+
+ Tag_id pos=# range_start=# range_size=# [session_start|next=#] md5=# self=#\n
+
+Parameters md5= and self= are 32 digit hex, the others are decimal numbers.
+
+Tag_id distinguishes the following tag types
+  "libisofs_rlsb32_checksum_tag_v1"     Relocated 64 kB superblock tag
+  "libisofs_sb_checksum_tag_v1"         Superblock tag
+  "libisofs_tree_checksum_tag_v1"       Directory tree tag
+  "libisofs_checksum_tag_v1"            Session end tag
+
+A relocated superblock may appear at LBA 0 of an image which was produced for
+being stored in a disk file or on overwriteable media (e.g. DVD+R, BD-RE).
+xorriso records the first session at LBA 32. An eventual follow-up session
+begins at the next block address which is divisible by 32 and higher than the
+address of the previous session's end tag. Normally no session starts after the
+address given by relocated superblock parameter session_start=.
+Session oriented media like CD-R[W], DVD+R, BD-R will have no relocated
+superblock but rather bear a table-of-content on media level.
+
+A tag is valid if pos= tells its own block address and self= tells its own MD5
+up to the last hex digit of md5=. range_start= tells the first block that is
+covered by md5=, range_size= tells the number of blocks covered by md5=.
+Relocated superblocks tell the block address of their session by session_start=.
+Superblock and tree tag tell the block address of the next tag by next=.
+The newline character at the end is mandatory.
+
+
+                             libisoburn
+
+xorriso is based on libisofs which does ISO 9600 filesystem aspects and on
+libburn which does the input and output aspects. Parts of this foundation
+are accessed via libisoburn, which is closely related to xorriso.
+
+libisoburn provides two services:
+- Encapsulation of coordination between libisofs and libburn.
+- Emulation of ISO 9660 multi-session on overwriteable media
+  or random access files.
+
+The sourcecode of all three libraries is included in the xorriso standalone
+tarball. It is compiled with xorriso and linked statically.
+But you may as well get and install releases of libburn and libisofs, in order
+to be able to install a release of libisoburn which produces libisoburn.so.1
+and a matching dynamically linked xorriso binary.
+This binary is leaner but depends on properly installed libraries of suitable
+revision.
+
+Dynamic library and compile time header requirements for libisoburn-0.4.8 :
+- libburn.so.4  , version libburn-0.7.6 or higher
+- libisofs.so.6 , version libisofs-0.6.26 or higher
+libisoburn and xorriso will not start with libraries which are older than their
+headers seen at compile time. So compile in the oldest possible installation
+setup unless you have reason to enforce a newer bug fix level.
+
+Standalone xorriso has less runtime dependencies and can be moved more freely.
+
+
+------------------------------------------------------------------------------
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 3 or later
+    as published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+------------------------------------------------------------------------------
+
+    GNU xorriso is feature-wise equivalent to the dynamic compilation of
+    libburnia libraries and libburnia program xorriso.
+    It restricts itself to a technical form where the legal commitments of the
+    libburnia project and the legal intentions of FSF match completely.
+
+    Libburnia project is committed to provide support for this copy in the same
+    way as for its own software releases. It is further committed to keep its
+    own licenses open for obtaining future copies under GPLv2+.
+
+------------------------------------------------------------------------------
+libburnia program xorriso is based on and sub project of:
+libburnia-project.org
+By Mario Danic           <mario.danic@gmail.com>,  libburn, libisofs
+   Vreixo Formoso        <metalpain2002@yahoo.es>, libisofs, libisoburn
+   Thomas Schmitt        <scdbackup@gmx.net>,      libburn, libisofs,
+                                                   libisoburn, xorriso
+Copyright (C) 2006-2010 Mario Danic, Vreixo Formoso, Thomas Schmitt.
+
+libburnia-project.org is inspired by and in libburn still containing parts
+of old
+Libburn. By Derek Foreman <derek@signalmarketing.com> and
+            Ben Jansens <xor@orodu.net>
+Copyright (C) 2002-2006  Derek Foreman and Ben Jansens
+------------------------------------------------------------------------------
+
+This text itself is
+Copyright (c) 2007 - 2010 Thomas Schmitt <scdbackup@gmx.net>
+and may be copied freely.
+This text shall only be modified in sync with the technical properties of
+xorriso. If you make use of the license to derive modified versions of xorriso
+then you are entitled to modify this text under that same license.
+
