@@ -41,16 +41,20 @@ About any CD, DVD, or BD recorder produced in the recent ten years.
 <BR>
 <A HREF="http://libburnia-project.org">libburn</A>
 supports recorders which are compliant to standards MMC-1 for CD and
-MMC-5 for DVD or BD. GNU/Linux and FreeBSD allow to access drives connected
+MMC-5 for DVD or BD.
+<BR>
+GNU/Linux and FreeBSD allow to access drives connected
 via SCSI, PATA (aka IDE, ATA), USB, or SATA.
 <BR>
+xorriso also operates on ISO images in data files or block devices.
+Images or add-on sessions may be written to about any kind of file object.
 </P>
 
 <P>
 <H2>Software requirements :</H2>
 <DL>
 <DT>GNU/Linux with kernel 2.4 or higher, libc, libpthread :</DT>
-<DD>With kernel 2.4 an ATA drive has to be under ide-scsi emulation.</DD>
+<DD>With kernel 2.4 a PATA/IDE drive has to be under ide-scsi emulation.</DD>
 <DD>With kernel 2.6 ide-scsi is not needed.</DD>
 <DT>or FreeBSD, libc, libpthread :</DT>
 <DD>PATA/IDE and SATA drives need atapicam running.</DD>
@@ -560,6 +564,16 @@ cdrecord and mkisofs.</DT>
 Regression in libisofs introduced with xorriso-0.4.2:
 -boot_image isolinux patch could lead to SIGSEGV
 </LI>
+<LI>
+On FreeBSD: xorriso could leave the drive tray locked.
+</LI>
+<LI>
+On FreeBSD: Piped input was falsely attributed a small fixed size.
+</LI>
+<LI>
+Option -update_r could lead to SIGSEGV if applied to a data file rather
+than a directory.
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -569,6 +583,9 @@ Regression in libisofs introduced with xorriso-0.4.2:
 <UL>
 
 <LI>Transition of documentation and program messages towards GNU xorriso</LI>
+<LI>
+New option -scsi_log
+</LI>
 
 <!-- 
 <LI>- none yet -</LI>
