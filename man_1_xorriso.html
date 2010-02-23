@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Jan 25 13:15:02 2010 -->
+<!-- CreationDate: Mon Feb 22 23:12:23 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -17,6 +17,7 @@
 <a href="#FILES">FILES</a><br>
 <a href="#SEE ALSO">SEE ALSO</a><br>
 <a href="#AUTHOR">AUTHOR</a><br>
+<a href="#COPYRIGHT">COPYRIGHT</a><br>
 <a href="#CREDITS">CREDITS</a><br>
 
 <hr>
@@ -97,7 +98,7 @@ cdrecord.<br>
 Can record and restore hard links and ACL.<br>
 Content may get zisofs compressed or filtered by external
 processes.<br>
-Can issue commands to mount older sessions on Linux or
+Can issue commands to mount older sessions on GNU/Linux or
 FreeBSD.<br>
 Can check media for damages and copy readable blocks to
 disk.<br>
@@ -162,11 +163,11 @@ The data content of the session is called filesystem
 <b>image.</b></p>
 <!-- INDENTATION -->
 <p>The written image in its session can then be mounted by
-the operating system for being used read-only. Linux is able
-to mount ISO images from block devices, which may represent
-optical media, other media or via a loop device even from
-regular disk files. FreeBSD mounts ISO images from devices
-that represent arbitrary media or from regular disk
+the operating system for being used read-only. GNU/Linux is
+able to mount ISO images from block devices, which may
+represent optical media, other media or via a loop device
+even from regular disk files. FreeBSD mounts ISO images from
+devices that represent arbitrary media or from regular disk
 files.</p>
 <!-- INDENTATION -->
 <p>This session usage model has been extended on CD media by
@@ -380,15 +381,14 @@ All drive file objects have to offer rw-permission to the
 user of xorriso. Even those which will not be useable for
 reading an ISO image.</p>
 <!-- INDENTATION -->
-<p>MMC compliant (i.e. optical) drives on Linux usually get
-addressed by the path of their block device or of their
+<p>MMC compliant (i.e. optical) drives on GNU/Linux usually
+get addressed by the path of their block device or of their
 generic character device. E.g.<br>
 &nbsp;&nbsp;-dev /dev/sr0<br>
 &nbsp;&nbsp;-dev /dev/hdc<br>
 &nbsp;&nbsp;-dev /dev/sg2<br>
 On FreeBSD the device files have names like<br>
 &nbsp;&nbsp;-dev /dev/cd0<br>
-&nbsp;&nbsp;-dev /dev/acd0<br>
 Get a list of accessible drives by command<br>
 -devices<br>
 It might be necessary to do this as <b>superuser</b> in
@@ -479,7 +479,7 @@ which is a binary program plus some other files stored in
 the ISO image, with the bootstrapping facility of
 contemporary computers. The content of the boot image files
 is not in the scope of El Torito.<br>
-Most bootable Linux CDs are equipped with ISOLINUX boot
+Most bootable GNU/Linux CDs are equipped with ISOLINUX boot
 images. xorriso is able to create or maintain an El Torito
 object which makes such an image bootable. For details see
 option -boot_image. Emulation -as mkisofs supports the
@@ -3208,7 +3208,7 @@ representation with timezone 0.<br>
 file&rsquo;s mtime and not the creation time of the
 image.<br>
 &quot;new_rr&quot; use Rock Ridge version 1.12 (suitable for
-Linux but not for older FreeBSD or for Solaris). This
+GNU/Linux but not for older FreeBSD or for Solaris). This
 implies &quot;aaip_susp_1_10_off&quot; which may be changed
 by subsequent &quot;aaip_susp_1_10&quot;.<br>
 Default is &quot;old_rr&quot; which uses Rock Ridge version
@@ -3505,11 +3505,12 @@ content blocks begins.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Linux specific: Set the number of bytes to be transmitted
-with each write operation to DVD or BD media. A number of 64
-KB may improve throughput with bus systems which show
-latency problems. The default depends on media type, on
-option -stream_recording , and on compile time options.</p>
+<p>GNU/Linux specific: Set the number of bytes to be
+transmitted with each write operation to DVD or BD media. A
+number of 64 KB may improve throughput with bus systems
+which show latency problems. The default depends on media
+type, on option -stream_recording , and on compile time
+options.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4208,7 +4209,7 @@ help.</p>
 <td width="77%">
 <p>Emit an appropriate command line for mounting the ISO
 session indicated by drive, entity and id. The result will
-be different on Linux and on FreeBSD.<br>
+be different on GNU/Linux and on FreeBSD.<br>
 drive can be &quot;indev&quot; or &quot;outdev&quot; to
 indicate already aquired drives, or it can be the path of a
 not yet acquired drive. Prefix &quot;stdio:&quot; for
@@ -4242,7 +4243,7 @@ The command gets printed to the result channel. See option
 Currently there is only option &quot;exclusive&quot; which
 is default and its counterpart &quot;shared&quot;. The
 latter causes xorriso not to give up the affected drive with
-command -mount. On Linux it adds mount option
+command -mount. On GNU/Linux it adds mount option
 &quot;loop&quot; which may allow to mount several sessions
 of the same block device at the same time. One should not
 write to a mounted optical media, of course. Take care to
@@ -5227,13 +5228,14 @@ auto_chmod_on in order to extract directories which offer no
 write permission. Default is &quot;sort_lba_off&quot;.<br>
 Option &quot;o_excl_on&quot; is the default unless the
 program was started with leafname &quot;osirrox&quot;. On
-Linux it tries to avoid using drives which are mounted or in
-use by other libburn programs. Option &quot;o_excl_off&quot;
-allows on Linux to access such drives. Drives which get
-aquired while &quot;o_excl_off&quot; will refuse to get
-blanked, formatted, written, or ejected. But be aware that
-even harmless inquiries can spoil ongoing burns of CD-R[W]
-and DVD-R[W].</p>
+GNU/Linux it tries to avoid using drives which are mounted
+or in use by other libburn programs. Option
+&quot;o_excl_off&quot; allows on GNU/Linux to access such
+drives. Drives which get aquired while
+&quot;o_excl_off&quot; will refuse to get blanked,
+formatted, written, or ejected. But be aware that even
+harmless inquiries can spoil ongoing burns of CD-R[W] and
+DVD-R[W].</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5984,6 +5986,31 @@ The first three items are single words, the rest of the line
 is the volume id.</p>
 </td>
 </table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;scsi_log</b>
+&quot;on&quot;|&quot;off&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Mode &quot;on&quot; enables very verbous logging of SCSI
+commands and drive replies. Logging messages get printed to
+stderr, not to any of the xorriso output channels.<br>
+A special property of this option is that the first
+-scsi_log setting among the start arguments is in effect
+already when the first operations of xorriso begin. Only
+&quot;-scsi_log&quot; with dash &quot;-&quot; is recognized
+that way.</p>
+</td>
+</table>
 <!-- TABS -->
 <table width="100%" border=0 rules="none" frame="void"
        cols="3" cellspacing="0" cellpadding="0">
@@ -6643,10 +6670,10 @@ against the current file content on hard disk. This is
 usually much faster than the default which compares both
 contents directly.<br>
 With <b>mount</b> option <b>-o &quot;sbsector=&quot;</b> on
-Linux resp. <b>-s</b> on FreeBSD it is possible to access
-the session trees which represent the older backup versions.
-With CD media, Linux mount accepts session numbers directly
-by its option &quot;session=&quot;.<br>
+GNU/Linux resp. <b>-s</b> on FreeBSD it is possible to
+access the session trees which represent the older backup
+versions. With CD media, GNU/Linux mount accepts session
+numbers directly by its option &quot;session=&quot;.<br>
 Multi-session media and most overwriteable media written by
 xorriso can tell the sbsectors of their sessions by xorriso
 option -toc. Used after -commit the following option prints
@@ -6902,6 +6929,21 @@ setfattr(1)</b></p>
 for libburnia-project.org</p>
 </td>
 </table>
+<a name="COPYRIGHT"></a>
+<h2>COPYRIGHT</h2>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>Copyright (c) 2007 - 2010 Thomas Schmitt<br>
+This text shall only be modified in sync with the technical
+properties of xorriso. If you make use of the license to
+derive modified versions of xorriso then you are entitled to
+modify this text under that same license.</p>
+</td>
+</table>
 <a name="CREDITS"></a>
 <h2>CREDITS</h2>
 <!-- INDENTATION -->
@@ -6920,5 +6962,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Jan 25 13:15:02 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Feb 22 23:12:23 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>

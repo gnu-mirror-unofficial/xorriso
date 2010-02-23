@@ -503,6 +503,8 @@ General options:
   -session_log path
               Set path of a file where a log record gets appended after
               each session. Form: timestamp start_lba size volume-id
+  -scsi_log "on"|"off"
+              Enable or disable logging of SCSI commands to stderr.
   # any text  Is ignored. In dialog mode the input line will be stored in
               the eventual readline history, nevertheless.
   -version    Tell program and version number

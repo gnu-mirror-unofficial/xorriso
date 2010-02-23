@@ -435,10 +435,15 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-0.4.8.pl01.tar.gz">xorriso-0.4.8.pl01.tar.gz</A>
-(1360 KB).
+<DD><A HREF="xorriso-0.5.0.tar.gz">xorriso-0.5.0.tar.gz</A>
+(1370 KB).
+<DD>(Released 22 Feb 2010)</DD>
 </DD>
-<DD>(Released 10 Feb 2010, GPLv2+, predecessor of GNU xorriso)</DD>
+<DD>
+Also on <A HREF="http://www.gnu.org/prep/ftp.html">
+mirrors of ftp://ftp.gnu.org/gnu/ </A>
+as xorriso/xorriso-0.5.0.tar.gz
+</DD>
 </DL>
 </DD>
 </DL>
@@ -456,9 +461,8 @@ files or trees to disk:
 <A HREF="mailto:libburn-hackers@pykix.org">libburn-hackers@pykix.org</A></DD>
 </DL>
 <DL><DT>License:</DT>
-<DD><A HREF="COPYING_xorriso">GPL version 2 or later.</A>
+<DD><A HREF="COPYING_xorriso">GPL version 3 or later.</A>
 </DD>
-<DD>(To become with the next release a derived GPL version 3 or later.)</DD>
 <DD>&nbsp;</DD>
 </DL>
 </P>
@@ -466,17 +470,20 @@ files or trees to disk:
 <HR>
 
 <P>
-Bug fixes towards xorriso-0.4.6.pl00:
+Bug fixes towards xorriso-0.4.8.pl00:
 <UL>
 <LI>
-With non-Linux system adapters there were 0 readable bytes on block devices
-which acted as pseudo drives.
+Regression in libisofs introduced with xorriso-0.4.2:
+-boot_image isolinux patch could lead to SIGSEGV
 </LI>
 <LI>
-xorriso did not blank CD-RW with images that were prepared on hard disk
+On FreeBSD: xorriso could leave the drive tray locked
 </LI>
 <LI>
-Invalid checksum tags were preserved if the new session produced no checksums
+On FreeBSD: Piped input was falsely attributed a small fixed size
+</LI>
+<LI>
+xorriso -update_r could lead to SIGSEGV if applied to a data file
 </LI>
 <!--
 <LI>- none -</LI>
@@ -485,33 +492,21 @@ Invalid checksum tags were preserved if the new session produced no checksums
 </P>
 
 <!--
--->
 <P>
 Bug fixes towards xorriso-0.4.8.pl00:
 <UL>
 <LI>
-Regression in libisofs introduced with xorriso-0.4.2:
--boot_image isolinux patch could lead to SIGSEGV
 </LI>
 </UL>
 </P>
+-->
 
 <P>
-Enhancements towards previous stable version xorriso-0.4.6.pl00:
+Enhancements towards previous stable version xorriso-0.4.8.pl00:
 <UL>
+<LI>Transition of documentation and program messages towards GNU xorriso</LI>
 <LI>
-New configure option --enable-libcdio for system adapter to libcdio-0.83git
-</LI>
-<LI>
-The checksum buffer for the emerging image gets now marked as invalid if
-image generation is canceled.
-</LI>
-<LI>
-More graceful reaction on filesystems where ACL are not enabled but
-nevertheless requested by the application.
-</LI>
-<LI>
-Made FreeBSD system adapter safe from mutal burn spoiling and drive deadlock.
+New option -scsi_log
 </LI>
 <!--
 <LI>- none -</LI>
@@ -540,11 +535,11 @@ libburnia project and the legal intentions of
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-0.6.27</DT>
+<DT>libisofs-0.6.29</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-0.4.8</DT>
+<DT>libisoburn-0.5.0</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>(By Vreixo Formoso and Thomas Schmitt
@@ -559,45 +554,26 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 0.4.9 :</H3></DT>
-<DD>Bug fixes towards xorriso-0.4.8.pl00:
+<DT><H3>Development snapshot, version 0.5.1 :</H3></DT>
+<DD>Bug fixes towards xorriso-0.5.0:
 <UL>
-<LI>
-Regression in libisofs introduced with xorriso-0.4.2:
--boot_image isolinux patch could lead to SIGSEGV
-</LI>
-<LI>
-On FreeBSD: xorriso could leave the drive tray locked.
-</LI>
-<LI>
-On FreeBSD: Piped input was falsely attributed a small fixed size.
-</LI>
-<LI>
-Option -update_r could lead to SIGSEGV if applied to a data file rather
-than a directory.
-</LI>
-<!-- 
 <LI>- none yet -</LI>
+<!-- 
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 0.4.8.pl00:
+<DD>Enhancements towards stable version 0.5.0:
 <UL>
 
-<LI>Transition of documentation and program messages towards GNU xorriso</LI>
-<LI>
-New option -scsi_log
-</LI>
-
-<!-- 
 <LI>- none yet -</LI>
+<!-- 
  -->
 </UL>
 </DD>
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 0.4.9</A>
-<DD><A HREF="xorriso_help_devel">xorriso_0.4.9 -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.4.9)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 0.5.1</A>
+<DD><A HREF="xorriso_help_devel">xorriso_0.5.1 -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.1)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -607,8 +583,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-0.4.9.tar.gz">xorriso-0.4.9.tar.gz</A>
-(1365 KB, GPLv3+, already dubbed GNU xorriso).
+<A HREF="xorriso-0.5.1.tar.gz">xorriso-0.5.1.tar.gz</A>
+(1370 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

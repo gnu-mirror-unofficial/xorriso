@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
-     libburnia-project.org     scdbackup.sourceforge.net/xorriso_eng.html
+      Contribution of libburnia-project.org to the GNU Operating System
 ------------------------------------------------------------------------------
-xorriso. By Thomas Schmitt <scdbackup@gmx.net>
-Integrated sub project of libburnia-project.org but also published via:
-http://scdbackup.sourceforge.net/xorriso_eng.html
-http://scdbackup.sourceforge.net/xorriso-0.4.8.pl01.tar.gz
-Copyright (C) 2006-2010 Thomas Schmitt, provided under GPL version 2 or later.
+GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
+Derived from and supported by libburnia-project.org, published via:
+http://www.gnu.org/software/xorriso/xorriso_eng.html
+ftp://ftp.gnu.org/gnu/xorriso/xorriso-0.5.0.tar.gz
+Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
 
@@ -20,7 +20,7 @@ A special property of xorriso is that it needs neither an external ISO 9660
 formatter program nor an external burn program for CD or DVD but rather
 incorporates the libraries of libburnia-project.org .
 
-Currently it is fully supported on Linux with kernels >= 2.4 and on
+Currently it is fully supported on GNU/Linux with kernels >= 2.4 and on
 FreeBSD versions with ATAPI/CAM support enabled in the kernel, see atapicam(4).
 On other X/Open compliant systems there will only be POSIX i/o with disk
 file objects, but no direct MMC operation on CD/DVD/BD drives.
@@ -41,15 +41,15 @@ components:
    plus on FreeBSD: libiconv, libcam, IDE and SATA drives need atapicam
 Optional at compile time are:
    libreadline and the readline-dev headers make dialog mode more convenient.
-   on Linux: libacl and libacl-devel allow getting and setting ACLs.
+   on GNU/Linux: libacl and libacl-devel allow getting and setting ACLs.
    zlib and zlib-devel allow zisofs compression.
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-0.4.8.pl01.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-0.5.0.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-0.4.8.pl01.tar.gz
-    cd xorriso-0.4.8
+    tar xzf xorriso-0.5.0.tar.gz
+    cd xorriso-0.5.0
 
 Within that directory execute:
 
@@ -97,9 +97,9 @@ Other deliberate dependency reduction options of ./configure are:
     --disable-xattr    avoid use of xattr functions like listxattr()
     --disable-zlib     avoid use of zlib functions like compress2()
 
-xorriso brings own system adapters which allow burning optical media on Linux
-and FreeBSD. Alternatively it can use libcdio-0.83 or later for sending
-commands to optical drives:
+xorriso brings own system adapters which allow burning optical media on
+GNU/Linux and FreeBSD. Alternatively it can use libcdio-0.83 or later for
+sending commands to optical drives:
     --enable-libcdio
 
 xorriso allows to use external processes as file content filters. This is
@@ -110,14 +110,14 @@ By default the filter feature is disabled if effective user id and real
 user id differ. This ban can be lifted by
     --enable-external-filters-setuid
 
-Sometimes xorriso will yield better write performance on Linux if 64 KB are
+Sometimes xorriso will yield better write performance on GNU/Linux if 64 KB are
 transmitted in each write operation rather than 32 KB. See option -dvd_obs .
 64k can be made default at configure time by:
     --enable-dvd-obs-64k
 
 For xorriso -as cdrecord emulation only:
-In some situations Linux may deliver a better write performance to drives if
-the track input is read with O_DIRECT (see man 2 open). The included libburn
+In some situations GNU/Linux may deliver a better write performance to drives
+if the track input is read with O_DIRECT (see man 2 open). The included libburn
 and the cdrecord emulation of xorriso can be told to use this peculiar read
 mode by:
     --enable-track-src-odirect
@@ -280,9 +280,9 @@ and a matching dynamically linked xorriso binary.
 This binary is leaner but depends on properly installed libraries of suitable
 revision.
 
-Dynamic library and compile time header requirements for libisoburn-0.4.8 :
+Dynamic library and compile time header requirements for libisoburn-0.5.0 :
 - libburn.so.4  , version libburn-0.7.6 or higher
-- libisofs.so.6 , version libisofs-0.6.26 or higher
+- libisofs.so.6 , version libisofs-0.6.28 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
@@ -293,7 +293,7 @@ Standalone xorriso has less runtime dependencies and can be moved more freely.
 ------------------------------------------------------------------------------
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License version 2 or later
+    it under the terms of the GNU General Public License version 3 or later
     as published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
@@ -306,16 +306,36 @@ Standalone xorriso has less runtime dependencies and can be moved more freely.
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 ------------------------------------------------------------------------------
-Based on and sub project of:
+
+    GNU xorriso is feature-wise equivalent to the dynamic compilation of
+    libburnia libraries and libburnia program xorriso.
+    It restricts itself to a technical form where the legal commitments of the
+    libburnia project and the legal intentions of FSF match completely.
+
+    Libburnia project is committed to provide support for this copy in the same
+    way as for its own software releases. It is further committed to keep its
+    own licenses open for obtaining future copies under GPLv2+.
+
+------------------------------------------------------------------------------
+libburnia program xorriso is based on and sub project of:
 libburnia-project.org
-By Mario Danic           <mario.danic@gmail.com>,
-   Vreixo Formoso        <metalpain2002@yahoo.es>
-   Thomas Schmitt        <scdbackup@gmx.net>
+By Mario Danic           <mario.danic@gmail.com>,  libburn, libisofs
+   Vreixo Formoso        <metalpain2002@yahoo.es>, libisofs, libisoburn
+   Thomas Schmitt        <scdbackup@gmx.net>,      libburn, libisofs,
+                                                   libisoburn, xorriso
 Copyright (C) 2006-2010 Mario Danic, Vreixo Formoso, Thomas Schmitt.
 
-libburnia-project.org is inspired by and in other components still containing
-parts of old
+libburnia-project.org is inspired by and in libburn still containing parts
+of old
 Libburn. By Derek Foreman <derek@signalmarketing.com> and
             Ben Jansens <xor@orodu.net>
 Copyright (C) 2002-2006  Derek Foreman and Ben Jansens
+------------------------------------------------------------------------------
+
+This text itself is
+Copyright (c) 2007 - 2010 Thomas Schmitt <scdbackup@gmx.net>
+and is freely distributable.
+It shall only be modified in sync with the technical properties of xorriso.
+If you make use of the license to derive modified versions of xorriso
+then you are entitled to modify this text under that same license.
 
