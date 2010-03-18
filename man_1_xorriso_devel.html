@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Feb 23 10:51:48 2010 -->
+<!-- CreationDate: Thu Mar 18 11:15:28 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -158,9 +158,9 @@ hundred lines of background information.</p>
 <p>Unlike other filesystems, ISO 9660 is not intended for
 read-write operation but rather for being generated in a
 single sweep and being written to media as a
-<b>session.</b><br>
+<b>session</b>.<br>
 The data content of the session is called filesystem
-<b>image.</b></p>
+<b>image</b>.</p>
 <!-- INDENTATION -->
 <p>The written image in its session can then be mounted by
 the operating system for being used read-only. GNU/Linux is
@@ -171,7 +171,7 @@ devices that represent arbitrary media or from regular disk
 files.</p>
 <!-- INDENTATION -->
 <p>This session usage model has been extended on CD media by
-the concept of <b>multi-session ,</b> which allows to add
+the concept of <b>multi-session</b> , which allows to add
 information to the CD and gives the mount programs of the
 operating systems the addresses of the entry points of each
 session. The mount programs recognize block devices which
@@ -238,7 +238,7 @@ standard:<b><br>
 Multi-session media</b> are CD-R, CD-RW, DVD-R, DVD+R,
 DVD+R/DL, BD-R, and unformatted DVD-RW. These media provide
 a table of content which describes their existing sessions.
-See option <b>-toc</b>.<b><br>
+See option <b>&minus;toc</b>.<b><br>
 Overwriteable media</b> are DVD-RAM, DVD+RW, BD-RE, and
 formatted DVD-RW. They allow random write access but do not
 provide information about their session history. If they
@@ -436,8 +436,8 @@ accessible file or device by using its path with the
 &quot;stdio:&quot; prefix. By default any address in the
 /dev tree without prefix &quot;stdio:&quot; will work only
 if it leads to a MMC drive.<br>
-One may use option <b>-ban_stdio_write</b> to surely prevent
-this risk and to allow only MMC drives.<br>
+One may use option <b>&minus;ban_stdio_write</b> to surely
+prevent this risk and to allow only MMC drives.<br>
 One may prepend &quot;mmc:&quot; to a path to surely
 disallow any automatic &quot;stdio:&quot;.<br>
 By option -drive_class one may ban certain paths or allow
@@ -460,7 +460,7 @@ xattr:</b></p></td>
 <td width="10%"></td>
 <td width="89%">
 <p><b>Rock Ridge</b> is the name of a set of additional
-informations which enhance an ISO 9660 filesystem so that it
+information which enhance an ISO 9660 filesystem so that it
 can represent a POSIX compliant filesystem with ownership,
 access permissions, symbolic links, and other
 attributes.<br>
@@ -497,7 +497,8 @@ in effect only on overwriteable media.</p>
 permissions to file objects. Neither ISO 9660 nor Rock Ridge
 specify a way to record ACLs. So libisofs has introduced a
 standard conformant extension named AAIP for that purpose.
-It uses this extension if enabled by option <b>-acl.</b><br>
+It uses this extension if enabled by option
+<b>&minus;acl</b>.<br>
 AAIP enhanced images are supposed to be mountable normally,
 but one cannot expect that the mounted filesystem will show
 and respect the eventual ACLs. For now, only xorriso is able
@@ -518,7 +519,7 @@ with &quot;user.&quot;, like &quot;user.x&quot; or
 &quot;user.whatever&quot;. Name has to be a 0 terminated
 string. Value may be any array of bytes which does not
 exceed the size of 4095 bytes. xattr processing happens only
-if it is enabled by option <b>-xattr.</b><br>
+if it is enabled by option <b>&minus;xattr</b>.<br>
 As with ACL, currently only xorriso is able to retrieve
 xattr from AAIP enhanced images, to restore them to xattr
 capable file systems, or to print them.</p>
@@ -690,8 +691,8 @@ underscores.</p>
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
+<td width="10%"></td>
+<td width="89%">
 <p>Before aquiring a drive one will eventually enable
 options which influence the behavior of image loading. See
 next option group.</p>
@@ -816,15 +817,15 @@ writing is done.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>Influencing the behavior of image
+<p>&nbsp;<BR><b>Influencing the behavior of image
 loading:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
+<td width="10%"></td>
+<td width="89%">
 <p>The following options should normally be performed before
 loading an image by aquiring an input drive. In rare cases
 it is desirable to activate them only after image
@@ -1291,7 +1292,7 @@ type. Once set, this command cannot be revoked.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Data manipulations:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><b>File manipulations:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1859,11 +1860,11 @@ is either an octal number beginning with &quot;0&quot; or a
 comma separated list of statements of the form
 [ugoa]*[+-=][rwxst]* .<br>
 Like: go-rwx,u+rwx .<b><br>
-Personalities:</b> u=user, g=group, o=others, a=all<b><br>
-Operators:</b> + adds given permissions, - revokes given
+Personalities</b>: u=user, g=group, o=others, a=all<b><br>
+Operators</b>: + adds given permissions, - revokes given
 permissions, = revokes all old permissions and then adds the
 given ones.<b><br>
-Permissions:</b> r=read, w=write, x=execute|inspect,
+Permissions</b>: r=read, w=write, x=execute|inspect,
 s=setuid|setgid, t=sticky bit<br>
 For octal numbers see man 2 stat.</p>
 </td>
@@ -2243,17 +2244,21 @@ access time, modification time, both times.<br>
 timestring may be in the following formats (see also section
 <A HREF="#EXAMPLES">EXAMPLES</A>):<br>
 As expected by program date: MMDDhhmm[[CC]YY][.ss]]<br>
-As produced by program date: [Day] MMM DD hh:mm:ss [TZON]
-YYYY<br>
-Relative times counted from current clock time:
+As produced by program date:<br>
+[Day] MMM DD hh:mm:ss [TZON] YYYY<br>
+Relative times counted from current clock time:<br>
+
 +|-Number[&quot;s&quot;|&quot;h&quot;|&quot;d&quot;|&quot;w&quot;|&quot;m&quot;|&quot;y&quot;]<br>
 where &quot;s&quot; means seconds, &quot;h&quot; hours,
 &quot;d&quot; days, &quot;w&quot; weeks, &quot;m&quot;=30d,
 &quot;y&quot;=365.25d plus 1d added to multiplication
 result.<br>
-Absolute seconds counted from Jan 1 1970: =Number<br>
-xorriso&rsquo;s own timestamps: YYYY.MM.DD[.hh[mm[ss]]]<br>
-scdbackup timestamps: YYMMDD[.hhmm[ss]]<br>
+Absolute seconds counted from Jan 1 1970:<br>
+=Number<br>
+xorriso&rsquo;s own timestamps:<br>
+YYYY.MM.DD[.hh[mm[ss]]]<br>
+scdbackup timestamps:<br>
+YYMMDD[.hhmm[ss]]<br>
 where &quot;A0&quot; is year 2000, &quot;B0&quot; is 2010,
 etc.</p>
 </td>
@@ -2442,8 +2447,9 @@ get_md5</b> prints eventual recorded MD5 sum together with
 file path.<b><br>
 check_md5</b> compares eventual recorded MD5 sum with the
 file content and reports if mismatch.<br>
-E.g.: -find / -not -pending_data -exec check_md5 FAILURE --
-<b>make_md5</b> equips a data file with an MD5 sum of its
+E.g.: -find / -not -pending_data -exec check_md5 FAILURE
+--<b><br>
+make_md5</b> equips a data file with an MD5 sum of its
 content. Useful to upgrade the files in the loaded image to
 full MD5 coverage by the next commit with -md5
 &quot;on&quot;.<br>
@@ -2541,14 +2547,14 @@ loading a new image.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>Writing the result, drive control:</b></p></td>
+<p>&nbsp;<BR><b>Writing the result, drive control:</b><BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
+<td width="10%"></td>
+<td width="89%">
 <p>(see also paragraph about settings below)</p>
 </td>
 </table>
@@ -2792,7 +2798,7 @@ by text &quot;(current)&quot;.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Settings for data insertion:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><b>Settings for file insertion:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2858,9 +2864,8 @@ re-installs default behavior.<br>
 without invalidating the lists and settings.<br>
 &quot;on&quot; re-enables exclusion processing.<br>
 &quot;param_off&quot; applies exclusion processing only to
-paths below disk_path parameter of commands. I.e.
-explicitely given disk_paths are exempted from exclusion
-processing.<br>
+paths below disk_path parameter of commands. I.e. explicitly
+given disk_paths are exempted from exclusion processing.<br>
 &quot;param_on&quot; applies exclusion processing to command
 parameters as well as to files below such parameters.<br>
 &quot;subtree_off&quot; with &quot;param_on&quot; excludes
@@ -3006,8 +3011,8 @@ Shortcuts:<br>
 &quot;limit=&quot;&lt;number&gt; which sets the maximum
 number of link hops. A link hop consists of a sequence of
 symbolic links and a final target of different type.
-Nevertheless those hops can loop. Example:<b><br>
-&nbsp;&nbsp;$</b> ln -s .. uploop<br>
+Nevertheless those hops can loop. Example:<br>
+$ ln -s .. uploop<br>
 Link hopping has a built-in loop detection which stops
 hopping at the first repetition of a link target. Then the
 repeated link is handled as itself and not as its target.
@@ -3176,7 +3181,7 @@ additional to Rock Ridge info.</p>
 <p>Adjust the compliance to specifications of ISO 9660 and
 its contemporary extensions. In some cases it is worth to
 deviate a bit in order to circumvent bugs of the intended
-reader system or to get inofficial extra features.<br>
+reader system or to get unofficial extra features.<br>
 There are several adjustable rules which have a keyword
 each. If they are mentioned with this option then their rule
 gets added to the relaxation list. This list can be erased
@@ -3215,7 +3220,7 @@ Default is &quot;old_rr&quot; which uses Rock Ridge version
 1.10. This implies also &quot;aaip_susp_1_10&quot; which may
 be changed by subsequent &quot;aaip_susp_1_10_off&quot;.<br>
 &quot;aaip_susp_1_10&quot; allows AAIP to be written as
-inofficial extension of RRIP rather than as official
+unofficial extension of RRIP rather than as official
 extension under SUSP-1.12.<br>
 Default setting is<br>
 
@@ -3496,7 +3501,7 @@ content blocks begins.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-dvd_obs</b>
+<p><b>&minus;dvd_obs</b>
 &quot;default&quot;|&quot;32k&quot;|&quot;64k&quot;</p></td>
 </table>
 <!-- INDENTATION -->
@@ -3519,7 +3524,7 @@ options.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-stdio_sync</b>
+<p><b>&minus;stdio_sync</b>
 &quot;on&quot;|&quot;off&quot;|number</p></td>
 </table>
 <!-- INDENTATION -->
@@ -3561,7 +3566,8 @@ nor format.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-fs</b> number[&quot;k&quot;|&quot;m&quot;]</p></td>
+<p><b>&minus;fs</b>
+number[&quot;k&quot;|&quot;m&quot;]</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4211,7 +4217,7 @@ help.</p>
 session indicated by drive, entity and id. The result will
 be different on GNU/Linux and on FreeBSD.<br>
 drive can be &quot;indev&quot; or &quot;outdev&quot; to
-indicate already aquired drives, or it can be the path of a
+indicate already acquired drives, or it can be the path of a
 not yet acquired drive. Prefix &quot;stdio:&quot; for
 non-MMC drives is not mandatory.<br>
 entity must be either &quot;sbsector&quot; with the
@@ -5012,89 +5018,91 @@ report=blocks<br>
 bad_limit=valid slow_limit=1.0 chunk_size=0s<br>
 Option &quot;reset=now&quot; restores these startup
 defaults.<br>
-Non-default options are:<br>
-&quot;report=files&quot; lists the files which use damaged
-blocks (not with use=outdev). The format is like with find
--exec report_damage.<br>
-&quot;report=blocks_files&quot; first lists damaged blocks
-and then affected files.<br>
-&quot;use=outdev&quot; reads from the output drive instead
-of the input drive. This avoids loading the ISO image tree
-from media.<br>
-&quot;what=disc&quot; scans the payload range of a media
-without respecting track gaps.<br>
-&quot;min_lba=&quot; omits all blocks with addresses lower
-than the option value.<br>
-&quot;max_lba=&quot; switches to what=disc and omits all
-blocks above its option value.<br>
-&quot;retry=on&quot; forces read retries with single blocks
-when the normal read chunk produces a read error. By
+Non-default options are:<b><br>
+report=&quot;files&quot;</b> lists the files which use
+damaged blocks (not with use=outdev). The format is like
+with find -exec report_damage.<b><br>
+report=&quot;blocks_files&quot;</b> first lists damaged
+blocks and then affected files.<b><br>
+use=&quot;outdev&quot;</b> reads from the output drive
+instead of the input drive. This avoids loading the ISO
+image tree from media.<b><br>
+use=&quot;sector_map&quot;</b> does not read any media but
+loads the file given by option sector_map= and processes
+this virtual outcome.<b><br>
+what=&quot;disc&quot;</b> scans the payload range of a media
+without respecting track gaps.<b><br>
+min_lba=limit</b> omits all blocks with addresses lower than
+limit.<b><br>
+max_lba=limit</b> switches to what=disc and omits all blocks
+above limit.<b><br>
+retry=&quot;on&quot;</b> forces read retries with single
+blocks when the normal read chunk produces a read error. By
 default, retries are only enabled with CD media.
 &quot;retry=off&quot; forbits retries for all media
-types.<br>
-&quot;abort_file=&quot; gives the path of the file which may
-abort a scan run. Abort happens if the file exists and its
-mtime is not older than the start time of the run. Use shell
-command &quot;touch&quot; to trigger this. Other than an
-aborted program run, this will report the tested and
-untested blocks and go on with running xorriso.<br>
-&quot;time_limit=&quot; gives the number of seconds after
+types.<b><br>
+abort_file=disk_path</b> gives the path of the file which
+may abort a scan run. Abort happens if the file exists and
+its mtime is not older than the start time of the run. Use
+shell command &quot;touch&quot; to trigger this. Other than
+an aborted program run, this will report the tested and
+untested blocks and go on with running xorriso.<b><br>
+time_limit=seconds</b> gives the number of seconds after
 which the scan shall be aborted. This is useful for
 unattended scanning of media which may else overwork the
 drive in its effort to squeeze out some readable blocks.
 Abort may be delayed by the drive gnawing on the last single
-read operation. Value -1 means unlimited time.<br>
-&quot;item_limit=&quot; gives the number of report list
-items after which to abort. Value -1 means unlimited item
-number.<br>
-&quot;data_to=&quot; copies the valid blocks to the file
-which is given as option value.<br>
-&quot;event=&quot; sets the given severity for a problem
+read operation. Value -1 means unlimited time.<b><br>
+item_limit=number</b> gives the number of report list items
+after which to abort. Value -1 means unlimited item
+number.<b><br>
+data_to=disk_path</b> copies the valid blocks to the given
+file.<b><br>
+event=severity</b> sets the given severity for a problem
 event which shall be issued at the end of a check run if
 data blocks were unreadable or failed to match recorded MD5
-checksums. Severity &quot;ALL&quot; disables this event.<br>
-&quot;sector_map=&quot; tries to read the file given by
-option value as sector bitmap and to store such a map file
+checksums. Severity &quot;ALL&quot; disables this
+event.<b><br>
+sector_map=disk_path</b> tries to read the file given by
+disk_path as sector bitmap and to store such a map file
 after the scan run. The bitmap tells which blocks have been
 read successfully in previous runs. It allows to do several
 scans on the same media, eventually with intermediate eject,
 in order to collect readable blocks whenever the drive is
 lucky enough to produce them. The stored file contains a
 human readable TOC of tracks and their start block
-addresses, followed by binary bitmap data.<br>
-&quot;map_with_volid=on&quot; examines tracks whether they
-are ISO images and eventually prints their volume ids into
-the human readable TOC of sector_map=.<br>
-&quot;patch_lba0=on&quot; transfers within the data_to= file
-a copy of the currently loaded session head to the start of
-that file and patches it to be valid at that position. This
-makes the loaded session the default session of the image
-file when it gets mounted or loaded as stdio: drive. But it
-usually makes the original session 1 inaccessible.<br>
-&quot;patch_lba0=force&quot; performs
-&quot;patch_lba0=on&quot; even if xorriso believes that the
+addresses, followed by binary bitmap data.<b><br>
+map_with_volid=&quot;on&quot;</b> examines tracks whether
+they are ISO images and eventually prints their volume ids
+into the human readable TOC of sector_map=.<b><br>
+patch_lba0=&quot;on&quot;</b> transfers within the data_to=
+file a copy of the currently loaded session head to the
+start of that file and patches it to be valid at that
+position. This makes the loaded session the default session
+of the image file when it gets mounted or loaded as stdio:
+drive. But it usually makes the original session 1
+inaccessible.<b><br>
+patch_lba0=&quot;force&quot;</b> performs
+patch_lba0=&quot;on&quot; even if xorriso believes that the
 copied data are not valid.<br>
-&quot;patch_lba0=&quot; may also bear a number. If it is 32
-or higher it is taken as start address of the session to be
-copied. In this case it is not necessary to have an -indev
-and a loaded image. &quot;:force&quot; may be appended after
-the number.<br>
-&quot;use=sector_map&quot; does not read any media but loads
-the file given by option sector_map= and processes this
-virtual outcome.<br>
-&quot;bad_limit=&quot; sets the highest quality which shall
+patch_lba0= may also bear a number. If it is 32 or higher it
+is taken as start address of the session to be copied. In
+this case it is not necessary to have an -indev and a loaded
+image. &quot;:force&quot; may be appended after the
+number.<b><br>
+bad_limit=threshold</b> sets the highest quality which shall
 be considered as damage. Choose one of &quot;good&quot;,
 &quot;md5_match&quot;, &quot;slow&quot;,
 &quot;partial&quot;, &quot;valid&quot;,
 &quot;untested&quot;, &quot;invalid&quot;,
 &quot;tao_end&quot;, &quot;off_track&quot;,
-&quot;md5_mismatch&quot;, &quot;unreadable&quot;.<br>
-&quot;slow_limit=&quot; sets the time threshold for a single
-read chunk to be considered slow. This may be a fractional
-number like 0.1 or 1.5.<br>
-&quot;chunk_size=&quot; sets the number of bytes to be read
-in one read operation. This gets rounded down to full blocks
-of 2048 bytes. 0 means automatic size.</p>
+&quot;md5_mismatch&quot;, &quot;unreadable&quot;.<b><br>
+slow_limit=threshold</b> sets the time threshold for a
+single read chunk to be considered slow. This may be a
+fractional number like 0.1 or 1.5.<b><br>
+chunk_size=size</b> sets the number of bytes to be read in
+one read operation. This gets rounded down to full blocks of
+2048 bytes. 0 means automatic size.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5154,7 +5162,7 @@ reported.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>osirrox restore options:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><b>osirrox ISO-to-disk restore options:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -5231,7 +5239,7 @@ program was started with leafname &quot;osirrox&quot;. On
 GNU/Linux it tries to avoid using drives which are mounted
 or in use by other libburn programs. Option
 &quot;o_excl_off&quot; allows on GNU/Linux to access such
-drives. Drives which get aquired while
+drives. Drives which get acquired while
 &quot;o_excl_off&quot; will refuse to get blanked,
 formatted, written, or ejected. But be aware that even
 harmless inquiries can spoil ongoing burns of CD-R[W] and
@@ -5573,9 +5581,9 @@ The scope is only a single data track per session to be
 written to blank, overwriteable, or appendable media. The
 media gets closed if closing is applicable and not option
 -multi is present.<br>
-An eventually aquired input drive is given up. This is only
+An eventually acquired input drive is given up. This is only
 allowed if no image changes are pending.<br>
-dev= must be given as xorriso device address. Adresses like
+dev= must be given as xorriso device address. Addresses like
 0,0,0 or ATA:1,1,0 are not supported.<br>
 If a track source is given, then an automatic -commit
 happens at the end of the &quot;cdrecord&quot; option
@@ -5736,7 +5744,8 @@ dialog lines.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Print program name and version.</p>
+<p>Print program name and version, component versions,
+license.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5844,7 +5853,7 @@ enabled the following translations apply:<br>
 \n=linefeed(012) \r=carriage_return(015) \t=tab(011)<br>
 \v=vtab(013) \\=backslash(134)
 \[0-7][0-7][0-7]=octal_code<br>
-\\x[0-9a-f][0-9a-f]=hex_code \cC=control-C<br>
+\x[0-9a-f][0-9a-f]=hex_code \cC=control-C<br>
 Translations can occur with quoted input in 3 modes:<br>
 &quot;in_double_quotes&quot; translates only inside &quot;
 quotation.<br>
@@ -5958,7 +5967,7 @@ program run. If the program run aborts then the list might
 not be complete because some input file arguments might not
 have been processed at all.<br>
 The errfile paths are transported as messages of very low
-priority &quot;ERRFILE&quot;. This transport becomes visible
+severity &quot;ERRFILE&quot;. This transport becomes visible
 with -report_about &quot;ALL&quot;.</p>
 </td>
 </table>
@@ -6057,8 +6066,8 @@ eventually store it in history.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Support for frontend programs talking into stdin and
-listening at stdout:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><b>Support for frontend programs via stdin and
+stdout:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -6123,8 +6132,9 @@ for -mark texts.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>If text is not empty it will get put out each time after
-a dialog line has been processed.</p>
+<p>If text is not empty it will get put out on &quot;M&quot;
+channel each time after a dialog line has been
+processed.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6196,8 +6206,7 @@ Examples of input timestrings<br>
 Incremental backup of a few directory trees<br>
 Restore directory trees from a particular ISO session to
 disk<br>
-Try to retrieve as many blocks as possible from a damaged
-media</p>
+Try to retrieve blocks from a damaged media</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6215,8 +6224,8 @@ media</p>
 <td width="10%"></td>
 <td width="89%">
 <p>Consider to give rw permissions to those users or groups
-which shall be able to use the drives with xorriso.<b><br>
-$</b> xorriso -devices<br>
+which shall be able to use the drives with xorriso.<br>
+$ xorriso -devices<br>
 0 -dev &rsquo;/dev/sr0&rsquo; rwrw-- : &rsquo;_NEC &rsquo;
 &rsquo;DVD_RW ND-4570A&rsquo;<br>
 1 -dev &rsquo;/dev/sr1&rsquo; rwrw-- :
@@ -6244,18 +6253,17 @@ run</b></p></td>
 image, fill the image with the files from hard disk
 directories /home/me/sounds and /home/me/pictures.<br>
 Because no -dialog &quot;on&quot; is given, the program will
-then end by writing the session to media.<b><br>
-$</b> xorriso -outdev /dev/sr2 \<br>
+then end by writing the session to media.<br>
+$ xorriso -outdev /dev/sr2 \<br>
 -blank as_needed \<br>
 -map /home/me/sounds /sounds \<br>
 -map /home/me/pictures /pictures</p>
 <!-- INDENTATION -->
 <p>The ISO image may be shaped in a more elaborate way like
 the following: Omit some unwanted stuff by removing it from
-the image directory tree. Reintroduce some wanted
-stuff.<b><br>
-$</b> cd /home/me<b><br>
-$</b> xorriso -outdev /dev/sr2 \<br>
+the image directory tree. Reintroduce some wanted stuff.<br>
+$ cd /home/me<br>
+$ xorriso -outdev /dev/sr2 \<br>
 -blank as_needed \<br>
 -map /home/me/sounds /sounds \<br>
 -map /home/me/pictures /pictures \<br>
@@ -6290,12 +6298,12 @@ effect: they put files into the image.</p>
 <p>Some settings are already given as start argument. The
 other activities are done as dialog input. The pager gets
 set to 20 lines of 80 characters.<br>
-The drive is aquired by option -dev rather than -outdev in
+The drive is acquired by option -dev rather than -outdev in
 order to see the message about its current content. By
 option -blank this content is made ready for being
 overwritten and the loaded ISO image is made empty.<br>
 In order to be able to eject the media, the session needs to
-be committed explicitely.<b><br>
+be committed explicitly.<b><br>
 $ xorriso -dialog on -page 20 80 -disk_pattern on</b><br>
 enter option and arguments :<b><br>
 &minus;dev /dev/sr2</b><br>
@@ -6337,9 +6345,8 @@ media</b></p></td>
 /pictures/confidential to /pictures/restricted. Change
 access permissions of directory /pictures/restricted. Add
 new directory trees /sounds and /movies. Burn to the same
-media, check whether the tree can be loaded, and
-eject.<b><br>
-$</b> xorriso -dev /dev/sr2 \<br>
+media, check whether the tree can be loaded, and eject.<br>
+$ xorriso -dev /dev/sr2 \<br>
 -rm_r /sounds -- \<br>
 -mv \<br>
 /pictures/confidential \<br>
@@ -6369,8 +6376,8 @@ another</b></p></td>
 <p>Load image from input drive. Do the same manipulations as
 in the previous example. Aquire output drive and blank it.
 Burn the modified image as first and only session to the
-output drive.<b><br>
-$</b> xorriso -indev /dev/sr2 \<br>
+output drive.<br>
+$ xorriso -indev /dev/sr2 \<br>
 -rm_r /sounds -- \<br>
 ...<br>
 -outdev /dev/sr0 -blank as_needed \<br>
@@ -6395,8 +6402,8 @@ bootable</b></p></td>
 <p>The user has already created a suitable file tree on disk
 and copied the ISOLINUX files into subdirectory
 ./boot/isolinux of that tree. Now xorriso can burn an El
-Torito bootable media:<b><br>
-$</b> xorriso -outdev /dev/sr0 -blank as_needed \<br>
+Torito bootable media:<br>
+$ xorriso -outdev /dev/sr0 -blank as_needed \<br>
 -map /home/me/ISOLINUX_prepared_tree / \<br>
 -boot_image isolinux dir=/boot/isolinux</p>
 </td>
@@ -6423,10 +6430,8 @@ added with converted file names. In order to avoid any
 weaknesses of the local character set, this command pretends
 that it uses already the final target set UTF-8. Therefore
 strange file names may appear in eventual messages which
-will be made terminal-safe by option
--backslash_codes.<b><br>
-$</b> xorriso -in_charset ISO-8859-1 -local_charset UTF-8
-\<br>
+will be made terminal-safe by option -backslash_codes.<br>
+$ xorriso -in_charset ISO-8859-1 -local_charset UTF-8 \<br>
 -out_charset UTF-8 -backslash_codes on -dev /dev/sr0 \<br>
 -alter_date m +0 / -- -commit -eject all</p>
 </td>
@@ -6447,21 +6452,21 @@ drives</b></p></td>
 <td width="10%"></td>
 <td width="89%">
 <p>Full read-write operation is possible with regular files
-and block devices:<b><br>
-$</b> xorriso -dev /tmp/regular_file ...<br>
+and block devices:<br>
+$ xorriso -dev /tmp/regular_file ...<br>
 Paths underneath /dev normally need prefix
-&quot;stdio:&quot;<b><br>
-$</b> xorriso -dev stdio:/dev/sdb ...<br>
+&quot;stdio:&quot;<br>
+$ xorriso -dev stdio:/dev/sdb ...<br>
 If /dev/sdb is to be used frequently and /dev/sda is the
 system disk, then consider to place the following lines in a
 xorriso Startup File. They allow to use /dev/sdb without
 prefix and protect disk /dev/sda from xorriso:<br>
--drive_class banned /dev/sda* -drive_class harmless
-/dev/sdb<br>
-Other writeable file types are supported write-only:<b><br>
-$</b> xorriso -outdev /tmp/named_pipe ...<br>
-Among the write-only drives is standard output:<b><br>
-$</b> xorriso -outdev - \<br>
+-drive_class banned /dev/sda*<br>
+-drive_class harmless /dev/sdb<br>
+Other writeable file types are supported write-only:<br>
+$ xorriso -outdev /tmp/named_pipe ...<br>
+Among the write-only drives is standard output:<br>
+$ xorriso -outdev - \<br>
 ...<br>
 | gzip &gt;image.iso.gz</p>
 </td>
@@ -6480,8 +6485,10 @@ $</b> xorriso -outdev - \<br>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>$</b> xorriso -as cdrecord -v dev=/dev/sr0
-blank=as_needed image.iso</p>
+<p>Actually this works with any kind of data, not only ISO
+images:<br>
+$ xorriso -as cdrecord -v dev=/dev/sr0 blank=as_needed
+image.iso</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6501,13 +6508,13 @@ traditions</b></p></td>
 <td width="89%">
 <p>Between both processes there can be performed arbitrary
 transportation or filtering.<br>
-The first session is written like this:<b><br>
-$</b> xorriso -as mkisofs prepared_for_iso/tree1 | \<br>
+The first session is written like this:<br>
+$ xorriso -as mkisofs prepared_for_iso/tree1 | \<br>
 xorriso -as cdrecord -v dev=/dev/sr0 blank=fast -multi
 -eject -<br>
-Follow-up sessions are written like this:<b><br>
-$</b> m=$(xorriso -as cdrecord dev=/dev/sr0 -msinfo)<b><br>
-$</b> xorriso -as mkisofs -M /dev/sr0 -C $m
+Follow-up sessions are written like this:<br>
+$ m=$(xorriso -as cdrecord dev=/dev/sr0 -msinfo)<br>
+$ xorriso -as mkisofs -M /dev/sr0 -C $m
 prepared_for_iso/tree2 | \<br>
 xorriso -as cdrecord -v dev=/dev/sr0 -waiti -multi -eject
 -<br>
@@ -6536,25 +6543,22 @@ media.</p>
 <td width="89%">
 <p>growisofs expects an ISO formatter program which
 understands options -C and -M. If xorriso gets started by
-name &quot;xorrisofs&quot; then it is suitable for
-that.<b><br>
-$</b> export MKISOFS=&quot;xorrisofs&quot;<b><br>
-$</b> growisofs -Z /dev/dvd /some/files<b><br>
-$</b> growisofs -M /dev/dvd /more/files<br>
+name &quot;xorrisofs&quot; then it is suitable for that.<br>
+$ export MKISOFS=&quot;xorrisofs&quot;<br>
+$ growisofs -Z /dev/dvd /some/files<br>
+$ growisofs -M /dev/dvd /more/files<br>
 If no &quot;xorrisofs&quot; is available on your system,
 then you will have to create a link pointing to the xorriso
-binary and tell growisofs to use it. E.g. by:<b><br>
-&nbsp;&nbsp;$</b> ln -s $(which xorriso)
-&quot;$HOME/xorrisofs&quot;<b><br>
-$</b> export MKISOFS=&quot;$HOME/xorrisofs&quot;<br>
+binary and tell growisofs to use it. E.g. by:<br>
+$ ln -s $(which xorriso) &quot;$HOME/xorrisofs&quot;<br>
+$ export MKISOFS=&quot;$HOME/xorrisofs&quot;<br>
 One may quit mkisofs emulation by argument &quot;--&quot;
 and make use of all xorriso commands. growisofs dislikes
 options which start with &quot;-o&quot; but -outdev must be
-set to &quot;-&quot;. So use &quot;outdev&quot;
-instead:<b><br>
-$</b> growisofs -Z /dev/dvd -- outdev - -update_r /my/files
-/files<b><br>
-$</b> growisofs -M /dev/dvd -- outdev - -update_r /my/files
+set to &quot;-&quot;. So use &quot;outdev&quot; instead:<br>
+$ growisofs -Z /dev/dvd -- outdev - -update_r /my/files
+/files<br>
+$ growisofs -M /dev/dvd -- outdev - -update_r /my/files
 /files<br>
 growisofs has excellent burn capabilities with DVD and BD.
 It does not emulate session history on overwriteable media,
@@ -6578,8 +6582,8 @@ program abort</b></p></td>
 <td width="89%">
 <p>Be quite verbous, exit 32 if severity &quot;FAILURE&quot;
 was encountered, do not abort prematurely but forcibly go on
-until the end of commands.<b><br>
-$</b> xorriso ... \<br>
+until the end of commands.<br>
+$ xorriso ... \<br>
 -report_about UPDATE \<br>
 -return_with FAILURE 32 \<br>
 -abort_on NEVER \<br>
@@ -6635,10 +6639,10 @@ ACL, xattr, hard links and MD5 checksums will be recorded.
 Accelerated comparison is enabled at the expense of
 potentially larger backup size. Only media with the expected
 volume id or blank media are accepted. Files with names
-matching *.o or *.swp get excluded explicitely.<br>
+matching *.o or *.swp get excluded explicitly.<br>
 When done with writing the new session gets checked by its
-recorded MD5.<b><br>
-$</b> xorriso \<br>
+recorded MD5.<br>
+$ xorriso \<br>
 -for_backup -disk_dev_ino on \<br>
 -assert_volid &rsquo;PROJECTS_MAIL_*&rsquo; FATAL \<br>
 &nbsp;&nbsp;-dev /dev/sr0 \<br>
@@ -6669,11 +6673,12 @@ run may use -md5 &quot;on&quot; to match recorded MD5 sums
 against the current file content on hard disk. This is
 usually much faster than the default which compares both
 contents directly.<br>
-With <b>mount</b> option <b>-o &quot;sbsector=&quot;</b> on
-GNU/Linux resp. <b>-s</b> on FreeBSD it is possible to
-access the session trees which represent the older backup
-versions. With CD media, GNU/Linux mount accepts session
-numbers directly by its option &quot;session=&quot;.<br>
+With <b>mount</b> option <b>&minus;o
+&quot;sbsector=&quot;</b> on GNU/Linux resp. <b>&minus;s</b>
+on FreeBSD it is possible to access the session trees which
+represent the older backup versions. With CD media,
+GNU/Linux mount accepts session numbers directly by its
+option &quot;session=&quot;.<br>
 Multi-session media and most overwriteable media written by
 xorriso can tell the sbsectors of their sessions by xorriso
 option -toc. Used after -commit the following option prints
@@ -6683,8 +6688,8 @@ the matching mount command for the newly written session
 &quot;auto&quot; /mnt<br>
 Options -mount_cmd and -mount are also able to produce the
 mount commands for older sessions in the table-of-content.
-E.g. as superuser:<b><br>
-#</b> osirrox -mount /dev/sr0 &quot;volid&quot;
+E.g. as superuser:<br>
+# osirrox -mount /dev/sr0 &quot;volid&quot;
 &rsquo;*2008_12_05*&rsquo; /mnt<br>
 Sessions on multi-session media are separated by several MB
 of unused blocks. So with small sessions the payload
@@ -6718,13 +6723,13 @@ to disk</b></p></td>
 <td width="89%">
 <p>This is an alternative to mounting the media and using
 normal file operations.<br>
-First check which backup sessions are on the media:<b><br>
-$</b> xorriso -outdev /dev/sr0 -toc<br>
+First check which backup sessions are on the media:<br>
+$ xorriso -outdev /dev/sr0 -toc<br>
 Then load the desired session and copy the file trees to
 disk. Enable restoring of ACL, xattr and hard links. Avoid
 to eventually create /home/thomas/restored without
-rwx-permission.<b><br>
-$</b> xorriso -for_backup \<br>
+rwx-permission.<br>
+$ xorriso -for_backup \<br>
 -load volid &rsquo;PROJECTS_MAIL_2008_06_19*&rsquo; \<br>
 -indev /dev/sr0 \<br>
 -osirrox on:auto_chmod_on \<br>
@@ -6744,8 +6749,8 @@ about the altered image being discarded.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p><b>Try to retrieve as many blocks as possible from a
-damaged media</b></p></td>
+<p><b>Try to retrieve blocks from a damaged
+media</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -6753,7 +6758,7 @@ damaged media</b></p></td>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>$</b> xorriso -abort_on NEVER -indev /dev/sr0 \<br>
+<p>$ xorriso -abort_on NEVER -indev /dev/sr0 \<br>
 -check_media time_limit=1800 report=blocks_files \<br>
 data_to=&quot;$HOME&quot;/dvd_copy
 sector_map=&quot;$HOME&quot;/dvd_copy.map --<br>
@@ -6788,7 +6793,7 @@ following files:<br>
 /etc/xorriso/xorriso.conf<br>
 $HOME/.xorrisorc<br>
 The files are read in the sequence given above, but none of
-them is required for xorriso to function properly.</p>
+them is required to exist.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6938,10 +6943,11 @@ for libburnia-project.org</p>
 <td width="10%"></td>
 <td width="89%">
 <p>Copyright (c) 2007 - 2010 Thomas Schmitt<br>
-This text shall only be modified in sync with the technical
-properties of xorriso. If you make use of the license to
-derive modified versions of xorriso then you are entitled to
-modify this text under that same license.</p>
+Permission is granted to distrubute this text freely. It
+shall only be modified in sync with the technical properties
+of xorriso. If you make use of the license to derive
+modified versions of xorriso then you are entitled to modify
+this text under that same license.</p>
 </td>
 </table>
 <a name="CREDITS"></a>
@@ -6962,5 +6968,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Feb 23 10:51:48 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Mar 18 11:15:28 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
