@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Mar 18 11:15:28 2010 -->
+<!-- CreationDate: Mon Mar 29 12:36:16 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -561,12 +561,20 @@ the parameters of a command with a fixed list length. It is
 handled as normal text if it appears among the arguments of
 such a command.</p>
 <!-- INDENTATION -->
-<p><b>Pattern expansion</b> is a property of some particular
-commands and not a general feature. It gets controlled by
-commands -iso_rr_pattern and -disk_pattern. Commands which
-eventually use pattern expansion all have variable argument
-lists which are marked in this man page by &quot;[***]&quot;
-rather than &quot;[...]&quot;.<br>
+<p><b>Pattern expansion</b> converts a list of pattern words
+into a list of existing file addresses. Eventual unmatched
+pattern words appear themselves in that result list,
+though.<br>
+Pattern matching supports the usual shell parser wildcards
+&rsquo;*&rsquo; &rsquo;?&rsquo; &rsquo;[xyz]&rsquo; and
+respects &rsquo;/&rsquo; as separator which may only be
+matched literally.<br>
+It is a property of some particular commands and not a
+general feature. It gets controlled by commands
+-iso_rr_pattern and -disk_pattern. Commands which eventually
+use pattern expansion all have variable argument lists which
+are marked in this man page by &quot;[***]&quot; rather than
+&quot;[...]&quot;.<br>
 Some other commands perform pattern matching
 unconditionally.</p>
 <!-- INDENTATION -->
@@ -1292,7 +1300,7 @@ type. Once set, this command cannot be revoked.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>File manipulations:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><b>Inserting files into ISO image:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1328,43 +1336,6 @@ directory rather than attempting to replace it.</p>
 <!-- INDENTATION -->
 <p>The commands in this section alter the ISO image and not
 the local filesystem.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p>&nbsp;<BR><b>&minus;iso_rr_pattern</b>
-&quot;on&quot;|&quot;ls&quot;|&quot;off&quot;</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Set the pattern expansion mode for the iso_rr_path
-arguments of several commands which support this
-feature.<b><br>
-Pattern expansion</b> converts a list of pattern words into
-a list of existing file addresses. Eventual unmatched
-pattern words appear themselves in that result list,
-though.<br>
-Pattern matching supports the usual shell parser wildcards
-&rsquo;*&rsquo; &rsquo;?&rsquo; &rsquo;[xyz]&rsquo; and
-respects &rsquo;/&rsquo; as separator which may only be
-matched literally.<br>
-Setting &quot;off&quot; disables this feature for all
-commands which are marked in this man page by
-&quot;iso_rr_path [***]&quot; or &quot;iso_rr_pattern
-[***]&quot;.<br>
-Setting &quot;on&quot; enables it for all those
-commands.<br>
-Setting &quot;ls&quot; enables it only for those which are
-marked by &quot;iso_rr_pattern [***]&quot;.<br>
-Default is &quot;on&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1711,770 +1682,6 @@ is prepended. If the iso_rr_path does not begin with
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;rm</b> iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Delete the given files from the ISO image.<br>
-Note: This does not free any space on the -indev media, even
-if the deletion is committed to that same media.<br>
-The image size will shrink if the image is written to a
-different media in modification mode.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;rm_r</b> iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Delete the given files or directory trees from the ISO
-image. See also the note with option -rm.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;mv</b> iso_rr_path [***] iso_rr_path</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Rename the given file objects in the ISO tree to the last
-argument in the list. Use the same rules as with shell
-command mv.<br>
-If pattern expansion is enabled and if the last argument
-contains wildcard characters then it must match exactly one
-existing file address, or else the command fails with a
-FAILURE event.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;chown</b> uid iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Set ownership of file objects in the ISO image. uid may
-either be a decimal number or the name of a user known to
-the operating system.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;chown_r</b> uid iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Like -chown but affecting all files below eventual
-directories.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;chgrp</b> gid iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Set group attribute of file objects in the ISO image. gid
-may either be a decimal number or the name of a group known
-to the operating system.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;chgrp_r</b> gid iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Like -chgrp but affecting all files below eventual
-directories.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;chmod</b> mode iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Equivalent to shell command chmod in the ISO image. mode
-is either an octal number beginning with &quot;0&quot; or a
-comma separated list of statements of the form
-[ugoa]*[+-=][rwxst]* .<br>
-Like: go-rwx,u+rwx .<b><br>
-Personalities</b>: u=user, g=group, o=others, a=all<b><br>
-Operators</b>: + adds given permissions, - revokes given
-permissions, = revokes all old permissions and then adds the
-given ones.<b><br>
-Permissions</b>: r=read, w=write, x=execute|inspect,
-s=setuid|setgid, t=sticky bit<br>
-For octal numbers see man 2 stat.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;chmod_r</b> mode iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Like -chmod but affecting all files below eventual
-directories.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;setfacl</b> acl_text iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Attach the given ACL to the given iso_rr_paths after
-deleting their eventually existing ACLs. If acl_text is
-empty, or contains the text &quot;clear&quot; or the text
-&quot;--remove-all&quot;, then the existing ACLs will be
-removed and no new ones will be attached. Any other content
-of acl_text will be interpreted as a list of ACL entries. It
-may be in the long multi-line format as put out by -getfacl
-but may also be abbreviated as follows:<br>
-ACL entries are separated by comma or newline. If an entry
-is empty text or begins with &quot;#&quot; then it will be
-ignored. A valid entry has to begin by a letter out of
-{ugom} for &quot;user&quot;, &quot;group&quot;,
-&quot;other&quot;, &quot;mask&quot;. It has to contain two
-colons &quot;:&quot;. A non-empty text between those
-&quot;:&quot; gives a user id resp. group id. After the
-second &quot;:&quot; there may be letters out of {rwx- #}.
-The first three give read, write resp. execute permission.
-Letters &quot;-&quot;, &quot; &quot; and TAB are ignored.
-&quot;#&quot; causes the rest of the entry to be ignored.
-Letter &quot;X&quot; or any other letters are not supported.
-Examples:<br>
-g:toolies:rw,u:lisa:rw,u:1001:rw,u::wr,g::r,o::r,m::rw<br>
-
-group:toolies:rw-,user::rw-,group::r--,other::r--,mask::rw-<br>
-A valid entry may be prefixed by &quot;d&quot;, some
-following characters and &quot;:&quot;. This indicates that
-the entry goes to the &quot;default&quot; ACL rather than to
-the &quot;access&quot; ACL. Example:<br>
-
-u::rwx,g::rx,o::,d:u::rwx,d:g::rx,d:o::,d:u:lisa:rwx,d:m::rwx</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;setfacl_r</b> acl_text iso_rr_path
-[***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Like -setfacl but affecting all files below eventual
-directories.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;setfacl_list</b> disk_path</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Read the output of -getfacl_r or shell command getfacl -R
-and apply it to the iso_rr_paths as given in lines beginning
-with &quot;# file:&quot;. This will change ownership, group
-and ACL of the given files. If disk_path is &quot;-&quot;
-then lines are read from standard input. Line &quot;@&quot;
-ends the list, &quot;@@@&quot; aborts without changing the
-pending iso_rr_path.<br>
-Since -getfacl and getfacl -R strip leading &quot;/&quot;
-from file paths, the setting of -cd does always matter.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;setfattr</b> [-]name value iso_rr_path
-[***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Attach the given xattr pair of name and value to the
-given iso_rr_paths. If the given name is prefixed by
-&quot;-&quot;, then the pair with that name gets removed
-from the xattr list. If name is &quot;--remove-all&quot;
-then all user namespace xattr of the given iso_rr_paths get
-deleted. In case of deletion, value must be an empty
-text.<br>
-Only names from the user namespace are allowed. I.e. a name
-has to begin with &quot;user.&quot;, like &quot;user.x&quot;
-or &quot;user.whatever&quot;.<br>
-Values and names undergo the normal input processing of
-xorriso. See also option -backslash_codes. Other than with
-option -setfattr_list, the byte value 0 cannot be expressed
-via -setfattr.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;setfattr_r</b> [-]name value iso_rr_path
-[***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Like -setfattr but affecting all files below eventual
-directories.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;setfattr_list</b> disk_path</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Read the output of -getfattr_r or shell command getfattr
--Rd and apply it to the iso_rr_paths as given in lines
-beginning with &quot;# file:&quot;. All previously existing
-user space xattr of the given iso_rr_paths will be deleted.
-If disk_path is &quot;-&quot; then lines are read from
-standard input.<br>
-Since -getfattr and getfattr -Rd strip leading &quot;/&quot;
-from file paths, the setting of -cd does always matter.<br>
-Empty input lines and lines which begin by &quot;#&quot;
-will be ignored (except &quot;# file:&quot;). Line
-&quot;@&quot; ends the list, &quot;@@@&quot; aborts without
-changing the pending iso_rr_path. Other input lines must
-have the form<br>
-name=&quot;value&quot;<br>
-Name must be from user namespace. I.e. user.xyz where xyz
-should consist of printable characters only. The separator
-&quot;=&quot; is not allowed in names. Value may contain any
-kind of bytes. It must be in quotes. Trailing whitespace
-after the end quote will be ignored. Non-printables bytes
-and quotes must be represented as \XYZ by their octal ASCII
-code XYZ. Use code \000 for 0-bytes.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;external_filter</b> name option[:option]
-program_path [arguments] --</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Register a content filter by associating a name with a
-program path, program arguments, and some behavioral
-options. Once registered it can be applied to multiple data
-files in the ISO image, regardless whether their content
-resides in the loaded ISO image or in the local filesystem.
-External filter processes may produce synthetic file content
-by reading the original content from stdin and writing to
-stdout whatever they want. They must deliver the same output
-on the same input in repeated runs.<br>
-Options are:<br>
-&quot;default&quot; means that no other option is
-intended.<br>
-&quot;suffix=...&quot; sets a file name suffix. If it is not
-empty then it will be appended to the file name or removed
-from it.<br>
-&quot;remove_suffix&quot; will remove an eventual file name
-suffix rather than appending it.<br>
-&quot;if_nonempty&quot; will leave 0-sized files
-unfiltered.<br>
-&quot;if_reduction&quot; will try filtering and revoke it if
-the content size does not shrink.<br>
-&quot;if_block_reduction&quot; will revoke if the number of
-2 kB blocks does not shrink.<br>
-&quot;used=...&quot; is ignored. Command -status shows it
-with the number of files which currently have the filter
-applied.<br>
-Examples:<br>
--external_filter bzip2 suffix=.bz2:if_block_reduction \<br>
-/usr/bin/bzip2 --<br>
--external_filter bunzip2 suffix=.bz2:remove_suffix \<br>
-/usr/bin/bunzip2 --</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;unregister_filter</b> name</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Remove an -external_filter registration. This is only
-possible if the filter is not applied to any file in the ISO
-image.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;close_filter_list</b></p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Irrevocably ban commands -external_filter and
--unregister_filter, but not -set_filter. Use this to prevent
-external filtering in general or when all intended filters
-are registered. External filters may also be banned totally
-at compile time of xorriso. By default they are banned if
-xorriso runs under setuid permission.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;set_filter</b> name iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Apply an -external_filter or a built-in filter to the
-given data files in the ISO image. If the filter suffix is
-not empty , then it will be applied to the file name.
-Renaming only happens if the filter really gets attached and
-is not revoked by its options. By default files which
-already bear the suffix will not get filtered. The others
-will get the suffix appended to their names. If the filter
-has option &quot;remove_suffix&quot;, then the filter will
-only be applied if the suffix is present and can be removed.
-Name oversize or collision caused by suffix change will
-prevent filtering.<br>
-With most filter types this command will immediately run the
-filter once for each file in order to determine the output
-size. Content reading operations like -extract , -compare
-and image generation will perform further filter runs and
-deliver filtered content.<br>
-At image generation time the filter output must still be the
-same as the output from the first run. Filtering for image
-generation does not happen with files from the loaded ISO
-image if the write method of growing is in effect (i.e
--indev and -outdev are identical).<br>
-The reserved filter name &quot;--remove-all-filters&quot;
-revokes filtering. This will revoke eventual suffix
-renamings as well. Use &quot;--remove-all-filters+&quot; to
-prevent any suffix renaming.<br>
-Built-in filters are &quot;--zisofs&quot; and
-&quot;--zisofs-decode&quot;. The former is to be applied via
--set_filter, the latter is automatically applied if zisofs
-compressed content is detected with a file when loading the
-ISO image.<br>
-Another built-in filter pair is &quot;--gzip&quot; and
-&quot;--gunzip&quot; with suffix &quot;.gz&quot;. They
-behave about like external gzip and gunzip but avoid forking
-a process for each single file. So they are much faster if
-there are many small files.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;set_filter_r</b> name iso_rr_path
-[***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Like -set_filter but affecting all data files below
-eventual directories.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;alter_date</b> type timestring iso_rr_path
-[***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Alter the date entries of a file in the ISO image. type
-is one of &quot;a&quot;, &quot;m&quot;, &quot;b&quot; for
-access time, modification time, both times.<br>
-timestring may be in the following formats (see also section
-<A HREF="#EXAMPLES">EXAMPLES</A>):<br>
-As expected by program date: MMDDhhmm[[CC]YY][.ss]]<br>
-As produced by program date:<br>
-[Day] MMM DD hh:mm:ss [TZON] YYYY<br>
-Relative times counted from current clock time:<br>
-
-+|-Number[&quot;s&quot;|&quot;h&quot;|&quot;d&quot;|&quot;w&quot;|&quot;m&quot;|&quot;y&quot;]<br>
-where &quot;s&quot; means seconds, &quot;h&quot; hours,
-&quot;d&quot; days, &quot;w&quot; weeks, &quot;m&quot;=30d,
-&quot;y&quot;=365.25d plus 1d added to multiplication
-result.<br>
-Absolute seconds counted from Jan 1 1970:<br>
-=Number<br>
-xorriso&rsquo;s own timestamps:<br>
-YYYY.MM.DD[.hh[mm[ss]]]<br>
-scdbackup timestamps:<br>
-YYMMDD[.hhmm[ss]]<br>
-where &quot;A0&quot; is year 2000, &quot;B0&quot; is 2010,
-etc.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;alter_date_r</b> type timestring iso_rr_path
-[***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Like -alter_date but affecting all files below eventual
-directories.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;find</b> iso_rr_path [test [op] [test ...]]
-[-exec action [params]] --</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>A restricted substitute for shell command find in the ISO
-image. It performs an action on matching file objects at or
-below iso_rr_path.<br>
-If not used as last command in the line then the argument
-list needs to get terminated by &quot;--&quot;.<br>
-Tests are optional. If they are omitted then action is
-applied to all file objects. If tests are given then they
-form together an expression. The action is applied only if
-the expression matches the file object. Default expression
-operator between tests is -and, i.e. the expression matches
-only if all its tests match.<br>
-Available tests are:<b><br>
-&minus;name</b> pattern : Matches if pattern matches the
-file leaf name.<b><br>
-&minus;wholename</b> pattern : Matches if pattern matches
-the file path as it would be printed by action
-&quot;echo&quot;. Character &rsquo;/&rsquo; is not special
-but can be matched by wildcards.<b><br>
-&minus;type</b> type_letter : Matches files of the given
-type: &quot;block&quot;, &quot;char&quot;, &quot;dir&quot;,
-&quot;pipe&quot;, &quot;file&quot;, &quot;link&quot;,
-&quot;socket&quot;, &quot;eltorito&quot;, &quot;Xotic&quot;
-which eventually matches what is not matched by the other
-types.<br>
-Only the first letter is interpreted. E.g.: -find / -type
-d<b><br>
-&minus;damaged</b> : Matches files which use data blocks
-marked as damaged by a previous run of -check_media. The
-damage info vanishes when a new ISO image gets
-loaded.<b><br>
-&minus;pending_data</b> : Matches files which get their
-content from outside the loaded ISO image.<b><br>
-&minus;lba_range</b> start_lba block_count : Matches files
-which use data blocks within the range of start_lba and
-start_lba+block_count-1.<b><br>
-&minus;has_acl</b> : Matches files which have a non-trivial
-ACL.<b><br>
-&minus;has_xattr</b> : Matches files which have xattr
-name-value pairs from user namespace.<b><br>
-&minus;has_aaip</b> : Matches files which have ACL or any
-xattr.<b><br>
-&minus;has_any_xattr</b> : Matches files which have any
-xattr other than ACL.<b><br>
-&minus;has_md5</b> : Matches data files which have MD5
-checksums.<b><br>
-&minus;has_filter</b> : Matches files which are filtered by
--set_filter.<b><br>
-&minus;prune</b> : If this test is reached and the tested
-file is a directory then -find will not dive into that
-directory. This test itself does always match.<b><br>
-&minus;decision</b> &quot;yes&quot;|&quot;no&quot; : If this
-test is reached then the evaluation ends immediately and
-action is performed if the decision is &quot;yes&quot; or
-&quot;true&quot;. See operator -if.<b><br>
-&minus;true</b> and <b>&minus;false</b> : Always match resp.
-match not. Evaluation goes on.<b><br>
-&minus;sort_lba</b> : Always match. This causes -find to
-perform its action in a sequence sorted by the ISO image
-block addresses of the files. It may improve throughput with
-actions which read data from optical drives. Action will
-always get the absolute path as parameter.<br>
-Available operators are:<b><br>
-&minus;not</b> : Matches if the next test or sub expression
-does not match. Several tests do this specifically:<br>
--undamaged, -lba_range with negative start_lba, -has_no_acl,
--has_no_xattr, -has_no_aaip, -has_no_filter .<b><br>
-&minus;and</b> : Matches if both neighboring tests or
-expressions match.<b><br>
-&minus;or</b> : Matches if at least one of both neighboring
-tests or expressions matches.<b><br>
-&minus;sub</b> ... <b>&minus;subend</b> or <b>(</b> ...
-<b>)</b> : Enclose a sub expression which gets evaluated
-first before it is processed by neighboring operators.
-Normal precedence is: -not, -or , -and.<b><br>
-&minus;if</b> ... <b>&minus;then</b> ...
-<b>&minus;elseif</b> ... <b>&minus;then</b> ...
-<b>&minus;else</b> ... <b>&minus;endif</b> : Enclose one or
-more sub expressions. If the -if expression matches, then
-the -then expression is evaluated as the result of the whole
-expression up to -endif. Else the next -elseif expression is
-evaluated and eventually its -then expression. Finally in
-case of no match, the -else expression is evaluated. There
-may be more than one -elseif. Neither -else nor -elseif are
-mandatory. If -else is missing and would be hit, then the
-result is a non-match.<br>
--if-expressions are the main use case for above test
--decision.</p>
-<!-- INDENTATION -->
-<p>Default action is <b>echo</b>, i.e. to print the address
-of the found file. Other actions are certain xorriso
-commands which get performed on the found files. These
-commands may have specific parameters. See also their
-particular descriptions.<b><br>
-chown</b> and <b>chown_r</b> change the ownership and get
-the user id as parameter. E.g.: -exec chown thomas --<b><br>
-chgrp</b> and <b>chgrp_r</b> change the group attribute and
-get the group id as parameter. E.g.: -exec chgrp_r staff
---<b><br>
-chmod</b> and <b>chmod_r</b> change access permissions and
-get a mode string as parameter. E.g.: -exec chmod a-w,a+r
---<b><br>
-alter_date</b> and <b>alter_date_r</b> change the
-timestamps. They get a type character and a timestring as
-parameters.<br>
-E.g.: -exec alter_date &quot;m&quot; &quot;Dec 30 19:34:12
-2007&quot; --<b><br>
-lsdl</b> prints file information like shell command ls
--dl.<b><br>
-compare</b> performs command -compare with the found file
-address as iso_rr_path and the corresponding file address
-below its argument disk_path_start. For this the iso_rr_path
-of the -find command gets replaced by the
-disk_path_start.<br>
-E.g.: -find /thomas -exec compare /home/thomas --<b><br>
-update</b> performs command -update with the found file
-address as iso_rr_path. The corresponding file address is
-determined like with above action
-&quot;compare&quot;.<b><br>
-rm</b> removes the found iso_rr_path from the image if it is
-not a directory with files in it. I.e. this &quot;rm&quot;
-includes &quot;rmdir&quot;.<b><br>
-rm_r</b> removes the found iso_rr_path from the image,
-including whole directory trees.<b><br>
-report_damage</b> classifies files whether they hit a data
-block that is marked as damaged. The result is printed
-together with the eventual address of the first damaged
-byte, the maximum span of damages, file size, and the path
-of the file.<b><br>
-report_lba</b> prints files which are associated to image
-data blocks. It tells the logical block address, the block
-number, the byte size, and the path of each file. There may
-be reported more than one line per file if the file is very
-large. In this case each line has a different extent number
-in column &quot;xt&quot;.<b><br>
-getfacl</b> prints access permissions in ACL text form to
-the result channel.<b><br>
-setfacl</b> attaches ACLs after removing eventually exiting
-ones. The new ACL is given in text form as defined with
-option -setfacl.<br>
-E.g.: -exec setfacl u:lisa:rw,u::rw,g::r,o::-,m::rw
---<b><br>
-getfattr</b> prints eventual xattr name-value pairs from
-user namespace to the result channel.<b><br>
-get_any_xattr</b> prints eventual xattr name-value pairs
-from any namespace except ACL to the result channel. This is
-mostly for debugging of namespace &quot;isofs&quot;.<b><br>
-get_md5</b> prints eventual recorded MD5 sum together with
-file path.<b><br>
-check_md5</b> compares eventual recorded MD5 sum with the
-file content and reports if mismatch.<br>
-E.g.: -find / -not -pending_data -exec check_md5 FAILURE
---<b><br>
-make_md5</b> equips a data file with an MD5 sum of its
-content. Useful to upgrade the files in the loaded image to
-full MD5 coverage by the next commit with -md5
-&quot;on&quot;.<br>
-E.g.: -find / -type f -not -has_md5 -exec make_md5 --<b><br>
-setfattr</b> sets or deletes xattr name value pairs.<br>
-E.g.: -find / -has_xattr -exec setfattr --remove-all
-&rsquo;&rsquo; --<b><br>
-set_filter</b> applies or removes filters.<br>
-E.g.: -exec set_filter --zisofs --<b><br>
-show_stream</b> shows the content stream chain of a data
-file.<b><br>
-find</b> performs another run of -find on the matching file
-address. It accepts the same params as -find, except
-iso_rr_path.<br>
-E.g.:<br>
-&nbsp;&nbsp;-find / -name &rsquo;???&rsquo; -type d -exec find -name
-&rsquo;[abc]*&rsquo; -exec chmod a-w,a+r --</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
 <p><b>&minus;mkdir</b> iso_rr_path [...]</p></td>
 </table>
 <!-- INDENTATION -->
@@ -2486,310 +1693,6 @@ E.g.:<br>
 <p>Create empty directories if they do not exist yet.
 Existence as directory generates a WARNING event, existence
 as other file causes a FAILURE event.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;rmdir</b> iso_rr_path [***]</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Delete empty directories.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;rollback</b></p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Discard the manipulated ISO image and reload it from
--indev.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;rollback_end</b></p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Discard the manipulated ISO image. End program without
-loading a new image.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p>&nbsp;<BR><b>Writing the result, drive control:</b><BR></p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p>(see also paragraph about settings below)</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;commit</b></p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Perform the write operation. Afterwards eventually make
-the -outdev the new -dev and load the image from there.
-Switch to growing mode. (A subsequent -outdev will activate
-modification mode or blind growing.) -commit is performed
-automatically at end of program if there are uncommitted
-manipulations pending.<br>
-So, to perform a final write operation with no new -dev and
-no new loading of image, rather execute option -end. If you
-want to go on without image loading, execute -commit_eject
-&quot;none&quot;. To eject after write without image
-loading, use -commit_eject &quot;all&quot;.<br>
-To suppress a final write, execute -rollback_end.</p>
-<!-- INDENTATION -->
-<p>Writing can last quite a while. It is not unnormal with
-several types of media that there is no progress visible for
-the first few minutes or that the drive gnaws on the media
-for a few minutes after all data have been transmitted.
-xorriso and the drives are in a client-server relationship.
-The drives have much freedom about what to do with the
-media. Some combinations of drives and media simply do not
-work, despite the promises by their vendors. If writing
-fails then try other media or another drive. The reason for
-such failure is hardly ever in the code of the various burn
-programs but you may well try some of those listed below
-under SEE ALSO.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;eject</b>
-&quot;in&quot;|&quot;out&quot;|&quot;all&quot;</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Eject the media in -indev, resp. -outdev, resp. both
-drives. Note: It is not possible yet to effectively eject
-disk files.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;commit_eject</b>
-&quot;in&quot;|&quot;out&quot;|&quot;all&quot;|&quot;none&quot;</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Combined -commit and -eject. When writing has finished do
-not make -outdev the new -dev, and load no ISO image. Rather
-eject -indev and/or -outdev. Eventually give up any
-non-ejected drive.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;blank</b> mode</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Make media ready for writing from scratch (if not -dummy
-is activated).<br>
-This affects only the -outdev not the -indev. If both drives
-are the same and if the ISO image was altered then this
-command leads to a FAILURE event. Defined modes are:
-as_needed, fast, all, deformat, deformat_quickest<br>
-&quot;as_needed&quot; cares for used CD-RW, DVD-RW and for
-used overwriteable media by applying -blank
-&quot;fast&quot;. It applies -format &quot;full&quot; to yet
-unformatted DVD-RAM and BD-RE. Other media in blank state
-are gracefully ignored. Media which cannot be made ready for
-writing from scratch cause a FAILURE event.<br>
-&quot;fast&quot; makes CD-RW and unformatted DVD-RW
-re-usable, or invalidates overwriteable ISO images.
-&quot;all&quot; might work more thoroughly and need more
-time.<br>
-&quot;deformat&quot; converts overwriteable DVD-RW into
-unformatted ones.<br>
-&quot;deformat_quickest&quot; is a faster way to deformat or
-blank DVD-RW but produces media which are only suitable for
-a single session. xorriso will write onto them only if
-option -close is set to &quot;on&quot;.<br>
-The progress reports issued by some drives while blanking
-are quite unrealistic. Do not conclude success or failure
-from the reported percentages. Blanking was successful if no
-SORRY event or worse occured.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;format</b> mode</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Convert unformatted DVD-RW into overwriteable ones,
-&quot;de-ice&quot; DVD+RW, format newly purchased BD-RE or
-BD-R, re-format DVD-RAM or BD-RE.<br>
-Defined modes are:<br>
-as_needed, full, fast, by_index_&lt;num&gt;,
-fast_by_index_&lt;num&gt;<br>
-&quot;as_needed&quot; formats yet unformatted DVD-RW,
-DVD-RAM, BD-RE, or blank unformatted BD-R. Other media are
-left untouched.<br>
-&quot;full&quot; (re-)formats DVD-RW, DVD+RW, DVD-RAM,
-BD-RE, or blank unformatted BD-R.<br>
-&quot;fast&quot; does the same as &quot;full&quot; but tries
-to be quicker.<br>
-&quot;by_index_&quot; selects a format out of the descriptor
-list issued by option -list_formats. The index number from
-that list is to be appended to the mode word. E.g:
-&quot;by_index_3&quot;.<br>
-&quot;fast_by_index_&quot; does the same as
-&quot;by_index_&quot; but tries to be quicker.<br>
-&quot;by_size_&quot; selects a format out of the descriptor
-list which provides at least the given size. That size is to
-be appended to the mode word. E.g:
-&quot;by_size_4100m&quot;. This applies to media with Defect
-Management.<br>
-&quot;fast_by_size_&quot; does the same as
-&quot;by_size_&quot; but tries to be quicker.<br>
-The formatting action has no effect on media if -dummy is
-activated.<br>
-Formatting is normally needed only once during the lifetime
-of a media, if ever. But it is a reason for re-formatting
-if:<br>
-DVD-RW was deformatted by -blank,<br>
-DVD+RW has read failures (re-format before next write),<br>
-DVD-RAM or BD-RE shall change their amount of defect
-reserve.<br>
-BD-R may be written unformatted or may be formatted before
-first use. Formatting activates Defect Management which
-tries to catch and repair bad spots on media during the
-write process at the expense of half speed even with
-flawless media.<br>
-The progress reports issued by some drives while formatting
-are quite unrealistic. Do not conclude success or failure
-from the reported percentages. Formatting was successful if
-no SORRY event or worse occured. Be patient with apparently
-frozen progress.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;list_formats</b></p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Put out a list of format descriptors as reported by the
-output drive for the current media. The list gives the index
-number after &quot;Format idx&quot;, a MMC format code, the
-announced size in blocks (like &quot;2236704s&quot;) and the
-same size in MiB.<br>
-MMC format codes are manifold. Most important are:
-&quot;00h&quot; general formatting, &quot;01h&quot;
-increases reserve space for DVD-RAM, &quot;26h&quot; for
-DVD+RW, &quot;30h&quot; for BD-RE with reserve space,
-&quot;31h&quot; for BD-RE without reserve space,
-&quot;32h&quot; for BD-R.<br>
-Smaller format size with DVD-RAM, BD-RE, or BD-R means more
-reserve space.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;list_profiles</b>
-&quot;in&quot;|&quot;out&quot;|&quot;all&quot;</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Put out a list of media types supported by -indev, resp.
--outdev, resp. both. The currently recognized type is marked
-by text &quot;(current)&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3132,6 +2035,1133 @@ contents may not overlap.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p>&nbsp;<BR><b>File manipulations:</b><BR>&nbsp;<BR></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>The following commands manipulate files in the ISO image,
+regardless whether they stem from the loaded image or were
+newly inserted.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>&nbsp;<BR><b>&minus;iso_rr_pattern</b>
+&quot;on&quot;|&quot;ls&quot;|&quot;off&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the pattern expansion mode for the iso_rr_path
+arguments of several commands which support this
+feature.<br>
+Setting &quot;off&quot; disables pattern expansion for all
+commands which are marked in this man page by
+&quot;iso_rr_path [***]&quot; or &quot;iso_rr_pattern
+[***]&quot;.<br>
+Setting &quot;on&quot; enables it for all those
+commands.<br>
+Setting &quot;ls&quot; enables it only for those which are
+marked by &quot;iso_rr_pattern [***]&quot;.<br>
+Default is &quot;on&quot;.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;rm</b> iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Delete the given files from the ISO image.<br>
+Note: This does not free any space on the -indev media, even
+if the deletion is committed to that same media.<br>
+The image size will shrink if the image is written to a
+different media in modification mode.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;rm_r</b> iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Delete the given files or directory trees from the ISO
+image. See also the note with option -rm.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;rmdir</b> iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Delete empty directories.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;mv</b> iso_rr_path [***] iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Rename the given file objects in the ISO tree to the last
+argument in the list. Use the same rules as with shell
+command mv.<br>
+If pattern expansion is enabled and if the last argument
+contains wildcard characters then it must match exactly one
+existing file address, or else the command fails with a
+FAILURE event.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;chown</b> uid iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set ownership of file objects in the ISO image. uid may
+either be a decimal number or the name of a user known to
+the operating system.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;chown_r</b> uid iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like -chown but affecting all files below eventual
+directories.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;chgrp</b> gid iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set group attribute of file objects in the ISO image. gid
+may either be a decimal number or the name of a group known
+to the operating system.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;chgrp_r</b> gid iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like -chgrp but affecting all files below eventual
+directories.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;chmod</b> mode iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Equivalent to shell command chmod in the ISO image. mode
+is either an octal number beginning with &quot;0&quot; or a
+comma separated list of statements of the form
+[ugoa]*[+-=][rwxst]* .<br>
+Like: go-rwx,u+rwx .<b><br>
+Personalities</b>: u=user, g=group, o=others, a=all<b><br>
+Operators</b>: + adds given permissions, - revokes given
+permissions, = revokes all old permissions and then adds the
+given ones.<b><br>
+Permissions</b>: r=read, w=write, x=execute|inspect,
+s=setuid|setgid, t=sticky bit<br>
+For octal numbers see man 2 stat.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;chmod_r</b> mode iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like -chmod but affecting all files below eventual
+directories.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;setfacl</b> acl_text iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Attach the given ACL to the given iso_rr_paths after
+deleting their eventually existing ACLs. If acl_text is
+empty, or contains the text &quot;clear&quot; or the text
+&quot;--remove-all&quot;, then the existing ACLs will be
+removed and no new ones will be attached. Any other content
+of acl_text will be interpreted as a list of ACL entries. It
+may be in the long multi-line format as put out by -getfacl
+but may also be abbreviated as follows:<br>
+ACL entries are separated by comma or newline. If an entry
+is empty text or begins with &quot;#&quot; then it will be
+ignored. A valid entry has to begin by a letter out of
+{ugom} for &quot;user&quot;, &quot;group&quot;,
+&quot;other&quot;, &quot;mask&quot;. It has to contain two
+colons &quot;:&quot;. A non-empty text between those
+&quot;:&quot; gives a user id resp. group id. After the
+second &quot;:&quot; there may be letters out of {rwx- #}.
+The first three give read, write resp. execute permission.
+Letters &quot;-&quot;, &quot; &quot; and TAB are ignored.
+&quot;#&quot; causes the rest of the entry to be ignored.
+Letter &quot;X&quot; or any other letters are not supported.
+Examples:<br>
+g:toolies:rw,u:lisa:rw,u:1001:rw,u::wr,g::r,o::r,m::rw<br>
+
+group:toolies:rw-,user::rw-,group::r--,other::r--,mask::rw-<br>
+A valid entry may be prefixed by &quot;d&quot;, some
+following characters and &quot;:&quot;. This indicates that
+the entry goes to the &quot;default&quot; ACL rather than to
+the &quot;access&quot; ACL. Example:<br>
+
+u::rwx,g::rx,o::,d:u::rwx,d:g::rx,d:o::,d:u:lisa:rwx,d:m::rwx</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;setfacl_r</b> acl_text iso_rr_path
+[***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like -setfacl but affecting all files below eventual
+directories.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;setfacl_list</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Read the output of -getfacl_r or shell command getfacl -R
+and apply it to the iso_rr_paths as given in lines beginning
+with &quot;# file:&quot;. This will change ownership, group
+and ACL of the given files. If disk_path is &quot;-&quot;
+then lines are read from standard input. Line &quot;@&quot;
+ends the list, &quot;@@@&quot; aborts without changing the
+pending iso_rr_path.<br>
+Since -getfacl and getfacl -R strip leading &quot;/&quot;
+from file paths, the setting of -cd does always matter.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;setfattr</b> [-]name value iso_rr_path
+[***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Attach the given xattr pair of name and value to the
+given iso_rr_paths. If the given name is prefixed by
+&quot;-&quot;, then the pair with that name gets removed
+from the xattr list. If name is &quot;--remove-all&quot;
+then all user namespace xattr of the given iso_rr_paths get
+deleted. In case of deletion, value must be an empty
+text.<br>
+Only names from the user namespace are allowed. I.e. a name
+has to begin with &quot;user.&quot;, like &quot;user.x&quot;
+or &quot;user.whatever&quot;.<br>
+Values and names undergo the normal input processing of
+xorriso. See also option -backslash_codes. Other than with
+option -setfattr_list, the byte value 0 cannot be expressed
+via -setfattr.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;setfattr_r</b> [-]name value iso_rr_path
+[***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like -setfattr but affecting all files below eventual
+directories.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;setfattr_list</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Read the output of -getfattr_r or shell command getfattr
+-Rd and apply it to the iso_rr_paths as given in lines
+beginning with &quot;# file:&quot;. All previously existing
+user space xattr of the given iso_rr_paths will be deleted.
+If disk_path is &quot;-&quot; then lines are read from
+standard input.<br>
+Since -getfattr and getfattr -Rd strip leading &quot;/&quot;
+from file paths, the setting of -cd does always matter.<br>
+Empty input lines and lines which begin by &quot;#&quot;
+will be ignored (except &quot;# file:&quot;). Line
+&quot;@&quot; ends the list, &quot;@@@&quot; aborts without
+changing the pending iso_rr_path. Other input lines must
+have the form<br>
+name=&quot;value&quot;<br>
+Name must be from user namespace. I.e. user.xyz where xyz
+should consist of printable characters only. The separator
+&quot;=&quot; is not allowed in names. Value may contain any
+kind of bytes. It must be in quotes. Trailing whitespace
+after the end quote will be ignored. Non-printables bytes
+and quotes must be represented as \XYZ by their octal ASCII
+code XYZ. Use code \000 for 0-bytes.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;alter_date</b> type timestring iso_rr_path
+[***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Alter the date entries of a file in the ISO image. type
+is one of &quot;a&quot;, &quot;m&quot;, &quot;b&quot; for
+access time, modification time, both times.<br>
+timestring may be in the following formats (see also section
+<A HREF="#EXAMPLES">EXAMPLES</A>):<br>
+As expected by program date: MMDDhhmm[[CC]YY][.ss]]<br>
+As produced by program date:<br>
+[Day] MMM DD hh:mm:ss [TZON] YYYY<br>
+Relative times counted from current clock time:<br>
+
++|-Number[&quot;s&quot;|&quot;h&quot;|&quot;d&quot;|&quot;w&quot;|&quot;m&quot;|&quot;y&quot;]<br>
+where &quot;s&quot; means seconds, &quot;h&quot; hours,
+&quot;d&quot; days, &quot;w&quot; weeks, &quot;m&quot;=30d,
+&quot;y&quot;=365.25d plus 1d added to multiplication
+result.<br>
+Absolute seconds counted from Jan 1 1970:<br>
+=Number<br>
+xorriso&rsquo;s own timestamps:<br>
+YYYY.MM.DD[.hh[mm[ss]]]<br>
+scdbackup timestamps:<br>
+YYMMDD[.hhmm[ss]]<br>
+where &quot;A0&quot; is year 2000, &quot;B0&quot; is 2010,
+etc.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;alter_date_r</b> type timestring iso_rr_path
+[***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like -alter_date but affecting all files below eventual
+directories.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>&nbsp;<BR><b>Tree traversal command -find:</b><BR>&nbsp;<BR></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;find</b> iso_rr_path [test [op] [test ...]]
+[-exec action [params]] --</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>A restricted substitute for shell command find in the ISO
+image. It performs an action on matching file objects at or
+below iso_rr_path.<br>
+If not used as last command in the line then the argument
+list needs to get terminated by &quot;--&quot;.<br>
+Tests are optional. If they are omitted then action is
+applied to all file objects. If tests are given then they
+form together an expression. The action is applied only if
+the expression matches the file object. Default expression
+operator between tests is -and, i.e. the expression matches
+only if all its tests match.<br>
+Available tests are:<b><br>
+&minus;name</b> pattern : Matches if pattern matches the
+file leaf name.<b><br>
+&minus;wholename</b> pattern : Matches if pattern matches
+the file path as it would be printed by action
+&quot;echo&quot;. Character &rsquo;/&rsquo; is not special
+but can be matched by wildcards.<b><br>
+&minus;type</b> type_letter : Matches files of the given
+type: &quot;block&quot;, &quot;char&quot;, &quot;dir&quot;,
+&quot;pipe&quot;, &quot;file&quot;, &quot;link&quot;,
+&quot;socket&quot;, &quot;eltorito&quot;, &quot;Xotic&quot;
+which eventually matches what is not matched by the other
+types.<br>
+Only the first letter is interpreted. E.g.: -find / -type
+d<b><br>
+&minus;damaged</b> : Matches files which use data blocks
+marked as damaged by a previous run of -check_media. The
+damage info vanishes when a new ISO image gets
+loaded.<b><br>
+&minus;pending_data</b> : Matches files which get their
+content from outside the loaded ISO image.<b><br>
+&minus;lba_range</b> start_lba block_count : Matches files
+which use data blocks within the range of start_lba and
+start_lba+block_count-1.<b><br>
+&minus;has_acl</b> : Matches files which have a non-trivial
+ACL.<b><br>
+&minus;has_xattr</b> : Matches files which have xattr
+name-value pairs from user namespace.<b><br>
+&minus;has_aaip</b> : Matches files which have ACL or any
+xattr.<b><br>
+&minus;has_any_xattr</b> : Matches files which have any
+xattr other than ACL.<b><br>
+&minus;has_md5</b> : Matches data files which have MD5
+checksums.<b><br>
+&minus;has_filter</b> : Matches files which are filtered by
+-set_filter.<b><br>
+&minus;prune</b> : If this test is reached and the tested
+file is a directory then -find will not dive into that
+directory. This test itself does always match.<b><br>
+&minus;decision</b> &quot;yes&quot;|&quot;no&quot; : If this
+test is reached then the evaluation ends immediately and
+action is performed if the decision is &quot;yes&quot; or
+&quot;true&quot;. See operator -if.<b><br>
+&minus;true</b> and <b>&minus;false</b> : Always match resp.
+match not. Evaluation goes on.<b><br>
+&minus;sort_lba</b> : Always match. This causes -find to
+perform its action in a sequence sorted by the ISO image
+block addresses of the files. It may improve throughput with
+actions which read data from optical drives. Action will
+always get the absolute path as parameter.<br>
+Available operators are:<b><br>
+&minus;not</b> : Matches if the next test or sub expression
+does not match. Several tests do this specifically:<br>
+-undamaged, -lba_range with negative start_lba, -has_no_acl,
+-has_no_xattr, -has_no_aaip, -has_no_filter .<b><br>
+&minus;and</b> : Matches if both neighboring tests or
+expressions match.<b><br>
+&minus;or</b> : Matches if at least one of both neighboring
+tests or expressions matches.<b><br>
+&minus;sub</b> ... <b>&minus;subend</b> or <b>(</b> ...
+<b>)</b> : Enclose a sub expression which gets evaluated
+first before it is processed by neighboring operators.
+Normal precedence is: -not, -or , -and.<b><br>
+&minus;if</b> ... <b>&minus;then</b> ...
+<b>&minus;elseif</b> ... <b>&minus;then</b> ...
+<b>&minus;else</b> ... <b>&minus;endif</b> : Enclose one or
+more sub expressions. If the -if expression matches, then
+the -then expression is evaluated as the result of the whole
+expression up to -endif. Else the next -elseif expression is
+evaluated and eventually its -then expression. Finally in
+case of no match, the -else expression is evaluated. There
+may be more than one -elseif. Neither -else nor -elseif are
+mandatory. If -else is missing and would be hit, then the
+result is a non-match.<br>
+-if-expressions are the main use case for above test
+-decision.</p>
+<!-- INDENTATION -->
+<p>Default action is <b>echo</b>, i.e. to print the address
+of the found file. Other actions are certain xorriso
+commands which get performed on the found files. These
+commands may have specific parameters. See also their
+particular descriptions.<b><br>
+chown</b> and <b>chown_r</b> change the ownership and get
+the user id as parameter. E.g.: -exec chown thomas --<b><br>
+chgrp</b> and <b>chgrp_r</b> change the group attribute and
+get the group id as parameter. E.g.: -exec chgrp_r staff
+--<b><br>
+chmod</b> and <b>chmod_r</b> change access permissions and
+get a mode string as parameter. E.g.: -exec chmod a-w,a+r
+--<b><br>
+alter_date</b> and <b>alter_date_r</b> change the
+timestamps. They get a type character and a timestring as
+parameters.<br>
+E.g.: -exec alter_date &quot;m&quot; &quot;Dec 30 19:34:12
+2007&quot; --<b><br>
+lsdl</b> prints file information like shell command ls
+-dl.<b><br>
+compare</b> performs command -compare with the found file
+address as iso_rr_path and the corresponding file address
+below its argument disk_path_start. For this the iso_rr_path
+of the -find command gets replaced by the
+disk_path_start.<br>
+E.g.: -find /thomas -exec compare /home/thomas --<b><br>
+update</b> performs command -update with the found file
+address as iso_rr_path. The corresponding file address is
+determined like with above action
+&quot;compare&quot;.<b><br>
+rm</b> removes the found iso_rr_path from the image if it is
+not a directory with files in it. I.e. this &quot;rm&quot;
+includes &quot;rmdir&quot;.<b><br>
+rm_r</b> removes the found iso_rr_path from the image,
+including whole directory trees.<b><br>
+report_damage</b> classifies files whether they hit a data
+block that is marked as damaged. The result is printed
+together with the eventual address of the first damaged
+byte, the maximum span of damages, file size, and the path
+of the file.<b><br>
+report_lba</b> prints files which are associated to image
+data blocks. It tells the logical block address, the block
+number, the byte size, and the path of each file. There may
+be reported more than one line per file if the file is very
+large. In this case each line has a different extent number
+in column &quot;xt&quot;.<b><br>
+getfacl</b> prints access permissions in ACL text form to
+the result channel.<b><br>
+setfacl</b> attaches ACLs after removing eventually exiting
+ones. The new ACL is given in text form as defined with
+option -setfacl.<br>
+E.g.: -exec setfacl u:lisa:rw,u::rw,g::r,o::-,m::rw
+--<b><br>
+getfattr</b> prints eventual xattr name-value pairs from
+user namespace to the result channel.<b><br>
+get_any_xattr</b> prints eventual xattr name-value pairs
+from any namespace except ACL to the result channel. This is
+mostly for debugging of namespace &quot;isofs&quot;.<b><br>
+get_md5</b> prints eventual recorded MD5 sum together with
+file path.<b><br>
+check_md5</b> compares eventual recorded MD5 sum with the
+file content and reports if mismatch.<br>
+E.g.: -find / -not -pending_data -exec check_md5 FAILURE
+--<b><br>
+make_md5</b> equips a data file with an MD5 sum of its
+content. Useful to upgrade the files in the loaded image to
+full MD5 coverage by the next commit with -md5
+&quot;on&quot;.<br>
+E.g.: -find / -type f -not -has_md5 -exec make_md5 --<b><br>
+setfattr</b> sets or deletes xattr name value pairs.<br>
+E.g.: -find / -has_xattr -exec setfattr --remove-all
+&rsquo;&rsquo; --<b><br>
+set_filter</b> applies or removes filters.<br>
+E.g.: -exec set_filter --zisofs --<b><br>
+show_stream</b> shows the content stream chain of a data
+file.<b><br>
+find</b> performs another run of -find on the matching file
+address. It accepts the same params as -find, except
+iso_rr_path.<br>
+E.g.:<br>
+&nbsp;&nbsp;-find / -name &rsquo;???&rsquo; -type d -exec find -name
+&rsquo;[abc]*&rsquo; -exec chmod a-w,a+r --</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>&nbsp;<BR><b>Filters for data file content:</b><BR>&nbsp;<BR></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>Filters</b> may be installed between data files in the
+ISO image and their content source outside the image. They
+may also be used vice versa between data content in the
+image and target files on disk.<br>
+Built-in filters are &quot;--zisofs&quot; and
+&quot;--zisofs-decode&quot;. The former is to be applied via
+-set_filter, the latter is automatically applied if zisofs
+compressed content is detected with a file when loading the
+ISO image.<br>
+Another built-in filter pair is &quot;--gzip&quot; and
+&quot;--gunzip&quot; with suffix &quot;.gz&quot;. They
+behave about like external gzip and gunzip but avoid forking
+a process for each single file. So they are much faster if
+there are many small files.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;external_filter</b> name option[:option]
+program_path [arguments] --</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Register a content filter by associating a name with a
+program path, program arguments, and some behavioral
+options. Once registered it can be applied to multiple data
+files in the ISO image, regardless whether their content
+resides in the loaded ISO image or in the local filesystem.
+External filter processes may produce synthetic file content
+by reading the original content from stdin and writing to
+stdout whatever they want. They must deliver the same output
+on the same input in repeated runs.<br>
+Options are:<br>
+&quot;default&quot; means that no other option is
+intended.<br>
+&quot;suffix=...&quot; sets a file name suffix. If it is not
+empty then it will be appended to the file name or removed
+from it.<br>
+&quot;remove_suffix&quot; will remove an eventual file name
+suffix rather than appending it.<br>
+&quot;if_nonempty&quot; will leave 0-sized files
+unfiltered.<br>
+&quot;if_reduction&quot; will try filtering and revoke it if
+the content size does not shrink.<br>
+&quot;if_block_reduction&quot; will revoke if the number of
+2 kB blocks does not shrink.<br>
+&quot;used=...&quot; is ignored. Command -status shows it
+with the number of files which currently have the filter
+applied.<br>
+Examples:<br>
+-external_filter bzip2 suffix=.bz2:if_block_reduction \<br>
+/usr/bin/bzip2 --<br>
+-external_filter bunzip2 suffix=.bz2:remove_suffix \<br>
+/usr/bin/bunzip2 --</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;unregister_filter</b> name</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Remove an -external_filter registration. This is only
+possible if the filter is not applied to any file in the ISO
+image.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;close_filter_list</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Irrevocably ban commands -external_filter and
+-unregister_filter, but not -set_filter. Use this to prevent
+external filtering in general or when all intended filters
+are registered. External filters may also be banned totally
+at compile time of xorriso. By default they are banned if
+xorriso runs under setuid permission.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;set_filter</b> name iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Apply an -external_filter or a built-in filter to the
+given data files in the ISO image. If the filter suffix is
+not empty , then it will be applied to the file name.
+Renaming only happens if the filter really gets attached and
+is not revoked by its options. By default files which
+already bear the suffix will not get filtered. The others
+will get the suffix appended to their names. If the filter
+has option &quot;remove_suffix&quot;, then the filter will
+only be applied if the suffix is present and can be removed.
+Name oversize or collision caused by suffix change will
+prevent filtering.<br>
+With most filter types this command will immediately run the
+filter once for each file in order to determine the output
+size. Content reading operations like -extract , -compare
+and image generation will perform further filter runs and
+deliver filtered content.<br>
+At image generation time the filter output must still be the
+same as the output from the first run. Filtering for image
+generation does not happen with files from the loaded ISO
+image if the write method of growing is in effect (i.e
+-indev and -outdev are identical).<br>
+The reserved filter name &quot;--remove-all-filters&quot;
+revokes filtering. This will revoke eventual suffix
+renamings as well. Use &quot;--remove-all-filters+&quot; to
+prevent any suffix renaming.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;set_filter_r</b> name iso_rr_path
+[***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like -set_filter but affecting all data files below
+eventual directories.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>&nbsp;<BR><b>Writing the result, drive control:</b><BR>&nbsp;<BR></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>(see also paragraph about settings below)</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;rollback</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Discard the manipulated ISO image and reload it from
+-indev. (Use -rollback_end if immediate program end is
+desired.)</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;commit</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Perform the write operation. Afterwards eventually make
+the -outdev the new -dev and load the image from there.
+Switch to growing mode. (A subsequent -outdev will activate
+modification mode or blind growing.) -commit is performed
+automatically at end of program if there are uncommitted
+manipulations pending.<br>
+So, to perform a final write operation with no new -dev and
+no new loading of image, rather execute option -end. If you
+want to go on without image loading, execute -commit_eject
+&quot;none&quot;. To eject after write without image
+loading, use -commit_eject &quot;all&quot;.<br>
+To suppress a final write, execute -rollback_end.</p>
+<!-- INDENTATION -->
+<p>Writing can last quite a while. It is not unnormal with
+several types of media that there is no progress visible for
+the first few minutes or that the drive gnaws on the media
+for a few minutes after all data have been transmitted.
+xorriso and the drives are in a client-server relationship.
+The drives have much freedom about what to do with the
+media. Some combinations of drives and media simply do not
+work, despite the promises by their vendors. If writing
+fails then try other media or another drive. The reason for
+such failure is hardly ever in the code of the various burn
+programs but you may well try some of those listed below
+under SEE ALSO.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;eject</b>
+&quot;in&quot;|&quot;out&quot;|&quot;all&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Eject the media in -indev, resp. -outdev, resp. both
+drives. Note: It is not possible yet to effectively eject
+disk files.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;commit_eject</b>
+&quot;in&quot;|&quot;out&quot;|&quot;all&quot;|&quot;none&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Combined -commit and -eject. When writing has finished do
+not make -outdev the new -dev, and load no ISO image. Rather
+eject -indev and/or -outdev. Eventually give up any
+non-ejected drive.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;blank</b> mode</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Make media ready for writing from scratch (if not -dummy
+is activated).<br>
+This affects only the -outdev not the -indev. If both drives
+are the same and if the ISO image was altered then this
+command leads to a FAILURE event. Defined modes are:
+as_needed, fast, all, deformat, deformat_quickest<br>
+&quot;as_needed&quot; cares for used CD-RW, DVD-RW and for
+used overwriteable media by applying -blank
+&quot;fast&quot;. It applies -format &quot;full&quot; to yet
+unformatted DVD-RAM and BD-RE. Other media in blank state
+are gracefully ignored. Media which cannot be made ready for
+writing from scratch cause a FAILURE event.<br>
+&quot;fast&quot; makes CD-RW and unformatted DVD-RW
+re-usable, or invalidates overwriteable ISO images.
+&quot;all&quot; might work more thoroughly and need more
+time.<br>
+&quot;deformat&quot; converts overwriteable DVD-RW into
+unformatted ones.<br>
+&quot;deformat_quickest&quot; is a faster way to deformat or
+blank DVD-RW but produces media which are only suitable for
+a single session. xorriso will write onto them only if
+option -close is set to &quot;on&quot;.<br>
+The progress reports issued by some drives while blanking
+are quite unrealistic. Do not conclude success or failure
+from the reported percentages. Blanking was successful if no
+SORRY event or worse occured.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;format</b> mode</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Convert unformatted DVD-RW into overwriteable ones,
+&quot;de-ice&quot; DVD+RW, format newly purchased BD-RE or
+BD-R, re-format DVD-RAM or BD-RE.<br>
+Defined modes are:<br>
+as_needed, full, fast, by_index_&lt;num&gt;,
+fast_by_index_&lt;num&gt;<br>
+&quot;as_needed&quot; formats yet unformatted DVD-RW,
+DVD-RAM, BD-RE, or blank unformatted BD-R. Other media are
+left untouched.<br>
+&quot;full&quot; (re-)formats DVD-RW, DVD+RW, DVD-RAM,
+BD-RE, or blank unformatted BD-R.<br>
+&quot;fast&quot; does the same as &quot;full&quot; but tries
+to be quicker.<br>
+&quot;by_index_&quot; selects a format out of the descriptor
+list issued by option -list_formats. The index number from
+that list is to be appended to the mode word. E.g:
+&quot;by_index_3&quot;.<br>
+&quot;fast_by_index_&quot; does the same as
+&quot;by_index_&quot; but tries to be quicker.<br>
+&quot;by_size_&quot; selects a format out of the descriptor
+list which provides at least the given size. That size is to
+be appended to the mode word. E.g:
+&quot;by_size_4100m&quot;. This applies to media with Defect
+Management.<br>
+&quot;fast_by_size_&quot; does the same as
+&quot;by_size_&quot; but tries to be quicker.<br>
+The formatting action has no effect on media if -dummy is
+activated.<br>
+Formatting is normally needed only once during the lifetime
+of a media, if ever. But it is a reason for re-formatting
+if:<br>
+DVD-RW was deformatted by -blank,<br>
+DVD+RW has read failures (re-format before next write),<br>
+DVD-RAM or BD-RE shall change their amount of defect
+reserve.<br>
+BD-R may be written unformatted or may be formatted before
+first use. Formatting activates Defect Management which
+tries to catch and repair bad spots on media during the
+write process at the expense of half speed even with
+flawless media.<br>
+The progress reports issued by some drives while formatting
+are quite unrealistic. Do not conclude success or failure
+from the reported percentages. Formatting was successful if
+no SORRY event or worse occured. Be patient with apparently
+frozen progress.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;list_formats</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Put out a list of format descriptors as reported by the
+output drive for the current media. The list gives the index
+number after &quot;Format idx&quot;, a MMC format code, the
+announced size in blocks (like &quot;2236704s&quot;) and the
+same size in MiB.<br>
+MMC format codes are manifold. Most important are:
+&quot;00h&quot; general formatting, &quot;01h&quot;
+increases reserve space for DVD-RAM, &quot;26h&quot; for
+DVD+RW, &quot;30h&quot; for BD-RE with reserve space,
+&quot;31h&quot; for BD-RE without reserve space,
+&quot;32h&quot; for BD-R.<br>
+Smaller format size with DVD-RAM, BD-RE, or BD-R means more
+reserve space.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;list_profiles</b>
+&quot;in&quot;|&quot;out&quot;|&quot;all&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Put out a list of media types supported by -indev, resp.
+-outdev, resp. both. The currently recognized type is marked
+by text &quot;(current)&quot;.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p>&nbsp;<BR><b>Settings for result writing:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
@@ -3160,8 +3190,8 @@ setting of option -acl.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>If enabled by &quot;on&quot;, generate Joliet info
-additional to Rock Ridge info.</p>
+<p>If enabled by &quot;on&quot;, generate Joliet tree
+additional to ISO 9660 + Rock Ridge tree.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6038,7 +6068,24 @@ that way.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>End program immediately</p>
+<p>End program after writing eventually pending changes.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;rollback_end</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Discard pending changes. End program immediately.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6968,5 +7015,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Mar 18 11:15:28 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Mar 29 12:36:16 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
