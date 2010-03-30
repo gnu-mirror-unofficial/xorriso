@@ -57,7 +57,8 @@ Images or add-on sessions may be written to about any kind of file object.
 <DD>With kernel 2.4 a PATA/IDE drive has to be under ide-scsi emulation.</DD>
 <DD>With kernel 2.6 ide-scsi is not needed.</DD>
 <DT>or FreeBSD, libc, libpthread :</DT>
-<DD>PATA/IDE and SATA drives need atapicam running.</DD>
+<DD>PATA/IDE drives need atapicam running.</DD>
+<DD>SATA drives need atapicam or ahci running.</DD>
 <DD>libcam has to be installed.</DD>
 <DD>libiconv has to be installed.</DD>
 <DT>or some other X/Open system, libc, libpthread :</DT>
@@ -435,19 +436,19 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-0.5.0.tar.gz">xorriso-0.5.0.tar.gz</A>
-(1370 KB).
+<DD><A HREF="xorriso-0.5.2.tar.gz">xorriso-0.5.2.tar.gz</A>
+(1560 KB).
 </DD>
-<DD>(Released 22 Feb 2010)</DD>
-<DD><A HREF="xorriso-0.5.0.tar.gz.sig">xorriso-0.5.0.tar.gz.sig</A></DD>
+<DD>(Released 29 Mar 2010)</DD>
+<DD><A HREF="xorriso-0.5.2.tar.gz.sig">xorriso-0.5.2.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-0.5.0.tar.gz.sig xorriso-0.5.0.tar.gz</KBD>).
+<KBD>gpg --verify xorriso-0.5.2.tar.gz.sig xorriso-0.5.2.tar.gz</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-0.5.0.tar.gz
+as xorriso/xorriso-0.5.2.tar.gz
 </DD>
 </DL>
 </DD>
@@ -475,21 +476,9 @@ as xorriso/xorriso-0.5.0.tar.gz
 <HR>
 
 <P>
-Bug fixes towards xorriso-0.4.8.pl00:
+Bug fixes towards xorriso-0.5.0:
 <UL>
-<LI>
-Regression in libisofs introduced with xorriso-0.4.2:
--boot_image isolinux patch could lead to SIGSEGV
-</LI>
-<LI>
-On FreeBSD: xorriso could leave the drive tray locked
-</LI>
-<LI>
-On FreeBSD: Piped input was falsely attributed a small fixed size
-</LI>
-<LI>
-xorriso -update_r could lead to SIGSEGV if applied to a data file
-</LI>
+<LI>- none -</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -509,9 +498,12 @@ Bug fixes towards xorriso-0.4.8.pl00:
 <P>
 Enhancements towards previous stable version xorriso-0.4.8.pl00:
 <UL>
-<LI>Transition of documentation and program messages towards GNU xorriso</LI>
 <LI>
-New option -scsi_log
+Manual now based on hybrid format of Texinfo and man-page.
+Copies included: xorriso.texi, xorriso.info , xorriso.1
+</LI>
+<LI>
+On FreeBSD: support for upcomming SATA driver "ahci"
 </LI>
 <!--
 <LI>- none -</LI>
@@ -535,7 +527,7 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-0.7.7</DT>
+<DT>libburn-0.7.9</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
@@ -544,7 +536,7 @@ Thomas Schmitt from team of libburnia-project.org)</DD>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-0.5.0</DT>
+<DT>libisoburn-0.5.2</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>(By Vreixo Formoso and Thomas Schmitt
@@ -559,28 +551,28 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 0.5.1 :</H3></DT>
-<DD>Bug fixes towards xorriso-0.5.0:
+<DT><H3>Development snapshot, version 0.5.3 :</H3></DT>
+<DD>Bug fixes towards xorriso-0.5.2:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
+<LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 0.5.0:
+<DD>Enhancements towards stable version 0.5.2:
 <UL>
 
-<LI>Manual now based on Texinfo format.
-Copies included: xorriso.texi, xorriso.info , xorriso.1</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 0.5.1</A>
-<DD><A HREF="xorriso_help_devel">xorriso_0.5.1 -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.1)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 0.5.3</A>
+<DD><A HREF="xorriso_help_devel">xorriso_0.5.3 -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.3)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -590,8 +582,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-0.5.1.tar.gz">xorriso-0.5.1.tar.gz</A>
-(1475 KB).
+<A HREF="xorriso-0.5.3.tar.gz">xorriso-0.5.3.tar.gz</A>
+(1560 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of
