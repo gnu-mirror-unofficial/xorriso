@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-ftp://ftp.gnu.org/gnu/xorriso/xorriso-0.5.0.tar.gz
+ftp://ftp.gnu.org/gnu/xorriso/xorriso-0.5.2.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -46,10 +46,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-0.5.0.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-0.5.2.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-0.5.0.tar.gz
-    cd xorriso-0.5.0
+    tar xzf xorriso-0.5.2.tar.gz
+    cd xorriso-0.5.2
 
 Within that directory execute:
 
@@ -71,21 +71,24 @@ or you may execute as superuser:
     make install
 
 For general concepts, options and usage examples see
+    info xorriso
+or
     man 1 xorriso
 
-This man page is part of the tarball as
+The documents are part of the tarball as
+    xorriso/xorriso.info
     xorriso/xorriso.1
+Original source text of both is
+    xorriso/xorriso.texi
 You may get a first glimpse by
+    info ./xorriso/xorriso.info
     man ./xorriso/xorriso.1
-
-It gets installed with "make install" but may also be placed manually in the
-./man1 directory below one of the directories mentioned in environment
-variable $MANPATH.
 
 The installation creates several alias links pointing to the xorriso binary:
     xorrisofs  starts xorriso with -as mkisofs emulation already enabled
     xorrecord  starts xorriso with -as cdrecord emulation already enabled
     osirrox    starts with -osirrox image-to-disk copying already enabled
+
 
 If you want to avoid dependecy on libreadline although the libreadline
 development package is installed, then rather build xorriso by:
@@ -280,7 +283,7 @@ and a matching dynamically linked xorriso binary.
 This binary is leaner but depends on properly installed libraries of suitable
 revision.
 
-Dynamic library and compile time header requirements for libisoburn-0.5.0 :
+Dynamic library and compile time header requirements for libisoburn-0.5.2 :
 - libburn.so.4  , version libburn-0.7.6 or higher
 - libisofs.so.6 , version libisofs-0.6.28 or higher
 libisoburn and xorriso will not start with libraries which are older than their
