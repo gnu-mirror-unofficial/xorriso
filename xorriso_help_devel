@@ -79,13 +79,17 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -compliance rule[:rule...]
                  Allow more or less harmless deviations from strict standards
                  compliance.
-  -boot_image "any"|"isolinux" "discard"|"keep"|"patch"|"dir="
-                               "bin_path="|"cat_path="|"load_size="
+  -boot_image "any"|"isolinux"|"grub"
+              "discard"|"keep"|"patch"|"dir="|"bin_path="|"cat_path="
+              |"load_size="|"system_area="|"partition_table=on|off"
                  Whether to discard or keep an exiting El Torito boot image.
                  ISOLINUX can be made bootable by dir=/ or dir=/isolinux
-                 or dir=/boot/isolinux or by bin_path=... and cat_path=...
-                 The ISOLINUX files need to be added to the ISO image by
-                 help of the usual commands like -map or -add.
+                 or dir=/boot/isolinux. Others, like GRUB, by bin_path=...
+                 and cat_path=...
+                 The boot image and its helper files need to be added to the
+                 ISO image by the usual commands like -map or -add.
+                 system_area= and partition_table= are for MBR based booting
+                 from USB stick. The system_area= file needs not to be added.
 
   -uid uid       User id to be used for the whole multi-session ISO image.
   -gid gid       Group id for the same purpose.
