@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Apr  7 09:31:06 2010 -->
+<!-- CreationDate: Thu Apr  8 21:00:10 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2696,6 +2696,11 @@ E.g.: -find / -has_xattr -exec setfattr --remove-all
 &rsquo;&rsquo; --<b><br>
 set_filter</b> applies or removes filters.<br>
 E.g.: -exec set_filter --zisofs --<b><br>
+mkisofs_r</b> applies the rules of mkisofs -r to the file
+object:<br>
+user id and group id become 0, all r-permissions get
+granted, all w denied. If there is any x-permission, then
+all three x get granted. s- and t-bits get removed.<b><br>
 show_stream</b> shows the content stream chain of a data
 file.<b><br>
 find</b> performs another run of -find on the matching file
@@ -3374,6 +3379,45 @@ setting gets overridden by image loading.</p>
 and act upon the content of the System Area in image blocks
 0 to 15. Permissible are up to 32 characters. This setting
 gets overridden by image loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;volume_date</b> type timestring</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set one of the four overall timestamps for subsequent
+image writing. Available types are:<br>
+&quot;c&quot; time when the volume was created.<br>
+&quot;m&quot; time when volume was last modified.<br>
+&quot;x&quot; time when the information in the volume
+expires.<br>
+&quot;f&quot; time since when the volume is effectively
+valid.<br>
+&quot;uuid&quot; sets a timestring that overrides
+&quot;m&quot; time literally.<br>
+It must consist of 16 decimal digits which form
+YYYYMMDDhhmmsscc, with YYYY between 1970 and 2999. Time zone
+is GMT. It is supposed to match this GRUB line:<br>
+search --fs-uuid --set YYYY-MM-DD-hh-mm-ss-cc<br>
+E.g. 2010040711405800 is 7 Apr 2010 11:40:58 (+0
+centiseconds).<br>
+Timestrings for the other types may be given as with option
+-alter_date. They are prone to timezone computations. The
+timestrings &quot;default&quot; or &quot;overridden&quot;
+cause default settings: &quot;c&quot; and &quot;m&quot; will
+show the current time of image creation. &quot;x&quot; and
+&quot;f&quot; will be marked as insignificant.
+&quot;uuid&quot; will be deactivated.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5569,10 +5613,10 @@ word.</p>
 <p>Personality &quot;<b>mkisofs</b>&quot; accepts the
 options listed with:<br>
 -as mkisofs -help --<br>
-Among them: -R (always on), -J, -o, -M, -C, -path-list, -m,
--exclude-list, -f, -print-size, -pad, -no-pad, -V, -v,
+Among them: -R (always on), -r, -J, -o, -M, -C, -path-list,
+-m, -exclude-list, -f, -print-size, -pad, -no-pad, -V, -v,
 -version, -graft-points, -z, -no-emul-boot, -b, -c,
--boot-info-table, -boot-load-size, -input-charset,
+-boot-info-table, -boot-load-size, -input-charset, -G,
 -output-charset, pathspecs as with xorriso -add. A lot of
 options are not supported and lead to failure of the mkisofs
 emulation. Some are ignored, but better do not rely on this
@@ -5608,6 +5652,10 @@ work like the xorriso options with the same name and
 hardcoded argument &quot;on&quot;, e.g. -acl &quot;on&quot;.
 Explicit arguments are expected by --stdio_sync and
 --scdbackup_tag.<br>
+Adopted from grub-mkisofs are --protective-msdos-label (see
+-boot_image grub partition_table=on) and
+--modification-date=YYYYMMDDhhmmsscc (see -volume_date
+uuid).<br>
 Personalites &quot;<b>xorrisofs</b>&quot;,
 &quot;<b>genisoimage</b>&quot;, and
 &quot;<b>genisofs</b>&quot; are aliases for
@@ -7040,5 +7088,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Apr  7 09:31:06 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Apr  8 21:00:10 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
