@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Apr 11 14:24:41 2010 -->
+<!-- CreationDate: Tue Apr 13 13:58:14 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3226,7 +3226,9 @@ by appending &quot;_off&quot;. Like
 &quot;deep_paths_off&quot;.<br>
 Rule keywords are:<br>
 &quot;omit_version&quot; do not add versions
-(&quot;;1&quot;) to ISO file names.<br>
+(&quot;;1&quot;) to ISO and Joliet file names.<br>
+&quot;only_iso_version&quot; do not add versions
+(&quot;;1&quot;) to Joliet file names.<br>
 &quot;deep_paths&quot; allow ISO file paths deeper than 8
 levels.<br>
 &quot;long_paths&quot; allow ISO file paths longer than 255
@@ -3235,6 +3237,8 @@ characters.<br>
 file names.<br>
 &quot;no_force_dots&quot; do not add a dot to ISO file names
 which have none.<br>
+&quot;no_j_force_dots&quot; do not add a dot to Joliet file
+names which have none.<br>
 &quot;lowercase&quot; allow lowercase characters in ISO file
 names.<br>
 &quot;full_ascii&quot; allow all ASCII characters in ISO
@@ -3258,7 +3262,8 @@ unofficial extension of RRIP rather than as official
 extension under SUSP-1.12.<br>
 Default setting is<br>
 
-&quot;clear:deep_paths:long_paths:always_gmt:old_rr&quot;.<br>
+&quot;clear:only_iso_version:deep_paths:long_paths:no_j_force_dots:<br>
+always_gmt:old_rr&quot;.<br>
 Note: The term &quot;ISO file&quot; means the plain ISO 9660
 names and attributes which get visible if the reader ignores
 Rock Ridge.</p>
@@ -6911,6 +6916,33 @@ sbsector= resp. -s.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
+<p><b>Program alias names:</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>Normal installation of xorriso creates three links or
+copies which by their program name pre-select certain
+settings:<b><br>
+xorrisofs</b> starts xorriso with -as mkisofs
+emulation.<b><br>
+xorrecord</b> starts xorriso with -as cdrecord
+emulation.<b><br>
+osirrox</b> starts with -osirrox &quot;on:o_excl_off&quot;
+which allows to copy files from ISO image to disk and to
+apply option -mount to one or more of the existing ISO
+sessions.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td>
+<td width="95%">
 <p><b>Startup files:</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -7102,5 +7134,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Apr 11 14:24:41 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Apr 13 13:58:14 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
