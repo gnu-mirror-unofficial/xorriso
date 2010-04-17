@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Apr 13 18:16:57 2010 -->
+<!-- CreationDate: Sat Apr 17 19:14:36 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -92,8 +92,8 @@ Updates ISO subtrees incrementally to match given disk
 subtrees.<br>
 Writes result either as completely new image or as add-on
 session to optical media or filesystem objects.<br>
-Can activate ISOLINUX and GRUB boot images via El
-Torito.<br>
+Can activate ISOLINUX and GRUB boot images via El Torito and
+MBR.<br>
 Can perform multi-session tasks as emulation of mkisofs and
 cdrecord.<br>
 Can record and restore hard links and ACL.<br>
@@ -3409,10 +3409,10 @@ expires.<br>
 &quot;f&quot; time since when the volume is effectively
 valid.<br>
 &quot;uuid&quot; sets a timestring that overrides
-&quot;m&quot; time literally.<br>
-It must consist of 16 decimal digits which form
-YYYYMMDDhhmmsscc, with YYYY between 1970 and 2999. Time zone
-is GMT. It is supposed to match this GRUB line:<br>
+&quot;c&quot; and &quot;m&quot; times literally. It must
+consist of 16 decimal digits which form YYYYMMDDhhmmsscc,
+with YYYY between 1970 and 2999. Time zone is GMT. It is
+supposed to match this GRUB line:<br>
 search --fs-uuid --set YYYY-MM-DD-hh-mm-ss-cc<br>
 E.g. 2010040711405800 is 7 Apr 2010 11:40:58 (+0
 centiseconds).<br>
@@ -3832,6 +3832,9 @@ from the given disk file to the very start of the ISO image.
 This System Area is reserved for system dependent boot
 software, e.g. an MBR which can be used to boot from USB
 stick or hard disk.<br>
+Special disk_path &quot;/dev/zero&quot; causes 32k of
+NUL-bytes. Use this to discard an MBR which eventually was
+loaded with the ISO image.<br>
 Other than a El Torito boot image, the file disk_path needs
 not to be added to the ISO image.<br>
 -boot_image isolinux system_area= implies
@@ -7134,5 +7137,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Apr 13 18:16:57 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Apr 17 19:14:36 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
