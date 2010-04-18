@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat Apr 17 19:14:36 2010 -->
+<!-- CreationDate: Sun Apr 18 12:22:09 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2701,6 +2701,14 @@ object:<br>
 user id and group id become 0, all r-permissions get
 granted, all w denied. If there is any x-permission, then
 all three x get granted. s- and t-bits get removed.<b><br>
+sort_weight</b> attributes a LBA weight number to regular
+files.<br>
+The number may range from -2147483648 to 2147483647. The
+higher it is, the lower will be the block address of the
+file data in the emerging ISO image. (Currently the boot
+catalog has a hardcoded weight of 1000. Better keep own
+weights lower than that.)<br>
+E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
 file.<b><br>
 find</b> performs another run of -find on the matching file
@@ -5670,6 +5678,10 @@ work like the xorriso options with the same name and
 hardcoded argument &quot;on&quot;, e.g. -acl &quot;on&quot;.
 Explicit arguments are expected by --stdio_sync and
 --scdbackup_tag.<br>
+--sort-weight gets as argument a number and an iso_rr_path.
+The number becomes the LBA sorting weight of regular file
+iso_rr_path or of all regular files underneath directory
+iso_rr_path. (See -find -exec sort_weight).<br>
 Adopted from grub-mkisofs are --protective-msdos-label (see
 -boot_image grub partition_table=on) and
 --modification-date=YYYYMMDDhhmmsscc (see -volume_date
@@ -7137,5 +7149,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Apr 17 19:14:36 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Apr 18 12:22:09 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
