@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Apr 18 12:22:09 2010 -->
+<!-- CreationDate: Mon Apr 19 11:52:57 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -486,7 +486,11 @@ El Torito object which makes such an image bootable. For
 details see option -boot_image.<br>
 It is possible to make ISO images bootable from USB stick or
 other hard-disk-like media by -boot_image argument
-system_area= .<br>
+system_area= . This installs a Master Boot Record which may
+get adjusted according to the needs of GRUB resp. ISOLINUX.
+An <b>MBR</b> contains boot code and a partition table. It
+does not hamper CDROM booting. The new MBR of a follow-up
+session can get in effect only on overwriteable media.<br>
 Emulation -as mkisofs supports the example options out of
 the ISOLINUX wiki. It also supports the options used in GRUB
 script grub-mkrescue.<br>
@@ -3840,9 +3844,6 @@ from the given disk file to the very start of the ISO image.
 This System Area is reserved for system dependent boot
 software, e.g. an MBR which can be used to boot from USB
 stick or hard disk.<br>
-Special disk_path &quot;/dev/zero&quot; causes 32k of
-NUL-bytes. Use this to discard an MBR which eventually was
-loaded with the ISO image.<br>
 Other than a El Torito boot image, the file disk_path needs
 not to be added to the ISO image.<br>
 -boot_image isolinux system_area= implies
@@ -3852,13 +3853,25 @@ table to be written into bytes 446 to 511 of the System
 Area.<br>
 With type &quot;isolinux&quot; it shows a partition that
 begins at byte 0 and it causes the boot image LBA to be
-written into the MBR. This works only if also
-&quot;system_area=&quot; and &quot;bin_path=&quot; or
-&quot;dir=&quot; is given.<br>
+written into the MBR. For the first session this works only
+if also &quot;system_area=&quot; and &quot;bin_path=&quot;
+or &quot;dir=&quot; is given.<br>
 With types &quot;any&quot; and &quot;grub&quot; it shows a
 single partiton which starts at byte 512 and ends where the
 ISO image ends. This works with or without system_area= or
-boot image.</p>
+boot image.<br>
+In follow-up sessions the existing System Area is preserved
+by default. If types &quot;isolinux&quot; or
+&quot;grub&quot; are set to &quot;patch&quot;, then
+&quot;partition_table=on&quot; is activated without new boot
+image. In this case the existing System Area gets checked
+whether it bears addresses and sizes as if it had been
+processed by &quot;partition_table=on&quot;. If so, then
+those parameters get updated when the new System Area is
+written.<br>
+Special &quot;system_area=/dev/zero&quot; causes 32k of
+NUL-bytes. Use this to discard an MBR which eventually was
+loaded with the ISO image.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5678,7 +5691,7 @@ work like the xorriso options with the same name and
 hardcoded argument &quot;on&quot;, e.g. -acl &quot;on&quot;.
 Explicit arguments are expected by --stdio_sync and
 --scdbackup_tag.<br>
---sort-weight gets as argument a number and an iso_rr_path.
+--sort-weight gets as arguments a number and an iso_rr_path.
 The number becomes the LBA sorting weight of regular file
 iso_rr_path or of all regular files underneath directory
 iso_rr_path. (See -find -exec sort_weight).<br>
@@ -7149,5 +7162,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Apr 18 12:22:09 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Apr 19 11:52:57 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
