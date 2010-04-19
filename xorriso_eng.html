@@ -436,19 +436,19 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-0.5.2.tar.gz">xorriso-0.5.2.tar.gz</A>
-(1560 KB).
+<DD><A HREF="xorriso-0.5.4.tar.gz">xorriso-0.5.4.tar.gz</A>
+(1580 KB).
 </DD>
-<DD>(Released 29 Mar 2010)</DD>
-<DD><A HREF="xorriso-0.5.2.tar.gz.sig">xorriso-0.5.2.tar.gz.sig</A></DD>
+<DD>(Released 18 Apr 2010)</DD>
+<DD><A HREF="xorriso-0.5.4.tar.gz.sig">xorriso-0.5.4.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-0.5.2.tar.gz.sig xorriso-0.5.2.tar.gz</KBD>).
+<KBD>gpg --verify xorriso-0.5.4.tar.gz.sig xorriso-0.5.4.tar.gz</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-0.5.2.tar.gz
+as xorriso/xorriso-0.5.4.tar.gz
 </DD>
 </DL>
 </DD>
@@ -476,7 +476,7 @@ as xorriso/xorriso-0.5.2.tar.gz
 <HR>
 
 <P>
-Bug fixes towards xorriso-0.5.0:
+Bug fixes towards xorriso-0.5.2:
 <UL>
 <LI>- none -</LI>
 <!--
@@ -487,7 +487,7 @@ Bug fixes towards xorriso-0.5.0:
 
 <!--
 <P>
-Bug fixes towards xorriso-0.5.0:
+Bug fixes in .pl01 towards xorriso-:
 <UL>
 <LI>
 </LI>
@@ -496,14 +496,25 @@ Bug fixes towards xorriso-0.5.0:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-0.5.0.pl00:
+Enhancements towards previous stable version xorriso-0.5.2.pl00:
 <UL>
 <LI>
-Manual now based on hybrid format of Texinfo and man-page.
-Copies included: xorriso.texi, xorriso.info , xorriso.1
+New -as mkisofs options -G and --protective-msdos-label for grub-mkrescue
 </LI>
 <LI>
-On FreeBSD: support for upcomming SATA driver "ahci"
+New option -volume_date, for grub-mkrescue: -as mkisofs --modification-date=
+</LI>
+<LI>
+New: -boot_image isolinux partition_table=on, -as mkisofs -isohybrid-mbr
+</LI>
+<LI>
+New find action mkisofs_r and emulation -as mkisofs -r
+</LI>
+<LI>
+New -find action sort_weight, new -as mkisofs --sort-weight
+</LI>
+<LI>
+New -compliance options only_iso_version, no_j_force_dots
 </LI>
 <!--
 <LI>- none -</LI>
@@ -527,16 +538,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-0.7.9</DT>
+<DT>libburn-0.8.1</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-0.6.29</DT>
+<DT>libisofs-0.6.31</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-0.5.2</DT>
+<DT>libisoburn-0.5.4</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>(By Vreixo Formoso and Thomas Schmitt
@@ -551,8 +562,8 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 0.5.3 :</H3></DT>
-<DD>Bug fixes towards xorriso-0.5.2:
+<DT><H3>Development snapshot, version 0.5.5 :</H3></DT>
+<DD>Bug fixes towards xorriso-0.5.4:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
@@ -560,32 +571,18 @@ cdrecord and mkisofs.</DT>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 0.5.2:
+<DD>Enhancements towards stable version 0.5.4:
 <UL>
-<LI>
-New -as mkisofs options -G and --protective-msdos-label for grub-mkrescue
-</LI>
-<LI>
-New option -volume_date, for grub-mkrescue: -as mkisofs --modification-date=
-</LI>
-<LI>
-New: -boot_image isolinux partition_table=on, -as mkisofs -isohybrid-mbr
-</LI>
-<LI>
-New find action mkisofs_r and emulation -as mkisofs -r
-</LI>
-<LI>
-New -compliance options only_iso_version, no_j_force_dots
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 0.5.3</A>
-<DD><A HREF="xorriso_help_devel">xorriso_0.5.3 -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.3)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 0.5.5</A>
+<DD><A HREF="xorriso_help_devel">xorriso_0.5.5 -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.5)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -595,8 +592,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-0.5.3.tar.gz">xorriso-0.5.3.tar.gz</A>
-(1560 KB).
+<A HREF="xorriso-0.5.5.tar.gz">xorriso-0.5.5.tar.gz</A>
+(1580 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

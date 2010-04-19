@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Mar 29 21:09:04 2010 -->
+<!-- CreationDate: Mon Apr 19 10:26:54 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -92,7 +92,8 @@ Updates ISO subtrees incrementally to match given disk
 subtrees.<br>
 Writes result either as completely new image or as add-on
 session to optical media or filesystem objects.<br>
-Can activate ISOLINUX boot images via El Torito.<br>
+Can activate ISOLINUX and GRUB boot images via El Torito and
+MBR.<br>
 Can perform multi-session tasks as emulation of mkisofs and
 cdrecord.<br>
 Can record and restore hard links and ACL.<br>
@@ -479,19 +480,21 @@ which is a binary program plus some other files stored in
 the ISO image, with the bootstrapping facility of
 contemporary computers. The content of the boot image files
 is not in the scope of El Torito.<br>
-Most bootable GNU/Linux CDs are equipped with ISOLINUX boot
-images. xorriso is able to create or maintain an El Torito
-object which makes such an image bootable. For details see
-option -boot_image. Emulation -as mkisofs supports the
-example options out of the ISOLINUX wiki.<br>
-The support for other boot image types is sparse.<br>
-An MBR is generated together with the El Torito boot record
-if the boot image bears the isohybrid signature of ISOLINUX
-3.72 or later. It will occupy the first 512 bytes of the
-emerging ISO image and enable booting from media which
-appear as hard disk rather than as CDROM. An MBR does not
-hamper CDROM booting. The MBR of a follow-up session can get
-in effect only on overwriteable media.</p>
+Most bootable GNU/Linux CDs are equipped with ISOLINUX or
+GRUB boot images. xorriso is able to create or maintain an
+El Torito object which makes such an image bootable. For
+details see option -boot_image.<br>
+It is possible to make ISO images bootable from USB stick or
+other hard-disk-like media by -boot_image argument
+system_area= . This installs a Master Boot Record which may
+get adjusted according to the needs of GRUB resp. ISOLINUX.
+An <b>MBR</b> contains boot code and a partition table. It
+does not hamper CDROM booting. The new MBR of a follow-up
+session can get in effect only on overwriteable media.<br>
+Emulation -as mkisofs supports the example options out of
+the ISOLINUX wiki. It also supports the options used in GRUB
+script grub-mkrescue.<br>
+The support for other boot image types is sparse.</p>
 <!-- INDENTATION -->
 <p><b>ACL</b> are an advanced way of controlling access
 permissions to file objects. Neither ISO 9660 nor Rock Ridge
@@ -854,9 +857,9 @@ loading.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Load a particular (possibly outdated) ISO image from -dev
-or -indev. Usually all available sessions are shown with
-option -toc.<br>
+<p>Load a particular (possibly outdated) ISO session from
+&nbsp;&nbsp;-dev or -indev. Usually all available sessions are shown
+with option -toc.<br>
 entity depicts the kind of addressing. id depicts the
 particular address. The following entities are defined:<br>
 &quot;auto&quot; with any id addresses the last session in
@@ -2697,6 +2700,19 @@ E.g.: -find / -has_xattr -exec setfattr --remove-all
 &rsquo;&rsquo; --<b><br>
 set_filter</b> applies or removes filters.<br>
 E.g.: -exec set_filter --zisofs --<b><br>
+mkisofs_r</b> applies the rules of mkisofs -r to the file
+object:<br>
+user id and group id become 0, all r-permissions get
+granted, all w denied. If there is any x-permission, then
+all three x get granted. s- and t-bits get removed.<b><br>
+sort_weight</b> attributes a LBA weight number to regular
+files.<br>
+The number may range from -2147483648 to 2147483647. The
+higher it is, the lower will be the block address of the
+file data in the emerging ISO image. (Currently the boot
+catalog has a hardcoded weight of 1000. Better keep own
+weights lower than that.)<br>
+E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
 file.<b><br>
 find</b> performs another run of -find on the matching file
@@ -3222,7 +3238,9 @@ by appending &quot;_off&quot;. Like
 &quot;deep_paths_off&quot;.<br>
 Rule keywords are:<br>
 &quot;omit_version&quot; do not add versions
-(&quot;;1&quot;) to ISO file names.<br>
+(&quot;;1&quot;) to ISO and Joliet file names.<br>
+&quot;only_iso_version&quot; do not add versions
+(&quot;;1&quot;) to Joliet file names.<br>
 &quot;deep_paths&quot; allow ISO file paths deeper than 8
 levels.<br>
 &quot;long_paths&quot; allow ISO file paths longer than 255
@@ -3231,6 +3249,8 @@ characters.<br>
 file names.<br>
 &quot;no_force_dots&quot; do not add a dot to ISO file names
 which have none.<br>
+&quot;no_j_force_dots&quot; do not add a dot to Joliet file
+names which have none.<br>
 &quot;lowercase&quot; allow lowercase characters in ISO file
 names.<br>
 &quot;full_ascii&quot; allow all ASCII characters in ISO
@@ -3254,7 +3274,8 @@ unofficial extension of RRIP rather than as official
 extension under SUSP-1.12.<br>
 Default setting is<br>
 
-&quot;clear:deep_paths:long_paths:always_gmt:old_rr&quot;.<br>
+&quot;clear:only_iso_version:deep_paths:long_paths:no_j_force_dots:<br>
+always_gmt:old_rr&quot;.<br>
 Note: The term &quot;ISO file&quot; means the plain ISO 9660
 names and attributes which get visible if the reader ignores
 Rock Ridge.</p>
@@ -3375,6 +3396,45 @@ setting gets overridden by image loading.</p>
 and act upon the content of the System Area in image blocks
 0 to 15. Permissible are up to 32 characters. This setting
 gets overridden by image loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;volume_date</b> type timestring</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set one of the four overall timestamps for subsequent
+image writing. Available types are:<br>
+&quot;c&quot; time when the volume was created.<br>
+&quot;m&quot; time when volume was last modified.<br>
+&quot;x&quot; time when the information in the volume
+expires.<br>
+&quot;f&quot; time since when the volume is effectively
+valid.<br>
+&quot;uuid&quot; sets a timestring that overrides
+&quot;c&quot; and &quot;m&quot; times literally. It must
+consist of 16 decimal digits which form YYYYMMDDhhmmsscc,
+with YYYY between 1970 and 2999. Time zone is GMT. It is
+supposed to match this GRUB line:<br>
+search --fs-uuid --set YYYY-MM-DD-hh-mm-ss-cc<br>
+E.g. 2010040711405800 is 7 Apr 2010 11:40:58 (+0
+centiseconds).<br>
+Timestrings for the other types may be given as with option
+-alter_date. They are prone to timezone computations. The
+timestrings &quot;default&quot; or &quot;overridden&quot;
+cause default settings: &quot;c&quot; and &quot;m&quot; will
+show the current time of image creation. &quot;x&quot; and
+&quot;f&quot; will be marked as insignificant.
+&quot;uuid&quot; will be deactivated.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3684,11 +3744,11 @@ implies that the whole bootable system has to reside already
 in the first session and that the last session still has to
 bear all files which the booted system expects after
 eventually mounting the ISO image.<br>
-If ISOLINUX is known to be present on media then it is
-advised to patch it when a follow-up session gets written.
-But one should not rely on the capability to influence the
-bootability of the existing sessions, unless one can assume
-overwriteable media.</p>
+If a boot image from ISOLINUX or GRUB is known to be present
+on media then it is advised to patch it when a follow-up
+session gets written. But one should not rely on the
+capability to influence the bootability of the existing
+sessions, unless one can assume overwriteable media.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3698,7 +3758,7 @@ overwriteable media.</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>&minus;boot_image</b>
-&quot;any&quot;|&quot;isolinux&quot;</p></td>
+&quot;any&quot;|&quot;isolinux&quot;|&quot;grub&quot;</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3708,20 +3768,28 @@ overwriteable media.</p>
 <td width="77%">
 
 <p>&quot;discard&quot;|&quot;keep&quot;|&quot;patch&quot;|&quot;show_status&quot;|bootspec<br>
-Define the handling of an eventual El Torito object which
-has been read from an existing ISO image or define how to
-make a prepared ISOLINUX file set bootable.</p>
+Define the handling of an eventual El Torito boot image
+object which has been read from an existing ISO image or
+define how to make a prepared boot image file set bootable.
+Such file sets get produced by ISOLINUX or GRUB.<br>
+Each -boot_image command has two arguments: type and
+setting. More than one -boot_image command may be used to
+define the handling. Sequence matters.<br>
+Types &quot;isolinux&quot; and &quot;grub&quot; care for
+known peculiarities. Type &quot;any&quot; makes no
+assumptions about the origin of the boot image.</p>
 <!-- INDENTATION -->
-<p>All types (&quot;any&quot;) of El Torito boot images can
-be discarded or kept unaltered. The latter makes only sense
-if the format of the boot image is relocatable without
-content changes.<br>
-With any type, &quot;show_status&quot; will print what is
-known about the loaded image and its designated fate.<br>
-An existing boot image of type &quot;isolinux&quot; can be
-discarded or it can be patched to match its relocation. In
-the latter case the resulting ISO image stays bootable if
-the boot image was really produced by ISOLINUX.<br>
+<p>El Torito boot images of any type can be newly inserted,
+or discarded, or patched, or kept unaltered. The latter is
+only safe if the format of the boot image is relocatable
+without content changes.<br>
+Some boot images contain a boot info table, which needs to
+be patched when the boot image gets newly introduced into
+the ISO image or if an existing image gets relocated. This
+is automatically done if type &quot;isolinux&quot; or
+&quot;grub&quot; is given, but not with &quot;any&quot;.<br>
+&quot;show_status&quot; will print what is known about the
+loaded image and its designated fate.<br>
 CAUTION: This is an expert option. xorriso cannot recognize
 the inner form of boot images. So the user has already to
 know about the particular needs of the boot image which is
@@ -3730,38 +3798,80 @@ Most safe is the default: -boot_image &quot;any&quot;
 &quot;discard&quot;.</p>
 <!-- INDENTATION -->
 <p>A bootspec is a word of the form name=value and is used
-to describe the activation of a ISOLINUX boot image by an El
-Torito record and eventually a MBR. The names
-&quot;dir&quot; and &quot;bin_path&quot; lead to boot image
-activation.<br>
+to describe the activation of a boot image by an El Torito
+record and eventually a MBR. The names &quot;dir&quot; and
+&quot;bin_path&quot; lead to El Torito boot image
+activation. Name &quot;system_area&quot; activates the given
+file as MBR.<br>
 On all media types this is possible within the first
 session. In further sessions an existing boot image can get
 replaced by a new one, but depending on the media type this
 may have few effect at boot time. See above.<br>
-The ISOLINUX files have to be added to the ISO image by
-normal means (image loading, -map, -add, ...) and should
-reside either in ISO image directory /isolinux or in
-/boot/isolinux . In that case it suffices to use as bootspec
-the text &quot;dir=/isolinux&quot; or
-&quot;dir=/boot/isolinux&quot;. E.g.:<br>
+The boot image and its supporting files have to be added to
+the ISO image by normal means (image loading, -map, -add,
+...). In case of ISOLINUX the files should reside either in
+ISO image directory /isolinux or in /boot/isolinux . In that
+case it suffices to use as bootspec the text
+&quot;dir=/isolinux&quot; or &quot;dir=/boot/isolinux&quot;.
+E.g.:<br>
 -boot_image isolinux dir=/boot/isolinux<br>
 which bundles these individual settings:<br>
 -boot_image isolinux
 bin_path=/boot/isolinux/isolinux.bin<br>
 -boot_image isolinux cat_path=/boot/isolinux/boot.cat<br>
 -boot_image isolinux load_size=2048<br>
-bin_path depicts the binary program which is to be started
-by the BIOS at boot time. It is among the files produced by
-ISOLINUX.<br>
+-boot_image any boot_info_table=on<br>
+&quot;bin_path=&quot; depicts the binary program which is to
+be started by the BIOS at boot time.<br>
 An El Torito boot catalog file gets inserted into the ISO
-image with address cat_path at -commit time. It is subject
-to normal -overwrite and -reassure processing if there is
-already a file with the same name.<br>
-Bootspec &quot;isohybrid=off&quot; disables MBR generation,
-&quot;isohybrid=on&quot; prevents the write session if not
-the isohybrid signature is found in the bin_path file.
-Default is &quot;isohybrid=auto&quot; which silently omits
-the MBR if the signature is missing.</p>
+image with address &quot;cat_path=&quot; at -commit time. It
+is subject to normal -overwrite and -reassure processing if
+there is already a file with the same name.<br>
+&quot;load_size=&quot; is a value which depends on the boot
+image. Default 2048 should be overridden only if a better
+value is known.<br>
+&quot;boot_info_table=on&quot; may be used to apply patching
+to a boot image which is given by &quot;any&quot;
+&quot;bin_path=&quot;. &quot;boot_info_table=off&quot;
+disables patching.<br>
+&quot;discard&quot; gives up an existing boot image.<br>
+&quot;keep&quot; keeps or copies an existing boot image
+unaltered.<br>
+&quot;patch&quot; applies boot info table patching if an
+existing boot image gets copied to a new location.<br>
+&quot;system_area=&quot;disk_path copies at most 32768 bytes
+from the given disk file to the very start of the ISO image.
+This System Area is reserved for system dependent boot
+software, e.g. an MBR which can be used to boot from USB
+stick or hard disk.<br>
+Other than a El Torito boot image, the file disk_path needs
+not to be added to the ISO image.<br>
+-boot_image isolinux system_area= implies
+&quot;partition_table=on&quot;.<br>
+&quot;partition_table=on&quot; causes a simple partition
+table to be written into bytes 446 to 511 of the System
+Area.<br>
+With type &quot;isolinux&quot; it shows a partition that
+begins at byte 0 and it causes the boot image LBA to be
+written into the MBR. For the first session this works only
+if also &quot;system_area=&quot; and &quot;bin_path=&quot;
+or &quot;dir=&quot; is given.<br>
+With types &quot;any&quot; and &quot;grub&quot; it shows a
+single partiton which starts at byte 512 and ends where the
+ISO image ends. This works with or without system_area= or
+boot image.<br>
+In follow-up sessions the existing System Area is preserved
+by default. If types &quot;isolinux&quot; or
+&quot;grub&quot; are set to &quot;patch&quot;, then
+&quot;partition_table=on&quot; is activated without new boot
+image. In this case the existing System Area gets checked
+whether it bears addresses and sizes as if it had been
+processed by &quot;partition_table=on&quot;. If so, then
+those parameters get updated when the new System Area is
+written.<br>
+Special &quot;system_area=/dev/zero&quot; causes 32k of
+NUL-bytes. Use this to discard an MBR which eventually was
+loaded with the ISO image.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5542,10 +5652,10 @@ word.</p>
 <p>Personality &quot;<b>mkisofs</b>&quot; accepts the
 options listed with:<br>
 -as mkisofs -help --<br>
-Among them: -R (always on), -J, -o, -M, -C, -path-list, -m,
--exclude-list, -f, -print-size, -pad, -no-pad, -V, -v,
+Among them: -R (always on), -r, -J, -o, -M, -C, -path-list,
+-m, -exclude-list, -f, -print-size, -pad, -no-pad, -V, -v,
 -version, -graft-points, -z, -no-emul-boot, -b, -c,
--boot-info-table, -boot-load-size, -input-charset,
+-boot-info-table, -boot-load-size, -input-charset, -G,
 -output-charset, pathspecs as with xorriso -add. A lot of
 options are not supported and lead to failure of the mkisofs
 emulation. Some are ignored, but better do not rely on this
@@ -5581,8 +5691,18 @@ work like the xorriso options with the same name and
 hardcoded argument &quot;on&quot;, e.g. -acl &quot;on&quot;.
 Explicit arguments are expected by --stdio_sync and
 --scdbackup_tag.<br>
-Quite special is isolinux_mbr= (see -boot_image isolinux
-isohybrid=).<br>
+--sort-weight gets as arguments a number and an iso_rr_path.
+The number becomes the LBA sorting weight of regular file
+iso_rr_path or of all regular files underneath directory
+iso_rr_path. (See -find -exec sort_weight).<br>
+Adopted from grub-mkisofs are --protective-msdos-label (see
+-boot_image grub partition_table=on) and
+--modification-date=YYYYMMDDhhmmsscc (see -volume_date
+uuid).<br>
+For MBR bootable ISOLINUX images there is -isohybrid-mbr
+FILE, where FILE is one of the Syslinux files
+mbr/isohdp[fp]x*.bin . Use this instead of -G to apply the
+effect of -boot_image isolinux partition_table=on.<br>
 Personalites &quot;<b>xorrisofs</b>&quot;,
 &quot;<b>genisoimage</b>&quot;, and
 &quot;<b>genisofs</b>&quot; are aliases for
@@ -6824,6 +6944,33 @@ sbsector= resp. -s.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
+<p><b>Program alias names:</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>Normal installation of xorriso creates three links or
+copies which by their program name pre-select certain
+settings:<b><br>
+xorrisofs</b> starts xorriso with -as mkisofs
+emulation.<b><br>
+xorrecord</b> starts xorriso with -as cdrecord
+emulation.<b><br>
+osirrox</b> starts with -osirrox &quot;on:o_excl_off&quot;
+which allows to copy files from ISO image to disk and to
+apply option -mount to one or more of the existing ISO
+sessions.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td>
+<td width="95%">
 <p><b>Startup files:</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -7015,5 +7162,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Mar 29 21:09:04 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Apr 19 10:26:54 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
