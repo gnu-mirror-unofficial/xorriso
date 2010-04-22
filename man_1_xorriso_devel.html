@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Apr 20 12:36:03 2010 -->
+<!-- CreationDate: Thu Apr 22 18:32:58 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2709,9 +2709,10 @@ sort_weight</b> attributes a LBA weight number to regular
 files.<br>
 The number may range from -2147483648 to 2147483647. The
 higher it is, the lower will be the block address of the
-file data in the emerging ISO image. (Currently the boot
-catalog has a hardcoded weight of 1000. Better keep own
-weights lower than that.)<br>
+file data in the emerging ISO image. Currently the boot
+catalog has a hardcoded weight of 1 billion. Normally it
+should occupy the block with the lowest possible address.
+Data files get added or loaded with initial weight 0.<br>
 E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
 file.<b><br>
@@ -7162,5 +7163,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Apr 20 12:36:03 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Apr 22 18:32:58 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
