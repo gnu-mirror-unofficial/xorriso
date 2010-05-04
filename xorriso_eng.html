@@ -436,19 +436,19 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-0.5.4.tar.gz">xorriso-0.5.4.tar.gz</A>
-(1580 KB).
+<DD><A HREF="xorriso-0.5.6.tar.gz">xorriso-0.5.6.tar.gz</A>
+(1600 KB).
 </DD>
-<DD>(Released 19 Apr 2010)</DD>
-<DD><A HREF="xorriso-0.5.4.tar.gz.sig">xorriso-0.5.4.tar.gz.sig</A></DD>
+<DD>(Released 04 May 2010)</DD>
+<DD><A HREF="xorriso-0.5.6.tar.gz.sig">xorriso-0.5.6.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-0.5.4.tar.gz.sig xorriso-0.5.4.tar.gz</KBD>).
+<KBD>gpg --verify xorriso-0.5.6.tar.gz.sig xorriso-0.5.6.tar.gz</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-0.5.4.tar.gz
+as xorriso/xorriso-0.5.6.tar.gz
 </DD>
 </DL>
 </DD>
@@ -476,7 +476,7 @@ as xorriso/xorriso-0.5.4.tar.gz
 <HR>
 
 <P>
-Bug fixes towards xorriso-0.5.2:
+Bug fixes towards xorriso-0.5.4:
 <UL>
 <LI>- none -</LI>
 <!--
@@ -496,25 +496,16 @@ Bug fixes in .pl01 towards xorriso-:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-0.5.2.pl00:
+Enhancements towards previous stable version xorriso-0.5.4:
 <UL>
 <LI>
-New -as mkisofs options -G and --protective-msdos-label for grub-mkrescue
+Allowing up to 32 boot images
 </LI>
 <LI>
-New option -volume_date, for grub-mkrescue: -as mkisofs --modification-date=
+New -boot_image bootspecs efi_path=, platform_id=, sel_crit=, id_string=, next
 </LI>
 <LI>
-New: -boot_image isolinux partition_table=on, -as mkisofs -isohybrid-mbr
-</LI>
-<LI>
-New find action mkisofs_r and emulation -as mkisofs -r
-</LI>
-<LI>
-New -find action sort_weight, new -as mkisofs --sort-weight
-</LI>
-<LI>
-New -compliance options only_iso_version, no_j_force_dots
+New -as mkisofs options --efi-boot, -eltorito-alt-boot
 </LI>
 <!--
 <LI>- none -</LI>
@@ -543,11 +534,11 @@ libburnia project and the legal intentions of
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-0.6.31</DT>
+<DT>libisofs-0.6.33</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-0.5.4</DT>
+<DT>libisoburn-0.5.6</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>(By Vreixo Formoso and Thomas Schmitt
@@ -562,8 +553,8 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 0.5.5 :</H3></DT>
-<DD>Bug fixes towards xorriso-0.5.4:
+<DT><H3>Development snapshot, version 0.5.7 :</H3></DT>
+<DD>Bug fixes towards xorriso-0.5.6:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
@@ -571,21 +562,18 @@ cdrecord and mkisofs.</DT>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 0.5.4:
+<DD>Enhancements towards stable version 0.5.6:
 <UL>
-<LI>Allowing up to 32 boot images</LI>
-<LI>New -boot_image bootspecs
-efi_path=, platform_id=, sel_crit=, id_string=, next</LI>
-<LI>New -as mkisofs options --efi-boot, -eltorito-alt-boot</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 0.5.5</A>
-<DD><A HREF="xorriso_help_devel">xorriso_0.5.5 -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.5)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 0.5.7</A>
+<DD><A HREF="xorriso_help_devel">xorriso_0.5.7 -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.7)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -595,8 +583,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-0.5.5.tar.gz">xorriso-0.5.5.tar.gz</A>
-(1580 KB).
+<A HREF="xorriso-0.5.7.tar.gz">xorriso-0.5.7.tar.gz</A>
+(1600 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of
