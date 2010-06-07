@@ -20,8 +20,9 @@ A special property of xorriso is that it needs neither an external ISO 9660
 formatter program nor an external burn program for CD or DVD but rather
 incorporates the libraries of libburnia-project.org .
 
-Currently it is fully supported on GNU/Linux with kernels >= 2.4 and on
-FreeBSD versions with ATAPI/CAM support enabled in the kernel, see atapicam(4).
+Currently it is fully supported on GNU/Linux with kernels >= 2.4,
+on FreeBSD with ATAPI/CAM support enabled in the kernel, see atapicam(4),
+and on OpenSolaris (tested with kernel 5.11).
 On other X/Open compliant systems there will only be POSIX i/o with disk
 file objects, but no direct MMC operation on CD/DVD/BD drives.
 
