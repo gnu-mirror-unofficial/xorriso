@@ -2,7 +2,7 @@
 
 <HEAD>
 <META NAME="description" CONTENT="GNU xorriso, creates, loads, manipulates and writes ISO 9660 filesystem images with Rock Ridge extensions">
-<META NAME="keywords" CONTENT="xorriso, libburn, libburnia, burn, CD, DVD, ISO, ISO 9660, RockRidge, Rock Ridge, GNU/Linux, Linux, FreeBSD, recording, burning, CD-R, CD-RW, DVD-R, DVD-RW, DVD+RW, DVD+R, DVD+R DL, BD-RE, BD-R, scdbackup">
+<META NAME="keywords" CONTENT="xorriso, libburn, libburnia, burn, CD, DVD, ISO, ISO 9660, RockRidge, Rock Ridge, GNU/Linux, Linux, FreeBSD, Solaris, recording, burning, CD-R, CD-RW, DVD-R, DVD-RW, DVD+RW, DVD+R, DVD+R DL, BD-RE, BD-R, scdbackup">
 <META NAME="robots" CONTENT="follow">
 <TITLE>GNU xorriso - GNU Project - Free Software Foundation</TITLE>
 <LINK rev="made" href="mailto:webmasters@gnu.org">
@@ -15,7 +15,8 @@
 <P>
 <H1>GNU xorriso</H1>
 
-<H2>ISO 9660 Rock Ridge Filesystem Manipulator for GNU/Linux and FreeBSD</H2>
+<H2>ISO 9660 Rock Ridge Filesystem Manipulator for GNU/Linux, FreeBSD, Solaris
+</H2>
 </P>
 </CENTER>
 
@@ -43,7 +44,7 @@ About any CD, DVD, or BD recorder produced in the recent ten years.
 supports recorders which are compliant to standards MMC-1 for CD and
 MMC-5 for DVD or BD.
 <BR>
-GNU/Linux and FreeBSD allow to access drives connected
+GNU/Linux, FreeBSD, and Solaris allow to access drives connected
 via SCSI, PATA (aka IDE, ATA), USB, or SATA.
 <BR>
 xorriso also operates on ISO images in data files or block devices.
@@ -61,6 +62,8 @@ Images or add-on sessions may be written to about any kind of file object.
 <DD>SATA drives need atapicam or ahci running.</DD>
 <DD>libcam has to be installed.</DD>
 <DD>libiconv has to be installed.</DD>
+<DT>or Solaris, libc, libpthread :</DT>
+<DD>Tested on kernel 5.11, hopefully suitable for older ones too.</DD>
 <DT>or some other X/Open system, libc, libpthread :</DT>
 <DD>
 There will be no direct operation of optical drives, but only POSIX i/o
@@ -119,11 +122,11 @@ File content may get zisofs or gzip compressed or filtered by external
 processes.
 </LI>
 <LI>
-Writes result as completely new image or as add-on session
-to optical media or filesystem objects.
+Can activate ISOLINUX and GRUB boot images by El Torito boot record and MBR.
 </LI>
 <LI>
-Can activate ISOLINUX and GRUB boot images by El Torito boot record and MBR.
+Writes result as completely new image or as add-on session
+to optical media or filesystem objects.
 </LI>
 <LI>
 Can perform multi-session tasks as emulation of mkisofs and cdrecord.
@@ -436,19 +439,19 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-0.5.6.tar.gz">xorriso-0.5.6.tar.gz</A>
-(1600 KB).
+<DD><A HREF="xorriso-0.5.8.tar.gz">xorriso-0.5.8.tar.gz</A>
+(1640 KB).
 </DD>
-<DD>(Released 04 May 2010)</DD>
-<DD><A HREF="xorriso-0.5.6.tar.gz.sig">xorriso-0.5.6.tar.gz.sig</A></DD>
+<DD>(Released 13 Jun 2010)</DD>
+<DD><A HREF="xorriso-0.5.8.tar.gz.sig">xorriso-0.5.8.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-0.5.6.tar.gz.sig xorriso-0.5.6.tar.gz</KBD>).
+<KBD>gpg --verify xorriso-0.5.8.tar.gz.sig xorriso-0.5.8.tar.gz</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-0.5.6.tar.gz
+as xorriso/xorriso-0.5.8.tar.gz
 </DD>
 </DL>
 </DD>
@@ -476,9 +479,18 @@ as xorriso/xorriso-0.5.6.tar.gz
 <HR>
 
 <P>
-Bug fixes towards xorriso-0.5.4:
+Bug fixes towards xorriso-0.5.6:
 <UL>
-<LI>- none -</LI>
+<LI>
+CD TOC was not read if the first track did not start at LBA 0
+</LI>
+<LI>
+CD-ROM media got attributed random lead-in and lead-out adresses
+</LI>
+<LI>
+SIGSEGV of experimental libcdio system adapter if drive list is empty
+</LI>
+
 <!--
 <LI>- none -</LI>
 -->
@@ -496,17 +508,12 @@ Bug fixes in .pl01 towards xorriso-:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-0.5.4:
+Enhancements towards previous stable version xorriso-0.5.6:
 <UL>
-<LI>
-Allowing up to 32 boot images
-</LI>
-<LI>
-New -boot_image bootspecs efi_path=, platform_id=, sel_crit=, id_string=, next
-</LI>
-<LI>
-New -as mkisofs options --efi-boot, -eltorito-alt-boot
-</LI>
+<LI>A new system adapter allows to burn CD, DVD and BD on OpenSolaris</LI>
+<LI>New -compliance rule no_emul_toc, new -as mkisofs --no-emul-toc</LI>
+<LI>Implemented -as cdrecord -V</LI>
+<LI>Implemented -as mkisofs options -U, -N, -l, -d, -allow-lowercase</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -529,7 +536,7 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-0.8.1</DT>
+<DT>libburn-0.8.3</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
@@ -538,7 +545,7 @@ Thomas Schmitt from team of libburnia-project.org)</DD>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-0.5.6</DT>
+<DT>libisoburn-0.5.8</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>(By Vreixo Formoso and Thomas Schmitt
@@ -553,8 +560,8 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 0.5.7 :</H3></DT>
-<DD>Bug fixes towards xorriso-0.5.6:
+<DT><H3>Development snapshot, version 0.5.9 :</H3></DT>
+<DD>Bug fixes towards xorriso-0.5.8:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
@@ -562,21 +569,18 @@ cdrecord and mkisofs.</DT>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 0.5.6:
+<DD>Enhancements towards stable version 0.5.8:
 <UL>
-<LI>A new system adapter allows to burn CD, DVD and BD on OpenSolaris</LI>
-<LI>New -compliance rule no_emul_toc, new -as mkisofs --no-emul-toc</LI>
-<LI>Implemented -as cdrecord -V</LI>
-<LI>Implemented -as mkisofs options -U, -N, -l, -d, -allow-lowercase</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 0.5.7</A>
-<DD><A HREF="xorriso_help_devel">xorriso_0.5.7 -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.7)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 0.5.9</A>
+<DD><A HREF="xorriso_help_devel">xorriso_0.5.9 -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.9)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -586,7 +590,7 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-0.5.7.tar.gz">xorriso-0.5.7.tar.gz</A>
+<A HREF="xorriso-0.5.9.tar.gz">xorriso-0.5.9.tar.gz</A>
 (1630 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained

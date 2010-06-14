@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-ftp://ftp.gnu.org/gnu/xorriso/xorriso-0.5.6.tar.gz
+ftp://ftp.gnu.org/gnu/xorriso/xorriso-0.5.8.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -20,8 +20,9 @@ A special property of xorriso is that it needs neither an external ISO 9660
 formatter program nor an external burn program for CD or DVD but rather
 incorporates the libraries of libburnia-project.org .
 
-Currently it is fully supported on GNU/Linux with kernels >= 2.4 and on
-FreeBSD versions with ATAPI/CAM support enabled in the kernel, see atapicam(4).
+Currently it is fully supported on GNU/Linux with kernels >= 2.4,
+on FreeBSD with ATAPI/CAM support enabled in the kernel, see atapicam(4),
+and on OpenSolaris (tested with kernel 5.11).
 On other X/Open compliant systems there will only be POSIX i/o with disk
 file objects, but no direct MMC operation on CD/DVD/BD drives.
 
@@ -40,15 +41,15 @@ components:
    plus on FreeBSD: libiconv, libcam, IDE and SATA drives need atapicam
 Optional at compile time are:
    libreadline and the readline-dev headers make dialog mode more convenient.
-   on GNU/Linux: libacl and libacl-devel allow getting and setting ACLs.
    zlib and zlib-devel allow zisofs compression.
+   on GNU/Linux: libacl and libacl-devel allow getting and setting ACLs.
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-0.5.6.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-0.5.8.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-0.5.6.tar.gz
-    cd xorriso-0.5.6
+    tar xzf xorriso-0.5.8.tar.gz
+    cd xorriso-0.5.8
 
 Within that directory execute:
 
@@ -133,24 +134,29 @@ A list of rw-accessible drives can be obtained by
 
     xorriso -devices
 
-CD devices which offer no rw-permission are invisible to normal users.
+CD devices which offer not enough permission are invisible to normal users.
 The superuser should be able to see any usable drive and then set the
 permissions as needed.
+On Linux and FreeBSD, rw-permissions are needed.
+On Solaris, the privilege "sys_devices" and r-permission are needed.
 
 The output of  xorriso -devices  might look like
 
 0  -dev '/dev/sr0' rwrw-- :  'TSSTcorp' 'CDDVDW SH-S203B' 
 1  -dev '/dev/hda' rwrw-- :  'HL-DT-ST' 'DVD-ROM GDR8162B' 
 
-Full and insecure enabling of both for everybody would look like
+On Linux, full and insecure enabling of both for everybody would look like
     chmod a+rw /dev/sr0 /dev/hda
 This is equivalent to the traditional setup chmod a+x,u+s cdrecord.
 
+On FreeBSD, device permissions are to be set in /etc/devfs.rules.
+On Solaris, pfexec privileges may be restricted to "basic,sys_devices".
+See below "System Dependend Drive Permission Examples".
+
 I strongly discourage to run xorriso with setuid root or via sudo !
 It is not checked for the necessary degree of hacker safety.
-
-Consider to put all authorized users into group "floppy", to chgrp the
-device file to that group and to disallow w-access to others.
+Better consider to grant the necessary permissions to group "floppy"
+and to add users to it.
 
 
 A possible source of problems are hald or other automounters. 
@@ -269,27 +275,105 @@ xorriso is based on libisofs which does ISO 9600 filesystem aspects and on
 libburn which does the input and output aspects. Parts of this foundation
 are accessed via libisoburn, which is closely related to xorriso.
 
-libisoburn provides two services:
+libisoburn provides several services:
 - Encapsulation of coordination between libisofs and libburn.
 - Emulation of ISO 9660 multi-session on overwriteable media
   or random access files.
+- Implementation of the xorriso API.
 
 The sourcecode of all three libraries is included in the xorriso standalone
 tarball. It is compiled with xorriso and linked statically.
 But you may as well get and install releases of libburn and libisofs, in order
 to be able to install a release of libisoburn which produces libisoburn.so.1
 and a matching dynamically linked xorriso binary.
-This binary is leaner but depends on properly installed libraries of suitable
-revision.
+This binary is very lean but depends on properly installed libraries ofi
+suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-0.5.4 :
-- libburn.so.4  , version libburn-0.7.8 or higher
-- libisofs.so.6 , version libisofs-0.6.30 or higher
+Dynamic library and compile time header requirements for libisoburn-0.5.8 :
+- libburn.so.4  , version libburn-0.8.2 or higher
+- libisofs.so.6 , version libisofs-0.6.32 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
 
 GNU xorriso has less runtime dependencies and can be moved more freely.
+
+
+                  System Dependend Drive Permission Examples
+
+Accessing the optical drives requires privileges which usually are granted
+only to the superuser. GNU/Linux, FreeBSD and Solaris offer quite different
+approaches for avoiding the need for unrestricted privileges.
+
+First check whether some friendly system setting already allows you to
+access the drives as normal user:
+  xorriso -devices
+Those drives of which you see address and type strings are already usable.
+
+If there remain drives invisible which the superuser can see by the same
+command, then the following examples might help:
+
+---------------------
+On all three systems:
+---------------------
+Add the authorized users of CD drives to group "floppy" in /etc/group.
+If missing: create this group.
+Changes to /etc/group often only affect new login sessions. So log out and in
+before making the first tests.
+
+-------------
+On GNU/Linux:
+-------------
+Allow rw-access to the drives
+  chgrp floppy /dev/sr0 /dev/sr1
+  chmod g+rw   /dev/sr0 /dev/sr1
+It might be necessary to perform chgrp and chmod after each reboot or to
+edit distro dependent device configuration files for permanent settings.
+
+-----------
+On FreeBSD:
+-----------
+Edit /etc/devfs.rules and make sure to have these lines
+  [localrules=10]
+  add path 'acd*' mode 0664 group floppy
+  add path 'cd*' mode 0664 group floppy
+  add path 'pass*' mode 0664 group floppy
+  add path 'xpt*' mode 0664 group floppy
+  [localrules=5]
+  add path 'pass*' mode 0664 group floppy
+  add path 'cd*' mode 0664 group floppy
+  add path 'xpt*' mode 0664 group floppy
+  add path 'acd*' mode 0664 group floppy
+
+Edit /etc/rc.conf and add the following line if missing
+  devfs_system_ruleset="localrules"
+
+This gets into effect by reboot or by command
+  /etc/rc.d/devfs start
+
+-----------
+On Solaris:
+-----------
+Run xorriso by
+  pfexec xorriso ...arguments...
+
+The following settings will make pfexec keep original UID and EUID and prevent
+most superuser powers. Be aware that you still can manipulate all device files
+if you have the file permissions for that.
+Full root privileges for xorriso can then be aquired only by command su.
+
+Edit /etc/security/exec_attr and add this line to the other "Media Backup"
+lines:
+  Media Backup:solaris:cmd:::/usr/local/bin/xorriso:privs=basic,sys_devices
+Edit /etc/user_attr and add profile "Media Backup" to the user's line:
+  thomas::::profiles=Media Backup,Primary Administrator;roles=root
+See also man privileges, man exec_attr, man user_attr.
+
+Then allow the group r-access to the drives
+  pfexec chgrp floppy /dev/rdsk/c3t0d0s2 /dev/rdsk/c4t0d0s2
+  pfexec chmod g+r    /dev/rdsk/c3t0d0s2 /dev/rdsk/c4t0d0s2
+The last two commands have to be executed after each boot. I do not know
+the relevant device configuration files yet.
 
 
 ------------------------------------------------------------------------------

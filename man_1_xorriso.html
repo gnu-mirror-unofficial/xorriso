@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue May  4 12:36:47 2010 -->
+<!-- CreationDate: Sun Jun 13 16:30:05 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -390,6 +390,8 @@ generic character device. E.g.<br>
 &nbsp;&nbsp;-dev /dev/sg2<br>
 On FreeBSD the device files have names like<br>
 &nbsp;&nbsp;-dev /dev/cd0<br>
+On OpenSolaris:<br>
+&nbsp;&nbsp;-dev /dev/rdsk/c4t0d0s2<br>
 Get a list of accessible drives by command<br>
 -devices<br>
 It might be necessary to do this as <b>superuser</b> in
@@ -1055,12 +1057,7 @@ A large number of hardlink families may exhaust
 effect. This restricts hard linking to other files restored
 by the same single extract command. -hardlinks
 &quot;normal_extract&quot; re-enables wide and expensive
-hardlink accumulation.<br>
-Hardlink processing automatically enables
-<b>&minus;compliance new_rr</b>. This may be overridden by a
-following -compliance old_rr . In this case the resulting
-image will violate the RRIP-1.10 specs for entry PX in the
-same way as mkisofs does.</p>
+hardlink accumulation.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3273,6 +3270,9 @@ be changed by subsequent &quot;aaip_susp_1_10_off&quot;.<br>
 &quot;aaip_susp_1_10&quot; allows AAIP to be written as
 unofficial extension of RRIP rather than as official
 extension under SUSP-1.12.<br>
+&quot;no_emul_toc&quot; saves 64 kB with the first session
+on overwriteable media but makes the image incapable of
+displaying its session history.<br>
 Default setting is<br>
 
 &quot;clear:only_iso_version:deep_paths:long_paths:no_j_force_dots:<br>
@@ -5690,10 +5690,10 @@ Among them: -R (always on), -r, -J, -o, -M, -C, -path-list,
 -m, -exclude-list, -f, -print-size, -pad, -no-pad, -V, -v,
 -version, -graft-points, -z, -no-emul-boot, -b, -c,
 -boot-info-table, -boot-load-size, -input-charset, -G,
--output-charset, pathspecs as with xorriso -add. A lot of
-options are not supported and lead to failure of the mkisofs
-emulation. Some are ignored, but better do not rely on this
-tolerance.<br>
+-output-charset, -U, pathspecs as with xorriso -add. A lot
+of options are not supported and lead to failure of the
+mkisofs emulation. Some are ignored, but better do not rely
+on this tolerance.<br>
 -graft-points is equivalent to -pathspecs on. Note that
 pathspecs without &quot;=&quot; are interpreted differently
 than with xorriso option -add. Directories get merged with
@@ -5724,7 +5724,8 @@ Not original mkisofs options are --quoted_path_list ,
 work like the xorriso options with the same name and
 hardcoded argument &quot;on&quot;, e.g. -acl &quot;on&quot;.
 Explicit arguments are expected by --stdio_sync and
---scdbackup_tag.<br>
+--scdbackup_tag. --no-emul-toc is -compliance
+no_emul_toc.<br>
 --sort-weight gets as arguments a number and an iso_rr_path.
 The number becomes the LBA sorting weight of regular file
 iso_rr_path or of all regular files underneath directory
@@ -6426,8 +6427,11 @@ Try to retrieve blocks from a damaged media</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Consider to give rw permissions to those users or groups
-which shall be able to use the drives with xorriso.<br>
+<p>On Linux or FreeBSD consider to give rw-permissions to
+those users or groups which shall be able to use the drives
+with xorriso. On Solaris use pfexec. Consider to restrict
+privileges of xorriso to &quot;base,sys_devices&quot; and to
+give r-permission to user or group.<br>
 $ xorriso -devices<br>
 0 -dev &rsquo;/dev/sr0&rsquo; rwrw-- : &rsquo;_NEC &rsquo;
 &rsquo;DVD_RW ND-4570A&rsquo;<br>
@@ -7173,7 +7177,7 @@ for libburnia-project.org</p>
 <td width="10%"></td>
 <td width="89%">
 <p>Copyright (c) 2007 - 2010 Thomas Schmitt<br>
-Permission is granted to distrubute this text freely. It
+Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
 modified versions of xorriso then you are entitled to modify
@@ -7198,5 +7202,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue May  4 12:36:47 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jun 13 16:30:05 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
