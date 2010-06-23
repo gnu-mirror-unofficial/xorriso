@@ -82,7 +82,8 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Allow more or less harmless deviations from strict standards
                  compliance.
   -boot_image "any"|"isolinux"|"grub"
-              "discard"|"keep"|"patch"|"dir="|"bin_path="|"cat_path="
+              |"discard"|"keep"|"patch"|"dir="|"bin_path="
+              |"cat_path="|"cat_hidden=on|iso_rr|joliet|off"
               |"load_size="|"system_area="|"partition_table=on|off"
                  Whether to discard or keep an exiting El Torito boot image.
                  ISOLINUX can be made bootable by dir=/ or dir=/isolinux
@@ -211,13 +212,17 @@ expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                  access time, modification time, both times.
   -alter_date_r type timestring iso_rr_path [***]
                  Like -alter_date but affecting all files below directories.
+  -hide on|iso_rr|joliet|off iso_rr_path [***]
+                 Keep names of files out of directory tree, but store their
+                 data content in the image.
   -find iso_rr_path [test [op] [test ...]] [-exec action [params]]
                  performs an action on files below the given directory in
                  the ISO image. Tests:
-                   -name pattern, -wholename pattern, -type b|c|d|p|f|l|s|e,
-                   -pending_data, -lba_range start count, -damaged,
-                   -has_acl, -has_xattr, -has_aaip, -has_filter, -has_md5
-                   -has_any_xattr, -prune, -decision yes|no, -true, -false
+                   -name pattern, -wholename pattern, -disk_name pattern,
+                   -type b|c|d|p|f|l|s|e, -pending_data, -hidden,
+                   -lba_range start count, -damaged, -has_acl, -has_xattr,
+                   -has_aaip, -has_filter, -has_md5, -has_any_xattr,
+                   -prune, -decision yes|no, -true, -false
                  Operators: -not, -or, -and, -sub, (, -subend, ),
                    -if, -then, -elseif, -else, -endif
                  Action may be one of: echo, chown, chown_r, chgrp, chgrp_r
@@ -225,7 +230,7 @@ expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                    rm, rm_r, compare, update, report_damage, report_lba,
                    getfacl, setfacl, getfattr, setfattr, get_any_xattr,
                    get_md5, check_md5, make_md5, set_filter, show_stream,
-                   mkisofs_r, find.
+                   mkisofs_r, hide, find.
                  params are their arguments except iso_rr_path.
   -mkdir iso_rr_path [...]
                  Create empty directories if they do not exist yet.

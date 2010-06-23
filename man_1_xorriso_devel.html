@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Jun 14 10:30:20 2010 -->
+<!-- CreationDate: Wed Jun 23 22:13:02 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2518,6 +2518,36 @@ directories.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>&minus;hide</b> hide_state iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Prevent the names of the given files from showing up in
+the directory trees of ISO 9660 and/or Joliet when the image
+gets written. The eventual data content of such hidden files
+will be included in the resulting image, even if they do not
+show up in any directory. But you will need own means to
+find nameless data in the image.<br>
+Warning: Data which are hidden from the ISO 9660 tree will
+not be copied by the write method of modifying.<br>
+Possible values of hide_state are: &quot;iso_rr&quot; for
+hiding from ISO 9660 tree, &quot;joliet&quot; for Joliet
+tree, &quot;on&quot; for both trees. &quot;off&quot; means
+visibility in both directory trees.<br>
+This command does not apply to the boot catalog. Rather use:
+-boot_image &quot;any&quot; &quot;cat_hidden=on&quot;</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p>&nbsp;<BR><b>Tree traversal command -find:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
@@ -2553,6 +2583,9 @@ file leaf name.<b><br>
 the file path as it would be printed by action
 &quot;echo&quot;. Character &rsquo;/&rsquo; is not special
 but can be matched by wildcards.<b><br>
+&minus;disk_name</b> pattern : Like -name but testing the
+leaf name of the file source on disk. Can be true only for
+data files which stem not from the loaded image.<b><br>
 &minus;type</b> type_letter : Matches files of the given
 type: &quot;block&quot;, &quot;char&quot;, &quot;dir&quot;,
 &quot;pipe&quot;, &quot;file&quot;, &quot;link&quot;,
@@ -2582,6 +2615,11 @@ xattr other than ACL.<b><br>
 checksums.<b><br>
 &minus;has_filter</b> : Matches files which are filtered by
 -set_filter.<b><br>
+&minus;hidden</b> hide_state : Matches files which are
+hidden in &quot;iso_rr&quot; tree, in &quot;joliet&quot;
+tree, in both trees (&quot;on&quot;), or not hidden in any
+tree (&quot;off&quot;). Those which are hidden in some tree
+match -not -hidden &quot;off&quot;.<b><br>
 &minus;prune</b> : If this test is reached and the tested
 file is a directory then -find will not dive into that
 directory. This test itself does always match.<b><br>
@@ -2713,6 +2751,11 @@ Data files get added or loaded with initial weight 0.<br>
 E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
 file.<b><br>
+hide</b> brings the file into one of the hide states
+&quot;on&quot;, &quot;iso_rr&quot;, &quot;joliet&quot;,
+&quot;off&quot;.<br>
+E.g.:<br>
+&nbsp;&nbsp;-find / -disk_name *_secret -exec hide on<b><br>
 find</b> performs another run of -find on the matching file
 address. It accepts the same params as -find, except
 iso_rr_path.<br>
@@ -3841,7 +3884,11 @@ image with address <b>cat_path=</b> at -commit time. It is
 subject to normal -overwrite and -reassure processing if
 there is already a file with the same name. The catalog
 lists the boot images and is read by the boot facility to
-choose one of the boot images.<b><br>
+choose one of the boot images. But it is not necessary that
+it appears in the directory tree at all. One may hide it in
+all trees by <b>cat_hidden=on</b>. Other possible values are
+&quot;iso_rr&quot;, &quot;joliet&quot;, and the default
+&quot;off&quot;.<b><br>
 load_size=</b> is a value which depends on the boot image.
 Default 2048 should be overridden only if a better value is
 known.<b><br>
@@ -4676,7 +4723,16 @@ their content. This resembles shell command ls -d.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Like -ls but also list some of the file attributes. The
-output format resembles shell command ls -ln.</p>
+output format resembles shell command ls -ln.<br>
+If the file has non-trivial ACL, then a &rsquo;+&rsquo; is
+appended to the permission info. If the file is hidden, then
+&rsquo;I&rsquo; for &quot;iso_rr&quot;, &rsquo;J&rsquo; for
+&quot;joliet&quot;, resp. &rsquo;H&rsquo; for &quot;on&quot;
+gets appended. Together with ACL it is &rsquo;i&rsquo;,
+&rsquo;j&rsquo;, resp. &rsquo;h&rsquo;.<br>
+Particular types of regular files: &quot;R&quot; hidden in
+ISO/Rock Ridge, &quot;J&quot; hidden in Joliet,
+&quot;H&quot; hidden in both trees.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7202,5 +7258,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Jun 14 10:30:20 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Jun 23 22:13:03 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>

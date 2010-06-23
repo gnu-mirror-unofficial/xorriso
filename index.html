@@ -563,7 +563,8 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 0.5.9 :</H3></DT>
 <DD>Bug fixes towards xorriso-0.5.8:
 <UL>
-<LI>- none yet -</LI>
+<LI>-check_media patch_lba0= could install wrong image size</LI>
+<LI>-as mkisofs option -volset was wrongly interpreted like -volid</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -571,7 +572,13 @@ cdrecord and mkisofs.</DT>
 </DD>
 <DD>Enhancements towards stable version 0.5.8:
 <UL>
-<LI>- none yet -</LI>
+<LI>Enabled use of libreadline on Solaris</LI>
+<LI>New find test -disk_name</LI>
+<LI>New option -hide, -find action -hide, -find test -hidden</LI>
+<LI>New -boot_image bootspec cat_hidden=on</LI>
+<LI>
+New -as mkisofs options -hide, -hide-joliet, -hide-list, -hide-joliet-list
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
