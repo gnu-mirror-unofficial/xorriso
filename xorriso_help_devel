@@ -76,6 +76,12 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Specifies the system id for the System Area. (32 chars)
   -volume_date type timestring
                  Specifies volume timestamps. ["c","m","x","f","uuid"]
+  -copyright_file name
+                 Specifies the name of the Copyright File. (37 chars)
+  -biblio_file name
+                 Specifies the name of the Bibliographic File. (37 chars)
+  -abstract_file name
+                 Specifies the name of the Abstract File. (37 chars)
   -joliet "on"|"off"
                  Generate Joliet info additional to Rock Ridge info.
   -compliance rule[:rule...]
@@ -437,6 +443,8 @@ Compatibility emulation (argument list may be ended by list delimiter --):
                 -no-emul-boot|-b|-c|-boot-info-table|-boot-load-size|-G]
               Perform some mkisofs gestures, understand pathspecs as mkisofs
               does. Commit happens outside emulation at usual occasions.
+  -read_mkisofsrc
+              Read and interpret the .mkisofsrc configuration file.
   -as cdrecord [-help|-v|dev=|speed=|blank=|fs=|-eject|-atip|padsize=|-multi]
                path|-
               Perform some cdrecord gestures, eventually write at most one

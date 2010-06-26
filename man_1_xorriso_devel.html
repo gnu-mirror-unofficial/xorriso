@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Jun 23 22:13:02 2010 -->
+<!-- CreationDate: Sat Jun 26 13:54:13 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -494,8 +494,9 @@ An <b>MBR</b> contains boot code and a partition table. It
 does not hamper CDROM booting. The new MBR of a follow-up
 session can get in effect only on overwriteable media.<br>
 Emulation -as mkisofs supports the example options out of
-the ISOLINUX wiki. It also supports the options used in GRUB
-script grub-mkrescue.<br>
+the ISOLINUX wiki, the options used in GRUB script
+grub-mkrescue, and the example in the FreeBSD AvgLiveCD
+wiki.<br>
 The support for other boot image types is sparse.</p>
 <!-- INDENTATION -->
 <p><b>ACL</b> are an advanced way of controlling access
@@ -3487,6 +3488,69 @@ show the current time of image creation. &quot;x&quot; and
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>&minus;copyright_file</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the copyright file name to be written with the next
+-commit. This should be the ISO 9660 path of a file in the
+image which contains a copyright statement. Permissible are
+up to 37 characters. This setting gets overridden by image
+loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;abstract_file</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the abstract file name to be written with the next
+-commit. This should be the ISO 9660 path of a file in the
+image which contains an abstract statement about the image
+content. Permissible are up to 37 characters. This setting
+gets overridden by image loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;biblio_file</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the biblio file name to be written with the next
+-commit. This should be the ISO 9660 path of a file in the
+image which contains bibliographic records. Permissible are
+up to 37 characters. This setting gets overridden by image
+loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>&minus;out_charset</b> character_set_name</p></td>
 </table>
 <!-- INDENTATION -->
@@ -4564,9 +4628,9 @@ after subtracting already foreseeable consumption by next
 <td width="21%"></td>
 <td width="77%">
 <p>Print various id strings which can be found in loaded ISO
-images. Some of them may be changed by options -volid,
--publisher, -application_id. For these ids -pvd_info reports
-what would be written with the next -commit.</p>
+images. Some of them may be changed by options like -volid
+or -publisher. For these ids -pvd_info reports what would be
+written with the next -commit.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5742,14 +5806,15 @@ word.</p>
 <p>Personality &quot;<b>mkisofs</b>&quot; accepts the
 options listed with:<br>
 -as mkisofs -help --<br>
-Among them: -R (always on), -r, -J, -o, -M, -C, -path-list,
--m, -exclude-list, -f, -print-size, -pad, -no-pad, -V, -v,
--version, -graft-points, -z, -no-emul-boot, -b, -c,
--boot-info-table, -boot-load-size, -input-charset, -G,
--output-charset, -U, pathspecs as with xorriso -add. A lot
-of options are not supported and lead to failure of the
-mkisofs emulation. Some are ignored, but better do not rely
-on this tolerance.<br>
+Among them: -R (always on), -r, -J, -o, -M, -C, -dir-mode,
+-file-mode, -path-list, -m, -exclude-list, -f, -print-size,
+-pad, -no-pad, -V, -v, -version, -graft-points, -z,
+-no-emul-boot, -b, -c, -boot-info-table, -boot-load-size,
+-input-charset, -G, -output-charset, -U, -hide,
+-hide-joliet, -hide-list, -hide-joliet-list, file paths and
+pathspecs. A lot of options are not supported and lead to
+failure of the mkisofs emulation. Some are ignored, but
+better do not rely on this tolerance.<br>
 -graft-points is equivalent to -pathspecs on. Note that
 pathspecs without &quot;=&quot; are interpreted differently
 than with xorriso option -add. Directories get merged with
@@ -5796,6 +5861,7 @@ For MBR bootable ISOLINUX images there is -isohybrid-mbr
 FILE, where FILE is one of the Syslinux files
 mbr/isohdp[fp]x*.bin . Use this instead of -G to apply the
 effect of -boot_image isolinux partition_table=on.<br>
+--boot-catalog-hide is -boot_image any cat_hidden=on.<br>
 Personalites &quot;<b>xorrisofs</b>&quot;,
 &quot;<b>genisoimage</b>&quot;, and
 &quot;<b>genisofs</b>&quot; are aliases for
@@ -5803,11 +5869,11 @@ Personalites &quot;<b>xorrisofs</b>&quot;,
 If xorriso is started with one of the leafnames
 &quot;xorrisofs&quot;, &quot;genisofs&quot;,
 &quot;mkisofs&quot;, or &quot;genisoimage&quot;, then it
-automatically prepends -as &quot;genisofs&quot; to the
-command line arguments. I.e. all arguments will be
-interpreted mkisofs style until &quot;--&quot; is
-encountered. From then on, options are interpreted as
-xorriso options.</p>
+performs -read_mkisofsrc and prepends -as
+&quot;genisofs&quot; to the command line arguments. I.e. all
+arguments will be interpreted mkisofs style until
+&quot;--&quot; is encountered. From then on, options are
+interpreted as xorriso options.</p>
 <!-- INDENTATION -->
 <p>Personality &quot;<b>cdrecord</b>&quot; accepts the
 options listed with:<br>
@@ -5849,6 +5915,32 @@ command line arguments. I.e. all arguments will be
 interpreted cdrecord style until &quot;--&quot; is
 encountered and an eventual commit happens. From then on,
 options are interpreted as xorriso options.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;read_mkisofsrc</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Try one by one to open for reading: ./.mkisofsrc ,
+$MKISOFSRC , $HOME/.mkisofsrc , $(basename $0)/.mkisofs<br>
+On success interpret the file content as of man mkisofs
+CONFIGURATION, and end this command. Do not try further
+files. The last address is used only if start argument 0 has
+a non-trivial basename.<br>
+The reader currently interprets the following NAME=VALUE
+pairs: APPI (-application_id) , PUBL (-publisher) , SYSI
+(-system_id) , VOLI (-volid) , VOLS (-volset_id)<br>
+Any other lines will be silently ignored.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7083,7 +7175,12 @@ following files:<br>
 /etc/xorriso/xorriso.conf<br>
 $HOME/.xorrisorc<br>
 The files are read in the sequence given above, but none of
-them is required to exist.</p>
+them is required to exist.<br>
+If mkisofs emulation was enabled by program name
+&quot;xorrisofs&quot;, &quot;mkisofs&quot;,
+&quot;genisoimage&quot;, or &quot;genisofs&quot;, then
+afterwards -read_mkisofsrc is performed, which reads
+.mkisofsrc files. See there.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7258,5 +7355,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Jun 23 22:13:03 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Jun 26 13:54:13 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
