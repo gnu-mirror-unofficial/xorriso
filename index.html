@@ -15,8 +15,8 @@
 <P>
 <H1>GNU xorriso</H1>
 
-<H2>ISO 9660 Rock Ridge Filesystem Manipulator for GNU/Linux, FreeBSD, Solaris
-</H2>
+<H2>ISO 9660 Rock Ridge Filesystem Manipulator<BR>
+for GNU/Linux, FreeBSD, Solaris</H2>
 </P>
 </CENTER>
 
@@ -439,19 +439,19 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-0.5.8.tar.gz">xorriso-0.5.8.tar.gz</A>
-(1640 KB).
+<DD><A HREF="xorriso-0.6.0.tar.gz">xorriso-0.6.0.tar.gz</A>
+(1650 KB).
 </DD>
-<DD>(Released 13 Jun 2010)</DD>
-<DD><A HREF="xorriso-0.5.8.tar.gz.sig">xorriso-0.5.8.tar.gz.sig</A></DD>
+<DD>(Released 02 Jul 2010)</DD>
+<DD><A HREF="xorriso-0.6.0.tar.gz.sig">xorriso-0.6.0.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-0.5.8.tar.gz.sig xorriso-0.5.8.tar.gz</KBD>).
+<KBD>gpg --verify xorriso-0.6.0.tar.gz.sig xorriso-0.6.0.tar.gz</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-0.5.8.tar.gz
+as xorriso/xorriso-0.6.0.tar.gz
 </DD>
 </DL>
 </DD>
@@ -479,18 +479,10 @@ as xorriso/xorriso-0.5.8.tar.gz
 <HR>
 
 <P>
-Bug fixes towards xorriso-0.5.6:
+Bug fixes towards xorriso-0.5.8:
 <UL>
-<LI>
-CD TOC was not read if the first track did not start at LBA 0
-</LI>
-<LI>
-CD-ROM media got attributed random lead-in and lead-out adresses
-</LI>
-<LI>
-SIGSEGV of experimental libcdio system adapter if drive list is empty
-</LI>
-
+<LI>-check_media patch_lba0= could install wrong image size</LI>
+<LI>-as mkisofs option -volset was wrongly interpreted like -volid</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -508,12 +500,28 @@ Bug fixes in .pl01 towards xorriso-:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-0.5.6:
+Enhancements towards previous stable version xorriso-0.5.8:
 <UL>
-<LI>A new system adapter allows to burn CD, DVD and BD on OpenSolaris</LI>
-<LI>New -compliance rule no_emul_toc, new -as mkisofs --no-emul-toc</LI>
-<LI>Implemented -as cdrecord -V</LI>
-<LI>Implemented -as mkisofs options -U, -N, -l, -d, -allow-lowercase</LI>
+<LI>Enabled use of libreadline on Solaris</LI>
+<LI>New find test -disk_name</LI>
+<LI>New option -hide, -find action -hide, -find test -hidden</LI>
+<LI>New -boot_image bootspec cat_hidden=on</LI>
+<LI>
+New options -copyright_file , -biblio_file , -abstract_file
+</LI>
+<LI>
+New option -read_mkisofsrc interprets .mkisofsrc
+</LI>
+<LI>
+Implemented -as mkisofs options -hide, -hide-joliet, -hide-list, -hide-joliet-list
+</LI>
+<LI>
+New -as mkisofs option --boot-catalog-hide
+</LI>
+<LI>
+Implemented -as mkisofs options -dir-mode, -file-mode, -abstract, -biblio, -copyright
+</LI>
+
 <!--
 <LI>- none -</LI>
 -->
@@ -536,18 +544,20 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-0.8.3</DT>
+<DT>libburn-0.8.5</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-0.6.33</DT>
+<DT>libisofs-0.6.35</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-0.5.8</DT>
+<DT>libisoburn-0.6.0</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
+<DD>It provides the complete functionality of xorriso via
+a C language API.</DD>
 <DD>(By Vreixo Formoso and Thomas Schmitt
 from team of libburnia-project.org)</DD>
 <DD>&nbsp;</DD>
@@ -560,44 +570,27 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 0.5.9 :</H3></DT>
-<DD>Bug fixes towards xorriso-0.5.8:
+<DT><H3>Development snapshot, version 0.6.1 :</H3></DT>
+<DD>Bug fixes towards xorriso-0.6.0:
 <UL>
-<LI>-check_media patch_lba0= could install wrong image size</LI>
-<LI>-as mkisofs option -volset was wrongly interpreted like -volid</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 0.5.8:
+<DD>Enhancements towards stable version 0.6.0:
 <UL>
-<LI>Enabled use of libreadline on Solaris</LI>
-<LI>New find test -disk_name</LI>
-<LI>New option -hide, -find action -hide, -find test -hidden</LI>
-<LI>New -boot_image bootspec cat_hidden=on</LI>
-<LI>
-New options -copyright_file , -biblio_file , -abstract_file
-</LI>
-<LI>
-New option -read_mkisofsrc interprets .mkisofsrc
-</LI>
-<LI>
-New -as mkisofs options -hide, -hide-joliet, -hide-list, -hide-joliet-list,
---boot-catalog-hide
-</LI>
-<LI>
-New -as mkisofs options -dir-mode, -file-mode, -abstract, -biblio, -copyright
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 0.5.9</A>
-<DD><A HREF="xorriso_help_devel">xorriso_0.5.9 -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.5.9)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 0.6.1</A>
+<DD><A HREF="xorriso_help_devel">xorriso_0.6.1 -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.6.1)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -607,8 +600,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-0.5.9.tar.gz">xorriso-0.5.9.tar.gz</A>
-(1640 KB).
+<A HREF="xorriso-0.6.1.tar.gz">xorriso-0.6.1.tar.gz</A>
+(1650 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Jun 13 16:30:05 2010 -->
+<!-- CreationDate: Fri Jul  2 12:15:57 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -494,8 +494,9 @@ An <b>MBR</b> contains boot code and a partition table. It
 does not hamper CDROM booting. The new MBR of a follow-up
 session can get in effect only on overwriteable media.<br>
 Emulation -as mkisofs supports the example options out of
-the ISOLINUX wiki. It also supports the options used in GRUB
-script grub-mkrescue.<br>
+the ISOLINUX wiki, the options used in GRUB script
+grub-mkrescue, and the example in the FreeBSD AvgLiveCD
+wiki.<br>
 The support for other boot image types is sparse.</p>
 <!-- INDENTATION -->
 <p><b>ACL</b> are an advanced way of controlling access
@@ -2518,6 +2519,36 @@ directories.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>&minus;hide</b> hide_state iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Prevent the names of the given files from showing up in
+the directory trees of ISO 9660 and/or Joliet when the image
+gets written. The eventual data content of such hidden files
+will be included in the resulting image, even if they do not
+show up in any directory. But you will need own means to
+find nameless data in the image.<br>
+Warning: Data which are hidden from the ISO 9660 tree will
+not be copied by the write method of modifying.<br>
+Possible values of hide_state are: &quot;iso_rr&quot; for
+hiding from ISO 9660 tree, &quot;joliet&quot; for Joliet
+tree, &quot;on&quot; for both trees. &quot;off&quot; means
+visibility in both directory trees.<br>
+This command does not apply to the boot catalog. Rather use:
+-boot_image &quot;any&quot; &quot;cat_hidden=on&quot;</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p>&nbsp;<BR><b>Tree traversal command -find:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
@@ -2553,6 +2584,9 @@ file leaf name.<b><br>
 the file path as it would be printed by action
 &quot;echo&quot;. Character &rsquo;/&rsquo; is not special
 but can be matched by wildcards.<b><br>
+&minus;disk_name</b> pattern : Like -name but testing the
+leaf name of the file source on disk. Can be true only for
+data files which stem not from the loaded image.<b><br>
 &minus;type</b> type_letter : Matches files of the given
 type: &quot;block&quot;, &quot;char&quot;, &quot;dir&quot;,
 &quot;pipe&quot;, &quot;file&quot;, &quot;link&quot;,
@@ -2582,6 +2616,11 @@ xattr other than ACL.<b><br>
 checksums.<b><br>
 &minus;has_filter</b> : Matches files which are filtered by
 -set_filter.<b><br>
+&minus;hidden</b> hide_state : Matches files which are
+hidden in &quot;iso_rr&quot; tree, in &quot;joliet&quot;
+tree, in both trees (&quot;on&quot;), or not hidden in any
+tree (&quot;off&quot;). Those which are hidden in some tree
+match -not -hidden &quot;off&quot;.<b><br>
 &minus;prune</b> : If this test is reached and the tested
 file is a directory then -find will not dive into that
 directory. This test itself does always match.<b><br>
@@ -2713,6 +2752,11 @@ Data files get added or loaded with initial weight 0.<br>
 E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
 file.<b><br>
+hide</b> brings the file into one of the hide states
+&quot;on&quot;, &quot;iso_rr&quot;, &quot;joliet&quot;,
+&quot;off&quot;.<br>
+E.g.:<br>
+&nbsp;&nbsp;-find / -disk_name *_secret -exec hide on<b><br>
 find</b> performs another run of -find on the matching file
 address. It accepts the same params as -find, except
 iso_rr_path.<br>
@@ -3444,6 +3488,69 @@ show the current time of image creation. &quot;x&quot; and
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>&minus;copyright_file</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the copyright file name to be written with the next
+-commit. This should be the ISO 9660 path of a file in the
+image which contains a copyright statement. Permissible are
+up to 37 characters. This setting gets overridden by image
+loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;abstract_file</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the abstract file name to be written with the next
+-commit. This should be the ISO 9660 path of a file in the
+image which contains an abstract statement about the image
+content. Permissible are up to 37 characters. This setting
+gets overridden by image loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;biblio_file</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the biblio file name to be written with the next
+-commit. This should be the ISO 9660 path of a file in the
+image which contains bibliographic records. Permissible are
+up to 37 characters. This setting gets overridden by image
+loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>&minus;out_charset</b> character_set_name</p></td>
 </table>
 <!-- INDENTATION -->
@@ -3841,7 +3948,11 @@ image with address <b>cat_path=</b> at -commit time. It is
 subject to normal -overwrite and -reassure processing if
 there is already a file with the same name. The catalog
 lists the boot images and is read by the boot facility to
-choose one of the boot images.<b><br>
+choose one of the boot images. But it is not necessary that
+it appears in the directory tree at all. One may hide it in
+all trees by <b>cat_hidden=on</b>. Other possible values are
+&quot;iso_rr&quot;, &quot;joliet&quot;, and the default
+&quot;off&quot;.<b><br>
 load_size=</b> is a value which depends on the boot image.
 Default 2048 should be overridden only if a better value is
 known.<b><br>
@@ -4517,9 +4628,9 @@ after subtracting already foreseeable consumption by next
 <td width="21%"></td>
 <td width="77%">
 <p>Print various id strings which can be found in loaded ISO
-images. Some of them may be changed by options -volid,
--publisher, -application_id. For these ids -pvd_info reports
-what would be written with the next -commit.</p>
+images. Some of them may be changed by options like -volid
+or -publisher. For these ids -pvd_info reports what would be
+written with the next -commit.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4676,7 +4787,13 @@ their content. This resembles shell command ls -d.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Like -ls but also list some of the file attributes. The
-output format resembles shell command ls -ln.</p>
+output format resembles shell command ls -ln.<br>
+If the file has non-trivial ACL, then a &rsquo;+&rsquo; is
+appended to the permission info. If the file is hidden, then
+&rsquo;I&rsquo; for &quot;iso_rr&quot;, &rsquo;J&rsquo; for
+&quot;joliet&quot;, resp. &rsquo;H&rsquo; for &quot;on&quot;
+gets appended. Together with ACL it is &rsquo;i&rsquo;,
+&rsquo;j&rsquo;, resp. &rsquo;h&rsquo;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5686,14 +5803,15 @@ word.</p>
 <p>Personality &quot;<b>mkisofs</b>&quot; accepts the
 options listed with:<br>
 -as mkisofs -help --<br>
-Among them: -R (always on), -r, -J, -o, -M, -C, -path-list,
--m, -exclude-list, -f, -print-size, -pad, -no-pad, -V, -v,
--version, -graft-points, -z, -no-emul-boot, -b, -c,
--boot-info-table, -boot-load-size, -input-charset, -G,
--output-charset, -U, pathspecs as with xorriso -add. A lot
-of options are not supported and lead to failure of the
-mkisofs emulation. Some are ignored, but better do not rely
-on this tolerance.<br>
+Among them: -R (always on), -r, -J, -o, -M, -C, -dir-mode,
+-file-mode, -path-list, -m, -exclude-list, -f, -print-size,
+-pad, -no-pad, -V, -v, -version, -graft-points, -z,
+-no-emul-boot, -b, -c, -boot-info-table, -boot-load-size,
+-input-charset, -G, -output-charset, -U, -hide,
+-hide-joliet, -hide-list, -hide-joliet-list, file paths and
+pathspecs. A lot of options are not supported and lead to
+failure of the mkisofs emulation. Some are ignored, but
+better do not rely on this tolerance.<br>
 -graft-points is equivalent to -pathspecs on. Note that
 pathspecs without &quot;=&quot; are interpreted differently
 than with xorriso option -add. Directories get merged with
@@ -5740,6 +5858,7 @@ For MBR bootable ISOLINUX images there is -isohybrid-mbr
 FILE, where FILE is one of the Syslinux files
 mbr/isohdp[fp]x*.bin . Use this instead of -G to apply the
 effect of -boot_image isolinux partition_table=on.<br>
+--boot-catalog-hide is -boot_image any cat_hidden=on.<br>
 Personalites &quot;<b>xorrisofs</b>&quot;,
 &quot;<b>genisoimage</b>&quot;, and
 &quot;<b>genisofs</b>&quot; are aliases for
@@ -5747,11 +5866,11 @@ Personalites &quot;<b>xorrisofs</b>&quot;,
 If xorriso is started with one of the leafnames
 &quot;xorrisofs&quot;, &quot;genisofs&quot;,
 &quot;mkisofs&quot;, or &quot;genisoimage&quot;, then it
-automatically prepends -as &quot;genisofs&quot; to the
-command line arguments. I.e. all arguments will be
-interpreted mkisofs style until &quot;--&quot; is
-encountered. From then on, options are interpreted as
-xorriso options.</p>
+performs -read_mkisofsrc and prepends -as
+&quot;genisofs&quot; to the command line arguments. I.e. all
+arguments will be interpreted mkisofs style until
+&quot;--&quot; is encountered. From then on, options are
+interpreted as xorriso options.</p>
 <!-- INDENTATION -->
 <p>Personality &quot;<b>cdrecord</b>&quot; accepts the
 options listed with:<br>
@@ -5793,6 +5912,32 @@ command line arguments. I.e. all arguments will be
 interpreted cdrecord style until &quot;--&quot; is
 encountered and an eventual commit happens. From then on,
 options are interpreted as xorriso options.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;read_mkisofsrc</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Try one by one to open for reading: ./.mkisofsrc ,
+$MKISOFSRC , $HOME/.mkisofsrc , $(basename $0)/.mkisofs<br>
+On success interpret the file content as of man mkisofs
+CONFIGURATION, and end this command. Do not try further
+files. The last address is used only if start argument 0 has
+a non-trivial basename.<br>
+The reader currently interprets the following NAME=VALUE
+pairs: APPI (-application_id) , PUBL (-publisher) , SYSI
+(-system_id) , VOLI (-volid) , VOLS (-volset_id)<br>
+Any other lines will be silently ignored.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7027,7 +7172,12 @@ following files:<br>
 /etc/xorriso/xorriso.conf<br>
 $HOME/.xorrisorc<br>
 The files are read in the sequence given above, but none of
-them is required to exist.</p>
+them is required to exist.<br>
+If mkisofs emulation was enabled by program name
+&quot;xorrisofs&quot;, &quot;mkisofs&quot;,
+&quot;genisoimage&quot;, or &quot;genisofs&quot;, then
+afterwards -read_mkisofsrc is performed, which reads
+.mkisofsrc files. See there.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7202,5 +7352,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jun 13 16:30:05 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jul  2 12:15:57 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
