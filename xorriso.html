@@ -59,7 +59,7 @@ Images or add-on sessions may be written to about any kind of file object.
 <DD>With kernel 2.6 ide-scsi is not needed.</DD>
 <DT>or FreeBSD, libc, libpthread :</DT>
 <DD>PATA/IDE drives need atapicam running.</DD>
-<DD>SATA drives need atapicam or ahci running.</DD>
+<DD>SATA drives need atapicam running or need to be driven by ahci.</DD>
 <DD>libcam has to be installed.</DD>
 <DD>libiconv has to be installed.</DD>
 <DT>or Solaris, libc, libpthread :</DT>
@@ -585,6 +585,19 @@ cdrecord and mkisofs.</DT>
 </LI>
 <LI>
 New option -preparer_id, -as mkisofs options -p and -preparer
+</LI>
+<LI>
+DVD-R DL are supported as single-session media.
+I.e. only with option -close "on".
+</LI>
+<LI>
+New -boot_image specifier emul_type=none|hard_disk|floppy
+</LI>
+<LI>
+New boot_image boot specs partition_offset, partition_hd_cyl, partition_sec_hd
+</LI>
+<LI>
+New -as mkisofs options -hard-disk-boot, -partition_offset, -partition_hd_cyl, -partition_sec_hd
 </LI>
 <!-- 
 <LI>- none yet -</LI>
