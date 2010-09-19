@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Jul  2 12:15:57 2010 -->
+<!-- CreationDate: Sat Sep 18 15:38:28 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -239,7 +239,11 @@ standard:<b><br>
 Multi-session media</b> are CD-R, CD-RW, DVD-R, DVD+R,
 DVD+R/DL, BD-R, and unformatted DVD-RW. These media provide
 a table of content which describes their existing sessions.
-See option <b>&minus;toc</b>.<b><br>
+See option <b>&minus;toc</b>.<br>
+Similar to multi-session media are DVD-R DL and minimally
+blanked DVD-RW. They allow only a single session of which
+the size must be known in advance. xorriso will write onto
+them only if option -close is set to &quot;on&quot;.<b><br>
 Overwriteable media</b> are DVD-RAM, DVD+RW, BD-RE, and
 formatted DVD-RW. They allow random write access but do not
 provide information about their session history. If they
@@ -331,9 +335,9 @@ filesystem images with no outdated files or directory trees.
 Modifying can write its images to target media which are
 completely unsuitable for multi-session operations. E.g.
 DVD-RW which were treated with -blank deformat_quickest,
-named pipes, character devices, sockets. On the other hand
-modified sessions cannot be written to appendable media but
-to blank media only.<br>
+DVD-R DL, named pipes, character devices, sockets. On the
+other hand modified sessions cannot be written to appendable
+media but to blank media only.<br>
 So for this method one needs either two optical drives or
 has to work with filesystem objects as source and/or target
 media.<br>
@@ -3419,7 +3423,11 @@ loading.</p>
 <p>Set the application id string to be written with the next
 -commit. This may identify the specification of how the data
 are recorded. Permissible are up to 128 characters. This
-setting gets overridden by image loading.</p>
+setting gets overridden by image loading.<br>
+The special text &quot;@xorriso@&quot; gets converted to the
+id string of xorriso which is normally written as
+-preparer_id. It is a wrong tradition to write the program
+id as -application_id.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3543,6 +3551,34 @@ gets overridden by image loading.</p>
 image which contains bibliographic records. Permissible are
 up to 37 characters. This setting gets overridden by image
 loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;preparer_id</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the preparer id string to be written with the next
+-commit. This may identify the person or other entity which
+controls the preparation of the data which shall be
+recorded. Normally this should be the id of xorriso and not
+of the person or program which operates xorriso. Please
+avoid to change it. Permissible are up to 128
+characters.<br>
+The special text &quot;@xorriso@&quot; gets converted to the
+id string of xorriso which is default at program
+startup.<br>
+Unlike other id strings, this setting is not influenced by
+image loading.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3936,13 +3972,7 @@ which bundles these individual settings:<br>
 bin_path=/boot/isolinux/isolinux.bin<br>
 -boot_image isolinux cat_path=/boot/isolinux/boot.cat<br>
 -boot_image isolinux load_size=2048<br>
--boot_image any boot_info_table=on<b><br>
-bin_path=</b> depicts the boot image file, a binary program
-which is to be started by the hardware boot facility (e.g.
-the BIOS) at boot time.<b><br>
-efi_path=</b> depicts a boot image file that is ready for
-EFI booting. Its load_size is determined automatically, no
-boot info table gets written, platform_id is 0xef.<br>
+-boot_image any boot_info_table=on<br>
 An El Torito boot catalog file gets inserted into the ISO
 image with address <b>cat_path=</b> at -commit time. It is
 subject to normal -overwrite and -reassure processing if
@@ -3953,6 +3983,18 @@ it appears in the directory tree at all. One may hide it in
 all trees by <b>cat_hidden=on</b>. Other possible values are
 &quot;iso_rr&quot;, &quot;joliet&quot;, and the default
 &quot;off&quot;.<b><br>
+bin_path=</b> depicts a boot image file, a binary program
+which is to be started by the hardware boot facility (e.g.
+the BIOS) at boot time.<b><br>
+efi_path=</b> depicts a boot image file that is ready for
+EFI booting. Its load_size is determined automatically, no
+boot info table gets written, no boot media gets emulated,
+platform_id is 0xef.<b><br>
+emul_type=</b> can be one of &quot;no_emulation&quot;,
+&quot;hard_disk&quot;, &quot;diskette&quot;. It controls the
+boot media emulation code of a boot image. The default
+&quot;no_emulation&quot; is suitable for ISOLINUX, GRUB,
+FreeBSD cdboot.<b><br>
 load_size=</b> is a value which depends on the boot image.
 Default 2048 should be overridden only if a better value is
 known.<b><br>
@@ -4016,7 +4058,23 @@ those parameters get updated when the new System Area is
 written.<br>
 Special &quot;system_area=/dev/zero&quot; causes 32k of
 NUL-bytes. Use this to discard an MBR which eventually was
-loaded with the ISO image.</p>
+loaded with the ISO image.<b><br>
+partition_offset=</b>2kb_block_adr causes a partition table
+with a single partition that begins at the given block
+address. This is counted in 2048 byte blocks, not in 512
+byte blocks. If the block address is non-zero then it must
+be at least 16. A non-zero partition offset causes two
+superblocks to be generated and two sets of directory trees.
+The image is then mountable from its absolute start as well
+as from the partition start.<br>
+The offset value of an ISO image gets preserved when a new
+session is added. So the value defined here is only in
+effect if a new ISO image gets written.<b><br>
+partition_sec_hd=</b>number gives the number of sectors per
+head for partition offset. 0 chooses a default value.<b><br>
+partition_hd_cyl=</b>number gives the number of heads per
+cylinder for partition offset. 0 chooses a default
+value.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5853,12 +5911,16 @@ Adopted from grub-mkisofs are --protective-msdos-label (see
 --modification-date=YYYYMMDDhhmmsscc (see -volume_date
 uuid). For EFI bootable GRUB boot images use --efi-boot. It
 performs -boot_image grub efi_path= surrounded by two
--boot_image any next.<br>
+-boot_image &quot;any&quot; &quot;next&quot;. Alternative
+option -e from Fedora genisoimage sets bin_path and
+platform_id for EFI, but performs no &quot;next&quot;.<br>
 For MBR bootable ISOLINUX images there is -isohybrid-mbr
 FILE, where FILE is one of the Syslinux files
 mbr/isohdp[fp]x*.bin . Use this instead of -G to apply the
 effect of -boot_image isolinux partition_table=on.<br>
 --boot-catalog-hide is -boot_image any cat_hidden=on.<br>
+-partition_offset number is -boot_image any
+partition_offset=number.<br>
 Personalites &quot;<b>xorrisofs</b>&quot;,
 &quot;<b>genisoimage</b>&quot;, and
 &quot;<b>genisofs</b>&quot; are aliases for
@@ -5929,11 +5991,11 @@ options are interpreted as xorriso options.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Try one by one to open for reading: ./.mkisofsrc ,
-$MKISOFSRC , $HOME/.mkisofsrc , $(basename $0)/.mkisofs<br>
+$MKISOFSRC , $HOME/.mkisofsrc , $(dirname $0)/.mkisofsrc<br>
 On success interpret the file content as of man mkisofs
 CONFIGURATION, and end this command. Do not try further
 files. The last address is used only if start argument 0 has
-a non-trivial basename.<br>
+a non-trivial dirname.<br>
 The reader currently interprets the following NAME=VALUE
 pairs: APPI (-application_id) , PUBL (-publisher) , SYSI
 (-system_id) , VOLI (-volid) , VOLS (-volset_id)<br>
@@ -7352,5 +7414,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jul  2 12:15:57 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Sep 18 15:38:28 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>

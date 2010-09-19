@@ -142,7 +142,8 @@ Scans for optical drives, blanks re-useable optical media, formats media.
 </LI>
 <LI>
 Suitable for:
-CD-R, CD-RW, DVD-R, DVD-RW, DVD+R, DVD+R DL, DVD+RW, DVD-RAM, BD-R, BD-RE.
+CD-R, CD-RW, DVD-R, DVD-R DL, DVD-RW, DVD+R, DVD+R DL, DVD+RW, DVD-RAM,
+BD-R, BD-RE.
 </LI>
 <LI>
 Reads its instructions from command line arguments, dialog, and batch files.
@@ -439,19 +440,19 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-0.6.0.tar.gz">xorriso-0.6.0.tar.gz</A>
-(1650 KB).
+<DD><A HREF="xorriso-0.6.2.tar.gz">xorriso-0.6.2.tar.gz</A>
+(1670 KB).
 </DD>
-<DD>(Released 02 Jul 2010)</DD>
-<DD><A HREF="xorriso-0.6.0.tar.gz.sig">xorriso-0.6.0.tar.gz.sig</A></DD>
+<DD>(Released 18 Sep 2010)</DD>
+<DD><A HREF="xorriso-0.6.2.tar.gz.sig">xorriso-0.6.2.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-0.6.0.tar.gz.sig xorriso-0.6.0.tar.gz</KBD>).
+<KBD>gpg --verify xorriso-0.6.2.tar.gz.sig xorriso-0.6.2.tar.gz</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-0.6.0.tar.gz
+as xorriso/xorriso-0.6.2.tar.gz
 </DD>
 </DL>
 </DD>
@@ -479,10 +480,9 @@ as xorriso/xorriso-0.6.0.tar.gz
 <HR>
 
 <P>
-Bug fixes towards xorriso-0.5.8:
+Bug fixes towards xorriso-0.6.0:
 <UL>
-<LI>-check_media patch_lba0= could install wrong image size</LI>
-<LI>-as mkisofs option -volset was wrongly interpreted like -volid</LI>
+<LI>Regression with -hardlinks and -compliance old_rr, 0.4.2, Aug 2009</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -500,26 +500,33 @@ Bug fixes in .pl01 towards xorriso-:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-0.5.8:
+Enhancements towards previous stable version xorriso-0.6.0:
 <UL>
-<LI>Enabled use of libreadline on Solaris</LI>
-<LI>New find test -disk_name</LI>
-<LI>New option -hide, -find action -hide, -find test -hidden</LI>
-<LI>New -boot_image bootspec cat_hidden=on</LI>
+
 <LI>
-New options -copyright_file , -biblio_file , -abstract_file
+New option -preparer_id, -as mkisofs options -p and -preparer
 </LI>
 <LI>
-New option -read_mkisofsrc interprets .mkisofsrc
+New -boot_image specifier emul_type=none|hard_disk|floppy
 </LI>
 <LI>
-Implemented -as mkisofs options -hide, -hide-joliet, -hide-list, -hide-joliet-list
+New boot_image boot specs partition_offset, partition_hd_cyl, partition_sec_hd
 </LI>
 <LI>
-New -as mkisofs option --boot-catalog-hide
+Made behavior of -as mkisofs with unknown options more similar to original
 </LI>
 <LI>
-Implemented -as mkisofs options -dir-mode, -file-mode, -abstract, -biblio, -copyright
+New -as mkisofs option -hard-disk-boot, enabled -b without -no-emul-boot
+</LI>
+<LI>
+New -as mkisofs option -e from Fedora genisoimage
+</LI>
+<LI>
+New -as mkisofs options -partition_offset,-partition_hd_cyl,-partition_sec_hd
+</LI>
+<LI>
+DVD-R DL are supported as single-session media.
+I.e. only with option -close "on".
 </LI>
 
 <!--
@@ -544,16 +551,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-0.8.5</DT>
+<DT>libburn-0.8.7</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-0.6.35</DT>
+<DT>libisofs-0.6.37</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-0.6.0</DT>
+<DT>libisoburn-0.6.2</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -570,8 +577,8 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 0.6.1 :</H3></DT>
-<DD>Bug fixes towards xorriso-0.6.0:
+<DT><H3>Development snapshot, version 0.6.3 :</H3></DT>
+<DD>Bug fixes towards xorriso-0.6.2:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
@@ -579,35 +586,18 @@ cdrecord and mkisofs.</DT>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 0.6.0:
+<DD>Enhancements towards stable version 0.6.2:
 <UL>
-<LI> Made behavior of -as mkisofs with unknown options more similar to original
-</LI>
-<LI>
-New option -preparer_id, -as mkisofs options -p and -preparer
-</LI>
-<LI>
-DVD-R DL are supported as single-session media.
-I.e. only with option -close "on".
-</LI>
-<LI>
-New -boot_image specifier emul_type=none|hard_disk|floppy
-</LI>
-<LI>
-New boot_image boot specs partition_offset, partition_hd_cyl, partition_sec_hd
-</LI>
-<LI>
-New -as mkisofs options -hard-disk-boot, -partition_offset, -partition_hd_cyl, -partition_sec_hd
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 0.6.1</A>
-<DD><A HREF="xorriso_help_devel">xorriso_0.6.1 -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.6.1)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 0.6.3</A>
+<DD><A HREF="xorriso_help_devel">xorriso_0.6.3 -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.6.3)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -617,8 +607,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-0.6.1.tar.gz">xorriso-0.6.1.tar.gz</A>
-(1650 KB).
+<A HREF="xorriso-0.6.3.tar.gz">xorriso-0.6.3.tar.gz</A>
+(1670 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

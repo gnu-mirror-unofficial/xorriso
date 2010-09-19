@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-ftp://ftp.gnu.org/gnu/xorriso/xorriso-0.6.0.tar.gz
+ftp://ftp.gnu.org/gnu/xorriso/xorriso-0.6.2.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -46,10 +46,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-0.6.0.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-0.6.2.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-0.6.0.tar.gz
-    cd xorriso-0.6.0
+    tar xzf xorriso-0.6.2.tar.gz
+    cd xorriso-0.6.2
 
 Within that directory execute:
 
@@ -290,9 +290,9 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-0.6.0 :
+Dynamic library and compile time header requirements for libisoburn-0.6.2 :
 - libburn.so.4  , version libburn-0.8.4 or higher
-- libisofs.so.6 , version libisofs-0.6.34 or higher
+- libisofs.so.6 , version libisofs-0.6.36 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
