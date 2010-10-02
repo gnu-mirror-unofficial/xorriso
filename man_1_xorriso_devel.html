@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat Oct  2 11:11:39 2010 -->
+<!-- CreationDate: Sat Oct  2 23:06:24 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4161,8 +4161,12 @@ parameter list. The absolute disk_path of any file that will
 be listed in the .jigdo file will be checked whether it
 begins with the From string. If so, this string will be
 replaced by the To string and a &rsquo;:&rsquo; character.
-E.g. &quot;Debian=/mirror/debian&quot;. Alias:
--jigdo-map</p>
+The From string should end by a &rsquo;/&rsquo; character.
+Alias: -jigdo-map<b><br>
+compression</b> chooses one of &quot;bzip2&quot; or
+&quot;gzip&quot; for the compression of the template file.
+The jigdo file is put out uncompressed. Alias:
+-jigdo-template-compress</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7506,5 +7510,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Oct  2 11:11:39 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Oct  2 23:06:24 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
