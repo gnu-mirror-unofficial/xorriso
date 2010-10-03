@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat Oct  2 23:06:24 2010 -->
+<!-- CreationDate: Sun Oct  3 19:15:21 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4108,11 +4108,15 @@ and externally referenced in the .template file. Each
 desired file is represented in the .md5 file by a single
 text line:<br>
 MD5 as 32 hex digits, 2 blanks, size as 12 decimal digits or
-blanks, 2 blanks, absolute path in the disk filesystem as
-given to xorriso.<br>
+blanks, 2 blanks, file address<br>
+The file address in an .md5 line has to bear the same
+basename as the absolute disk_path of the file which it
+shall match. The directory path of the file address is
+decisive for To=From mapping, not for file recognition.<br>
 If the list of jigdo parameters is not empty, then xorriso
 will refuse to write to non-blank targets, it will disable
-multi-session emulation and padding.</p>
+multi-session emulation, and eventual padding will be
+counted as part of the ISO image.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4137,36 +4141,53 @@ the -as mkisofs emulation command.<br>
 Parameter <b>clear</b> with any value empties the whole
 list. No .jigdo and .template file will be produced.<b><br>
 template_path</b> sets the disk_path for the .template file
-with the holed and compressed ISO image copy. Alias:
--jigdo-template<b><br>
+with the holed and compressed ISO image copy.<br>
+Alias: -jigdo-template<b><br>
 jigdo_path</b> sets the disk_path for the .jigdo file with
 the checksums and download addresses for filling the holes
-in .template. Alias: -jigdo-jigdo<b><br>
+in .template.<br>
+Alias: -jigdo-jigdo<b><br>
 md5_path</b> sets the disk_path where to find the .md5 input
-file. Alias: -md5-list<b><br>
+file.<br>
+Alias: -md5-list<b><br>
 min_size</b> sets the minimum size for a data file to be
 listed in the .jigdo file and being a hole in the .template
-file. Alias: -jigdo-min-file-size<b><br>
+file.<br>
+Alias: -jigdo-min-file-size<b><br>
 exclude</b> adds a regular expression pattern which will get
 compared with the absolute disk_path of any data file. A
-match causes the file to stay in .template in any case.
+match causes the file to stay in .template in any case.<br>
 Alias: -jigdo-exclude<b><br>
 demand_md5</b> adds a regular expression pattern which will
 get compared with the absolute disk_path of any data file
 that was not found in the .md5 list. A match currently
-causes sudden program abort. (Should become a MISHAP event.)
+causes sudden program abort. (Should become a MISHAP
+event.)<br>
 Alias: -jigdo-force-md5<b><br>
 mapping</b> adds a string pair of the form To=From to the
-parameter list. The absolute disk_path of any file that will
-be listed in the .jigdo file will be checked whether it
-begins with the From string. If so, this string will be
-replaced by the To string and a &rsquo;:&rsquo; character.
-The From string should end by a &rsquo;/&rsquo; character.
+parameter list. If a data file gets listed in the .jigdo
+file, then it is referred by the file address from its line
+in the .md5 file. This file address gets checked whether it
+begins with the From string. If so, then this string will be
+replaced by the To string and a &rsquo;:&rsquo; character,
+before it goes into the .jigdo file. The From string should
+end by a &rsquo;/&rsquo; character.<br>
 Alias: -jigdo-map<b><br>
 compression</b> chooses one of &quot;bzip2&quot; or
 &quot;gzip&quot; for the compression of the template file.
-The jigdo file is put out uncompressed. Alias:
--jigdo-template-compress</p>
+The jigdo file is put out uncompressed.<br>
+Alias: -jigdo-template-compress<b><br>
+checksum_iso</b> chooses one or more of &quot;md5&quot;,
+&quot;sha1&quot;, &quot;sha256&quot;, &quot;sha512&quot; for
+the auxiliary &quot;# Image Hex&quot; checksums in the jigdo
+file. The value may e.g. look like
+&quot;md5,sha1,sha512&quot;. Value &quot;all&quot; chooses
+all available algorithms. Note that MD5 stays always
+enabled.<br>
+Alias: -checksum_algorithm_iso<b><br>
+checksum_template</b> is like checksum_iso but for &quot;#
+Template Hex&quot;.<br>
+Alias: -checksum_algorithm_template</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7510,5 +7531,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Oct  2 23:06:24 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Oct  3 19:15:21 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
