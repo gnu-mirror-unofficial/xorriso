@@ -83,6 +83,8 @@ but rather not with CD, DVD-R, DVD+R, BD-R.
 <DD>eventually allow on GNU/Linux to get and set ACLs.</DD>
 <DT>zlib and zlib-devel</DT>
 <DD>eventually allow zisofs and gzip compression.</DD>
+<DT>libbz2 and libbz2-devel</DT>
+<DD>eventually allow bzip2 compression of Jigdo template files.</DD>
 </DL>
 </P>
 
@@ -539,7 +541,7 @@ I.e. only with option -close "on".
 
 <P>
 <H3>
-Libburnia software copies included in GNU xorriso:
+Software copies included in GNU xorriso:
 </H3>
 <DL>
 <DT>
@@ -588,12 +590,27 @@ cdrecord and mkisofs.</DT>
 </DD>
 <DD>Enhancements towards stable version 0.6.2:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+New option -jigdo
+</LI>
+<LI>
+New -as mkisofs options -jigdo-* , -md5-list , -checksum_algorithm_* as of genisoimage
+</LI>
+<LI>
+New bootspecs mips_path= and mipsel_path= for Debian MIPS releases
+</LI>
+<LI>
+New -as mkisofs options -mips-boot and -mipsel-boot
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
+
 </DD>
+
+<DD>&nbsp;</DD>
+
 <DD>&nbsp;</DD>
 <DD><A HREF="README_xorriso_devel">README 0.6.3</A>
 <DD><A HREF="xorriso_help_devel">xorriso_0.6.3 -help</A></DD>
@@ -608,13 +625,14 @@ installation see README)
 </DD>
 <DD>
 <A HREF="xorriso-0.6.3.tar.gz">xorriso-0.6.3.tar.gz</A>
-(1670 KB).
+(1730 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of
 <A HREF="http://libburnia-project.org"> libburnia-project.org</A>.
 xorriso is part of libisoburn/trunk and will get built by its "make".
 </DT>
+
 <DT>Be warned that the libraries in SVN and bzr are development versions with
 possibly unstable API/ABI enhancements. Do not distribute development
 versions for dynamic linking. Only release versions are safe for that.
@@ -636,6 +654,18 @@ versions for dynamic linking. Only release versions are safe for that.
 But after the run of <KBD>./bootstrap</KBD>, only
 vanilla tools like make and gcc are needed.
 </DT>
+<DT>The development version of GNU xorriso contains a copy of libjte-0.1.1
+which produces jigdo and template file together with the emerging ISO image,
+(By Free Software Foundation, Steve McIntyre, George Danchev,
+Thomas Schmitt)
+</DT>
+<DD>Important: If desired, libjte has to be already installed when libisofs
+and libisoburn get built.</DD>
+<DD>Download: <KBD><B>svn co http://svn.openfmi.net/dev/people/danchev/jte libjte</B>
+</KBD></DD>
+<DD>Install: <KBD><B>cd libjte ; ./bootstrap ; ./configure --prefix /usr ; make ; make install</B>
+</KBD></DD>
+
 <DD>&nbsp;</DD>
 </DL>
 </P>

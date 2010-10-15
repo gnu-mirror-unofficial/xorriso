@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Oct  3 19:15:21 2010 -->
+<!-- CreationDate: Fri Oct 15 14:55:34 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4074,7 +4074,15 @@ partition_sec_hd=</b>number gives the number of sectors per
 head for partition offset. 0 chooses a default value.<b><br>
 partition_hd_cyl=</b>number gives the number of heads per
 cylinder for partition offset. 0 chooses a default
-value.</p>
+value.<b><br>
+mips_path=</b>iso_rr_path declares a data file in the image
+to be a MIPS Big Endian boot file. Enable production of a
+MIPS Big Endian Volume Header. This is mutually exclusive
+with any MBR production. It will overwrite the first 512
+bytes of any data eventually provided by system_area=. Up to
+15 boot files can be declared by mips_path=.<b><br>
+mips_discard</b> revokes any boot file declarations made by
+mips_path=. This removes the ban on MBR production.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4098,21 +4106,25 @@ DVD ISO images are published on the web in jigdo format to
 allow end users to download them more efficiently.&quot;<br>
 xorriso can produce a .jigdo and a .template file together
 with a single-session ISO image. The .jigdo file contains
-checksums and file download addresses. The .template file
+checksums and symbolic file addresses. The .template file
 contains the compressed ISO image with reference tags
 instead of the content bytes of the listed files.<br>
 Input for this process are the normal arguments for a
 xorriso session on a blank -outdev, and a .md5 file which
-lists those files which shall be listed in the .jigdo file
-and externally referenced in the .template file. Each
-desired file is represented in the .md5 file by a single
+lists those data files which may be listed in the .jigdo
+file and externally referenced in the .template file. Each
+designated file is represented in the .md5 file by a single
 text line:<br>
 MD5 as 32 hex digits, 2 blanks, size as 12 decimal digits or
-blanks, 2 blanks, file address<br>
+blanks, 2 blanks, symbolic file address<br>
 The file address in an .md5 line has to bear the same
-basename as the absolute disk_path of the file which it
-shall match. The directory path of the file address is
-decisive for To=From mapping, not for file recognition.<br>
+basename as the disk_path of the file which it shall match.
+The directory path of the file address is decisive for
+To=From mapping, not for file recognition. After eventual
+To=From mapping, the file address gets written into the
+.jigdo file. Jigdo restore tools will convert these
+addresses into really reachable data source addresses from
+which they can read.<br>
 If the list of jigdo parameters is not empty, then xorriso
 will refuse to write to non-blank targets, it will disable
 multi-session emulation, and eventual padding will be
@@ -4160,9 +4172,8 @@ match causes the file to stay in .template in any case.<br>
 Alias: -jigdo-exclude<b><br>
 demand_md5</b> adds a regular expression pattern which will
 get compared with the absolute disk_path of any data file
-that was not found in the .md5 list. A match currently
-causes sudden program abort. (Should become a MISHAP
-event.)<br>
+that was not found in the .md5 list. A match causes a MISHAP
+event.<br>
 Alias: -jigdo-force-md5<b><br>
 mapping</b> adds a string pair of the form To=From to the
 parameter list. If a data file gets listed in the .jigdo
@@ -6032,6 +6043,7 @@ FILE, where FILE is one of the Syslinux files
 mbr/isohdp[fp]x*.bin . Use this instead of -G to apply the
 effect of -boot_image isolinux partition_table=on.<br>
 --boot-catalog-hide is -boot_image any cat_hidden=on.<br>
+-mips-boot is the same as -boot_image any mips_path= .<br>
 -partition_offset number is -boot_image any
 partition_offset=number.<br>
 The options of genisoimage Jigdo Template Extraction are
@@ -7531,5 +7543,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Oct  3 19:15:21 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Oct 15 14:55:34 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
