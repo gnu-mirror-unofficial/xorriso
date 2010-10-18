@@ -111,6 +111,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  mips_path= adds Big Endian MIPS boot files. mipsel_path=
                  sets one Little Endian MIPS boot file. Both are mutually
                  exclusive and exclusive to MBR production.
+  -append_partition partition_number type_code disk_path
+                 Append a prepared filesystem image after the end of the
+                 ISO image. Caution: Will be overwritten by multi-session.
 
   -uid uid       User id to be used for the whole multi-session ISO image.
   -gid gid       Group id for the same purpose.

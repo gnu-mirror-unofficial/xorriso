@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Oct 15 14:55:34 2010 -->
+<!-- CreationDate: Mon Oct 18 18:10:30 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3870,7 +3870,7 @@ For images which will never get to a CD it is safe to use
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>El Torito bootable ISO images:</b><BR>&nbsp;<BR></p></td>
+<p><b>Bootable ISO images:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3892,7 +3892,15 @@ If a boot image from ISOLINUX or GRUB is known to be present
 on media then it is advised to patch it when a follow-up
 session gets written. But one should not rely on the
 capability to influence the bootability of the existing
-sessions, unless one can assume overwriteable media.</p>
+sessions, unless one can assume overwriteable media.<br>
+There are booting mechanisms which do not use an El Torito
+record but rather start at the first bytes of the image:
+PC-BIOS MBR for hard-disk-like devices, MIPS Volume Header
+for old SGI computers, DEC Boot Block for old
+DECstation.<br>
+The boot firmware EFI may use programs which are located in
+a FAT filesystem and announced by an MBR partition table
+entry.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4078,11 +4086,54 @@ value.<b><br>
 mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file. Enable production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
-with any MBR production. It will overwrite the first 512
-bytes of any data eventually provided by system_area=. Up to
-15 boot files can be declared by mips_path=.<b><br>
+with MBR production and mipsel_path=. It will overwrite the
+first 512 bytes of any data eventually provided by
+system_area=. Up to 15 boot files can be declared by
+mips_path=.<b><br>
+mipsel_path=</b>iso_rr_path declares a data file in the
+image to be the MIPS Little Endian boot file. This is
+mutually exclusive with MBR production and mips_path=. It
+will overwrite the first 512 bytes of any data eventually
+provided by system_area=. Only a single boot file can be
+declared by mipsel_path=.<b><br>
 mips_discard</b> revokes any boot file declarations made by
 mips_path=. This removes the ban on MBR production.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;append_partition</b> partition_number type_code
+disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Cause a prepared filesystem image to be appended to the
+ISO image and to be described by a partition table entry in
+an MBR at the start of the emerging ISO image. The partition
+entry will bear the size of the submitted file rounded up to
+the next multiple of 2048 bytes.<br>
+Beware of subsequent multi-session runs. The appended
+partition will get overwritten.<br>
+partition_number may be 1 to 4. Number 1 will put the whole
+ISO image into the unclaimed space before partition 1. So
+together with most xorriso MBR features, number 2 would be
+the most natural choice.<br>
+The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
+&quot;Linux&quot;, or a hexadecimal number between 0x00 and
+0xff. Not all those numbers will yield usable results. For a
+list of codes search the Internet for &quot;Partition
+Types&quot; or run fdisk command &quot;L&quot;.<br>
+The disk_path must provide the necessary data bytes at
+commit time. An empty disk_path disables this feature for
+the given partition number.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6046,6 +6097,7 @@ effect of -boot_image isolinux partition_table=on.<br>
 -mips-boot is the same as -boot_image any mips_path= .<br>
 -partition_offset number is -boot_image any
 partition_offset=number.<br>
+Option -append_partition is supported.<br>
 The options of genisoimage Jigdo Template Extraction are
 recognized and performed via xorriso option -jigdo. See the
 &quot;Alias:&quot; names there for the meaning of the
@@ -7543,5 +7595,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Oct 15 14:55:34 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Oct 18 18:10:30 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>

@@ -98,7 +98,7 @@ Never omit the "make clean" command after switching libreadline enabling.
 Other deliberate dependency reduction options of ./configure are:
     --disable-libacl   avoid use of ACL functions like acl_to_text()
     --disable-xattr    avoid use of xattr functions like listxattr()
-    --disable-zlib     avoid use of zlib functions like compress2()
+    --disable-zlib     avoid use of zlib functions like compress2() and libjte
 
 xorriso brings own system adapters which allow burning optical media on
 GNU/Linux, FreeBSD, Solaris.
