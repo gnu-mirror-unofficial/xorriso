@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat Sep 18 15:38:28 2010 -->
+<!-- CreationDate: Tue Oct 26 12:25:29 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3870,7 +3870,7 @@ For images which will never get to a CD it is safe to use
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>El Torito bootable ISO images:</b><BR>&nbsp;<BR></p></td>
+<p><b>Bootable ISO images:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3892,7 +3892,15 @@ If a boot image from ISOLINUX or GRUB is known to be present
 on media then it is advised to patch it when a follow-up
 session gets written. But one should not rely on the
 capability to influence the bootability of the existing
-sessions, unless one can assume overwriteable media.</p>
+sessions, unless one can assume overwriteable media.<br>
+There are booting mechanisms which do not use an El Torito
+record but rather start at the first bytes of the image:
+PC-BIOS MBR for hard-disk-like devices, MIPS Volume Header
+for old SGI computers, DEC Boot Block for old
+DECstation.<br>
+The boot firmware EFI may use programs which are located in
+a FAT filesystem and announced by an MBR partition table
+entry.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4074,7 +4082,174 @@ partition_sec_hd=</b>number gives the number of sectors per
 head for partition offset. 0 chooses a default value.<b><br>
 partition_hd_cyl=</b>number gives the number of heads per
 cylinder for partition offset. 0 chooses a default
-value.</p>
+value.<b><br>
+mips_path=</b>iso_rr_path declares a data file in the image
+to be a MIPS Big Endian boot file. Enable production of a
+MIPS Big Endian Volume Header. This is mutually exclusive
+with MBR production and mipsel_path=. It will overwrite the
+first 512 bytes of any data eventually provided by
+system_area=. Up to 15 boot files can be declared by
+mips_path=.<b><br>
+mipsel_path=</b>iso_rr_path declares a data file in the
+image to be the MIPS Little Endian boot file. This is
+mutually exclusive with MBR production and mips_path=. It
+will overwrite the first 512 bytes of any data eventually
+provided by system_area=. Only a single boot file can be
+declared by mipsel_path=.<b><br>
+mips_discard</b> revokes any boot file declarations made by
+mips_path=. This removes the ban on MBR production.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;append_partition</b> partition_number type_code
+disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Cause a prepared filesystem image to be appended to the
+ISO image and to be described by a partition table entry in
+an MBR at the start of the emerging ISO image. The partition
+entry will bear the size of the submitted file rounded up to
+the next multiple of 2048 bytes.<br>
+Beware of subsequent multi-session runs. The appended
+partition will get overwritten.<br>
+partition_number may be 1 to 4. Number 1 will put the whole
+ISO image into the unclaimed space before partition 1. So
+together with most xorriso MBR features, number 2 would be
+the most natural choice.<br>
+The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
+&quot;Linux&quot;, or a hexadecimal number between 0x00 and
+0xff. Not all those numbers will yield usable results. For a
+list of codes search the Internet for &quot;Partition
+Types&quot; or run fdisk command &quot;L&quot;.<br>
+The disk_path must provide the necessary data bytes at
+commit time. An empty disk_path disables this feature for
+the given partition number.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>&nbsp;<BR><b>Jigdo Template Extraction:</b><BR>&nbsp;<BR></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>From man genisoimage: &quot;Jigdo is a tool to help in
+the distribution of large files like CD and DVD images; see
+http://atterer.net/jigdo/ for more details. Debian CDs and
+DVD ISO images are published on the web in jigdo format to
+allow end users to download them more efficiently.&quot;<br>
+xorriso can produce a .jigdo and a .template file together
+with a single-session ISO image. The .jigdo file contains
+checksums and symbolic file addresses. The .template file
+contains the compressed ISO image with reference tags
+instead of the content bytes of the listed files.<br>
+Input for this process are the normal arguments for a
+xorriso session on a blank -outdev, and a .md5 file which
+lists those data files which may be listed in the .jigdo
+file and externally referenced in the .template file. Each
+designated file is represented in the .md5 file by a single
+text line:<br>
+MD5 as 32 hex digits, 2 blanks, size as 12 decimal digits or
+blanks, 2 blanks, symbolic file address<br>
+The file address in an .md5 line has to bear the same
+basename as the disk_path of the file which it shall match.
+The directory path of the file address is decisive for
+To=From mapping, not for file recognition. After eventual
+To=From mapping, the file address gets written into the
+.jigdo file. Jigdo restore tools will convert these
+addresses into really reachable data source addresses from
+which they can read.<br>
+If the list of jigdo parameters is not empty, then xorriso
+will refuse to write to non-blank targets, it will disable
+multi-session emulation, and eventual padding will be
+counted as part of the ISO image.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;jigdo</b> parameter_name value</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Clear Jigdo Template Extraction parameter list or add a
+parameter to that list. The alias names are the
+corresponding genisoimage options. They are accepted as
+parameter names as well. Especially they are recognized by
+the -as mkisofs emulation command.<br>
+Parameter <b>clear</b> with any value empties the whole
+list. No .jigdo and .template file will be produced.<b><br>
+template_path</b> sets the disk_path for the .template file
+with the holed and compressed ISO image copy.<br>
+Alias: -jigdo-template<b><br>
+jigdo_path</b> sets the disk_path for the .jigdo file with
+the checksums and download addresses for filling the holes
+in .template.<br>
+Alias: -jigdo-jigdo<b><br>
+md5_path</b> sets the disk_path where to find the .md5 input
+file.<br>
+Alias: -md5-list<b><br>
+min_size</b> sets the minimum size for a data file to be
+listed in the .jigdo file and being a hole in the .template
+file.<br>
+Alias: -jigdo-min-file-size<b><br>
+exclude</b> adds a regular expression pattern which will get
+compared with the absolute disk_path of any data file. A
+match causes the file to stay in .template in any case.<br>
+Alias: -jigdo-exclude<b><br>
+demand_md5</b> adds a regular expression pattern which will
+get compared with the absolute disk_path of any data file
+that was not found in the .md5 list. A match causes a MISHAP
+event.<br>
+Alias: -jigdo-force-md5<b><br>
+mapping</b> adds a string pair of the form To=From to the
+parameter list. If a data file gets listed in the .jigdo
+file, then it is referred by the file address from its line
+in the .md5 file. This file address gets checked whether it
+begins with the From string. If so, then this string will be
+replaced by the To string and a &rsquo;:&rsquo; character,
+before it goes into the .jigdo file. The From string should
+end by a &rsquo;/&rsquo; character.<br>
+Alias: -jigdo-map<b><br>
+compression</b> chooses one of &quot;bzip2&quot; or
+&quot;gzip&quot; for the compression of the template file.
+The jigdo file is put out uncompressed.<br>
+Alias: -jigdo-template-compress<b><br>
+checksum_iso</b> chooses one or more of &quot;md5&quot;,
+&quot;sha1&quot;, &quot;sha256&quot;, &quot;sha512&quot; for
+the auxiliary &quot;# Image Hex&quot; checksums in the jigdo
+file. The value may e.g. look like
+&quot;md5,sha1,sha512&quot;. Value &quot;all&quot; chooses
+all available algorithms. Note that MD5 stays always
+enabled.<br>
+Alias: -checksum_algorithm_iso<b><br>
+checksum_template</b> is like checksum_iso but for &quot;#
+Template Hex&quot;.<br>
+Alias: -checksum_algorithm_template</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5919,9 +6094,17 @@ FILE, where FILE is one of the Syslinux files
 mbr/isohdp[fp]x*.bin . Use this instead of -G to apply the
 effect of -boot_image isolinux partition_table=on.<br>
 --boot-catalog-hide is -boot_image any cat_hidden=on.<br>
+-mips-boot is the same as -boot_image any mips_path= .<br>
+-mipsel-boot leads to mipsel_path= .<br>
 -partition_offset number is -boot_image any
 partition_offset=number.<br>
-Personalites &quot;<b>xorrisofs</b>&quot;,
+Option -append_partition is supported.<br>
+The options of genisoimage Jigdo Template Extraction are
+recognized and performed via xorriso option -jigdo. See the
+&quot;Alias:&quot; names there for the meaning of the
+genisoimage options.</p>
+<!-- INDENTATION -->
+<p>Personalites &quot;<b>xorrisofs</b>&quot;,
 &quot;<b>genisoimage</b>&quot;, and
 &quot;<b>genisofs</b>&quot; are aliases for
 &quot;mkisofs&quot;.<br>
@@ -7414,5 +7597,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Sep 18 15:38:28 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Oct 26 12:25:29 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>

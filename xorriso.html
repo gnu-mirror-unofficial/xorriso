@@ -82,7 +82,7 @@ but rather not with CD, DVD-R, DVD+R, BD-R.
 <DT>libacl and libacl-devel</DT>
 <DD>eventually allow on GNU/Linux to get and set ACLs.</DD>
 <DT>zlib and zlib-devel</DT>
-<DD>eventually allow zisofs and gzip compression.</DD>
+<DD>eventually allow zisofs, gzip compression, and Jigdo file production.</DD>
 <DT>libbz2 and libbz2-devel</DT>
 <DD>eventually allow bzip2 compression of Jigdo template files.</DD>
 </DL>
@@ -442,19 +442,19 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-0.6.2.tar.gz">xorriso-0.6.2.tar.gz</A>
+<DD><A HREF="xorriso-0.6.4.tar.gz">xorriso-0.6.4.tar.gz</A>
 (1670 KB).
 </DD>
-<DD>(Released 18 Sep 2010)</DD>
-<DD><A HREF="xorriso-0.6.2.tar.gz.sig">xorriso-0.6.2.tar.gz.sig</A></DD>
+<DD>(Released 26 Oct 2010)</DD>
+<DD><A HREF="xorriso-0.6.4.tar.gz.sig">xorriso-0.6.4.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-0.6.2.tar.gz.sig xorriso-0.6.2.tar.gz</KBD>).
+<KBD>gpg --verify xorriso-0.6.4.tar.gz.sig xorriso-0.6.4.tar.gz</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-0.6.2.tar.gz
+as xorriso/xorriso-0.6.4.tar.gz
 </DD>
 </DL>
 </DD>
@@ -482,9 +482,9 @@ as xorriso/xorriso-0.6.2.tar.gz
 <HR>
 
 <P>
-Bug fixes towards xorriso-0.6.0:
+Bug fixes towards xorriso-0.6.2:
 <UL>
-<LI>Regression with -hardlinks and -compliance old_rr, 0.4.2, Aug 2009</LI>
+<LI>- none -</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -502,33 +502,23 @@ Bug fixes in .pl01 towards xorriso-:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-0.6.0:
+Enhancements towards previous stable version xorriso-0.6.2:
 <UL>
 
 <LI>
-New option -preparer_id, -as mkisofs options -p and -preparer
+New option -jigdo
 </LI>
 <LI>
-New -boot_image specifier emul_type=none|hard_disk|floppy
+New -as mkisofs options -jigdo-* , -md5-list , -checksum_algorithm_* as of genisoimage
 </LI>
 <LI>
-New boot_image boot specs partition_offset, partition_hd_cyl, partition_sec_hd
+New bootspecs mips_path= and mipsel_path= for Debian MIPS releases
 </LI>
 <LI>
-Made behavior of -as mkisofs with unknown options more similar to original
+New -as mkisofs options -mips-boot and -mipsel-boot
 </LI>
 <LI>
-New -as mkisofs option -hard-disk-boot, enabled -b without -no-emul-boot
-</LI>
-<LI>
-New -as mkisofs option -e from Fedora genisoimage
-</LI>
-<LI>
-New -as mkisofs options -partition_offset,-partition_hd_cyl,-partition_sec_hd
-</LI>
-<LI>
-DVD-R DL are supported as single-session media.
-I.e. only with option -close "on".
+New option -append_partition, -as mkisofs -append_partition
 </LI>
 
 <!--
@@ -547,28 +537,32 @@ Software copies included in GNU xorriso:
 <DT>
 GNU xorriso is feature-wise equivalent to the dynamic compilation of
 <A HREF="http://libburnia-project.org/"> libburnia </A>
-libraries and libburnia program xorriso.
+libraries, libjte, and libburnia program xorriso.
 It restricts itself to a technical form where the legal commitments of the
 libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-0.8.7</DT>
+<DT>libburn-0.8.9</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-0.6.37</DT>
+<DT>libisofs-0.6.39</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-0.6.2</DT>
+<DT>libisoburn-0.6.4</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
 a C language API.</DD>
 <DD>(By Vreixo Formoso and Thomas Schmitt
 from team of libburnia-project.org)</DD>
+<DT>libjte-0.1.1</DT>
+<DD>produces jigdo and template file together with the emerging ISO image.</DD>
+<DD>(By Free Software Foundation, Steve McIntyre, George Danchev,
+Thomas Schmitt)</DD>
 <DD>&nbsp;</DD>
 <DT>The source code of this software is independent of 
 cdrecord and mkisofs.</DT>
@@ -579,8 +573,8 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 0.6.3 :</H3></DT>
-<DD>Bug fixes towards xorriso-0.6.2:
+<DT><H3>Development snapshot, version 0.6.5 :</H3></DT>
+<DD>Bug fixes towards xorriso-0.6.4:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
@@ -588,23 +582,9 @@ cdrecord and mkisofs.</DT>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 0.6.2:
+<DD>Enhancements towards stable version 0.6.4:
 <UL>
-<LI>
-New option -jigdo
-</LI>
-<LI>
-New -as mkisofs options -jigdo-* , -md5-list , -checksum_algorithm_* as of genisoimage
-</LI>
-<LI>
-New bootspecs mips_path= and mipsel_path= for Debian MIPS releases
-</LI>
-<LI>
-New -as mkisofs options -mips-boot and -mipsel-boot
-</LI>
-<LI>
-New option -append_partition, -as mkisofs -append_partition
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -615,9 +595,9 @@ New option -append_partition, -as mkisofs -append_partition
 <DD>&nbsp;</DD>
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 0.6.3</A>
-<DD><A HREF="xorriso_help_devel">xorriso_0.6.3 -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.6.3)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 0.6.5</A>
+<DD><A HREF="xorriso_help_devel">xorriso_0.6.5 -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.6.5)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -627,7 +607,7 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-0.6.3.tar.gz">xorriso-0.6.3.tar.gz</A>
+<A HREF="xorriso-0.6.5.tar.gz">xorriso-0.6.5.tar.gz</A>
 (1750 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
@@ -657,8 +637,8 @@ versions for dynamic linking. Only release versions are safe for that.
 But after the run of <KBD>./bootstrap</KBD>, only
 vanilla tools like make and gcc are needed.
 </DT>
-<DT>The development version of GNU xorriso contains a copy of libjte-0.1.1
-which produces jigdo and template file together with the emerging ISO image,
+<DT>GNU xorriso contains a copy of libjte-0.1.1
+which produces jigdo and template file together with the emerging ISO image.
 (By Free Software Foundation, Steve McIntyre, George Danchev,
 Thomas Schmitt)
 </DT>
