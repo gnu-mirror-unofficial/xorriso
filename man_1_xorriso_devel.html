@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Nov  1 12:32:56 2010 -->
+<!-- CreationDate: Fri Nov  5 15:54:31 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3896,8 +3896,8 @@ sessions, unless one can assume overwriteable media.<br>
 There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
 PC-BIOS MBR for hard-disk-like devices, MIPS Volume Header
-for old SGI computers, DEC Boot Block for old
-DECstation.<br>
+for old SGI computers, DEC Boot Block for old DECstation,
+SUN Disk Label for SPARC machines.<br>
 The boot firmware EFI may use programs which are located in
 a FAT filesystem and announced by an MBR partition table
 entry.</p>
@@ -4084,20 +4084,29 @@ partition_hd_cyl=</b>number gives the number of heads per
 cylinder for partition offset. 0 chooses a default
 value.<b><br>
 mips_path=</b>iso_rr_path declares a data file in the image
-to be a MIPS Big Endian boot file. Enable production of a
+to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
-with MBR production and mipsel_path=. It will overwrite the
-first 512 bytes of any data eventually provided by
-system_area=. Up to 15 boot files can be declared by
-mips_path=.<b><br>
+with production of other boot blocks like MBR. It will
+overwrite the first 512 bytes of any data eventually
+provided by system_area=. Up to 15 boot files can be
+declared by mips_path=.<b><br>
 mipsel_path=</b>iso_rr_path declares a data file in the
 image to be the MIPS Little Endian boot file. This is
-mutually exclusive with MBR production and mips_path=. It
-will overwrite the first 512 bytes of any data eventually
-provided by system_area=. Only a single boot file can be
-declared by mipsel_path=.<b><br>
-mips_discard</b> revokes any boot file declarations made by
-mips_path=. This removes the ban on MBR production.</p>
+mutually exclusive with other boot blocks. It will overwrite
+the first 512 bytes of any data eventually provided by
+system_area=. Only a single boot file can be declared by
+mipsel_path=.<b><br>
+sparc_label=</b>text causes the production of a SUN Disk
+Label with the given text as ASCII label. This boot block
+format allows to append images for partitions 2 to 8.
+Partition 1 will always be the ISO image. See option
+-append_partition. The first 512 bytes of any data
+eventually provided by system_area= will be
+overwritten.<b><br>
+mips_discard</b> and <b>sparc_discard</b> revoke any boot
+file declarations made by mips_path= or mipsel_path=. They
+also disable production of SUN Disk Label. This removes the
+ban on production of other boot blocks.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4117,11 +4126,14 @@ disk_path</p></td>
 <td width="77%">
 <p>Cause a prepared filesystem image to be appended to the
 ISO image and to be described by a partition table entry in
-an MBR at the start of the emerging ISO image. The partition
-entry will bear the size of the submitted file rounded up to
-the next multiple of 2048 bytes.<br>
+a boot block at the start of the emerging ISO image. The
+partition entry will bear the size of the submitted file
+rounded up to the next multiple of 2048 bytes.<br>
 Beware of subsequent multi-session runs. The appended
 partition will get overwritten.<br>
+Partitions may be appended with boot block type MBR and with
+SUN Disk Label.<br>
+With MBR:<br>
 partition_number may be 1 to 4. Number 1 will put the whole
 ISO image into the unclaimed space before partition 1. So
 together with most xorriso MBR features, number 2 would be
@@ -4133,7 +4145,14 @@ list of codes search the Internet for &quot;Partition
 Types&quot; or run fdisk command &quot;L&quot;.<br>
 The disk_path must provide the necessary data bytes at
 commit time. An empty disk_path disables this feature for
-the given partition number.</p>
+the given partition number.<br>
+With SUN Disk Label (selected by -boot_image any
+sparc_label=):<br>
+partition_number may be 2 to 8. Number 1 will always be the
+ISO image. Partition start addresses are aligned to 320
+KiB.<br>
+Partition image name &quot;.&quot; causes the partition to
+become a copy of the next lower valid one.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7597,5 +7616,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Nov  1 12:32:56 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Nov  5 15:54:31 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
