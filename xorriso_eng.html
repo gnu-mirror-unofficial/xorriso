@@ -421,6 +421,10 @@ files or trees to disk:
 <DD><KBD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /home/her/buttercup_dir -- \</KBD>
 <DD><KBD>&nbsp;&nbsp; -extract /sounds /home/her/sounds_from_me</KBD></DD>
 </DD>
+<DT>Each copy command processes its files sorted by block address
+in the ISO image in order to reduce head moves with optical media.
+This can bring effective read performance near to the raw media reading speed.
+</DT>
 <DT>Consider to enter dialog mode and use commands like
 <KBD>-cd , -du , -lsl , -find<KBD>.
 <DT>
@@ -576,7 +580,8 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 0.6.5 :</H3></DT>
 <DD>Bug fixes towards xorriso-0.6.4:
 <UL>
-<LI>- none yet -</LI>
+<LI>-as mkisofs -print-size printed the size but also produced ISO image</LI>
+<LI>Build problem fix on Linux 2.4</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -584,7 +589,13 @@ cdrecord and mkisofs.</DT>
 </DD>
 <DD>Enhancements towards stable version 0.6.4:
 <UL>
-<LI>- none yet -</LI>
+<LI>New -as mkisofs option -joliet-long</LI>
+<LI>
+New bootspec sparc_label=, new -as mkisofs options -sparc-boot , -sparc-label
+</LI>
+<LI>
+New action estimate_size for -find and -findx
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->

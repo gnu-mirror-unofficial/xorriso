@@ -23,6 +23,10 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -load "session"|"track"|"lba"|"sbsector"|"volid"|"auto" id
                  Load a particular (outdated) ISO image from a -dev or
                  -indev which hosts more than one session.
+  -displacement [-]block_address
+                 When loading ISO tree or reading data files compensate a
+                 displacement versus the start address for which the image
+                 was prepared.
   -rom_toc_scan "on"|"force"|"off"[:"emul_on"|"emul_off"]
                  Enable scanning for ISO sessions on read-only drives/media
                  resp. on overwriteable media with emulated TOC.

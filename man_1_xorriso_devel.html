@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Nov 21 07:58:23 2010 -->
+<!-- CreationDate: Thu Dec  2 12:11:03 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -888,6 +888,35 @@ immediately. Else, the setting will be pending until the
 next -dev or -indev. After the image has been loaded once,
 the setting is valid for -rollback until next -dev or
 -indev, where it will be reset to &quot;auto&quot;.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;displacement</b> [-]lba</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Compensate an eventual displacement of the image versus
+the start address for which the image was prepared. This
+affects only loading of ISO images and reading of their
+files. Examples:<br>
+If a track of a CD starts at block 123456 and gets copied to
+a disk file where it begins at block 0, then this copy can
+be loaded with -displacement -123456.<br>
+If an ISO image was written onto a partition with offset of
+640000 blocks of 512 bytes, then it can be loaded from the
+base device by -displacement 160000.<br>
+In both cases, the ISO sessions should be self contained,
+i.e. not add-on sessions to an ISO image outside their track
+resp. partition.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2761,6 +2790,11 @@ hide</b> brings the file into one of the hide states
 &quot;off&quot;.<br>
 E.g.:<br>
 &nbsp;&nbsp;-find / -disk_name *_secret -exec hide on<b><br>
+estimate_size</b> prints a lower and an upper estimation of
+the number of blocks which the found files together will
+occupy in the emering ISO image. This does not account for
+the superblock, for the directories in the -find path, or
+for image padding.<b><br>
 find</b> performs another run of -find on the matching file
 address. It accepts the same params as -find, except
 iso_rr_path.<br>
@@ -6089,6 +6123,9 @@ Writing to stdout is possible only if -as
 &quot;mkisofs&quot; was among the start arguments or if
 other start arguments pointed the output drive to standard
 output.<br>
+-print-size inhibits automatic image production at program
+end. This ban is lifted only if the pending image changes
+get discarded.<br>
 Not original mkisofs options are --quoted_path_list ,
 --hardlinks , --acl , --xattr , --md5 , --stdio_sync . They
 work like the xorriso options with the same name and
@@ -6705,8 +6742,8 @@ by a channel indicator:<br>
 Next is a decimal number of which only bit 0 has a meaning
 for now. 0 means no newline at end of payload, 1 means that
 the newline character at the end of the output line belongs
-to the payload. After another colon follows the payload
-text.<br>
+to the payload. After another colon and a blank follows the
+payload text.<br>
 Example:<br>
 I:1: enter option and arguments :</p>
 </td>
@@ -6746,8 +6783,9 @@ for -mark texts.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>If text is not empty it will get put out on &quot;M&quot;
-channel each time after a dialog line has been
-processed.</p>
+channel each time xorriso is ready for the next dialog line
+or before xorriso performs a command that was entered to the
+pager prompt.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7616,5 +7654,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Nov 21 07:58:23 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Dec  2 12:11:03 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
