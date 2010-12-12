@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Dec  2 12:11:03 2010 -->
+<!-- CreationDate: Sun Dec 12 13:20:03 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -481,11 +481,10 @@ X/Open System Interface standard XSI which demands a file
 name length of up to 255 characters and paths of up to 1024
 characters. Rock Ridge fulfills this demand.</p>
 <!-- INDENTATION -->
-<p>An <b>El Torito</b> boot record connects one or more boot
-images, which are binary program files stored in the ISO
-image, with the bootstrapping facility of contemporary
-computers. The content of the boot image files is not in the
-scope of El Torito.<br>
+<p>An <b>El Torito</b> boot record points the BIOS
+bootstrapping facility to one or more boot images, which are
+binary program files stored in the ISO image. The content of
+the boot image files is not in the scope of El Torito.<br>
 Most bootable GNU/Linux CDs are equipped with ISOLINUX or
 GRUB boot images. xorriso is able to create or maintain an
 El Torito object which makes such an image bootable. For
@@ -501,7 +500,9 @@ Emulation -as mkisofs supports the example options out of
 the ISOLINUX wiki, the options used in GRUB script
 grub-mkrescue, and the example in the FreeBSD AvgLiveCD
 wiki.<br>
-The support for other boot image types is sparse.</p>
+There is support for boot facilities other than PC BIOS:
+EFI, MIPS Big Endian (SGI), MIPS Little Endian (DEC), SUN
+SPARC.</p>
 <!-- INDENTATION -->
 <p><b>ACL</b> are an advanced way of controlling access
 permissions to file objects. Neither ISO 9660 nor Rock Ridge
@@ -907,7 +908,11 @@ the setting is valid for -rollback until next -dev or
 <p>Compensate an eventual displacement of the image versus
 the start address for which the image was prepared. This
 affects only loading of ISO images and reading of their
-files. Examples:<br>
+files. The multi-session method of growing is not allowed as
+long as -displacement is non-zero. I.e. -indev and -outdev
+must be different. Eventually the displacement is reset to 0
+before the drive gets re-aquired after writing.<br>
+Examples:<br>
 If a track of a CD starts at block 123456 and gets copied to
 a disk file where it begins at block 0, then this copy can
 be loaded with -displacement -123456.<br>
@@ -2630,8 +2635,10 @@ Only the first letter is interpreted. E.g.: -find / -type
 d<b><br>
 &minus;damaged</b> : Matches files which use data blocks
 marked as damaged by a previous run of -check_media. The
-damage info vanishes when a new ISO image gets
-loaded.<b><br>
+damage info vanishes when a new ISO image gets loaded.<br>
+Note that a MD5 session mismatch marks all files of the
+session as damaged. If finer distinction is desired, perform
+-md5 off before -check_media.<b><br>
 &minus;pending_data</b> : Matches files which get their
 content from outside the loaded ISO image.<b><br>
 &minus;lba_range</b> start_lba block_count : Matches files
@@ -2792,7 +2799,7 @@ E.g.:<br>
 &nbsp;&nbsp;-find / -disk_name *_secret -exec hide on<b><br>
 estimate_size</b> prints a lower and an upper estimation of
 the number of blocks which the found files together will
-occupy in the emering ISO image. This does not account for
+occupy in the emerging ISO image. This does not account for
 the superblock, for the directories in the -find path, or
 for image padding.<b><br>
 find</b> performs another run of -find on the matching file
@@ -5355,7 +5362,7 @@ disk_path given as start address for -findx.<br>
 -findx accepts the -exec actions as does -find. But except
 the following few actions it will always perform action
 &quot;echo&quot;.<b><br>
-in_iso</b> reports the path if its counterpart exist in the
+in_iso</b> reports the path if its counterpart exists in the
 ISO image. For this the disk_path of the -findx command gets
 replaced by the iso_rr_path given as parameter.<br>
 E.g.: -findx /home/thomas -exec in_iso /thomas_on_cd
@@ -5372,7 +5379,12 @@ image contains files. To be used with -type &quot;m&quot; to
 report mount points.<b><br>
 empty_iso_dir</b> deletes all files from the counterpart in
 the ISO image. To be used with -type &quot;m&quot; to
-truncate mount points.</p>
+truncate mount points.<b><br>
+estimate_size</b> prints a lower and an upper estimation of
+the number of blocks which the found files together will
+occupy in the emerging ISO image. This does not account for
+the superblock, for the directories in the -findx path, or
+for image padding.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5598,7 +5610,10 @@ defaults.<br>
 Non-default options are:<b><br>
 report=&quot;files&quot;</b> lists the files which use
 damaged blocks (not with use=outdev). The format is like
-with find -exec report_damage.<b><br>
+with find -exec report_damage. Note that a MD5 session
+mismatch marks all files of the session as damaged. If finer
+distinction is desired, perform -md5 off before
+-check_media.<b><br>
 report=&quot;blocks_files&quot;</b> first lists damaged
 blocks and then affected files.<b><br>
 use=&quot;outdev&quot;</b> reads from the output drive
@@ -7654,5 +7669,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Dec  2 12:11:03 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Dec 12 13:20:03 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
