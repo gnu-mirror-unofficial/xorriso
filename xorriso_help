@@ -23,6 +23,10 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -load "session"|"track"|"lba"|"sbsector"|"volid"|"auto" id
                  Load a particular (outdated) ISO image from a -dev or
                  -indev which hosts more than one session.
+  -displacement [-]block_address
+                 When loading ISO tree or reading data files compensate a
+                 displacement versus the start address for which the image
+                 was prepared.
   -rom_toc_scan "on"|"force"|"off"[:"emul_on"|"emul_off"]
                  Enable scanning for ISO sessions on read-only drives/media
                  resp. on overwriteable media with emulated TOC.
@@ -99,6 +103,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"cat_path="|"cat_hidden=on|iso_rr|joliet|off"
               |"load_size="|"system_area="|"partition_table=on|off"
               |"mips_path="|"mipsel_path="|"mips_discard"
+              |"sparc_label="|"sparc_discard"
               |"show_status"
                  Whether to discard or keep an exiting El Torito boot image.
                  ISOLINUX can be made bootable by dir=/ or dir=/isolinux
@@ -109,8 +114,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  system_area= and partition_table= are for MBR based booting
                  from USB stick. The system_area= file needs not to be added.
                  mips_path= adds Big Endian MIPS boot files. mipsel_path=
-                 sets one Little Endian MIPS boot file. Both are mutually
-                 exclusive and exclusive to MBR production.
+                 sets one Little Endian MIPS boot file. sparc_label=
+                 activates SUN Disk Label. All three are mutually exclusive
+                 and exclusive to MBR production.
   -append_partition partition_number type_code disk_path
                  Append a prepared filesystem image after the end of the
                  ISO image. Caution: Will be overwritten by multi-session.
@@ -455,9 +461,10 @@ Evaluation of readability:
 Compatibility emulation (argument list may be ended by list delimiter --):
   -as mkisofs  [-help|-version|-o|-R|-r|-J|-V|-P|-f|-m|-exclude-list|
                 -no-pad|-M|-C|-graft-points|-path-list|pathspecs|-z|
-                -no-emul-boot|-b|-c|-boot-info-table|-boot-load-size|-G]
+                -no-emul-boot|-b|-c|-boot-info-table|-boot-load-size|-G|...]
               Perform some mkisofs gestures, understand pathspecs as mkisofs
               does. Commit happens outside emulation at usual occasions.
+              For a list of options see -as mkisofs -help.
   -read_mkisofsrc
               Read and interpret the .mkisofsrc configuration file.
   -as cdrecord [-help|-v|dev=|speed=|blank=|fs=|-eject|-atip|padsize=|-multi]

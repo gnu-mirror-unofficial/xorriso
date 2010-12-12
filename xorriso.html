@@ -1,6 +1,5 @@
 <HTML>
 
-
 <HEAD>
 <META NAME="description" CONTENT="GNU xorriso, creates, loads, manipulates and writes ISO 9660 filesystem images with Rock Ridge extensions">
 <META NAME="keywords" CONTENT="xorriso, libburn, libburnia, burn, CD, DVD, ISO, ISO 9660, RockRidge, Rock Ridge, GNU/Linux, Linux, FreeBSD, Solaris, recording, burning, CD-R, CD-RW, DVD-R, DVD-RW, DVD+RW, DVD+R, DVD+R DL, BD-RE, BD-R, scdbackup">
@@ -447,19 +446,19 @@ This can bring effective read performance near to the raw media reading speed.
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-0.6.4.tar.gz">xorriso-0.6.4.tar.gz</A>
-(1750 KB).
+<DD><A HREF="xorriso-0.6.6.tar.gz">xorriso-0.6.6.tar.gz</A>
+(1765 KB).
 </DD>
-<DD>(Released 26 Oct 2010)</DD>
-<DD><A HREF="xorriso-0.6.4.tar.gz.sig">xorriso-0.6.4.tar.gz.sig</A></DD>
+<DD>(Released 12 Dec 2010)</DD>
+<DD><A HREF="xorriso-0.6.6.tar.gz.sig">xorriso-0.6.6.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-0.6.4.tar.gz.sig xorriso-0.6.4.tar.gz</KBD>).
+<KBD>gpg --verify xorriso-0.6.6.tar.gz.sig xorriso-0.6.6.tar.gz</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-0.6.4.tar.gz
+as xorriso/xorriso-0.6.6.tar.gz
 </DD>
 </DL>
 </DD>
@@ -487,9 +486,10 @@ as xorriso/xorriso-0.6.4.tar.gz
 <HR>
 
 <P>
-Bug fixes towards xorriso-0.6.2:
+Bug fixes towards xorriso-0.6.4:
 <UL>
-<LI>- none -</LI>
+<LI>-as mkisofs -print-size printed the size but also produced ISO image</LI>
+<LI>Build problem fix on Linux 2.4</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -507,23 +507,16 @@ Bug fixes in .pl01 towards xorriso-:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-0.6.2:
+Enhancements towards previous stable version xorriso-0.6.4:
 <UL>
 
+<LI>New -as mkisofs option -joliet-long</LI>
 <LI>
-New option -jigdo
+New bootspec sparc_label=, new -as mkisofs options -sparc-boot , -sparc-label
+for SUN SPARC systems.
 </LI>
 <LI>
-New -as mkisofs options -jigdo-* , -md5-list , -checksum_algorithm_* as of genisoimage
-</LI>
-<LI>
-New bootspecs mips_path= and mipsel_path= for Debian MIPS releases
-</LI>
-<LI>
-New -as mkisofs options -mips-boot and -mipsel-boot
-</LI>
-<LI>
-New option -append_partition, -as mkisofs -append_partition
+New action estimate_size for -find and -findx
 </LI>
 
 <!--
@@ -548,16 +541,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-0.8.9</DT>
+<DT>libburn-0.9.1</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-0.6.39</DT>
+<DT>libisofs-0.6.41</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-0.6.4</DT>
+<DT>libisoburn-0.6.6</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -578,38 +571,29 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 0.6.5 :</H3></DT>
-<DD>Bug fixes towards xorriso-0.6.4:
+<DT><H3>Development snapshot, version 0.6.7 :</H3></DT>
+<DD>Bug fixes towards xorriso-0.6.6:
 <UL>
-<LI>-as mkisofs -print-size printed the size but also produced ISO image</LI>
-<LI>Build problem fix on Linux 2.4</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 0.6.4:
+<DD>Enhancements towards stable version 0.6.6:
 <UL>
-<LI>New -as mkisofs option -joliet-long</LI>
-<LI>
-New bootspec sparc_label=, new -as mkisofs options -sparc-boot , -sparc-label
-</LI>
-<LI>
-New action estimate_size for -find and -findx
-</LI>
-<!-- 
 <LI>- none yet -</LI>
+<!-- 
  -->
 </UL>
 
 </DD>
 
-<DD>&nbsp;</DD>
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 0.6.5</A>
-<DD><A HREF="xorriso_help_devel">xorriso_0.6.5 -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.6.5)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 0.6.7</A>
+<DD><A HREF="xorriso_help_devel">xorriso_0.6.7 -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 0.6.7)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -619,8 +603,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-0.6.5.tar.gz">xorriso-0.6.5.tar.gz</A>
-(1750 KB).
+<A HREF="xorriso-0.6.7.tar.gz">xorriso-0.6.7.tar.gz</A>
+(1765 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

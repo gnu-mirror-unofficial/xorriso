@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Oct 26 12:25:29 2010 -->
+<!-- CreationDate: Sun Dec 12 10:29:48 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -481,11 +481,10 @@ X/Open System Interface standard XSI which demands a file
 name length of up to 255 characters and paths of up to 1024
 characters. Rock Ridge fulfills this demand.</p>
 <!-- INDENTATION -->
-<p>An <b>El Torito</b> boot record connects one or more boot
-images, which are binary program files stored in the ISO
-image, with the bootstrapping facility of contemporary
-computers. The content of the boot image files is not in the
-scope of El Torito.<br>
+<p>An <b>El Torito</b> boot record points the BIOS
+bootstrapping facility to one or more boot images, which are
+binary program files stored in the ISO image. The content of
+the boot image files is not in the scope of El Torito.<br>
 Most bootable GNU/Linux CDs are equipped with ISOLINUX or
 GRUB boot images. xorriso is able to create or maintain an
 El Torito object which makes such an image bootable. For
@@ -501,7 +500,9 @@ Emulation -as mkisofs supports the example options out of
 the ISOLINUX wiki, the options used in GRUB script
 grub-mkrescue, and the example in the FreeBSD AvgLiveCD
 wiki.<br>
-The support for other boot image types is sparse.</p>
+There is support for boot facilities other than PC BIOS:
+EFI, MIPS Big Endian (SGI), MIPS Little Endian (DEC), SUN
+SPARC.</p>
 <!-- INDENTATION -->
 <p><b>ACL</b> are an advanced way of controlling access
 permissions to file objects. Neither ISO 9660 nor Rock Ridge
@@ -888,6 +889,39 @@ immediately. Else, the setting will be pending until the
 next -dev or -indev. After the image has been loaded once,
 the setting is valid for -rollback until next -dev or
 -indev, where it will be reset to &quot;auto&quot;.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;displacement</b> [-]lba</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Compensate an eventual displacement of the image versus
+the start address for which the image was prepared. This
+affects only loading of ISO images and reading of their
+files. The multi-session method of growing is not allowed as
+long as -displacement is non-zero. I.e. -indev and -outdev
+must be different. Eventually the displacement is reset to 0
+before the drive gets re-aquired after writing.<br>
+Examples:<br>
+If a track of a CD starts at block 123456 and gets copied to
+a disk file where it begins at block 0, then this copy can
+be loaded with -displacement -123456.<br>
+If an ISO image was written onto a partition with offset of
+640000 blocks of 512 bytes, then it can be loaded from the
+base device by -displacement 160000.<br>
+In both cases, the ISO sessions should be self contained,
+i.e. not add-on sessions to an ISO image outside their track
+resp. partition.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2601,8 +2635,10 @@ Only the first letter is interpreted. E.g.: -find / -type
 d<b><br>
 &minus;damaged</b> : Matches files which use data blocks
 marked as damaged by a previous run of -check_media. The
-damage info vanishes when a new ISO image gets
-loaded.<b><br>
+damage info vanishes when a new ISO image gets loaded.<br>
+Note that a MD5 session mismatch marks all files of the
+session as damaged. If finer distinction is desired, perform
+-md5 off before -check_media.<b><br>
 &minus;pending_data</b> : Matches files which get their
 content from outside the loaded ISO image.<b><br>
 &minus;lba_range</b> start_lba block_count : Matches files
@@ -2761,6 +2797,11 @@ hide</b> brings the file into one of the hide states
 &quot;off&quot;.<br>
 E.g.:<br>
 &nbsp;&nbsp;-find / -disk_name *_secret -exec hide on<b><br>
+estimate_size</b> prints a lower and an upper estimation of
+the number of blocks which the found files together will
+occupy in the emerging ISO image. This does not account for
+the superblock, for the directories in the -find path, or
+for image padding.<b><br>
 find</b> performs another run of -find on the matching file
 address. It accepts the same params as -find, except
 iso_rr_path.<br>
@@ -3896,8 +3937,8 @@ sessions, unless one can assume overwriteable media.<br>
 There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
 PC-BIOS MBR for hard-disk-like devices, MIPS Volume Header
-for old SGI computers, DEC Boot Block for old
-DECstation.<br>
+for old SGI computers, DEC Boot Block for old DECstation,
+SUN Disk Label for SPARC machines.<br>
 The boot firmware EFI may use programs which are located in
 a FAT filesystem and announced by an MBR partition table
 entry.</p>
@@ -4084,20 +4125,29 @@ partition_hd_cyl=</b>number gives the number of heads per
 cylinder for partition offset. 0 chooses a default
 value.<b><br>
 mips_path=</b>iso_rr_path declares a data file in the image
-to be a MIPS Big Endian boot file. Enable production of a
+to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
-with MBR production and mipsel_path=. It will overwrite the
-first 512 bytes of any data eventually provided by
-system_area=. Up to 15 boot files can be declared by
-mips_path=.<b><br>
+with production of other boot blocks like MBR. It will
+overwrite the first 512 bytes of any data eventually
+provided by system_area=. Up to 15 boot files can be
+declared by mips_path=.<b><br>
 mipsel_path=</b>iso_rr_path declares a data file in the
 image to be the MIPS Little Endian boot file. This is
-mutually exclusive with MBR production and mips_path=. It
-will overwrite the first 512 bytes of any data eventually
-provided by system_area=. Only a single boot file can be
-declared by mipsel_path=.<b><br>
-mips_discard</b> revokes any boot file declarations made by
-mips_path=. This removes the ban on MBR production.</p>
+mutually exclusive with other boot blocks. It will overwrite
+the first 512 bytes of any data eventually provided by
+system_area=. Only a single boot file can be declared by
+mipsel_path=.<b><br>
+sparc_label=</b>text causes the production of a SUN Disk
+Label with the given text as ASCII label. This boot block
+format allows to append images for partitions 2 to 8.
+Partition 1 will always be the ISO image. See option
+-append_partition. The first 512 bytes of any data
+eventually provided by system_area= will be
+overwritten.<b><br>
+mips_discard</b> and <b>sparc_discard</b> revoke any boot
+file declarations made by mips_path= or mipsel_path=. They
+also disable production of SUN Disk Label. This removes the
+ban on production of other boot blocks.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4117,11 +4167,14 @@ disk_path</p></td>
 <td width="77%">
 <p>Cause a prepared filesystem image to be appended to the
 ISO image and to be described by a partition table entry in
-an MBR at the start of the emerging ISO image. The partition
-entry will bear the size of the submitted file rounded up to
-the next multiple of 2048 bytes.<br>
+a boot block at the start of the emerging ISO image. The
+partition entry will bear the size of the submitted file
+rounded up to the next multiple of 2048 bytes.<br>
 Beware of subsequent multi-session runs. The appended
 partition will get overwritten.<br>
+Partitions may be appended with boot block type MBR and with
+SUN Disk Label.<br>
+With MBR:<br>
 partition_number may be 1 to 4. Number 1 will put the whole
 ISO image into the unclaimed space before partition 1. So
 together with most xorriso MBR features, number 2 would be
@@ -4133,7 +4186,14 @@ list of codes search the Internet for &quot;Partition
 Types&quot; or run fdisk command &quot;L&quot;.<br>
 The disk_path must provide the necessary data bytes at
 commit time. An empty disk_path disables this feature for
-the given partition number.</p>
+the given partition number.<br>
+With SUN Disk Label (selected by -boot_image any
+sparc_label=):<br>
+partition_number may be 2 to 8. Number 1 will always be the
+ISO image. Partition start addresses are aligned to 320 KiB.
+The type_code does not matter. Submit 0x0.<br>
+Partition image name &quot;.&quot; causes the partition to
+become a copy of the next lower valid one.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5302,7 +5362,7 @@ disk_path given as start address for -findx.<br>
 -findx accepts the -exec actions as does -find. But except
 the following few actions it will always perform action
 &quot;echo&quot;.<b><br>
-in_iso</b> reports the path if its counterpart exist in the
+in_iso</b> reports the path if its counterpart exists in the
 ISO image. For this the disk_path of the -findx command gets
 replaced by the iso_rr_path given as parameter.<br>
 E.g.: -findx /home/thomas -exec in_iso /thomas_on_cd
@@ -5319,7 +5379,12 @@ image contains files. To be used with -type &quot;m&quot; to
 report mount points.<b><br>
 empty_iso_dir</b> deletes all files from the counterpart in
 the ISO image. To be used with -type &quot;m&quot; to
-truncate mount points.</p>
+truncate mount points.<b><br>
+estimate_size</b> prints a lower and an upper estimation of
+the number of blocks which the found files together will
+occupy in the emerging ISO image. This does not account for
+the superblock, for the directories in the -findx path, or
+for image padding.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5545,7 +5610,10 @@ defaults.<br>
 Non-default options are:<b><br>
 report=&quot;files&quot;</b> lists the files which use
 damaged blocks (not with use=outdev). The format is like
-with find -exec report_damage.<b><br>
+with find -exec report_damage. Note that a MD5 session
+mismatch marks all files of the session as damaged. If finer
+distinction is desired, perform -md5 off before
+-check_media.<b><br>
 report=&quot;blocks_files&quot;</b> first lists damaged
 blocks and then affected files.<b><br>
 use=&quot;outdev&quot;</b> reads from the output drive
@@ -6070,6 +6138,9 @@ Writing to stdout is possible only if -as
 &quot;mkisofs&quot; was among the start arguments or if
 other start arguments pointed the output drive to standard
 output.<br>
+-print-size inhibits automatic image production at program
+end. This ban is lifted only if the pending image changes
+get discarded.<br>
 Not original mkisofs options are --quoted_path_list ,
 --hardlinks , --acl , --xattr , --md5 , --stdio_sync . They
 work like the xorriso options with the same name and
@@ -6686,8 +6757,8 @@ by a channel indicator:<br>
 Next is a decimal number of which only bit 0 has a meaning
 for now. 0 means no newline at end of payload, 1 means that
 the newline character at the end of the output line belongs
-to the payload. After another colon follows the payload
-text.<br>
+to the payload. After another colon and a blank follows the
+payload text.<br>
 Example:<br>
 I:1: enter option and arguments :</p>
 </td>
@@ -6727,8 +6798,9 @@ for -mark texts.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>If text is not empty it will get put out on &quot;M&quot;
-channel each time after a dialog line has been
-processed.</p>
+channel each time xorriso is ready for the next dialog line
+or before xorriso performs a command that was entered to the
+pager prompt.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7597,5 +7669,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Oct 26 12:25:29 CEST 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Dec 12 10:29:48 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
