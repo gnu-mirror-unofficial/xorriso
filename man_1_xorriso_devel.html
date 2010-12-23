@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Dec 12 13:20:03 2010 -->
+<!-- CreationDate: Thu Dec 23 20:03:00 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1096,30 +1096,14 @@ A large number of hardlink families may exhaust
 effect. This restricts hard linking to other files restored
 by the same single extract command. -hardlinks
 &quot;normal_extract&quot; re-enables wide and expensive
-hardlink accumulation.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;acl</b> &quot;on&quot;|&quot;off&quot;</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Enable or disable processing of ACLs. If enabled, then
-xorriso will obtain ACLs from disk file objects, store ACLs
-in the ISO image using the libisofs specific AAIP format,
-load AAIP data from ISO images, test ACL during file
-comparison, and restore ACLs to disk files when extracting
-them from ISO images. See also options -getfacl,
--setfacl.</p>
+hardlink accumulation.<b><br>
+&minus;acl</b> &quot;on&quot;|&quot;off&quot; Enable or
+disable processing of ACLs. If enabled, then xorriso will
+obtain ACLs from disk file objects, store ACLs in the ISO
+image using the libisofs specific AAIP format, load AAIP
+data from ISO images, test ACL during file comparison, and
+restore ACLs to disk files when extracting them from ISO
+images. See also options -getfacl, -setfacl.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3342,6 +3326,17 @@ names which have none.<br>
 names.<br>
 &quot;full_ascii&quot; allow all ASCII characters in ISO
 file names.<br>
+&quot;untranslated_names&quot; might be dangerous for
+inadverted reader programs which rely on the restriction to
+at most 37 characters in ISO file names. This option allows
+ISO file names up to 96 characters with no character
+conversion. If a file name has more characters, then image
+production will fail deliberately.<br>
+&quot;untranslated_name_len=&quot;number enables
+untranslated_names with a smaller limit for the length of
+file names. 0 disables this feature, -1 chooses maximum
+length limit, numbers larger than 0 give the desired length
+limit.<br>
 &quot;joliet_long_paths&quot; allow Joliet paths longer than
 240 characters.<br>
 &quot;always_gmt&quot; store timestamps in GMT
@@ -3362,6 +3357,10 @@ extension under SUSP-1.12.<br>
 &quot;no_emul_toc&quot; saves 64 kB with the first session
 on overwriteable media but makes the image incapable of
 displaying its session history.<br>
+&quot;iso_9660_1999&quot; causes the production of an
+additional directory tree compliant to ISO 9660:1999. It can
+record long filenames for readers which do not understand
+Rock Ridge.<br>
 Default setting is<br>
 
 &quot;clear:only_iso_version:deep_paths:long_paths:no_j_force_dots:<br>
@@ -6170,6 +6169,8 @@ effect of -boot_image isolinux partition_table=on.<br>
 -partition_offset number is -boot_image any
 partition_offset=number.<br>
 Option -append_partition is supported.<br>
+-untranslated_name_len number is -compliance
+untranslated_name_len=number.<br>
 The options of genisoimage Jigdo Template Extraction are
 recognized and performed via xorriso option -jigdo. See the
 &quot;Alias:&quot; names there for the meaning of the
@@ -7669,5 +7670,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Dec 12 13:20:03 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Dec 23 20:03:00 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
