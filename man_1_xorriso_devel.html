@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Dec 23 20:03:00 2010 -->
+<!-- CreationDate: Sat Dec 25 10:43:40 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3308,23 +3308,35 @@ the following relaxation rules can be revoked individually
 by appending &quot;_off&quot;. Like
 &quot;deep_paths_off&quot;.<br>
 Rule keywords are:<br>
-&quot;omit_version&quot; do not add versions
+&quot;iso_9660_level=&quot;number chooses level 1 with ISO
+names of the form 8.3 and -file_size_limit &lt;= 4g - 1, or
+level 2 with ISO names up to length 32 and the same
+-file_size_limit, or level 3 with ISO names up to length 32
+and -file_size_limit &gt;= 400g -200k. If necessary
+-file_size_limit gets adjusted.<br>
+&quot;allow_dir_id_ext&quot; allows ISO names of directories
+to have a name extension as with other file types. It does
+not force dots and it omits the version number, though. This
+is a bad tradition of mkisofs which violates ECMA-119.
+Especially ISO level 1 only allows 8 characters in a
+directory name and not 8.3.<br>
+&quot;omit_version&quot; does not add versions
 (&quot;;1&quot;) to ISO and Joliet file names.<br>
-&quot;only_iso_version&quot; do not add versions
+&quot;only_iso_version&quot; does not add versions
 (&quot;;1&quot;) to Joliet file names.<br>
-&quot;deep_paths&quot; allow ISO file paths deeper than 8
+&quot;deep_paths&quot; allows ISO file paths deeper than 8
 levels.<br>
-&quot;long_paths&quot; allow ISO file paths longer than 255
+&quot;long_paths&quot; allows ISO file paths longer than 255
 characters.<br>
-&quot;long_names&quot; allow up to 37 characters with ISO
+&quot;long_names&quot; allows up to 37 characters with ISO
 file names.<br>
-&quot;no_force_dots&quot; do not add a dot to ISO file names
-which have none.<br>
-&quot;no_j_force_dots&quot; do not add a dot to Joliet file
+&quot;no_force_dots&quot; does not add a dot to ISO file
 names which have none.<br>
-&quot;lowercase&quot; allow lowercase characters in ISO file
-names.<br>
-&quot;full_ascii&quot; allow all ASCII characters in ISO
+&quot;no_j_force_dots&quot; does not add a dot to Joliet
+file names which have none.<br>
+&quot;lowercase&quot; allows lowercase characters in ISO
+file names.<br>
+&quot;full_ascii&quot; allows all ASCII characters in ISO
 file names.<br>
 &quot;untranslated_names&quot; might be dangerous for
 inadverted reader programs which rely on the restriction to
@@ -3337,17 +3349,17 @@ untranslated_names with a smaller limit for the length of
 file names. 0 disables this feature, -1 chooses maximum
 length limit, numbers larger than 0 give the desired length
 limit.<br>
-&quot;joliet_long_paths&quot; allow Joliet paths longer than
-240 characters.<br>
-&quot;always_gmt&quot; store timestamps in GMT
+&quot;joliet_long_paths&quot; allows Joliet paths longer
+than 240 characters.<br>
+&quot;always_gmt&quot; stores timestamps in GMT
 representation with timezone 0.<br>
-&quot;rec_mtime&quot; record with ISO files the disk
+&quot;rec_mtime&quot; records with ISO files the disk
 file&rsquo;s mtime and not the creation time of the
 image.<br>
-&quot;new_rr&quot; use Rock Ridge version 1.12 (suitable for
-GNU/Linux but not for older FreeBSD or for Solaris). This
-implies &quot;aaip_susp_1_10_off&quot; which may be changed
-by subsequent &quot;aaip_susp_1_10&quot;.<br>
+&quot;new_rr&quot; uses Rock Ridge version 1.12 (suitable
+for GNU/Linux but not for older FreeBSD or for Solaris).
+This implies &quot;aaip_susp_1_10_off&quot; which may be
+changed by subsequent &quot;aaip_susp_1_10&quot;.<br>
 Default is &quot;old_rr&quot; which uses Rock Ridge version
 1.10. This implies also &quot;aaip_susp_1_10&quot; which may
 be changed by subsequent &quot;aaip_susp_1_10_off&quot;.<br>
@@ -6140,6 +6152,11 @@ output.<br>
 -print-size inhibits automatic image production at program
 end. This ban is lifted only if the pending image changes
 get discarded.<br>
+If no -iso-level is given, then level 1 is chosen when the
+first file or directory is added to the image. At the same
+occasion directory names get allowed to violate the standard
+by -compliance option allow_dir_id_ext. This may be avoided
+by option -disallow_dir_id_ext.<br>
 Not original mkisofs options are --quoted_path_list ,
 --hardlinks , --acl , --xattr , --md5 , --stdio_sync . They
 work like the xorriso options with the same name and
@@ -7670,5 +7687,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Dec 23 20:03:00 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Dec 25 10:43:40 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
