@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat Dec 25 10:43:40 2010 -->
+<!-- CreationDate: Tue Dec 28 13:34:16 2010 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4894,8 +4894,9 @@ session number, resp. volume id of the depicted session.</p>
 <td width="77%">
 <p>Print the foreseeable consumption of 2048 byte blocks by
 next -commit. This can last a while as a -commit gets
-prepared and only in last moment is revoked by this
-option.</p>
+prepared and only in last moment is revoked by this option.
+The result depends on several settings and also on the kind
+of output device.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6162,8 +6163,11 @@ Not original mkisofs options are --quoted_path_list ,
 work like the xorriso options with the same name and
 hardcoded argument &quot;on&quot;, e.g. -acl &quot;on&quot;.
 Explicit arguments are expected by --stdio_sync and
---scdbackup_tag. --no-emul-toc is -compliance
-no_emul_toc.<br>
+--scdbackup_tag.<br>
+The capability to preserve multi-session history on
+overwriteable media gets disabled by default. It can be
+enabled by using --emul-toc with the first session. See
+-compliance no_emul_toc.<br>
 --sort-weight gets as arguments a number and an iso_rr_path.
 The number becomes the LBA sorting weight of regular file
 iso_rr_path or of all regular files underneath directory
@@ -7687,5 +7691,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Dec 25 10:43:40 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Dec 28 13:34:16 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
