@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Dec 29 11:41:13 2010 -->
+<!-- CreationDate: Thu Jan  6 12:12:16 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4625,6 +4625,11 @@ ISO image and is not filtered.</p>
 <p>Enable or disable to enter dialog mode after all
 arguments are processed. In dialog mode input lines get
 prompted via readline or from stdin.<br>
+If no -abort_on severity was set when dialog starts, then
+&quot;NEVER&quot; is set to avoid abort in most cases of
+wrong input or other problems. Before dialog begins, the
+default is &quot;FAILURE&quot; which e.g. aborts on unknown
+commands.<br>
 Mode &quot;on&quot; supports input of newline characters
 within quotation marks and line continuation by trailing
 backslash outside quotation marks. Mode
@@ -4896,7 +4901,9 @@ session number, resp. volume id of the depicted session.</p>
 next -commit. This can last a while as a -commit gets
 prepared and only in last moment is revoked by this option.
 The result depends on several settings and also on the kind
-of output device.</p>
+of output device. If no -jidgo options are given, then
+-padding (300 kB by default) is not counted as part of the
+image size.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7334,6 +7341,7 @@ matching *.o or *.swp get excluded explicitly.<br>
 When done with writing the new session gets checked by its
 recorded MD5.<br>
 $ xorriso \<br>
+-abort_on FATAL \<br>
 -for_backup -disk_dev_ino on \<br>
 -assert_volid &rsquo;PROJECTS_MAIL_*&rsquo; FATAL \<br>
 &nbsp;&nbsp;-dev /dev/sr0 \<br>
@@ -7691,5 +7699,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Dec 29 11:41:13 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jan  6 12:12:17 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
