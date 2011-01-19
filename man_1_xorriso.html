@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Dec 12 10:29:48 2010 -->
+<!-- CreationDate: Sun Jan 16 20:55:05 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1096,30 +1096,14 @@ A large number of hardlink families may exhaust
 effect. This restricts hard linking to other files restored
 by the same single extract command. -hardlinks
 &quot;normal_extract&quot; re-enables wide and expensive
-hardlink accumulation.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;acl</b> &quot;on&quot;|&quot;off&quot;</p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Enable or disable processing of ACLs. If enabled, then
-xorriso will obtain ACLs from disk file objects, store ACLs
-in the ISO image using the libisofs specific AAIP format,
-load AAIP data from ISO images, test ACL during file
-comparison, and restore ACLs to disk files when extracting
-them from ISO images. See also options -getfacl,
--setfacl.</p>
+hardlink accumulation.<b><br>
+&minus;acl</b> &quot;on&quot;|&quot;off&quot; Enable or
+disable processing of ACLs. If enabled, then xorriso will
+obtain ACLs from disk file objects, store ACLs in the ISO
+image using the libisofs specific AAIP format, load AAIP
+data from ISO images, test ACL during file comparison, and
+restore ACLs to disk files when extracting them from ISO
+images. See also options -getfacl, -setfacl.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3324,35 +3308,58 @@ the following relaxation rules can be revoked individually
 by appending &quot;_off&quot;. Like
 &quot;deep_paths_off&quot;.<br>
 Rule keywords are:<br>
-&quot;omit_version&quot; do not add versions
+&quot;iso_9660_level=&quot;number chooses level 1 with ISO
+names of the form 8.3 and -file_size_limit &lt;= 4g - 1, or
+level 2 with ISO names up to length 32 and the same
+-file_size_limit, or level 3 with ISO names up to length 32
+and -file_size_limit &gt;= 400g -200k. If necessary
+-file_size_limit gets adjusted.<br>
+&quot;allow_dir_id_ext&quot; allows ISO names of directories
+to have a name extension as with other file types. It does
+not force dots and it omits the version number, though. This
+is a bad tradition of mkisofs which violates ECMA-119.
+Especially ISO level 1 only allows 8 characters in a
+directory name and not 8.3.<br>
+&quot;omit_version&quot; does not add versions
 (&quot;;1&quot;) to ISO and Joliet file names.<br>
-&quot;only_iso_version&quot; do not add versions
+&quot;only_iso_version&quot; does not add versions
 (&quot;;1&quot;) to Joliet file names.<br>
-&quot;deep_paths&quot; allow ISO file paths deeper than 8
+&quot;deep_paths&quot; allows ISO file paths deeper than 8
 levels.<br>
-&quot;long_paths&quot; allow ISO file paths longer than 255
+&quot;long_paths&quot; allows ISO file paths longer than 255
 characters.<br>
-&quot;long_names&quot; allow up to 37 characters with ISO
+&quot;long_names&quot; allows up to 37 characters with ISO
 file names.<br>
-&quot;no_force_dots&quot; do not add a dot to ISO file names
-which have none.<br>
-&quot;no_j_force_dots&quot; do not add a dot to Joliet file
+&quot;no_force_dots&quot; does not add a dot to ISO file
 names which have none.<br>
-&quot;lowercase&quot; allow lowercase characters in ISO file
-names.<br>
-&quot;full_ascii&quot; allow all ASCII characters in ISO
+&quot;no_j_force_dots&quot; does not add a dot to Joliet
+file names which have none.<br>
+&quot;lowercase&quot; allows lowercase characters in ISO
 file names.<br>
-&quot;joliet_long_paths&quot; allow Joliet paths longer than
-240 characters.<br>
-&quot;always_gmt&quot; store timestamps in GMT
+&quot;full_ascii&quot; allows all ASCII characters in ISO
+file names.<br>
+&quot;untranslated_names&quot; might be dangerous for
+inadverted reader programs which rely on the restriction to
+at most 37 characters in ISO file names. This option allows
+ISO file names up to 96 characters with no character
+conversion. If a file name has more characters, then image
+production will fail deliberately.<br>
+&quot;untranslated_name_len=&quot;number enables
+untranslated_names with a smaller limit for the length of
+file names. 0 disables this feature, -1 chooses maximum
+length limit, numbers larger than 0 give the desired length
+limit.<br>
+&quot;joliet_long_paths&quot; allows Joliet paths longer
+than 240 characters.<br>
+&quot;always_gmt&quot; stores timestamps in GMT
 representation with timezone 0.<br>
-&quot;rec_mtime&quot; record with ISO files the disk
+&quot;rec_mtime&quot; records with ISO files the disk
 file&rsquo;s mtime and not the creation time of the
 image.<br>
-&quot;new_rr&quot; use Rock Ridge version 1.12 (suitable for
-GNU/Linux but not for older FreeBSD or for Solaris). This
-implies &quot;aaip_susp_1_10_off&quot; which may be changed
-by subsequent &quot;aaip_susp_1_10&quot;.<br>
+&quot;new_rr&quot; uses Rock Ridge version 1.12 (suitable
+for GNU/Linux but not for older FreeBSD or for Solaris).
+This implies &quot;aaip_susp_1_10_off&quot; which may be
+changed by subsequent &quot;aaip_susp_1_10&quot;.<br>
 Default is &quot;old_rr&quot; which uses Rock Ridge version
 1.10. This implies also &quot;aaip_susp_1_10&quot; which may
 be changed by subsequent &quot;aaip_susp_1_10_off&quot;.<br>
@@ -3362,6 +3369,10 @@ extension under SUSP-1.12.<br>
 &quot;no_emul_toc&quot; saves 64 kB with the first session
 on overwriteable media but makes the image incapable of
 displaying its session history.<br>
+&quot;iso_9660_1999&quot; causes the production of an
+additional directory tree compliant to ISO 9660:1999. It can
+record long filenames for readers which do not understand
+Rock Ridge.<br>
 Default setting is<br>
 
 &quot;clear:only_iso_version:deep_paths:long_paths:no_j_force_dots:<br>
@@ -4614,6 +4625,11 @@ ISO image and is not filtered.</p>
 <p>Enable or disable to enter dialog mode after all
 arguments are processed. In dialog mode input lines get
 prompted via readline or from stdin.<br>
+If no -abort_on severity was set when dialog starts, then
+&quot;NEVER&quot; is set to avoid abort in most cases of
+wrong input or other problems. Before dialog begins, the
+default is &quot;FAILURE&quot; which e.g. aborts on unknown
+commands.<br>
 Mode &quot;on&quot; supports input of newline characters
 within quotation marks and line continuation by trailing
 backslash outside quotation marks. Mode
@@ -4883,8 +4899,11 @@ session number, resp. volume id of the depicted session.</p>
 <td width="77%">
 <p>Print the foreseeable consumption of 2048 byte blocks by
 next -commit. This can last a while as a -commit gets
-prepared and only in last moment is revoked by this
-option.</p>
+prepared and only in last moment is revoked by this option.
+The result depends on several settings and also on the kind
+of output device. If no -jidgo options are given, then
+-padding (300 kB by default) is not counted as part of the
+image size.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6141,13 +6160,21 @@ output.<br>
 -print-size inhibits automatic image production at program
 end. This ban is lifted only if the pending image changes
 get discarded.<br>
+If no -iso-level is given, then level 1 is chosen when the
+first file or directory is added to the image. At the same
+occasion directory names get allowed to violate the standard
+by -compliance option allow_dir_id_ext. This may be avoided
+by option -disallow_dir_id_ext.<br>
 Not original mkisofs options are --quoted_path_list ,
 --hardlinks , --acl , --xattr , --md5 , --stdio_sync . They
 work like the xorriso options with the same name and
 hardcoded argument &quot;on&quot;, e.g. -acl &quot;on&quot;.
 Explicit arguments are expected by --stdio_sync and
---scdbackup_tag. --no-emul-toc is -compliance
-no_emul_toc.<br>
+--scdbackup_tag.<br>
+The capability to preserve multi-session history on
+overwriteable media gets disabled by default. It can be
+enabled by using --emul-toc with the first session. See
+-compliance no_emul_toc.<br>
 --sort-weight gets as arguments a number and an iso_rr_path.
 The number becomes the LBA sorting weight of regular file
 iso_rr_path or of all regular files underneath directory
@@ -6170,6 +6197,8 @@ effect of -boot_image isolinux partition_table=on.<br>
 -partition_offset number is -boot_image any
 partition_offset=number.<br>
 Option -append_partition is supported.<br>
+-untranslated_name_len number is -compliance
+untranslated_name_len=number.<br>
 The options of genisoimage Jigdo Template Extraction are
 recognized and performed via xorriso option -jigdo. See the
 &quot;Alias:&quot; names there for the meaning of the
@@ -7312,6 +7341,7 @@ matching *.o or *.swp get excluded explicitly.<br>
 When done with writing the new session gets checked by its
 recorded MD5.<br>
 $ xorriso \<br>
+-abort_on FATAL \<br>
 -for_backup -disk_dev_ino on \<br>
 -assert_volid &rsquo;PROJECTS_MAIL_*&rsquo; FATAL \<br>
 &nbsp;&nbsp;-dev /dev/sr0 \<br>
@@ -7643,7 +7673,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2007 - 2010 Thomas Schmitt<br>
+<p>Copyright (c) 2007 - 2011 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -7669,5 +7699,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Dec 12 10:29:48 CET 2010 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jan 16 20:55:05 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>

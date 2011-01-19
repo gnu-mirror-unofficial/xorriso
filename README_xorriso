@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-ftp://ftp.gnu.org/gnu/xorriso/xorriso-0.6.6.tar.gz
+ftp://ftp.gnu.org/gnu/xorriso/xorriso-1.0.0.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -46,10 +46,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-0.6.6.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.0.0.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-0.6.6.tar.gz
-    cd xorriso-0.6.6
+    tar xzf xorriso-1.0.0.tar.gz
+    cd xorriso-1.0.0
 
 Within that directory execute:
 
@@ -291,9 +291,9 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-0.6.6 :
-- libburn.so.4  , version libburn-0.8.8 or higher
-- libisofs.so.6 , version libisofs-0.6.40 or higher
+Dynamic library and compile time header requirements for libisoburn-1.0.0 :
+- libburn.so.4  , version libburn-1.0.0 or higher
+- libisofs.so.6 , version libisofs-1.0.0 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
@@ -411,7 +411,7 @@ By Mario Danic           <mario.danic@gmail.com>,  libburn, libisofs
    Vreixo Formoso        <metalpain2002@yahoo.es>, libisofs, libisoburn
    Thomas Schmitt        <scdbackup@gmx.net>,      libburn, libisofs,
                                                    libisoburn, xorriso
-Copyright (C) 2006-2010 Mario Danic, Vreixo Formoso, Thomas Schmitt.
+Copyright (C) 2006-2011 Mario Danic, Vreixo Formoso, Thomas Schmitt.
 
 libburnia-project.org is inspired by and in libburn still containing parts
 of old
@@ -422,12 +422,12 @@ Copyright (C) 2002-2006  Derek Foreman and Ben Jansens
 GNU xorriso contains libjte
 Copyright (C) 2000-2007 Free Software Foundation, Inc.
               2004-2010 Steve McIntyre
-              2010-2010 George Danchev, Thomas Schmitt
+              2010-2011 George Danchev, Thomas Schmitt
 
 ------------------------------------------------------------------------------
 
 This text itself is
-Copyright (c) 2007 - 2010 Thomas Schmitt <scdbackup@gmx.net>
+Copyright (c) 2007 - 2011 Thomas Schmitt <scdbackup@gmx.net>
 and is freely distributable.
 It shall only be modified in sync with the technical properties of xorriso.
 If you make use of the license to derive modified versions of xorriso
