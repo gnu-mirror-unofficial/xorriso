@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Jan 18 17:51:31 2011 -->
+<!-- CreationDate: Mon Jan 24 15:16:39 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -6165,6 +6165,9 @@ first file or directory is added to the image. At the same
 occasion directory names get allowed to violate the standard
 by -compliance option allow_dir_id_ext. This may be avoided
 by option -disallow_dir_id_ext.<br>
+Currently there is no emulation for -root and -old-root.
+Incremental backups can be done by native xorriso command
+-update_r. See also EXAMPLES section.<br>
 Not original mkisofs options are --quoted_path_list ,
 --hardlinks , --acl , --xattr , --md5 , --stdio_sync . They
 work like the xorriso options with the same name and
@@ -7402,7 +7405,9 @@ older backups get endangered by the new write operation,
 while the newest backup is stored safely on a different
 media. Always have a blank media ready to perform a full
 backup in case the update attempt fails due to insufficient
-remaining capacity.</p>
+remaining capacity.<br>
+This example produces a result similar to -root / -old-root
+/ with mkisofs.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7699,5 +7704,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Jan 18 17:51:31 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Jan 24 15:16:39 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
