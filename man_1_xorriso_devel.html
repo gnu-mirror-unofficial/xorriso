@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Jan 24 15:16:39 2011 -->
+<!-- CreationDate: Wed Jan 26 14:42:00 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3373,6 +3373,10 @@ displaying its session history.<br>
 additional directory tree compliant to ISO 9660:1999. It can
 record long filenames for readers which do not understand
 Rock Ridge.<br>
+&quot;old_empty&quot; uses the old way of of giving block
+addresses in the range of [0,31] to files with no own data
+content. The new way is to have a dedicated block to which
+all such files will point.<br>
 Default setting is<br>
 
 &quot;clear:only_iso_version:deep_paths:long_paths:no_j_force_dots:<br>
@@ -6202,6 +6206,7 @@ partition_offset=number.<br>
 Option -append_partition is supported.<br>
 -untranslated_name_len number is -compliance
 untranslated_name_len=number.<br>
+--old-empty is -compliance old_empty.<br>
 The options of genisoimage Jigdo Template Extraction are
 recognized and performed via xorriso option -jigdo. See the
 &quot;Alias:&quot; names there for the meaning of the
@@ -7704,5 +7709,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Jan 24 15:16:39 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Jan 26 14:42:00 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
