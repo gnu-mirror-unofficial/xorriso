@@ -581,6 +581,9 @@ ECMA-119 standards violation with Volume Descriptor Set Terminator
 (hampers libarchive, but not mounting on Linux, FreeBSD, Solaris,
 or booting by ISOLINUX or GRUB2).
 </LI>
+<LI>
+Bug fix: Option -mkdir yielded SIGSEGV due to a NULL pointer.
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -588,8 +591,18 @@ or booting by ISOLINUX or GRUB2).
 </DD>
 <DD>Enhancements towards stable version 1.0.0:
 <UL>
-<LI>- none yet -</LI>
+<LI>New options -clone and -cp_clone</LI>
+<LI>New -find actions update_merge, rm_merge, clear_merge</LI>
+<LI>New -as mkisofs option --old-empty</LI>
+<LI>New -as mkisofs options -root , -old-root</LI>
+<LI>
+New -as mkisofs options --old-root-no-md5, --old-root-no-ino, --old-root-dev
+</LI>
+<LI>
+Removed compiler obstacles of GNU xorriso on Solaris 9
+</LI>
 <!-- 
+<LI>- none yet -</LI>
  -->
 </UL>
 
