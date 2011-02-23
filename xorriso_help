@@ -263,6 +263,11 @@ expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                  Create empty directories if they do not exist yet.
   -rmdir iso_rr_path [***]
                  Delete empty directories.
+  -clone iso_rr_path_original iso_rr_path_copy
+                 Create an ISO copy of an ISO file or ISO directory tree.
+  -cp_clone iso_rr_path_original [***] iso_rr_path_dest
+                 Create ISO to ISO copies according to the rules of cp -r.
+
   --             Default list delimiter marking the end of action argument
                  list. It may be changed by option -list_delimiter.
 

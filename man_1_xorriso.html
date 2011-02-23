@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Jan 16 20:55:05 2011 -->
+<!-- CreationDate: Wed Feb 23 17:01:13 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1096,14 +1096,30 @@ A large number of hardlink families may exhaust
 effect. This restricts hard linking to other files restored
 by the same single extract command. -hardlinks
 &quot;normal_extract&quot; re-enables wide and expensive
-hardlink accumulation.<b><br>
-&minus;acl</b> &quot;on&quot;|&quot;off&quot; Enable or
-disable processing of ACLs. If enabled, then xorriso will
-obtain ACLs from disk file objects, store ACLs in the ISO
-image using the libisofs specific AAIP format, load AAIP
-data from ISO images, test ACL during file comparison, and
-restore ACLs to disk files when extracting them from ISO
-images. See also options -getfacl, -setfacl.</p>
+hardlink accumulation.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;acl</b> &quot;on&quot;|&quot;off&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Enable or disable processing of ACLs. If enabled, then
+xorriso will obtain ACLs from disk file objects, store ACLs
+in the ISO image using the libisofs specific AAIP format,
+load AAIP data from ISO images, test ACL during file
+comparison, and restore ACLs to disk files when extracting
+them from ISO images. See also options -getfacl,
+-setfacl.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1716,6 +1732,61 @@ is prepended. If the iso_rr_path does not begin with
 <p>Create empty directories if they do not exist yet.
 Existence as directory generates a WARNING event, existence
 as other file causes a FAILURE event.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;clone</b> iso_rr_path_original
+iso_rr_path_copy</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Create a copy of the ISO file object iso_rr_path_original
+with the new address iso_rr_path_copy. If the original is a
+directory then copy all files and directories underneath. An
+eventual boot catalog file gets not copied but is silently
+ignored.<br>
+The copied ISO file objects have the same attributes. Copied
+data files refer to the same content source as their
+originals. The copies may then be manipulated independendly
+of their originals.<br>
+This command will refuse execution if the address
+iso_rr_path_copy already exists in the ISO tree.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;cp_clone</b> iso_rr_path_original [***]
+iso_rr_path_dest</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Create copies of one or more ISO file objects as with
+command -clone. Eventually merge directories with existing
+ones, but do not overwrite existing ISO file objects.<br>
+The rules for generating the copy addresses are the same as
+with command -cpr (see above) resp. shell command cp -r.
+Other than with -cpr, relative iso_rr_path_original will get
+prepended the -cd path and not the -cdx path. Consider to
+-mkdir iso_rr_path_dest before -cp_clone so the copy address
+does not depend on the number of iso_rr_path_original
+arguments.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2716,11 +2787,27 @@ update</b> performs command -update with the found file
 address as iso_rr_path. The corresponding file address is
 determined like with above action
 &quot;compare&quot;.<b><br>
+update_merge</b> is like update but does not delete the
+found file if it is missing on disk. It may be run several
+times and records with all visited files whether their
+counterpart on disk has already been seen by one of the
+update_merge runs. Finally, a -find run with action
+&quot;rm_merge&quot; may remove all files that saw no
+counterpart on disk.<br>
+Up to the next &quot;rm_merge&quot; or
+&quot;clear_merge&quot; all newly inserted files will get
+marked as having a disk counterpart.<b><br>
 rm</b> removes the found iso_rr_path from the image if it is
 not a directory with files in it. I.e. this &quot;rm&quot;
 includes &quot;rmdir&quot;.<b><br>
 rm_r</b> removes the found iso_rr_path from the image,
 including whole directory trees.<b><br>
+rm_merge</b> removes the found iso_rr_path if it was visited
+by one or more previous actions &quot;update_merge&quot; and
+saw no counterpart on disk in any of them. The marking from
+the update actions is removed in any case.<b><br>
+clear_merge</b> removes an eventual marking from action
+&quot;update_merge&quot;.<b><br>
 report_damage</b> classifies files whether they hit a data
 block that is marked as damaged. The result is printed
 together with the eventual address of the first damaged
@@ -3373,6 +3460,10 @@ displaying its session history.<br>
 additional directory tree compliant to ISO 9660:1999. It can
 record long filenames for readers which do not understand
 Rock Ridge.<br>
+&quot;old_empty&quot; uses the old way of of giving block
+addresses in the range of [0,31] to files with no own data
+content. The new way is to have a dedicated block to which
+all such files will point.<br>
 Default setting is<br>
 
 &quot;clear:only_iso_version:deep_paths:long_paths:no_j_force_dots:<br>
@@ -5390,7 +5481,8 @@ not_in_iso</b> reports the path if its counterpart does not
 exist in the ISO image. The report format is the same as
 with command -compare.<b><br>
 add_missing</b> iso_rr_path_start adds the counterpart if it
-does not yet exist in the ISO image.<br>
+does not yet exist in the ISO image and marks it for
+&quot;rm_merge&quot; as non-removable.<br>
 E.g.: -findx /home/thomas -exec add_missing /thomas_on_cd
 --<b><br>
 is_full_in_iso</b> reports if the counterpart in the ISO
@@ -6165,6 +6257,14 @@ first file or directory is added to the image. At the same
 occasion directory names get allowed to violate the standard
 by -compliance option allow_dir_id_ext. This may be avoided
 by option -disallow_dir_id_ext.<br>
+Option -root is supported. Option -old-root is implemented
+by xorriso commands -mkdir, -cp_clone, -find update_merge,
+and -find rm_merge. -root and -old-root set command
+-disk_dev_ino to &quot;ino_only&quot; and -md5 to
+&quot;on&quot;, by default. -disk_dev_ino can be set to
+&quot;off&quot; by --old-root-no-ino resp. to &quot;on&quot;
+by --old-root-devno . -md5 can be set to &quot;off&quot; by
+--old-root-no-md5 .<br>
 Not original mkisofs options are --quoted_path_list ,
 --hardlinks , --acl , --xattr , --md5 , --stdio_sync . They
 work like the xorriso options with the same name and
@@ -6199,6 +6299,7 @@ partition_offset=number.<br>
 Option -append_partition is supported.<br>
 -untranslated_name_len number is -compliance
 untranslated_name_len=number.<br>
+--old-empty is -compliance old_empty.<br>
 The options of genisoimage Jigdo Template Extraction are
 recognized and performed via xorriso option -jigdo. See the
 &quot;Alias:&quot; names there for the meaning of the
@@ -7349,8 +7450,7 @@ $ xorriso \<br>
 &rsquo;+%Y_%m_%d_%H%M%S&rsquo;)&quot; \<br>
 -not_leaf &rsquo;*.o&rsquo; -not_leaf &rsquo;*.swp&rsquo;
 \<br>
--update_r /home/thomas/open_source_projects
-/open_source_projects \<br>
+-update_r /home/thomas/projects /projects \<br>
 -update_r /home/thomas/personal_mail /personal_mail \<br>
 -commit -toc -check_md5 FAILURE -- -eject all<br>
 To be used several times on the same media, whenever an
@@ -7389,20 +7489,35 @@ Options -mount_cmd and -mount are also able to produce the
 mount commands for older sessions in the table-of-content.
 E.g. as superuser:<br>
 # osirrox -mount /dev/sr0 &quot;volid&quot;
-&rsquo;*2008_12_05*&rsquo; /mnt<br>
-Sessions on multi-session media are separated by several MB
-of unused blocks. So with small sessions the payload
+&rsquo;*2008_12_05*&rsquo; /mnt</p>
+<!-- INDENTATION -->
+<p>Above example produces a result similar to -root /
+-old-root / with mkisofs. For getting the session trees
+accumulated in the new sessions, let all -update commands
+use a common parent directory and clone it after updating is
+done:<br>
+-update_r /home/thomas/projects /current/projects \<br>
+-update_r /home/thomas/personal_mail /current/personal_mail
+\<br>
+-clone /current /&quot;$(date
+&rsquo;+%Y_%m_%d_%H%M%S&rsquo;)&quot; \<br>
+The cloned tree will have a name like
+/2011_02_12_155700.</p>
+<!-- INDENTATION -->
+<p>Sessions on multi-session media are separated by several
+MB of unused blocks. So with small sessions the payload
 capacity can become substantially lower than the overall
 media capacity. If the remaining space on media does not
 suffice for the next gap, the drive is supposed to close the
-media automatically.<b><br>
-Better do not use your youngest backup for -update_r</b>.
-Have at least two media which you use alternatingly. So only
-older backups get endangered by the new write operation,
-while the newest backup is stored safely on a different
-media. Always have a blank media ready to perform a full
-backup in case the update attempt fails due to insufficient
-remaining capacity.</p>
+media automatically.</p>
+<!-- INDENTATION -->
+<p><b>Better do not use your youngest backup for
+-update_r</b>. Have at least two media which you use
+alternatingly. So only older backups get endangered by the
+new write operation, while the newest backup is stored
+safely on a different media. Always have a blank media ready
+to perform a full backup in case the update attempt fails
+due to insufficient remaining capacity.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7699,5 +7814,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jan 16 20:55:05 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Feb 23 17:01:13 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
