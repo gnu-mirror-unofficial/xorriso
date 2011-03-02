@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Feb 23 21:33:21 2011 -->
+<!-- CreationDate: Wed Mar  2 10:48:08 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3989,7 +3989,7 @@ This is the contrary of cdrecord, wodim, cdrskin option
 <td width="10%"></td>
 <td width="89%">
 <p><b>&minus;padding</b>
-number[&quot;k&quot;|&quot;m&quot;]</p></td>
+number[&quot;k&quot;|&quot;m&quot;]|&quot;included&quot;|&quot;appended&quot;</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4004,7 +4004,14 @@ in TAO mode. Since one can hardly predict on what media an
 image might end up, xorriso adds the traditional 300k of
 padding by default to all images.<br>
 For images which will never get to a CD it is safe to use
--padding 0 .</p>
+-padding 0 .<br>
+Normally padding is not written as part of the ISO image but
+appended after the image end. This is -padding mode
+&quot;appended&quot;.<br>
+Emulation command -as &quot;mkisofs&quot; and command -jigdo
+cause padding to be written as part of the image. The same
+effect is achieved by -padding mode
+&quot;included&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4221,11 +4228,15 @@ as from the partition start.<br>
 The offset value of an ISO image gets preserved when a new
 session is added. So the value defined here is only in
 effect if a new ISO image gets written.<b><br>
-partition_sec_hd=</b>number gives the number of sectors per
-head for partition offset. 0 chooses a default value.<b><br>
 partition_hd_cyl=</b>number gives the number of heads per
 cylinder for partition offset. 0 chooses a default
 value.<b><br>
+partition_sec_hd=</b>number gives the number of sectors per
+head for partition offset. 0 chooses a default value.<br>
+If the product of partition_sec_hd and partition_hd_cyl is
+too small to describe the image size by at most 1024
+cylinders, then appropriate values of partition_hd_cyl are
+chosen with partition_sec_hd 32 or 63.<b><br>
 mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
@@ -4992,9 +5003,9 @@ session number, resp. volume id of the depicted session.</p>
 next -commit. This can last a while as a -commit gets
 prepared and only in last moment is revoked by this option.
 The result depends on several settings and also on the kind
-of output device. If no -jidgo options are given, then
--padding (300 kB by default) is not counted as part of the
-image size.</p>
+of output device. If no -jidgo options are given and not
+command -as &quot;mkisofs&quot; was used, then -padding (300
+kB by default) is not counted as part of the image size.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6252,6 +6263,8 @@ output.<br>
 -print-size inhibits automatic image production at program
 end. This ban is lifted only if the pending image changes
 get discarded.<br>
+Eventual padding is counted as part of the ISO image if not
+option --emul-toc is given.<br>
 If no -iso-level is given, then level 1 is chosen when the
 first file or directory is added to the image. At the same
 occasion directory names get allowed to violate the standard
@@ -7814,5 +7827,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Feb 23 21:33:21 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Mar  2 10:48:08 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
