@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Mar  2 10:48:08 2011 -->
+<!-- CreationDate: Fri Mar  4 15:15:36 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4229,14 +4229,30 @@ The offset value of an ISO image gets preserved when a new
 session is added. So the value defined here is only in
 effect if a new ISO image gets written.<b><br>
 partition_hd_cyl=</b>number gives the number of heads per
-cylinder for partition offset. 0 chooses a default
-value.<b><br>
+cylinder for partition offset. 0 chooses a default value.
+Maximum is 255.<b><br>
 partition_sec_hd=</b>number gives the number of sectors per
-head for partition offset. 0 chooses a default value.<br>
-If the product of partition_sec_hd and partition_hd_cyl is
-too small to describe the image size by at most 1024
-cylinders, then appropriate values of partition_hd_cyl are
-chosen with partition_sec_hd 32 or 63.<b><br>
+head for partition offset. 0 chooses a default value.
+Maximum is 63.<br>
+The product partition_sec_hd * partition_hd_cyl * 512 is the
+cylinder size. It should be divisible by 2048 in order to
+allow exact alignment. If it is too small to describe the
+image size by at most 1024 cylinders, then appropriate
+values of partition_hd_cyl are chosen with partition_sec_hd
+32 or 63. If the image is larger than 8,422,686,720 bytes,
+then the cylinder size constraints cannot be
+fulfilled.<b><br>
+partition_cyl_align=</b>mode controls image size alignment
+to an integer number of cylinders. It is prescribed by
+isohybrid specs and it seems to please program fdisk.
+Cylinder size must be divisible by 2048. Images larger than
+8,323,596,288 bytes cannot be aligned.<br>
+Mode &quot;auto&quot; is default. Alignment by padding
+happens only with &quot;isolinux&quot;
+&quot;partition_table=on&quot;.<br>
+Mode &quot;on&quot; causes alignment by padding with
+&quot;partition_table=on&quot; for any type. Mode
+&quot;off&quot; disables alignment for any type.<b><br>
 mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
@@ -7827,5 +7843,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Mar  2 10:48:08 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Mar  4 15:15:36 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>
