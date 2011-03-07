@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Mar  4 15:15:36 2011 -->
+<!-- CreationDate: Mon Mar  7 11:16:12 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4229,10 +4229,10 @@ The offset value of an ISO image gets preserved when a new
 session is added. So the value defined here is only in
 effect if a new ISO image gets written.<b><br>
 partition_hd_cyl=</b>number gives the number of heads per
-cylinder for partition offset. 0 chooses a default value.
+cylinder for the partition table. 0 chooses a default value.
 Maximum is 255.<b><br>
 partition_sec_hd=</b>number gives the number of sectors per
-head for partition offset. 0 chooses a default value.
+head for the partition table. 0 chooses a default value.
 Maximum is 63.<br>
 The product partition_sec_hd * partition_hd_cyl * 512 is the
 cylinder size. It should be divisible by 2048 in order to
@@ -6251,11 +6251,10 @@ Among them: -R (always on), -r, -J, -o, -M, -C, -dir-mode,
 pathspecs. A lot of options are not supported and lead to
 failure of the mkisofs emulation. Some are ignored, but
 better do not rely on this tolerance.<br>
--graft-points is equivalent to -pathspecs on. Note that
-pathspecs without &quot;=&quot; are interpreted differently
-than with xorriso option -add. Directories get merged with
-the root directory of the ISO image, other filetypes get
-mapped into that root directory.<br>
+The supported options are documented in detail in
+xorrisofs.info and in man xorrisofs. The description here is
+focused on the effect of mkisofs emulation in the context of
+a xorriso run.<br>
 Other than with the &quot;cdrecord&quot; personality there
 is no automatic -commit at the end of a &quot;mkisofs&quot;
 option list. Verbosity settings -v (= &quot;UPDATE&quot;)
@@ -6264,6 +6263,11 @@ eventually chosen with -o, persists until things happen like
 -commit, -rollback, -dev, or end of xorriso. -pacifier gets
 set to &quot;mkisofs&quot; if files are added to the
 image.<br>
+-graft-points is equivalent to -pathspecs on. Note that
+pathspecs without &quot;=&quot; are interpreted differently
+than with xorriso option -add. Directories get merged with
+the root directory of the ISO image, other filetypes get
+mapped into that root directory.<br>
 If pathspecs are given and if no output file was chosen
 before or during the &quot;mkisofs&quot; option list, then
 standard output (-outdev &quot;-&quot;) will get into
@@ -6334,7 +6338,7 @@ recognized and performed via xorriso option -jigdo. See the
 &quot;Alias:&quot; names there for the meaning of the
 genisoimage options.</p>
 <!-- INDENTATION -->
-<p>Personalites &quot;<b>xorrisofs</b>&quot;,
+<p>Personalities &quot;<b>xorrisofs</b>&quot;,
 &quot;<b>genisoimage</b>&quot;, and
 &quot;<b>genisofs</b>&quot; are aliases for
 &quot;mkisofs&quot;.<br>
@@ -6345,7 +6349,10 @@ performs -read_mkisofsrc and prepends -as
 &quot;genisofs&quot; to the command line arguments. I.e. all
 arguments will be interpreted mkisofs style until
 &quot;--&quot; is encountered. From then on, options are
-interpreted as xorriso options.</p>
+interpreted as xorriso options.<br>
+--no_rc as first argument of such a program start prevents
+interpretation of startup files. See section <A HREF="#FILES">FILES</A>
+below.</p>
 <!-- INDENTATION -->
 <p>Personality &quot;<b>cdrecord</b>&quot; accepts the
 options listed with:<br>
@@ -6386,7 +6393,10 @@ automatically prepends -as &quot;cdrskin&quot; to the
 command line arguments. I.e. all arguments will be
 interpreted cdrecord style until &quot;--&quot; is
 encountered and an eventual commit happens. From then on,
-options are interpreted as xorriso options.</p>
+options are interpreted as xorriso options.<br>
+--no_rc as first argument of such a program start prevents
+interpretation of xorriso startup files. See section <A HREF="#FILES">FILES</A>
+below.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7697,6 +7707,23 @@ afterwards -read_mkisofsrc is performed, which reads
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p>For the mkisofs emulation of xorriso</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p><b>xorrisofs(1)</b></p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p>For mounting xorriso generated ISO 9660 images (-t
 iso9660)</p></td>
 </table>
@@ -7843,5 +7870,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Mar  4 15:15:36 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Mar  7 11:16:12 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
 </html>

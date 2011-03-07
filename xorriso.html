@@ -468,6 +468,11 @@ as xorriso/xorriso-1.0.2.tar.gz
 <DL><DT>Documentation:</DT>
 <DD><A HREF="README_xorriso">README</A> about installation and drive setup</DD>
 <DD><A HREF="xorriso_help">xorriso -help</A> gives an overview of options</DD>
+<DD><A HREF="xorrisofs_help">xorriso -as mkisofs -help</A>
+ supported options of mkisofs emulation
+</DD>
+<DD><A HREF="xorrecord_help">xorriso -as cdrecord -help</A>
+ supported options of cdrecord emulation</DD>
 <DD><A HREF="man_1_xorriso.html">man xorriso</A> is the manual page</DD>
 </DL>
 <A NAME="contact"></A>
@@ -590,11 +595,15 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.0.3 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.0.2:
 <UL>
+<LI>xorrisofs did not work under growisofs -M (version 1.0.0 was still ok)
+</LI>
+<LI>-as mkisofs -C attempted to read volume header of blank media
+</LI>
 <LI>-as mkisofs -old-root did not work with -graft-points
 </LI>
 <LI>-as mkisofs -partition_hd_cyl had no effect
 </LI>
-<LI>-as mkisofs -C attempted to read volume header of blank media
+<LI>-as mkisofs did not properly unescape target part of pathspecs
 </LI>
 <LI>isohybrid image size was not aligned to cylinder boundary
 </LI>
@@ -610,6 +619,12 @@ cdrecord and mkisofs.</DT>
 <LI>
 New bootspec partition_cyl_align=, new -as mkisofs option -partition_cyl_align
 </LI>
+<LI>
+New -as mkisofs and -as cdrecord option --no_rc
+</LI>
+<LI>
+Own man page and info document for xorrisofs
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -621,6 +636,8 @@ New bootspec partition_cyl_align=, new -as mkisofs option -partition_cyl_align
 <DD>&nbsp;</DD>
 <DD><A HREF="README_xorriso_devel">README 1.0.3</A>
 <DD><A HREF="xorriso_help_devel">xorriso-1.0.3 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.0.3 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.0.3 -as cdrecord -help</A></DD>
 <DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.0.3)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
