@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Feb 23 17:01:13 2011 -->
+<!-- CreationDate: Thu Mar 10 11:42:02 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1150,7 +1150,7 @@ above paragraph about xattr.</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>&minus;md5</b>
-&quot;on&quot;|&quot;all&quot;|&quot;off&quot;</p></td>
+&quot;on&quot;|&quot;all&quot;|&quot;off&quot;|&quot;load_check_off&quot;</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1178,6 +1178,15 @@ Mode &quot;all&quot; will additionally check during image
 generation whether the checksum of a data file changed
 between the time when its reading began and the time when it
 ended. This implies reading every file twice.<br>
+Mode &quot;load_check_off&quot; together with &quot;on&quot;
+or &quot;all&quot; will load recorded MD5 sums but not test
+the recorded checksum tags of superblock and directory tree.
+This is necessary if growisofs was used as burn program,
+because it does not overwrite the superblock checksum tag of
+the first session. Therefore load_check_off is in effect
+when xorriso -as mkisofs option -M is performed.<br>
+The test can be re-enabled by mode
+&quot;load_check_on&quot;.<br>
 Checksums can be exploited via options -check_md5,
 -check_md5_r, via find actions get_md5, check_md5, and via
 -check_media.</p>
@@ -3989,7 +3998,7 @@ This is the contrary of cdrecord, wodim, cdrskin option
 <td width="10%"></td>
 <td width="89%">
 <p><b>&minus;padding</b>
-number[&quot;k&quot;|&quot;m&quot;]</p></td>
+number[&quot;k&quot;|&quot;m&quot;]|&quot;included&quot;|&quot;appended&quot;</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4004,7 +4013,14 @@ in TAO mode. Since one can hardly predict on what media an
 image might end up, xorriso adds the traditional 300k of
 padding by default to all images.<br>
 For images which will never get to a CD it is safe to use
--padding 0 .</p>
+-padding 0 .<br>
+Normally padding is not written as part of the ISO image but
+appended after the image end. This is -padding mode
+&quot;appended&quot;.<br>
+Emulation command -as &quot;mkisofs&quot; and command -jigdo
+cause padding to be written as part of the image. The same
+effect is achieved by -padding mode
+&quot;included&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4221,11 +4237,31 @@ as from the partition start.<br>
 The offset value of an ISO image gets preserved when a new
 session is added. So the value defined here is only in
 effect if a new ISO image gets written.<b><br>
-partition_sec_hd=</b>number gives the number of sectors per
-head for partition offset. 0 chooses a default value.<b><br>
 partition_hd_cyl=</b>number gives the number of heads per
-cylinder for partition offset. 0 chooses a default
-value.<b><br>
+cylinder for the partition table. 0 chooses a default value.
+Maximum is 255.<b><br>
+partition_sec_hd=</b>number gives the number of sectors per
+head for the partition table. 0 chooses a default value.
+Maximum is 63.<br>
+The product partition_sec_hd * partition_hd_cyl * 512 is the
+cylinder size. It should be divisible by 2048 in order to
+allow exact alignment. If it is too small to describe the
+image size by at most 1024 cylinders, then appropriate
+values of partition_hd_cyl are chosen with partition_sec_hd
+32 or 63. If the image is larger than 8,422,686,720 bytes,
+then the cylinder size constraints cannot be
+fulfilled.<b><br>
+partition_cyl_align=</b>mode controls image size alignment
+to an integer number of cylinders. It is prescribed by
+isohybrid specs and it seems to please program fdisk.
+Cylinder size must be divisible by 2048. Images larger than
+8,323,596,288 bytes cannot be aligned.<br>
+Mode &quot;auto&quot; is default. Alignment by padding
+happens only with &quot;isolinux&quot;
+&quot;partition_table=on&quot;.<br>
+Mode &quot;on&quot; causes alignment by padding with
+&quot;partition_table=on&quot; for any type. Mode
+&quot;off&quot; disables alignment for any type.<b><br>
 mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
@@ -4992,9 +5028,9 @@ session number, resp. volume id of the depicted session.</p>
 next -commit. This can last a while as a -commit gets
 prepared and only in last moment is revoked by this option.
 The result depends on several settings and also on the kind
-of output device. If no -jidgo options are given, then
--padding (300 kB by default) is not counted as part of the
-image size.</p>
+of output device. If no -jidgo options are given and not
+command -as &quot;mkisofs&quot; was used, then -padding (300
+kB by default) is not counted as part of the image size.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6224,11 +6260,10 @@ Among them: -R (always on), -r, -J, -o, -M, -C, -dir-mode,
 pathspecs. A lot of options are not supported and lead to
 failure of the mkisofs emulation. Some are ignored, but
 better do not rely on this tolerance.<br>
--graft-points is equivalent to -pathspecs on. Note that
-pathspecs without &quot;=&quot; are interpreted differently
-than with xorriso option -add. Directories get merged with
-the root directory of the ISO image, other filetypes get
-mapped into that root directory.<br>
+The supported options are documented in detail in
+xorrisofs.info and in man xorrisofs. The description here is
+focused on the effect of mkisofs emulation in the context of
+a xorriso run.<br>
 Other than with the &quot;cdrecord&quot; personality there
 is no automatic -commit at the end of a &quot;mkisofs&quot;
 option list. Verbosity settings -v (= &quot;UPDATE&quot;)
@@ -6237,6 +6272,11 @@ eventually chosen with -o, persists until things happen like
 -commit, -rollback, -dev, or end of xorriso. -pacifier gets
 set to &quot;mkisofs&quot; if files are added to the
 image.<br>
+-graft-points is equivalent to -pathspecs on. Note that
+pathspecs without &quot;=&quot; are interpreted differently
+than with xorriso option -add. Directories get merged with
+the root directory of the ISO image, other filetypes get
+mapped into that root directory.<br>
 If pathspecs are given and if no output file was chosen
 before or during the &quot;mkisofs&quot; option list, then
 standard output (-outdev &quot;-&quot;) will get into
@@ -6252,6 +6292,8 @@ output.<br>
 -print-size inhibits automatic image production at program
 end. This ban is lifted only if the pending image changes
 get discarded.<br>
+Eventual padding is counted as part of the ISO image if not
+option --emul-toc is given.<br>
 If no -iso-level is given, then level 1 is chosen when the
 first file or directory is added to the image. At the same
 occasion directory names get allowed to violate the standard
@@ -6305,7 +6347,7 @@ recognized and performed via xorriso option -jigdo. See the
 &quot;Alias:&quot; names there for the meaning of the
 genisoimage options.</p>
 <!-- INDENTATION -->
-<p>Personalites &quot;<b>xorrisofs</b>&quot;,
+<p>Personalities &quot;<b>xorrisofs</b>&quot;,
 &quot;<b>genisoimage</b>&quot;, and
 &quot;<b>genisofs</b>&quot; are aliases for
 &quot;mkisofs&quot;.<br>
@@ -6316,7 +6358,10 @@ performs -read_mkisofsrc and prepends -as
 &quot;genisofs&quot; to the command line arguments. I.e. all
 arguments will be interpreted mkisofs style until
 &quot;--&quot; is encountered. From then on, options are
-interpreted as xorriso options.</p>
+interpreted as xorriso options.<br>
+--no_rc as first argument of such a program start prevents
+interpretation of startup files. See section <A HREF="#FILES">FILES</A>
+below.</p>
 <!-- INDENTATION -->
 <p>Personality &quot;<b>cdrecord</b>&quot; accepts the
 options listed with:<br>
@@ -6357,7 +6402,10 @@ automatically prepends -as &quot;cdrskin&quot; to the
 command line arguments. I.e. all arguments will be
 interpreted cdrecord style until &quot;--&quot; is
 encountered and an eventual commit happens. From then on,
-options are interpreted as xorriso options.</p>
+options are interpreted as xorriso options.<br>
+--no_rc as first argument of such a program start prevents
+interpretation of xorriso startup files. See section <A HREF="#FILES">FILES</A>
+below.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7312,14 +7360,21 @@ $ xorriso -as mkisofs prepared_for_iso/tree1 | \<br>
 xorriso -as cdrecord -v dev=/dev/sr0 blank=fast -multi
 -eject -<br>
 Follow-up sessions are written like this:<br>
+$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1<br>
 $ m=$(xorriso -as cdrecord dev=/dev/sr0 -msinfo)<br>
 $ xorriso -as mkisofs -M /dev/sr0 -C $m
 prepared_for_iso/tree2 | \<br>
 xorriso -as cdrecord -v dev=/dev/sr0 -waiti -multi -eject
 -<br>
 Always eject the drive tray between sessions. The old
-sessions get read via stdio:/dev/sr0 and thus are prone to
-device driver peculiarities.<br>
+sessions get read via /dev/sr0. Its device driver might not
+be aware of the changed content before it loads the media
+again. In this case the previous session would not be loaded
+and the new session would contain only the newly added
+files.<br>
+For the same reason do not let xorriso -as cdrecord load the
+media, but rather do this manually or by a program that
+reads from /dev/sr0.<br>
 This example works for multi-session media only. Add cdrskin
 option --grow_overwriteable_iso to all -as cdrecord runs in
 order to enable multi-session emulation on overwriteable
@@ -7668,6 +7723,23 @@ afterwards -read_mkisofsrc is performed, which reads
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p>For the mkisofs emulation of xorriso</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p><b>xorrisofs(1)</b></p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p>For mounting xorriso generated ISO 9660 images (-t
 iso9660)</p></td>
 </table>
@@ -7814,5 +7886,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Feb 23 17:01:13 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Mar 10 11:42:02 CET 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

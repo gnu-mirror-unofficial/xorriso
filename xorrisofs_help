@@ -1,7 +1,7 @@
-GNU xorriso 1.0.2 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.0.4 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
-Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorriso
+Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
 Options:
   -f, -follow-links           Follow symbolic links
   -graft-points               Allow to use graft points for filenames
@@ -88,6 +88,7 @@ Options:
   -partition_offset LBA       Make image mountable by first partition, too
   -partition_sec_hd NUMBER    Define number of sectors per head
   -partition_hd_cyl NUMBER    Define number of heads per cylinder
+  -partition_cyl_align MODE   Control cylinder alignment: off, on, auto
   -mips-boot FILE             Set mips boot image name (relative to image root)
   -mipsel-boot FILE           Set mipsel boot image name (relative to image root)
   -B FILES, -sparc-boot FILES Set sparc boot image names
@@ -109,5 +110,6 @@ Options:
   --old-root-no-md5           Do not record and use MD5 with -old-root
   --old-root-no-ino           Do not use disk inode numbers with -old-root
   --old-root-devno            Use disk device numbers with -old-root
+  --no_rc                     Do not execute startup files
   -v, -verbose                Verbose
   -version                    Print the current version

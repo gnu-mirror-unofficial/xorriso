@@ -328,7 +328,7 @@ Write-to-media options:
                  Give up any unejected drive afterwards.
   -close "on"|"off"
                  If "on" then mark the written media as not appendable.
-  -padding number["k"|"m"]
+  -padding number["k"|"m"]|"included"|"appended"
                  Append extra bytes to image stream. (Default is 300k)
   -dummy "on"|"off"
                  If "on" simulate burning. Refuse if media cannot simulate.
