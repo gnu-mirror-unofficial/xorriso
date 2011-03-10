@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Mar  7 11:16:12 2011 -->
+<!-- CreationDate: Thu Mar 10 14:57:29 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1150,7 +1150,7 @@ above paragraph about xattr.</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>&minus;md5</b>
-&quot;on&quot;|&quot;all&quot;|&quot;off&quot;</p></td>
+&quot;on&quot;|&quot;all&quot;|&quot;off&quot;|&quot;load_check_off&quot;</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1178,6 +1178,15 @@ Mode &quot;all&quot; will additionally check during image
 generation whether the checksum of a data file changed
 between the time when its reading began and the time when it
 ended. This implies reading every file twice.<br>
+Mode &quot;load_check_off&quot; together with &quot;on&quot;
+or &quot;all&quot; will load recorded MD5 sums but not test
+the recorded checksum tags of superblock and directory tree.
+This is necessary if growisofs was used as burn program,
+because it does not overwrite the superblock checksum tag of
+the first session. Therefore load_check_off is in effect
+when xorriso -as mkisofs option -M is performed.<br>
+The test can be re-enabled by mode
+&quot;load_check_on&quot;.<br>
 Checksums can be exploited via options -check_md5,
 -check_md5_r, via find actions get_md5, check_md5, and via
 -check_media.</p>
@@ -7351,14 +7360,21 @@ $ xorriso -as mkisofs prepared_for_iso/tree1 | \<br>
 xorriso -as cdrecord -v dev=/dev/sr0 blank=fast -multi
 -eject -<br>
 Follow-up sessions are written like this:<br>
+$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1<br>
 $ m=$(xorriso -as cdrecord dev=/dev/sr0 -msinfo)<br>
 $ xorriso -as mkisofs -M /dev/sr0 -C $m
 prepared_for_iso/tree2 | \<br>
 xorriso -as cdrecord -v dev=/dev/sr0 -waiti -multi -eject
 -<br>
 Always eject the drive tray between sessions. The old
-sessions get read via stdio:/dev/sr0 and thus are prone to
-device driver peculiarities.<br>
+sessions get read via /dev/sr0. Its device driver might not
+be aware of the changed content before it loads the media
+again. In this case the previous session would not be loaded
+and the new session would contain only the newly added
+files.<br>
+For the same reason do not let xorriso -as cdrecord load the
+media, but rather do this manually or by a program that
+reads from /dev/sr0.<br>
 This example works for multi-session media only. Add cdrskin
 option --grow_overwriteable_iso to all -as cdrecord runs in
 order to enable multi-session emulation on overwriteable
@@ -7870,5 +7886,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Mar  7 11:16:12 CET 2011 by convert_man_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Mar 10 14:57:29 CET 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
