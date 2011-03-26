@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Mar 10 14:57:29 2011 -->
+<!-- CreationDate: Sat Mar 26 19:25:09 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1340,6 +1340,35 @@ automatically after each -dev, -indev, and -outdev. Mode
 <p>Allow for writing only the usage of MMC optical drives.
 Disallow to write the result into files of nearly arbitrary
 type. Once set, this command cannot be revoked.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;early_stdio_test</b>
+&quot;on&quot;|&quot;appendable_wo&quot;|&quot;off&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>If enabled by &quot;on&quot; then regular files and block
+devices get tested for effective access permissions. This
+implies to try opening those files for writing, which
+otherwise will happen only later and only if actual writing
+is desired.<br>
+The test result is used for classifying the pseudo drives as
+overwriteable, read-only, write-only, or uselessly empty.
+This may lead to earlier detection of severe problems, and
+may avoid some less severe error events.<br>
+Mode &quot;appendable_wo&quot; is like &quot;on&quot; with
+the additional property that non-empty write-only files are
+regarded as appendable rather than blank.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3445,6 +3474,8 @@ untranslated_names with a smaller limit for the length of
 file names. 0 disables this feature, -1 chooses maximum
 length limit, numbers larger than 0 give the desired length
 limit.<br>
+&quot;joliet_long_names&quot; allows Joliet leaf names up to
+103 characters rather than 64.<br>
 &quot;joliet_long_paths&quot; allows Joliet paths longer
 than 240 characters.<br>
 &quot;always_gmt&quot; stores timestamps in GMT
@@ -4712,9 +4743,10 @@ available:<br>
 with severity below FAILURE if the threshold of option
 -abort_on allows this.<br>
 &quot;failure&quot; aborts image tree reading on first event
-of at least SORRY. It issues an own FAILURE event.<br>
+of at least SORRY. It issues an own FAILURE event. This is
+the default.<br>
 &quot;fatal&quot; acts like &quot;failure&quot; but issues
-the own event as FATAL. This is the default.<br>
+the own event as FATAL.<br>
 With occasion &quot;file_extraction&quot; there are three
 behaviors:<br>
 &quot;keep&quot; maintains incompletely extracted files on
@@ -7886,5 +7918,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Mar 10 14:57:29 CET 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Mar 26 19:25:09 CET 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

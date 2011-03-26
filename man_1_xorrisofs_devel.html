@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Mar 10 14:57:29 2011 -->
+<!-- CreationDate: Sat Mar 26 19:25:09 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1494,9 +1494,11 @@ tree along with the ISO 9660 Rock Ridge tree.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Currently this option is insufficiently implemented. It
-should allow 103 characters in Joliet file names but yet
-only 64 are possible.</p>
+<p>Allow 103 characters in Joliet file names rather than 64
+as is prescribed by the specification. Allow Joliet paths
+longer than the prescribed limit of 240 characters.<br>
+Oversized names get truncated. Without this option,
+oversized paths get excluded from the Joliet tree.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3591,5 +3593,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Mar 10 14:57:29 CET 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Mar 26 19:25:09 CET 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
