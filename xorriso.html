@@ -597,9 +597,7 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.0.5 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.0.4:
 <UL>
-<LI>New option -early_stdio_test</LI>
-<LI>New -compliance option joliet_long_names</LI>
-<LI>-as mkisofs option -joliet-long is now fully functional</LI>
+<LI>-as mkisofs padding did not work (regression in 1.0.4)</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -607,7 +605,10 @@ cdrecord and mkisofs.</DT>
 </DD>
 <DD>Enhancements towards stable version 1.0.4:
 <UL>
-<LI>- none yet -</LI>
+<LI>New option -early_stdio_test</LI>
+<LI>New -compliance option joliet_long_names</LI>
+<LI>-as mkisofs option -joliet-long is now fully functional</LI>
+<LI>Burning DVD-R DAO with 2 kB size granularity rather than 32 kB</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
