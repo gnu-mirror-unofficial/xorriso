@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Mar 30 15:38:48 2011 -->
+<!-- CreationDate: Mon Apr  4 09:25:50 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -6563,8 +6563,13 @@ files. See section <A HREF="#FILES">FILES</A> below.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Read quoted input from fileaddress and executes it like
-dialog lines.</p>
+<p>Read quoted input from fileaddress and execute it like
+dialog lines. Empty lines and lines which begin by # are
+ignored. Normally one line should hold one xorriso command
+and all its arguments. Nevertheless lines may be
+concatenated by a trailing backslash.<br>
+See also section &quot;Command processing&quot;, paragraph
+&quot;Quoted input&quot;.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -6771,7 +6776,45 @@ Default is 16m = 16 MiB, minimum 64k = 64 kiB, maximum 1024m
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Print a text to result channel.</p>
+<p>Print a text line to the result channel which is by
+default stdout.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;print_info</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Print a text line to the info channel which is by default
+stderr.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;print_mark</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Print a text line to the mark channel which is by default
+directed to both, result and info channel. An empty text
+will cause no output at all.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7721,7 +7764,8 @@ following files:<br>
 /etc/xorriso/xorriso.conf<br>
 $HOME/.xorrisorc<br>
 The files are read in the sequence given above, but none of
-them is required to exist.<br>
+them is required to exist. The line format is described with
+command -options_from_file.<br>
 If mkisofs emulation was enabled by program name
 &quot;xorrisofs&quot;, &quot;mkisofs&quot;,
 &quot;genisoimage&quot;, or &quot;genisofs&quot;, then
@@ -7918,5 +7962,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Mar 30 15:38:48 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Apr  4 09:25:50 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

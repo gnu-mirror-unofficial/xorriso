@@ -580,7 +580,7 @@ and hosts the original source code of program xorriso.</DD>
 a C language API.</DD>
 <DD>(By Vreixo Formoso and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libjte-0.1.1</DT>
+<DT>libjte-1.0.0</DT>
 <DD>produces jigdo and template file together with the emerging ISO image.</DD>
 <DD>(By Free Software Foundation, Steve McIntyre, George Danchev,
 Thomas Schmitt)</DD>
@@ -598,6 +598,7 @@ cdrecord and mkisofs.</DT>
 <DD>Bug fixes towards xorriso-1.0.4:
 <UL>
 <LI>-as mkisofs padding did not work (regression in 1.0.4)</LI>
+<LI>Options -gid and -uid had no effect</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -606,6 +607,7 @@ cdrecord and mkisofs.</DT>
 <DD>Enhancements towards stable version 1.0.4:
 <UL>
 <LI>New option -early_stdio_test</LI>
+<LI>New options -print_info and -print_mark</LI>
 <LI>New -compliance option joliet_long_names</LI>
 <LI>-as mkisofs option -joliet-long is now fully functional</LI>
 <LI>Burning DVD-R DAO with 2 kB size granularity rather than 32 kB</LI>
@@ -663,16 +665,16 @@ versions for dynamic linking. Only release versions are safe for that.
 But after the run of <KBD>./bootstrap</KBD>, only
 vanilla tools like make and gcc are needed.
 </DT>
-<DT>GNU xorriso contains a copy of libjte-0.1.1
+<DT>GNU xorriso contains a copy of libjte-1.0.0 from package jigit
 which produces jigdo and template file together with the emerging ISO image.
 (By Free Software Foundation, Steve McIntyre, George Danchev,
 Thomas Schmitt)
 </DT>
 <DD>Important: If desired, libjte has to be already installed when libisofs
 and libisoburn get built.</DD>
-<DD>Download: <KBD><B>svn co http://svn.openfmi.net/dev/people/danchev/jte libjte</B>
+<DD>Download: <KBD><B>wget http://www.einval.com/~steve/software/JTE/download/jigit_1.17.orig.tar.gz</B>
 </KBD></DD>
-<DD>Install: <KBD><B>cd libjte ; ./bootstrap ; ./configure --prefix /usr ; make ; make install</B>
+<DD>Install: <KBD><B>tar xzf jigit_1.17.orig.tar.gz ; cd jigit-1.17 ; make ; make install</B>
 </KBD></DD>
 
 <DD>&nbsp;</DD>

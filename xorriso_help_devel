@@ -544,6 +544,10 @@ General options:
               prevents reading and interpretation of startup files.
   -print text
               Print a text to result channel.
+  -print_info text
+              Print a text to info channel.
+  -print_mark text
+              Print a text to mark channel.
   -prompt text
               Wait for Enter key resp. for a line of input at stdin.
   -errfile_log mode path|channel
