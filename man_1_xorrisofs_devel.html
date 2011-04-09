@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Apr  4 09:25:50 2011 -->
+<!-- CreationDate: Sat Apr  9 13:07:19 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -134,13 +134,16 @@ names visible if Rock Ridge gets ignored.)</p>
 is not recognized as original mkisofs option or additional
 xorrisofs option. A pathspec depicts an input file object by
 a disk_path. If option -graft-points is not present, then
-this file object gets copied into the /-directory of the ISO
-image.<br>
+the behavior depends on the file type of disk_path.
+Directories get merged with the /-directory of the ISO
+image. Files of other types get copied into the
+/-directory.<br>
 If -graft-points is present then each pathspec gets split at
 the first occurence of the =-character. The part before the
-= is taken as <b>target</b>, the iso_rr_path for the file
-object in the ISO image. The part after the first = is taken
-as <b>source</b>, the disk_path of the input object.<br>
+= is taken as <b>target</b>, i.e. the iso_rr_path for the
+file object in the ISO image. The part after the first = is
+taken as <b>source</b>, i.e. the disk_path of the input
+object.<br>
 It is possible to make =-characters part of the iso_rr_path
 by preceeding them with a \-character. The same must be done
 for \-characters which shall be part of the iso_rr_path.</p>
@@ -148,7 +151,12 @@ for \-characters which shall be part of the iso_rr_path.</p>
 <p>If the source part of the pathspec leads to a directory,
 then all files underneath this directory get inserted into
 the image, too. It is possible to exclude particular files
-from being inserted by help of option -m.</p>
+from being inserted by help of option -m.<br>
+In case that target already exists, the following rules
+apply: Directories and other files may overwrite existing
+non-directories. Directories get merged with existing
+directories. Non-directories may not overwrite existing
+directories.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3593,5 +3601,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Mon Apr  4 09:25:50 CEST 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Apr  9 13:07:19 CEST 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
