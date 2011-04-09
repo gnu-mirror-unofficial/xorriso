@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Mar 10 11:42:02 2011 -->
+<!-- CreationDate: Tue Apr  5 11:05:52 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1340,6 +1340,35 @@ automatically after each -dev, -indev, and -outdev. Mode
 <p>Allow for writing only the usage of MMC optical drives.
 Disallow to write the result into files of nearly arbitrary
 type. Once set, this command cannot be revoked.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;early_stdio_test</b>
+&quot;on&quot;|&quot;appendable_wo&quot;|&quot;off&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>If enabled by &quot;on&quot; then regular files and block
+devices get tested for effective access permissions. This
+implies to try opening those files for writing, which
+otherwise will happen only later and only if actual writing
+is desired.<br>
+The test result is used for classifying the pseudo drives as
+overwriteable, read-only, write-only, or uselessly empty.
+This may lead to earlier detection of severe problems, and
+may avoid some less severe error events.<br>
+Mode &quot;appendable_wo&quot; is like &quot;on&quot; with
+the additional property that non-empty write-only files are
+regarded as appendable rather than blank.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3445,6 +3474,8 @@ untranslated_names with a smaller limit for the length of
 file names. 0 disables this feature, -1 chooses maximum
 length limit, numbers larger than 0 give the desired length
 limit.<br>
+&quot;joliet_long_names&quot; allows Joliet leaf names up to
+103 characters rather than 64.<br>
 &quot;joliet_long_paths&quot; allows Joliet paths longer
 than 240 characters.<br>
 &quot;always_gmt&quot; stores timestamps in GMT
@@ -4712,9 +4743,10 @@ available:<br>
 with severity below FAILURE if the threshold of option
 -abort_on allows this.<br>
 &quot;failure&quot; aborts image tree reading on first event
-of at least SORRY. It issues an own FAILURE event.<br>
+of at least SORRY. It issues an own FAILURE event. This is
+the default.<br>
 &quot;fatal&quot; acts like &quot;failure&quot; but issues
-the own event as FATAL. This is the default.<br>
+the own event as FATAL.<br>
 With occasion &quot;file_extraction&quot; there are three
 behaviors:<br>
 &quot;keep&quot; maintains incompletely extracted files on
@@ -6531,8 +6563,13 @@ files. See section <A HREF="#FILES">FILES</A> below.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Read quoted input from fileaddress and executes it like
-dialog lines.</p>
+<p>Read quoted input from fileaddress and execute it like
+dialog lines. Empty lines and lines which begin by # are
+ignored. Normally one line should hold one xorriso command
+and all its arguments. Nevertheless lines may be
+concatenated by a trailing backslash.<br>
+See also section &quot;Command processing&quot;, paragraph
+&quot;Quoted input&quot;.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -6739,7 +6776,45 @@ Default is 16m = 16 MiB, minimum 64k = 64 kiB, maximum 1024m
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Print a text to result channel.</p>
+<p>Print a text line to the result channel which is by
+default stdout.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;print_info</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Print a text line to the info channel which is by default
+stderr.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;print_mark</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Print a text line to the mark channel which is by default
+directed to both, result and info channel. An empty text
+will cause no output at all.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7689,7 +7764,8 @@ following files:<br>
 /etc/xorriso/xorriso.conf<br>
 $HOME/.xorrisorc<br>
 The files are read in the sequence given above, but none of
-them is required to exist.<br>
+them is required to exist. The line format is described with
+command -options_from_file.<br>
 If mkisofs emulation was enabled by program name
 &quot;xorrisofs&quot;, &quot;mkisofs&quot;,
 &quot;genisoimage&quot;, or &quot;genisofs&quot;, then
@@ -7886,5 +7962,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Mar 10 11:42:02 CET 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Apr  5 11:05:52 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

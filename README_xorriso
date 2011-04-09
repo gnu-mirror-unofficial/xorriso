@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-ftp://ftp.gnu.org/gnu/xorriso/xorriso-1.0.4.tar.gz
+ftp://ftp.gnu.org/gnu/xorriso/xorriso-1.0.6.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -46,10 +46,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.0.4.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.0.6.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.0.4.tar.gz
-    cd xorriso-1.0.4
+    tar xzf xorriso-1.0.6.tar.gz
+    cd xorriso-1.0.6
 
 Within that directory execute:
 
@@ -253,12 +253,12 @@ Tag_id distinguishes the following tag types
   "libisofs_checksum_tag_v1"            Session end tag
 
 A relocated superblock may appear at LBA 0 of an image which was produced for
-being stored in a disk file or on overwriteable media (e.g. DVD+R, BD-RE).
+being stored in a disk file or on overwriteable media (e.g. DVD+RW, BD-RE).
 xorriso records the first session at LBA 32. An eventual follow-up session
 begins at the next block address which is divisible by 32 and higher than the
 address of the previous session's end tag. Normally no session starts after the
 address given by relocated superblock parameter session_start=.
-Session oriented media like CD-R[W], DVD+R, BD-R will have no relocated
+Session oriented media like CD-R[W], DVD-R, DVD+R, BD-R will have no relocated
 superblock but rather bear a table-of-content on media level.
 
 A tag is valid if pos= tells its own block address and self= tells its own MD5
@@ -271,7 +271,7 @@ The newline character at the end is mandatory.
 
                              libisoburn
 
-xorriso is based on libisofs which does ISO 9600 filesystem aspects and on
+xorriso is based on libisofs which does ISO 9660 filesystem aspects and on
 libburn which does the input and output aspects. Parts of this foundation
 are accessed via libisoburn, which is closely related to xorriso.
 
@@ -289,9 +289,9 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-1.0.4 :
-- libburn.so.4  , version libburn-1.0.4 or higher
-- libisofs.so.6 , version libisofs-1.0.4 or higher
+Dynamic library and compile time header requirements for libisoburn-1.0.6 :
+- libburn.so.4  , version libburn-1.0.6 or higher
+- libisofs.so.6 , version libisofs-1.0.6 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
@@ -417,9 +417,9 @@ Libburn. By Derek Foreman <derek@signalmarketing.com> and
             Ben Jansens <xor@orodu.net>
 Copyright (C) 2002-2006  Derek Foreman and Ben Jansens
 
-GNU xorriso contains libjte
+GNU xorriso contains libjte out of source package jigit >= 1.17
 Copyright (C) 2000-2007 Free Software Foundation, Inc.
-              2004-2010 Steve McIntyre
+              2004-2011 Steve McIntyre
               2010-2011 George Danchev, Thomas Schmitt
 
 ------------------------------------------------------------------------------
