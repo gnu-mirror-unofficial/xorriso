@@ -446,21 +446,21 @@ This can bring effective read performance near to the raw media reading speed.
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.0.6.tar.gz">xorriso-1.0.6.tar.gz</A>
+<DD><A HREF="xorriso-1.0.8.tar.gz">xorriso-1.0.8.tar.gz</A>
 (1895 KB).
 </DD>
-<DD>(Released 09 Apr 2011)</DD>
-<DD><A HREF="xorriso-1.0.6.tar.gz.sig">xorriso-1.0.6.tar.gz.sig</A></DD>
+<DD>(Released 15 Apr 2011)</DD>
+<DD><A HREF="xorriso-1.0.8.tar.gz.sig">xorriso-1.0.8.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.0.6.tar.gz.sig xorriso-1.0.6.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.0.8.tar.gz.sig xorriso-1.0.8.tar.gz</KBD>
 <BR>
 after eventual <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.0.6.tar.gz
+as xorriso/xorriso-1.0.8.tar.gz
 </DD>
 </DL>
 </DD>
@@ -495,10 +495,9 @@ describes the mkisofs emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards xorriso-1.0.4:
+Bug fixes towards xorriso-1.0.6:
 <UL>
-<LI>-as mkisofs padding did not work (regression in 1.0.4)</LI>
-<LI>Options -gid and -uid had no effect</LI>
+<LI>mkisofs emulation could ignore options (regression in 0.1.6)</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -516,13 +515,9 @@ Bug fixes in .pl01 towards xorriso-:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-1.0.4:
+Enhancements towards previous stable version xorriso-1.0.6:
 <UL>
-<LI>New option -early_stdio_test</LI>
-<LI>New options -print_info and -print_mark</LI>
-<LI>New -compliance option joliet_long_names</LI>
-<LI>-as mkisofs option -joliet-long is now fully functional</LI>
-<LI>Burning DVD-R DAO with 2 kB size granularity rather than 32 kB</LI>
+<LI>- none -</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -554,7 +549,7 @@ Thomas Schmitt from team of libburnia-project.org)</DD>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-1.0.6</DT>
+<DT>libisoburn-1.0.8</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -575,8 +570,8 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.0.7 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.0.6:
+<DT><H3>Development snapshot, version 1.0.9 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.0.8:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
@@ -584,7 +579,7 @@ cdrecord and mkisofs.</DT>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.0.6:
+<DD>Enhancements towards stable version 1.0.8:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
@@ -596,12 +591,12 @@ cdrecord and mkisofs.</DT>
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.0.7</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.0.7 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.0.7 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.0.7 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.0.7)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.0.7)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.0.9</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.0.9 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.0.9 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.0.9 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.0.9)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.0.9)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -611,7 +606,7 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.0.7.tar.gz">xorriso-1.0.7.tar.gz</A>
+<A HREF="xorriso-1.0.9.tar.gz">xorriso-1.0.9.tar.gz</A>
 (1895 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
