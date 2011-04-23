@@ -490,6 +490,8 @@ General options:
               exit_value may be 0 or 32 to 63.
   -report_about severity   Set the threshhold for events to be reported.
               Use -abort_on severities or: HINT, NOTE, UPDATE, DEBUG, ALL
+  -signal_handling "on"|"off"|"sig_dfl"|"sig_ign"
+              Handling of signals. Default "on" uses libburn handler.
   -error_behavior "image_loading"|"file_extraction" behavior
               Behavior "best_effort" is most endurant but may produce
               results which are correct only on the first glimpse.

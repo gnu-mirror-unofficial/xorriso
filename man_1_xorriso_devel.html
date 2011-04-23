@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Apr 14 10:26:35 2011 -->
+<!-- CreationDate: Sat Apr 23 17:26:20 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4724,6 +4724,54 @@ recognized that way.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>&minus;signal_handling</b> mode</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Control the installation of a signal handler which shall
+react on external signals (e.g. from program
+&quot;kill&quot; or from keys Ctrl+C) or on signals caused
+by severe program errors.<br>
+Mode &quot;on&quot; is the default. It uses the signal
+handler of libburn which produces ugly messages but puts
+much effort in releasing eventually used optical drives
+before xorriso ends.<br>
+Mode &quot;off&quot; as first -signal_handling among the
+start arguments prevents all own signal precautions of
+xorriso. Eventually inherited signal handler settings stay
+as they are.<br>
+It works like &quot;sig_dfl&quot; if given after other
+signal handling was already established at program
+start.<br>
+Mode &quot;sig_dfl&quot; uses the system provided default
+handling of signals, which is normally a sudden abort of the
+program. To prevent stuck drives, the libburn handler is
+used during burning, blanking, and formatting on MMC
+drives.<br>
+Mode &quot;sig_ign&quot; tries to ignore as many signal
+types as possible. This imposes the risk that xorriso
+refuses to end until externally kill -9 if performed. kill
+-9 then imposes the risk that the drive is left in unusable
+state and needs poweroff to be reset. So during burning,
+blanking, and formatting wait for at least their normal run
+time before killing externally.<br>
+A special property of this option is that the first
+-signal_handling setting among the start arguments is in
+effect already when the first operations of xorriso begin.
+Only &quot;-signal_handling&quot; with dash &quot;-&quot; is
+recognized that way.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>&minus;error_behavior</b> occasion behavior</p></td>
 </table>
 <!-- INDENTATION -->
@@ -7962,5 +8010,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Apr 14 10:26:35 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Apr 23 17:26:20 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
