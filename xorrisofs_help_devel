@@ -1,3 +1,5 @@
+xorriso 1.0.9 : RockRidge filesystem manipulator, libburnia project.
+
 xorriso : FAILURE : Not a known option:  'mkisofs'
 
 xorriso : aborting : -abort_on 'FAILURE' encountered 'FAILURE'
