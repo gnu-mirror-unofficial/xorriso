@@ -573,7 +573,15 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.0.9 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.0.8:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+-mount_opts shared worked only with -osirrox o_excl_off
+</LI>
+<LI>
+Production of MIPS bootable images caused SIGSEGV
+</LI>
+<LI>
+xorriso command -add_plainly "any" did not add all files to the image
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
