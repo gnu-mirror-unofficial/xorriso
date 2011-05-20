@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed May 18 09:04:37 2011 -->
+<!-- CreationDate: Thu May 19 15:45:24 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -7353,6 +7353,34 @@ GSA&minus;4082B&rsquo;<br>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
+<p><b>Inspect optical media or ISO images</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>Report drive type, media type, media state, and free
+space. List the recognizable sessions on the media with
+their session number, their start sector number, their size,
+and their Volume Id.<br>
+$ xorriso &minus;outdev /dev/sr0 &minus;toc</p>
+<!-- INDENTATION -->
+<p>Load the ISO 9660 directory tree and metadata. Report
+several id strings of the image. Read all blocks of the
+image and watch for SCSI read errors. If MD5 checksums are
+recorded in the image, verify them.<br>
+$ xorriso &minus;indev /dev/sr0 &minus;pvd_info
+&minus;check_media &minus;&minus;</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td>
+<td width="95%">
 <p><b>Blank media and compose a new ISO image as batch
 run</b></p></td>
 </table>
@@ -8197,5 +8225,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed May 18 09:04:37 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu May 19 15:45:24 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
