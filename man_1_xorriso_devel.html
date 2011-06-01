@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu May 19 15:45:24 2011 -->
+<!-- CreationDate: Wed Jun  1 18:52:14 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3322,9 +3322,11 @@ need more time.<br>
 into unformatted ones.<br>
 &quot;deformat_quickest&quot; is a faster way to deformat or
 blank DVD&minus;RW but produces media which are only
-suitable for a single session. <b>xorriso</b> will write
-onto them only if option &minus;close is set to
-&quot;on&quot;.<br>
+suitable for a single session. Some drives announce this
+state by not offering feature 21h, but some drives offer it
+anyway. If feature 21h is missing, then <b>xorriso</b> will
+refuse to write on DVD&minus;RW if not option &minus;close
+is set to &quot;on&quot;.<br>
 The progress reports issued by some drives while blanking
 are quite unrealistic. Do not conclude success or failure
 from the reported percentages. Blanking was successful if no
@@ -3422,6 +3424,39 @@ space, &quot;31h&quot; for BD&minus;RE without reserve
 space, &quot;32h&quot; for BD&minus;R.<br>
 Smaller format size with DVD&minus;RAM, BD&minus;RE, or
 BD&minus;R means more reserve space.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;close_damaged</b>
+&quot;as_needed&quot;|&quot;force&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Try to close the upcomming track and session if the drive
+reported the media as damaged. This may apply to CD&minus;R,
+CD&minus;RW, DVD&minus;R, DVD&minus;RW, DVD+R, DVD+R DL, or
+BD&minus;R media. It is indicated by warning messages when
+the drive gets aquired, and by a remark &quot;but next track
+is damaged&quot; with the line &quot;Media status :&quot; of
+command &minus;toc.<br>
+The setting of option &minus;close determines whether the
+media stays appendable.<br>
+Mode &quot;as_needed&quot; gracefully refuses on media which
+are not reported as damaged. Mode &quot;force&quot; attempts
+the close operation even with media which appear
+undamaged.<br>
+No image changes are allowed to be pending before this
+command is performed. After closing was attempted, both
+drives are given up.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7353,34 +7388,6 @@ GSA&minus;4082B&rsquo;<br>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p><b>Inspect optical media or ISO images</b></p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p>Report drive type, media type, media state, and free
-space. List the recognizable sessions on the media with
-their session number, their start sector number, their size,
-and their Volume Id.<br>
-$ xorriso &minus;outdev /dev/sr0 &minus;toc</p>
-<!-- INDENTATION -->
-<p>Load the ISO 9660 directory tree and metadata. Report
-several id strings of the image. Read all blocks of the
-image and watch for SCSI read errors. If MD5 checksums are
-recorded in the image, verify them.<br>
-$ xorriso &minus;indev /dev/sr0 &minus;pvd_info
-&minus;check_media &minus;&minus;</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="4%"></td>
-<td width="95%">
 <p><b>Blank media and compose a new ISO image as batch
 run</b></p></td>
 </table>
@@ -8225,5 +8232,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu May 19 15:45:24 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Jun  1 18:52:14 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

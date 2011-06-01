@@ -68,6 +68,8 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Classify stdio drives by effective access permissions.
   -blank "fast"|"all"|"deformat"|"deformat_quickest"
                  Blank media resp. invalidate ISO image on media.
+  -close_damaged "as_needed"|"force"
+                 Close track and session of damaged media.
   -format "as_needed"|"full"|"fast"|"by_index_#"|"by_size_#"
                  Format BD-RE, BD-R, DVD-RAM, DVD-RW, DVD+RW.
   -volid volume_id
