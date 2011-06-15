@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Jun 12 12:38:16 2011 -->
+<!-- CreationDate: Wed Jun 15 17:36:36 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -200,15 +200,14 @@ image from the old one and the modifications. See paragraph
 Creating, Growing, Modifying, Blind Growing below.</p>
 <!-- INDENTATION -->
 <p><b>xorriso</b> adopts the concept of multi&minus;session
-by loading an eventual image directory tree, allowing to
-manipulate it by several actions, and to write the new image
-to the target media.<br>
+by loading an image directory tree if present, by allowing
+to manipulate it by several actions, and by writing the new
+image to the target media.<br>
 The first session of a <b>xorriso</b> run begins by the
-definition of the input drive with the eventual ISO image or
-by the definition of an output drive. The session ends by
-command &minus;commit which triggers writing. A
-&minus;commit is done automatically when the program ends
-regularly.</p>
+definition of the input drive with the ISO image or by the
+definition of an output drive. The session ends by command
+&minus;commit which triggers writing. A &minus;commit is
+done automatically when the program ends regularly.</p>
 <!-- INDENTATION -->
 <p>After &minus;commit a new session begins with the freshly
 written one as input. A new input drive can only be chosen
@@ -274,8 +273,8 @@ action &minus;blank &quot;as_needed&quot;. Overwriteable
 media are considered blank if they are new or if they have
 been marked as blank by <b>xorriso</b>. Action &minus;blank
 &quot;as_needed&quot; can be used to do this marking on
-overwriteable media, or to apply eventual mandatory
-formatting to new media.<b><br>
+overwriteable media, or to apply mandatory formatting to new
+media if necessary.<b><br>
 Appendable</b> media accept further sessions. Either they
 are MMC multi&minus;session media in appendable state, or
 they are overwriteable media which contain an ISO image
@@ -331,12 +330,12 @@ determines which write method will be used. They have quite
 different capabilities and constraints.</p>
 <!-- INDENTATION -->
 <p>The method of <b>growing</b> adds new data to the
-existing media. These data comprise of eventual new file
-content and they override the existing ISO 9660 + Rock Ridge
-directory tree. It is possible to hide files from previous
-sessions but they still exist on media and with many types
-of optical media it is quite easy to recover them by
-mounting older sessions.<br>
+existing media. These data comprise of new file content and
+they override the existing ISO 9660 + Rock Ridge directory
+tree. It is possible to hide files from previous sessions
+but they still exist on media and with many types of optical
+media it is quite easy to recover them by mounting older
+sessions.<br>
 Growing is achieved by option &minus;dev.</p>
 <!-- INDENTATION -->
 <p>The write method of <b>modifying</b> produces compact
@@ -527,17 +526,15 @@ It uses this extension if enabled by option
 <b>&minus;acl</b>.<br>
 AAIP enhanced images are supposed to be mountable normally,
 but one cannot expect that the mounted filesystem will show
-and respect the eventual ACLs. For now, only <b>xorriso</b>
-is able to retrieve those ACLs. It can bring them into
-effect when files get restored to an ACL enabled file system
-or it can print them in a format suitable for tool
-setfacl.<br>
+and respect the ACLs. For now, only <b>xorriso</b> is able
+to retrieve those ACLs. It can bring them into effect when
+files get restored to an ACL enabled file system or it can
+print them in a format suitable for tool setfacl.<br>
 Files with ACL show as group permissions the setting of
 entry &quot;mask::&quot; if that entry exists. Nevertheless
 the non&minus;listed group members get handled according to
-entry &quot;group::&quot;. <b>xorriso</b> brings
-&quot;group::&quot; into effect before eventually removing
-the ACL from a file.</p>
+entry &quot;group::&quot;. When removing ACL from a file,
+<b>xorriso</b> brings &quot;group::&quot; into effect.</p>
 <!-- INDENTATION -->
 <p><b>xattr</b> (aka EA) are pairs of name and value which
 can be attached to file objects. AAIP is able to represent
@@ -591,9 +588,8 @@ handled as normal text if it appears among the arguments of
 such a command.</p>
 <!-- INDENTATION -->
 <p><b>Pattern expansion</b> converts a list of pattern words
-into a list of existing file addresses. Eventual unmatched
-pattern words appear themselves in that result list,
-though.<br>
+into a list of existing file addresses. Unmatched pattern
+words appear themselves in that result list, though.<br>
 Pattern matching supports the usual shell parser wildcards
 &rsquo;*&rsquo; &rsquo;?&rsquo; &rsquo;[xyz]&rsquo; and
 respects &rsquo;/&rsquo; as separator which may only be
@@ -601,9 +597,9 @@ matched literally.<br>
 It is a property of some particular commands and not a
 general feature. It gets controlled by commands
 &minus;iso_rr_pattern and &minus;disk_pattern. Commands
-which eventually use pattern expansion all have variable
-argument lists which are marked in this man page by
-&quot;[***]&quot; rather than &quot;[...]&quot;.<br>
+which may use pattern expansion all have variable argument
+lists which are marked in this man page by &quot;[***]&quot;
+rather than &quot;[...]&quot;.<br>
 Some other commands perform pattern matching
 unconditionally.</p>
 <!-- INDENTATION -->
@@ -634,13 +630,12 @@ of bash.<br>
 It is not enabled by default. See option
 &minus;backslash_codes.</p>
 <!-- INDENTATION -->
-<p>When the program begins then it first looks for argument
+<p>When the program starts then it first looks for argument
 &minus;no_rc. If this is not present then it looks for its
-startup files and eventually reads their content as command
-input lines. Then it interprets the program arguments as
-commands and parameters and finally it enters dialog mode if
-command &minus;dialog &quot;on&quot; was executed up to
-then.</p>
+startup files and reads their content as command input
+lines. Then it interprets the program arguments as commands
+and parameters. Finally it enters dialog mode if command
+&minus;dialog &quot;on&quot; was executed up to then.</p>
 <!-- INDENTATION -->
 <p>The program ends either by command &minus;end, or by the
 end of program arguments if not dialog was enabled up to
@@ -731,9 +726,11 @@ underscores.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Before aquiring a drive one will eventually enable
-options which influence the behavior of image loading. See
-next option group.</p>
+<p>The effect of aquiring a drive may depend on several
+options in the next paragraph &quot;Influencing the behavior
+of image loading&quot;. If desired, their enabling commands
+have to be performed before the commands which aquire the
+drive.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -751,11 +748,13 @@ next option group.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Set input and output drive to the same address and load
-an eventual ISO image. If there is no ISO image then create
-a blank one. Set the image expansion method to growing.<br>
+an ISO image if it is present. If there is no ISO image then
+create a blank one. Set the image expansion method to
+growing.<br>
 This is only allowed as long as no changes are pending in
-the currently loaded ISO image. Eventually one has to
-perform &minus;commit or &minus;rollback first.<br>
+the currently loaded ISO image. If changes are pending, then
+one has to perform &minus;commit or &minus;rollback
+first.<br>
 Special address string &quot;&minus;&quot; means standard
 output, to which several restrictions apply. See above
 paragraph &quot;Libburn drives&quot;.<br>
@@ -777,7 +776,7 @@ device without aquiring a new one.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set input drive and load an eventual ISO image. If the
+<p>Set input drive and load an ISO image if present. If the
 new input drive differs from &minus;outdev then switch from
 growing to modifying or to blind growing. It depends on the
 setting of &minus;grow_blindly which of both gets activated.
@@ -927,14 +926,14 @@ next &minus;dev or &minus;indev, where it will be reset to
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Compensate an eventual displacement of the image versus
-the start address for which the image was prepared. This
-affects only loading of ISO images and reading of their
-files. The multi&minus;session method of growing is not
-allowed as long as &minus;displacement is non&minus;zero.
-I.e. &minus;indev and &minus;outdev must be different.
-Eventually the displacement is reset to 0 before the drive
-gets re&minus;aquired after writing.<br>
+<p>Compensate a displacement of the image versus the start
+address for which the image was prepared. This affects only
+loading of ISO images and reading of their files. The
+multi&minus;session method of growing is not allowed as long
+as &minus;displacement is non&minus;zero. I.e. &minus;indev
+and &minus;outdev must be different. The displacement gets
+reset to 0 before the drive gets re&minus;aquired after
+writing.<br>
 Examples:<br>
 If a track of a CD starts at block 123456 and gets copied to
 a disk file where it begins at block 0, then this copy can
@@ -981,9 +980,9 @@ If a drive path matches no list then it is considered
 &quot;harmless&quot;. By default these are all paths which
 do not begin with directory &quot;/dev&quot;.<br>
 A path matches a list if one of its parent paths or itself
-matches a list entry. An eventual address prefix
-&quot;stdio:&quot; or &quot;mmc:&quot; will be ignored when
-testing for matches.<br>
+matches a list entry. Address prefix &quot;stdio:&quot; or
+&quot;mmc:&quot; will be ignored when testing for
+matches.<br>
 By pseudo&minus;class &quot;clear_list&quot; and
 pseudo&minus;patterns &quot;banned&quot;,
 &quot;caution&quot;, &quot;harmless&quot;, or
@@ -1036,12 +1035,10 @@ loaded image.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Set the character set from which to convert file names
-when loading an image. This has eventually to be done before
-specifying &minus;dev , &minus;indev or &minus;rollback. See
-paragraph &quot;Character sets&quot; for more explanations.
-When loading the written image after &minus;commit the
-setting of &minus;out_charset will be copied to
-&minus;in_charset.</p>
+when loading an image. See paragraph &quot;Character
+sets&quot; for more explanations. When loading the written
+image after &minus;commit the setting of &minus;out_charset
+will be copied to &minus;in_charset.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1061,9 +1058,9 @@ setting of &minus;out_charset will be copied to
 <td width="77%">
 <p>Enable or disable recording and interpretation of the
 output character set name in an xattr attribute of the image
-root directory. If enabled then an eventual recorded
-character set name gets used as input character set when
-reading an image.<br>
+root directory. If enabled and if a recorded character set
+name is found, then this name will be used as namoe of the
+input character set when reading an image.<br>
 Note that the default output charset is the local character
 set of the terminal where <b>xorriso</b> runs. Before
 attributing this local character set to the produced ISO
@@ -1093,13 +1090,13 @@ inode numbers at image load time. Each iso_rr file object
 which has no inode number at image generation time will get
 a new unique inode number if &minus;compliance is set to
 new_rr.<br>
-Mode &quot;on&quot; preserves eventual inode numbers from
-the loaded image. When committing a session it searches for
-families of iso_rr files which stem from the same disk file,
-have identical content filtering and have identical
-properties. The family members all get the same inode
-number. Whether these numbers are respected at mount time
-depends on the operating system.<br>
+Mode &quot;on&quot; preserves inode numbers from the loaded
+image if such numbers were recorded. When committing a
+session it searches for families of iso_rr files which stem
+from the same disk file, have identical content filtering
+and have identical properties. The family members all get
+the same inode number. Whether these numbers are respected
+at mount time depends on the operating system.<br>
 Commands &minus;update and &minus;update_r track splits and
 fusions of hard links in filesystems which have stable
 device and inode numbers. This can cause automatic last
@@ -1187,14 +1184,14 @@ similar to ACL. See also options &minus;getfattr,
 <td width="77%">
 <p>Enable or disable processing of MD5 checksums for the
 overall session and for each single data file. If enabled
-then images get loaded only if eventual checksums tags of
-superblock and directory tree match properly. The MD5
+then images with checksum tags get loaded only if the tags
+of superblock and directory tree match properly. The MD5
 checksums of data files and whole session get loaded from
 the image if there are any.<br>
-With options &minus;compare and &minus;update the eventually
-recorded MD5 of a file will be used to avoid content reading
-from the image. Only the disk file content will be read and
-compared with that MD5. This can save much time if
+With options &minus;compare and &minus;update the recorded
+MD5 of a file will be used to avoid content reading from the
+image. Only the disk file content will be read and compared
+with that MD5. This can save much time if
 &minus;disk_dev_ino &quot;on&quot; is not suitable.<br>
 At image generation time they are computed for each file
 which gets its data written into the new session. The
@@ -1256,10 +1253,10 @@ Currently this is a shortcut for: &minus;hardlinks on
 <td width="21%"></td>
 <td width="77%">
 <p>Enable or disable processing of recorded file
-identification numbers (dev_t and ino_t). They are
-eventually stored as xattr and allow to substantially
-accelerate file comparison. The root node gets a global
-start timestamp. If during comparison a file with younger
+identification numbers (dev_t and ino_t). If enabled they
+are stored as xattr and allow to substantially accelerate
+file comparison. The root node gets a global start
+timestamp. If during comparison a file with younger
 timestamps is found in the ISO image, then it is suspected
 to have inconsistent content.<br>
 If device numbers and inode numbers of the disk filesystems
@@ -1298,8 +1295,8 @@ effect only if &minus;hardlinks is &quot;off&quot;, too.</p>
 but show any media as ROM (e.g. as DVD&minus;ROM). The
 session history of MMC multi&minus;session media might be
 truncated to first and last session or even be completely
-false. (The eventual emulated history of overwriteable media
-is not affected by this.)<br>
+false. (The emulated history of overwriteable media is not
+affected by this.)<br>
 To have in case of failure a chance of getting the session
 history and especially the address of the last session,
 there is a scan for ISO 9660 filesystem headers which might
@@ -1438,10 +1435,10 @@ recursively inserting the subobjects from filesystem into
 ISO image. If other file types collide then the setting of
 command <b>&minus;overwrite</b> decides.<br>
 Renaming of files has similar collision handling, but
-directories can only be replaced, not merged. Note that
-&minus;mv inserts the source objects into an eventual
-existing target directory rather than attempting to replace
-it.</p>
+directories can only be replaced, not merged. Note that if
+the target directory exists, then &minus;mv inserts the
+source objects into this directory rather than attempting to
+replace it.</p>
 <!-- INDENTATION -->
 <p>The commands in this section alter the ISO image and not
 the local filesystem.</p>
@@ -1495,8 +1492,8 @@ Default is &quot;ls&quot;.</p>
 into the ISO image.<br>
 If &minus;pathspecs is set to &quot;on&quot; then pattern
 expansion is always disabled and character &rsquo;=&rsquo;
-has a special meaning. It eventually separates the ISO image
-path from the disk path:<br>
+has a special meaning. It separates the ISO image path from
+the disk path:<br>
 iso_rr_path=disk_path<br>
 The separator &rsquo;=&rsquo; can be escaped by
 &rsquo;\&rsquo;. If iso_rr_path does not begin with
@@ -1508,10 +1505,11 @@ both, iso_rr_path and disk path. If in this case the word
 does not begin with &rsquo;/&rsquo; then &minus;cdx is
 prepended to the disk_path and &minus;cd is prepended to the
 iso_rr_path.<br>
-If &minus;pathspecs is set to &quot;off&quot; then eventual
-&minus;disk_pattern expansion applies. The resulting words
-are used as both, iso_rr_path and disk path. Eventually
-&minus;cdx gets prepended to disk_path and &minus;cd to
+If &minus;pathspecs is set to &quot;off&quot; then
+&minus;disk_pattern expansion applies, if enabled. The
+resulting words are used as both, iso_rr_path and disk path.
+Relative path words get prepended the setting of &minus;cdx
+to disk_path and the setting of &minus;cd to
 iso_rr_path.</p>
 </td>
 </table>
@@ -1533,7 +1531,7 @@ iso_rr_path.</p>
 that does not begin with &quot;&minus;&quot; and is not
 recognized as known command will be subject to a virtual
 &minus;add command. I.e. it will be used as pathspec or as
-disk_path and added to the image. Eventually
+disk_path and added to the image. If enabled,
 &minus;disk_pattern expansion applies to disk_paths.<br>
 Mode &quot;dashed&quot; is similar to &quot;unknown&quot;
 but also adds unrecognized command words even if they begin
@@ -1825,9 +1823,9 @@ iso_rr_path_copy</p></td>
 <td width="77%">
 <p>Create a copy of the ISO file object iso_rr_path_original
 with the new address iso_rr_path_copy. If the original is a
-directory then copy all files and directories underneath. An
-eventual boot catalog file gets not copied but is silently
-ignored.<br>
+directory then copy all files and directories underneath. If
+iso_rr_path_original is a boot catalog file, then it gets
+not copied but is silently ignored.<br>
 The copied ISO file objects have the same attributes. Copied
 data files refer to the same content source as their
 originals. The copies may then be manipulated independendly
@@ -1852,8 +1850,8 @@ iso_rr_path_dest</p></td>
 <td width="21%"></td>
 <td width="77%">
 <p>Create copies of one or more ISO file objects as with
-command &minus;clone. Eventually merge directories with
-existing ones, but do not overwrite existing ISO file
+command &minus;clone. In case of collision merge directories
+with existing ones, but do not overwrite existing ISO file
 objects.<br>
 The rules for generating the copy addresses are the same as
 with command &minus;cpr (see above) resp. shell command cp
@@ -1901,9 +1899,9 @@ need quite a new Linux kernel to read correctly the final
 bytes of a file &gt;= 4g if its size is not aligned to 2048
 byte blocks.<b><br>
 xorriso</b>&rsquo;s own data read capabilities are not
-affected by eventual operating system size limits. They
-apply to mounting only. Nevertheless, the target filesystem
-of an &minus;extract must be able to take the file size.</p>
+affected by operating system size limits. Such limits apply
+to mounting only. Nevertheless, the target filesystem of an
+&minus;extract must be able to take the file size.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1972,9 +1970,9 @@ deleted from the image with &minus;update.<br>
 <td width="77%">
 <p>Add the given paths to the list of excluded absolute disk
 paths. If a given path is relative, then the current
-&minus;cdx is prepended to form an absolute path. Eventual
-pattern matching happens at definition time and not when
-exclusion checks are made.<br>
+&minus;cdx is prepended to form an absolute path. Pattern
+matching, if enabled, happens at definition time and not
+when exclusion checks are made.<br>
 (Do not forget to end the list of disk_paths by
 &quot;&minus;&minus;&quot;)</p>
 </td>
@@ -2123,7 +2121,7 @@ actions &minus;add and &minus;path_list.<br>
 &minus;graft&minus;points. It also disables
 &minus;disk_pattern expansion for command &minus;add.<br>
 &quot;off&quot; disables pathspecs of the form target=source
-and eventually enables &minus;disk_pattern expansion.</p>
+and re&minus;enables &minus;disk_pattern expansion.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2466,9 +2464,10 @@ directories.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Attach the given ACL to the given iso_rr_paths after
-deleting their eventually existing ACLs. If acl_text is
-empty, or contains the text &quot;clear&quot; or the text
+<p>Attach the given ACL to the given iso_rr_paths. If the
+files already have ACLs, then those get deleted before the
+new ones get into effect. If acl_text is empty, or contains
+the text &quot;clear&quot; or the text
 &quot;&minus;&minus;remove&minus;all&quot;, then the
 existing ACLs will be removed and no new ones will be
 attached. Any other content of acl_text will be interpreted
@@ -2708,10 +2707,10 @@ eventual directories.</p>
 <td width="77%">
 <p>Prevent the names of the given files from showing up in
 the directory trees of ISO 9660 and/or Joliet when the image
-gets written. The eventual data content of such hidden files
-will be included in the resulting image, even if they do not
-show up in any directory. But you will need own means to
-find nameless data in the image.<br>
+gets written. The data content of such hidden files will be
+included in the resulting image, even if they do not show up
+in any directory. But you will need own means to find
+nameless data in the image.<br>
 Warning: Data which are hidden from the ISO 9660 tree will
 not be copied by the write method of modifying.<br>
 Possible values of hide_state are: &quot;iso_rr&quot; for
@@ -2771,9 +2770,9 @@ for data files which stem not from the loaded image.<b><br>
 &minus;type</b> type_letter : Matches files of the given
 type: &quot;block&quot;, &quot;char&quot;, &quot;dir&quot;,
 &quot;pipe&quot;, &quot;file&quot;, &quot;link&quot;,
-&quot;socket&quot;, &quot;eltorito&quot;, &quot;Xotic&quot;
-which eventually matches what is not matched by the other
-types.<br>
+&quot;socket&quot;, &quot;eltorito&quot;, and
+&quot;Xotic&quot; which matches what is not matched by the
+other types.<br>
 Only the first letter is interpreted. E.g.: &minus;find /
 &minus;type d<b><br>
 &minus;damaged</b> : Matches files which use data blocks
@@ -2840,7 +2839,7 @@ Normal precedence is: &minus;not, &minus;or ,
 more sub expressions. If the &minus;if expression matches,
 then the &minus;then expression is evaluated as the result
 of the whole expression up to &minus;endif. Else the next
-&minus;elseif expression is evaluated and eventually its
+&minus;elseif expression is evaluated and if it matches, its
 &minus;then expression. Finally in case of no match, the
 &minus;else expression is evaluated. There may be more than
 one &minus;elseif. Neither &minus;else nor &minus;elseif are
@@ -8232,5 +8231,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jun 12 12:38:16 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Jun 15 17:36:36 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
