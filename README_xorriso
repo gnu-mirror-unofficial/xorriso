@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-ftp://ftp.gnu.org/gnu/xorriso/xorriso-1.0.8.tar.gz
+ftp://ftp.gnu.org/gnu/xorriso/xorriso-1.1.0.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -46,10 +46,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.0.8.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.1.0.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.0.8.tar.gz
-    cd xorriso-1.0.8
+    tar xzf xorriso-1.1.0.tar.gz
+    cd xorriso-1.1.0
 
 Within that directory execute:
 
@@ -166,7 +166,7 @@ your desired drive, then consider to kill it.
 If you cannot get rid of the automounter that easily, try whether it helps
 to always load the drive tray manually before starting a write run of
 xorriso. Wait until the drive light is off.
-Better try to unmount an eventually mounted media before a write run.
+Better try to unmount a mounted media before a write run.
 
 
 Besides true optical drives, xorriso can also address disk files as input or
@@ -237,7 +237,7 @@ any file but rather tell the MD5 of a certain range of data blocks.
 The superblock checksum tag is written after the ECMA-119 volume descriptors.
 The tree checksum tag is written after the ECMA-119 directory entries.
 The session checksum tag is written after all payload including the checksum
-array. (Then follows eventual padding.)
+array. (Then follows padding.)
 
 The tags are single lines of printable text, padded by 0 bytes. They have
 the following format:
@@ -254,7 +254,7 @@ Tag_id distinguishes the following tag types
 
 A relocated superblock may appear at LBA 0 of an image which was produced for
 being stored in a disk file or on overwriteable media (e.g. DVD+RW, BD-RE).
-xorriso records the first session at LBA 32. An eventual follow-up session
+xorriso records the first session at LBA 32. A follow-up session
 begins at the next block address which is divisible by 32 and higher than the
 address of the previous session's end tag. Normally no session starts after the
 address given by relocated superblock parameter session_start=.
@@ -289,9 +289,9 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-1.0.6 :
-- libburn.so.4  , version libburn-1.0.6 or higher
-- libisofs.so.6 , version libisofs-1.0.6 or higher
+Dynamic library and compile time header requirements for libisoburn-1.1.0 :
+- libburn.so.4  , version libburn-1.1.0 or higher
+- libisofs.so.6 , version libisofs-1.1.0 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
