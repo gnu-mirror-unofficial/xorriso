@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Jun 15 17:36:37 2011 -->
+<!-- CreationDate: Sat Jun 18 20:44:58 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -631,11 +631,11 @@ The default for &minus;root is &quot;/&quot;.</p>
 image. The effective target and source addresses of given
 pathspecs get compared whether the target already exists in
 the ISO image and is still identical to the source on disk.
-Metadata in the ISO image will eventually get adjusted. New
-files and files with changed content will get newly added.
-Target files which do not exist in any of the according
-pathspec sources will get removed from the ISO directory
-tree.<br>
+Metadata in the ISO image will get adjusted, if they differ
+from those on disk. New files and files with changed content
+will get newly added. Target files which do not exist in any
+of the according pathspec sources will get removed from the
+ISO directory tree.<br>
 If the effective setting of &minus;root differs from the
 iso_rr_path given with &minus;old&minus;root, then the files
 underneath the &minus;old&minus;root directory get cloned
@@ -708,11 +708,11 @@ and thus prevent any incremental size saving.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Disable recording and eventual use of MD5 checksums for
-data file content. If neither checksums and nor disk inode
-numbers are recorded, then option &minus;old&minus;root will
-have to read ISO image file content when comparing it with
-disk file content.</p>
+<p>Disable recording and use of MD5 checksums for data file
+content. If neither checksums and nor disk inode numbers are
+recorded, then option &minus;old&minus;root will have to
+read ISO image file content when comparing it with disk file
+content.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1409,7 +1409,7 @@ image.</p>
 <p>Enable recording of MD5 checksums for the overall ISO
 image and for each single data file in the image. xorriso
 can check the content of an ISO image with these sums and
-eventually raise alert on mismatch. See man xorriso, options
+raise alert on mismatch. See man xorriso, options
 &minus;check_media, check_md5_r. xorriso can print recorded
 MD5 checksums. E.g. by:<br>
 &minus;find / &minus;exec get_md5</p>
@@ -1546,10 +1546,10 @@ oversized paths get excluded from the Joliet tree.</p>
 <td width="77%">
 <p>Make files invisible in the directory tree of ISO 9660
 and Rock Ridge, if their disk_path matches the given shell
-parser pattern. The eventual data content of such hidden
-files will be included in the resulting image, even if they
-do not show up in any directory. But you will need own means
-to find nameless data in the image.<br>
+parser pattern. The data content of such hidden files will
+be included in the resulting image, even if they do not show
+up in any directory. But you will need own means to find
+nameless data in the image.<br>
 This command does not apply to the boot catalog.</p>
 </td>
 </table>
@@ -2058,9 +2058,8 @@ catalog entry that points to an EFI image. Consider to use
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Perform eventual necessary
-&minus;eltorito&minus;alt&minus;boot, option &minus;e with
-the given iso_rr_path, and again
+<p>Perform &minus;eltorito&minus;alt&minus;boot, option
+&minus;e with the given iso_rr_path, and again
 &minus;eltorito&minus;alt&minus;boot. This gesture is used
 for achieving EFI&minus;bootability of the GRUB2 rescue
 CD.</p>
@@ -2483,9 +2482,8 @@ Types&quot; or run fdisk command &quot;L&quot;.</p>
 boot file and cause production of a MIPS Big Endian Volume
 Header. This is mutually exclusive with production of other
 boot blocks like MBR. It will overwrite the first 512 bytes
-of any data eventually provided by &minus;G. Up to 15 boot
-files can be declared by multiple &minus;mips&minus;boot
-options.</p>
+of any data provided by &minus;G. Up to 15 boot files can be
+declared by multiple &minus;mips&minus;boot options.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2505,8 +2503,8 @@ options.</p>
 <p>Declare a data file in the image to be the MIPS Little
 Endian boot file. This is mutually exclusive with other boot
 blocks. It will overwrite the first 512 bytes of any data
-eventually provided by &minus;G. Only a single boot file can
-be declared by &minus;mipsel&minus;boot.</p>
+provided by &minus;G. Only a single boot file can be
+declared by &minus;mipsel&minus;boot.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2681,13 +2679,13 @@ blanks, 2 blanks, symbolic file address<br>
 The file address in an .md5 line has to bear the same
 basename as the disk_path of the file which it shall match.
 The directory path of the file address is decisive for
-To=From mapping, not for file recognition. After eventual
-To=From mapping, the file address gets written into the
-.jigdo file. Jigdo restore tools will convert these
-addresses into really reachable data source addresses from
-which they can read.<br>
-If the list of jigdo parameters is not empty, then eventual
-padding will be counted as part of the ISO image.</p>
+To=From mapping, not for file recognition. After To=From
+mapping, the file address gets written into the .jigdo file.
+Jigdo restore tools will convert these addresses into really
+reachable data source addresses from which they can
+read.<br>
+If the list of jigdo parameters is not empty, then padding
+will be counted as part of the ISO image.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2940,8 +2938,8 @@ size. In this case either use &minus;no&minus;pad or add 150
 <td width="21%"></td>
 <td width="77%">
 <p>Only if used as first argument this option prevents
-reading and interpretation of eventual startup files. See
-section FILES below.</p>
+reading and interpretation of startup files. See section
+FILES below.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -3447,8 +3445,8 @@ isolinux/isolinux.bin &minus;c isolinux/boot.cat \
 Become superuser and copy the image to the unpartitioned
 base device file of the USB stick. On GNU/Linux this is e.g.
 /dev/sdb, not /dev/sdb1.<br>
-CAUTION: This will overwrite any eventual partitioning on
-the USB stick and make remaining data unaccessible.<br>
+CAUTION: This will overwrite any partitioning on the USB
+stick and make remaining data unaccessible.<br>
 So first make sure you got the correct address of the
 intended device. E.g. by reading 100 MiB data from it and
 watching it blinking:<br>
@@ -3675,5 +3673,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Wed Jun 15 17:36:37 CEST 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Jun 18 20:44:59 CEST 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
