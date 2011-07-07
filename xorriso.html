@@ -595,6 +595,11 @@ cdrecord and mkisofs.</DT>
 <DD>Bug fixes towards xorriso-1.1.0:
 <UL>
 <LI>-update_r scheduled non-existing files for hardlink update</LI>
+<LI>
+Since 1.0.6: Unreadable image produced by: xorrisofs ... >image.iso
+<BR>
+(not by -o image.iso, or by pipe to consumer process)
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -603,6 +608,9 @@ cdrecord and mkisofs.</DT>
 <DD>Enhancements towards stable version 1.1.0:
 <UL>
 <LI>New option -list_speeds</LI>
+<LI>
+Enabled extraction of the boot catalog file to disk filesystem
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
