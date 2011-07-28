@@ -1,9 +1,4 @@
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 50: ls: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 82: rm: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 96: rm: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 97: mv: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 98: rm: command not found
-xorriso 1.1.1 : RockRidge filesystem manipulator, libburnia project.
+xorriso 1.1.3 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs

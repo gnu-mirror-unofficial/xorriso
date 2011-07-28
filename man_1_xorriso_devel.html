@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Jul  8 15:20:44 2011 -->
+<!-- CreationDate: Thu Jul 28 13:38:14 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -407,7 +407,7 @@ On FreeBSD the device files have names like<br>
 On OpenSolaris:<br>
 &minus;dev /dev/rdsk/c4t0d0s2<br>
 Get a list of accessible drives by command<br>
-&minus;devices<br>
+&minus;device_links<br>
 It might be necessary to do this as <b>superuser</b> in
 order to see all drives and to then allow rw&minus;access
 for the intended users. Consider to bundle the authorized
@@ -3438,15 +3438,19 @@ BD&minus;R means more reserve space.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Put out a list of speed values as reported by the output
-drive for the loaded media. At the end of the list,
-&quot;Write speed L&quot; and &quot;Write speed H&quot; are
-the best guesses for lower and upper speed limit.<br>
-&quot;Write speed l&quot; and &quot;Write speed h&quot; may
-appear only with CD and eventually override the list of
-other speed offers.<br>
+drive with the loaded media. This does not necessarily mean
+that the media is writable or that these speeds are actually
+achievable. Especially the lists reported with empty drive
+or with ROM media obviously advertise speeds for other
+media.<br>
 It is not mandatory to use speed values out of the listed
 range. The drive is supposed to choose a safe speed that is
-as near to the desired speed as possible.</p>
+as near to the desired speed as possible.<br>
+At the end of the list, &quot;Write speed L&quot; and
+&quot;Write speed H&quot; are the best guesses for lower and
+upper speed limit. &quot;Write speed l&quot; and &quot;Write
+speed h&quot; may appear only with CD and eventually
+override the list of other speed offers.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5110,6 +5114,33 @@ Drives which are occupied by other processes get not
 shown.</p>
 </td>
 </table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;device_links</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like &minus;devices, but presenting the drives with
+addresses of symbolic links which point to the actual device
+files.<br>
+Modern GNU/Linux systems may shuffle drive addresses from
+boot to boot. The udev daemon is supposed to create links
+which always point to the same drive, regardless of its
+system address. The command &minus;device_links shows the
+addresses of such links if they begin by
+&quot;/dev/dvd&quot; or &quot;/dev/cd&quot;. Precedence is:
+&quot;dvdrw&quot;, &quot;cdrw&quot;, &quot;dvd&quot;,
+&quot;cdrom&quot;, &quot;cd&quot;.</p>
+</td>
+</table>
 <!-- TABS -->
 <table width="100%" border=0 rules="none" frame="void"
        cols="3" cellspacing="0" cellpadding="0">
@@ -6007,6 +6038,9 @@ loads the file given by option sector_map= and processes
 this virtual outcome.<b><br>
 what=&quot;disc&quot;</b> scans the payload range of a media
 without respecting track gaps.<b><br>
+what=&quot;image&quot;</b> similar to &quot;disc&quot;, but
+restricts scanning to the range of the ISO 9660 image, if
+present.<b><br>
 min_lba=limit</b> omits all blocks with addresses lower than
 limit.<b><br>
 max_lba=limit</b> switches to what=disc and omits all blocks
@@ -7391,14 +7425,16 @@ drives with <b>xorriso</b>. On Solaris use pfexec. Consider
 to restrict privileges of <b>xorriso</b> to
 &quot;base,sys_devices&quot; and to give r&minus;permission
 to user or group.<br>
-$ xorriso &minus;devices<br>
-0 &minus;dev &rsquo;/dev/sr0&rsquo; rwrw&minus;&minus; :
-&rsquo;_NEC &rsquo; &rsquo;DVD_RW ND&minus;4570A&rsquo;<br>
-1 &minus;dev &rsquo;/dev/sr1&rsquo; rwrw&minus;&minus; :
-&rsquo;HL&minus;DT&minus;ST&rsquo; &rsquo;DVDRAM
-GSA&minus;4082B&rsquo;<br>
-2 &minus;dev &rsquo;/dev/sr2&rsquo; rwrw&minus;&minus; :
-&rsquo;PHILIPS &rsquo; &rsquo;SPD3300L&rsquo;</p>
+$ xorriso &minus;device_links<br>
+1 &minus;dev &rsquo;/dev/cdrom1&rsquo; rwrw&minus;&minus; :
+&rsquo;TSSTcorp&rsquo; &rsquo;DVD&minus;ROM
+SH&minus;D162C<br>
+1 &minus;dev &rsquo;/dev/cdrw&rsquo; rwrw&minus;&minus; :
+&rsquo;TSSTcorp&rsquo; &rsquo;CDDVDW
+SH&minus;S223B&rsquo;<br>
+2 &minus;dev &rsquo;/dev/cdrw3&rsquo; rwrw&minus;&minus; :
+&rsquo;HL&minus;DT&minus;ST&rsquo;
+&rsquo;BDDVDRW_GGC&minus;H20L&rsquo;</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8251,5 +8287,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jul  8 15:20:44 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jul 28 13:38:14 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
