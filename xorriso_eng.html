@@ -581,6 +581,9 @@ cdrecord and mkisofs.</DT>
 <LI>-extract_single extracted directory content</LI>
 <LI>-extract was not immediately aborted if -abort_on was triggered</LI>
 <LI>xorriso did not write to files in filesystems with >= 4 TB free space</LI>
+<LI>ACL entries of groups and of user id 0 were not properly recorded
+and cannot be restored.</LI>
+<LI>No ACLs were recorded on FreeBSD</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -588,8 +591,9 @@ cdrecord and mkisofs.</DT>
 </DD>
 <DD>Enhancements towards stable version 1.1.4:
 <UL>
-<LI>- none yet -</LI>
+<LI>New option -list_extras</LI>
 <!-- 
+<LI>- none yet -</LI>
  -->
 </UL>
 
