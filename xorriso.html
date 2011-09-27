@@ -446,21 +446,21 @@ This can bring effective read performance near to the raw media reading speed.
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.1.4.tar.gz">xorriso-1.1.4.tar.gz</A>
-(1930 KB).
+<DD><A HREF="xorriso-1.1.6.tar.gz">xorriso-1.1.6.tar.gz</A>
+(1945 KB).
 </DD>
-<DD>(Released 8 Aug 2011)</DD>
-<DD><A HREF="xorriso-1.1.4.tar.gz.sig">xorriso-1.1.4.tar.gz.sig</A></DD>
+<DD>(Released 27 Sep 2011)</DD>
+<DD><A HREF="xorriso-1.1.6.tar.gz.sig">xorriso-1.1.6.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.1.4.tar.gz.sig xorriso-1.1.4.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.1.6.tar.gz.sig xorriso-1.1.6.tar.gz</KBD>
 <BR>
 after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.1.4.tar.gz
+as xorriso/xorriso-1.1.6.tar.gz
 </DD>
 </DL>
 </DD>
@@ -495,11 +495,14 @@ describes the mkisofs emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards xorriso-1.1.2:
+Bug fixes towards xorriso-1.1.4:
 <UL>
-<LI>xorriso native mode on some drives wrote unreadble ISO images to CD</LI>
-<LI>-assert_volid did not work. Regression since version 1.1.0.</LI>
-<LI>-acl or -xattr worked with -extract only on Linux and FreeBSD</LI>
+<LI>-extract_single extracted directory content</LI>
+<LI>-extract was not immediately aborted if -abort_on was triggered</LI>
+<LI>xorriso did not write to files in filesystems with >= 4 TB free space</LI>
+<LI>ACL entries of groups and of user id 0 were not properly recorded
+and cannot be restored.</LI>
+<LI>No ACLs were recorded on FreeBSD</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -518,10 +521,13 @@ Bug fixes in xorriso-1.1.0.pl01 towards xorriso-1.1.0:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-1.1.2:
+Enhancements towards previous stable version xorriso-1.1.4:
 <UL>
-<LI>
-New option -device_links
+<LI>Enabled recording and restoring of extattr on FreeBSD</LI>
+<LI>New option -list_extras</LI>
+<LI>New -osirrox option strict_acl</LI>
+<LI>New -find and -findx action list_extattr</LI>
+<LI>Worked around a collision with Linux udev which lets device links vanish
 </LI>
 <!--
 <LI>- none -</LI>
@@ -545,16 +551,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-1.1.4</DT>
+<DT>libburn-1.1.6</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.1.4</DT>
+<DT>libisofs-1.1.6</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-1.1.4</DT>
+<DT>libisoburn-1.1.6</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -575,28 +581,18 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.1.5 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.1.4:
+<DT><H3>Development snapshot, version 1.1.7 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.1.6:
 <UL>
-<LI>-extract_single extracted directory content</LI>
-<LI>-extract was not immediately aborted if -abort_on was triggered</LI>
-<LI>xorriso did not write to files in filesystems with >= 4 TB free space</LI>
-<LI>ACL entries of groups and of user id 0 were not properly recorded
-and cannot be restored.</LI>
-<LI>No ACLs were recorded on FreeBSD</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.1.4:
+<DD>Enhancements towards stable version 1.1.6:
 <UL>
-<LI>Enabled recording and restoring of extattr on FreeBSD</LI>
-<LI>New option -list_extras</LI>
-<LI>New -osirrox option strict_acl</LI>
-<LI>New -find and -findx action list_extattr</LI>
-<LI>Worked around a collision with Linux udev which lets device links vanish
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -606,12 +602,12 @@ and cannot be restored.</LI>
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.1.5</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.1.5 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.1.5 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.1.5 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.1.5)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.1.5)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.1.7</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.1.7 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.1.7 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.1.7 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.1.7)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.1.7)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -621,8 +617,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.1.5.tar.gz">xorriso-1.1.5.tar.gz</A>
-(1930 KB).
+<A HREF="xorriso-1.1.7.tar.gz">xorriso-1.1.7.tar.gz</A>
+(1945 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

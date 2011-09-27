@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-http://www.gnu.org/software/xorriso/xorriso-1.1.4.tar.gz
+http://www.gnu.org/software/xorriso/xorriso-1.1.6.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -46,10 +46,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.1.4.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.1.6.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.1.4.tar.gz
-    cd xorriso-1.1.4
+    tar xzf xorriso-1.1.6.tar.gz
+    cd xorriso-1.1.6
 
 Within that directory execute:
 
@@ -95,7 +95,8 @@ development package is installed, then rather build xorriso by:
 Never omit the "make clean" command after switching libreadline enabling.
 Other deliberate dependency reduction options of ./configure are:
     --disable-libacl   avoid use of ACL functions like acl_to_text()
-    --disable-xattr    avoid use of xattr functions like listxattr()
+    --disable-xattr    avoid use of xattr functions like listxattr() on Linux
+                       resp. extattr_list_file() on FreeBSD
     --disable-zlib     avoid use of zlib functions like compress2() 
                        this also avoids the use of libjte and option -jigdo.
 
@@ -124,6 +125,20 @@ if the track input is read with O_DIRECT (see man 2 open). The included libburn
 and the cdrecord emulation of xorriso can be told to use this peculiar read
 mode by:
     --enable-track-src-odirect
+
+Linux only:
+libburn tries to avoid a collision with udev's drive examination by waiting
+0.1 seconds before opening the device file for a longer time, after udev
+might have been alarmed by drive scanning activities.
+The waiting time can be set at ./configure time with microsecond granularity.
+E.g. 2 seconds:
+  CFLAGS="$CFLAGS -DLibburn_udev_wait_useC=2000000"
+  ./configure ...options...
+Waiting can be disabled by zero waiting time:
+  CFLAGS="$CFLAGS -DLibburn_udev_wait_useC=0"
+Alternatively, libburn can try to be nice by opening the device file,
+closing it immediately, waiting, and only then opening it for real:
+  CFLAGS="$CFLAGS -DLibburn_udev_extra_open_cyclE -DLibburn_udev_wait_useC=500000"
 
 
                        Drives and Disk File Objects 
@@ -162,11 +177,23 @@ and to add users to it.
 A possible source of problems are hald or other automounters. 
 If you can spot a process "hald-addon-storage" with the address of
 your desired drive, then consider to kill it.
+A similar process "udisks-daemon: polling ..." can be seen on newer Linuxes.
 
-If you cannot get rid of the automounter that easily, try whether it helps
-to always load the drive tray manually before starting a write run of
-xorriso. Wait until the drive light is off.
-Better try to unmount a mounted media before a write run.
+On Debian GNU/Linux 6.0.2 amd64 there is
+  /lib/udev/rules.d/80-udisks.rules 
+where one can remove all CD drives ("sr*") from the list of automountable 
+devices:
+  KERNEL=="sd*|hd*|mmcblk*|mspblk*", ENV{UDISKS_PRESENTATION_NOPOLICY}="0"
+  # KERNEL=="sd*|hd*|sr*|mmcblk*|mspblk*", ENV{UDISKS_PRESENTATION_NOPOLICY}="0"
+Copying the recognition criterion from
+  /etc/udev/rules.d/70-persistent-cd.rules
+one can prevent automounting a single drive, too:
+  SUBSYSTEM=="block", ENV{ID_CDROM}=="?*", ENV{ID_PATH}=="pci-0000:00:11.0-scsi-2:0:0:0", ENV{UDISKS_PRESENTATION_NOPOLICY}:="1"
+
+If you cannot get rid of the automounter, try whether it helps to always load 
+the drive tray manually before starting a write run of xorriso. Wait until the 
+drive light is off and the mounted media appears.
+Then try to unmount the mounted media before a write run.
 
 
 Besides true optical drives, xorriso can also address disk files as input or
@@ -289,9 +316,9 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-1.1.4 :
-- libburn.so.4  , version libburn-1.1.4 or higher
-- libisofs.so.6 , version libisofs-1.1.4 or higher
+Dynamic library and compile time header requirements for libisoburn-1.1.6 :
+- libburn.so.4  , version libburn-1.1.6 or higher
+- libisofs.so.6 , version libisofs-1.1.6 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.

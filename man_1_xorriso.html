@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Aug  8 09:37:00 2011 -->
+<!-- CreationDate: Tue Sep 27 11:03:47 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -534,20 +534,26 @@ Files with ACL show as group permissions the setting of
 entry &quot;mask::&quot; if that entry exists. Nevertheless
 the non&minus;listed group members get handled according to
 entry &quot;group::&quot;. When removing ACL from a file,
-<b>xorriso</b> brings &quot;group::&quot; into effect.</p>
+<b>xorriso</b> brings &quot;group::&quot; into effect.<br>
+Recording and restoring of ACLs from and to local files
+works currently only on GNU/Linux and FreeBSD.</p>
 <!-- INDENTATION -->
-<p><b>xattr</b> (aka EA) are pairs of name and value which
-can be attached to file objects. AAIP is able to represent
-them and <b>xorriso</b> allows to record and restore pairs
-which have names out of the user namespace. I.e. those which
-begin with &quot;user.&quot;, like &quot;user.x&quot; or
-&quot;user.whatever&quot;. Name has to be a 0 terminated
-string. Value may be any array of bytes which does not
-exceed the size of 4095 bytes. xattr processing happens only
-if it is enabled by option <b>&minus;xattr</b>.<br>
+<p><b>xattr</b> (aka EA, or extattr) are pairs of name and
+value which can be attached to file objects. AAIP is able to
+represent them and <b>xorriso</b> allows to record and
+restore pairs which have names out of the user namespace.
+I.e. those which begin with &quot;user.&quot;, like
+&quot;user.x&quot; or &quot;user.whatever&quot;. Name has to
+be a 0 terminated string. Value may be any array of bytes
+which does not exceed the size of 4095 bytes. xattr
+processing happens only if it is enabled by option
+<b>&minus;xattr</b>.<br>
 As with ACL, currently only <b>xorriso</b> is able to
 retrieve xattr from AAIP enhanced images, to restore them to
-xattr capable file systems, or to print them.</p>
+xattr capable file systems, or to print them.<br>
+Recording and restoring of xattr from and to local files
+works currently only on GNU/Linux and FreeBSD, where they
+are known as extattr.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2924,6 +2930,22 @@ namespace to the result channel.<b><br>
 get_any_xattr</b> prints xattr name&minus;value pairs from
 any namespace except ACL to the result channel. This is
 mostly for debugging of namespace &quot;isofs&quot;.<b><br>
+list_extattr</b> mode prints a script to the result channel,
+which would use FreeBSD command setextattr to set the
+file&rsquo;s xattr name&minus;value pairs of user namespace.
+Parameter mode controls the form of the output of names and
+values. Default mode &quot;e&quot; prints harmless
+characters in shell quotation marks, but represents texts
+with octal 001 to 037 and 0177 to 0377 by an embedded echo
+&minus;e command. Mode &quot;q&quot; prints any characters
+in shell quotation marks. This might not be
+terminal&minus;safe but should work in script files. Mode
+&quot;r&quot; uses no quotation marks. Not safe. Mode
+&quot;b&quot; prints backslash encoding. Not suitable for
+shell parsing.<br>
+E.g. &minus;exec list_extattr e &minus;&minus;<br>
+Option &minus;backslash_codes does not affect the
+output.<b><br>
 get_md5</b> prints the MD5 sum, if recorded, together with
 file path.<b><br>
 check_md5</b> compares the MD5 sum, if recorded, with the
@@ -5798,7 +5820,12 @@ estimate_size</b> prints a lower and an upper estimation of
 the number of blocks which the found files together will
 occupy in the emerging ISO image. This does not account for
 the superblock, for the directories in the &minus;findx
-path, or for image padding.</p>
+path, or for image padding.<b><br>
+list_extattr</b> mode prints a script to the result channel,
+which would use FreeBSD command setextattr to set the
+file&rsquo;s xattr name&minus;value pairs of user namespace.
+See &minus;find for a description of parameter mode.<br>
+E.g. &minus;exec list_extattr e &minus;&minus;</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6255,7 +6282,12 @@ drives. Drives which get acquired while
 &quot;o_excl_off&quot; will refuse to get blanked,
 formatted, written, or ejected. But be aware that even
 harmless inquiries can spoil ongoing burns of CD&minus;R[W]
-and DVD&minus;R[W].</p>
+and DVD&minus;R[W].<br>
+Option &quot;strict_acl_off&quot; is default. It tolerates
+on FreeBSD the presence of directory &quot;default&quot;
+ACLs in the ISO image. With &quot;strict_acl_on&quot; these
+GNU/Linux ACLs cause on FreeBSD a FAILURE event during
+restore with &minus;acl &quot;on&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6882,6 +6914,42 @@ See also section &quot;Command processing&quot;, paragraph
 <td width="77%">
 <p>Print program name and version, component versions,
 license.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>&minus;list_extras</b> code</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Tell whether certain extra features were enabled at
+compile time. Code &quot;all&quot; lists all features and a
+headline. Other codes pick a single feature. Code
+&quot;codes&quot; lists them. They share names with related
+commands (see also there):<br>
+&quot;acl&quot; tells whether xorriso has an adapter for
+local filesystems ACLs.<br>
+&quot;xattr&quot; tells whether xorriso has an adapter for
+local filesystems EA.<br>
+&quot;jigdo&quot; tells whether production of Jigdo files is
+possible.<br>
+&quot;zisofs&quot; tells whether zisofs and built&minus;in
+gzip filters are enabled.<br>
+&quot;external_filter&quot; tells whether external filter
+processes are allowed and whether they are allowed if real
+user id and effective user id differ.<br>
+&quot;dvd_obs&quot; tells whether 64 kB output to DVD media
+is default.<br>
+&quot;use_readline&quot; tells whether readline may be
+enabled in dialog mode.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8221,6 +8289,23 @@ setfattr(1)</b></p>
 <p><b>md5sum(1)</b></p>
 </td>
 </table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>On FreeBSD the commands for xattr and MD5 differ</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p><b>getextattr(8), setextattr(8), md5(1)</b></p>
+</td>
+</table>
 <a name="BUGS"></a>
 <h2>BUGS</h2>
 <!-- INDENTATION -->
@@ -8287,5 +8372,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Aug  8 09:37:00 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Sep 27 11:03:47 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

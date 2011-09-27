@@ -264,8 +264,8 @@ expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                    chmod, chmod_r, alter_date, alter_date_r, lsdl, compare,
                    rm, rm_r, compare, update, report_damage, report_lba,
                    getfacl, setfacl, getfattr, setfattr, get_any_xattr,
-                   get_md5, check_md5, make_md5, set_filter, show_stream,
-                   mkisofs_r, hide, find.
+                   list_extattr, get_md5, check_md5, make_md5,
+                   set_filter, show_stream, mkisofs_r, hide, find.
                  params are their arguments except iso_rr_path.
   -mkdir iso_rr_path [...]
                  Create empty directories if they do not exist yet.
@@ -428,6 +428,7 @@ Restore options which copy file objects from ISO image to disk filesystem:
            [:"concat_split_on"|"concat_split_off"]
            [:"auto_chmod_on"|"auto_chmod_off"]
            [:"sort_lba_on"|"sort_lba_off"]
+           [:"strict_acl_on"|"strict_acl_off"]
                  By default "off" the inverse operation of xorriso from ISO
                  image to disk filesystem is disabled. "on" allows xorriso
                  to create, overwrite, delete files in the disk filesystem.
@@ -567,6 +568,10 @@ General options:
               Enable or disable logging of SCSI commands to stderr.
   # any text  Is ignored. In dialog mode the input line will be stored in
               the eventual readline history, nevertheless.
+  -list_extras code
+              Tell whether certain extra features were enabled at compile
+              time. Code "all" lists all features and a headline. Other
+              codes pick a single feature. "codes" lists the known codes.
   -version    Tell program and version number
   -end        End program. Commit eventual pending changes.
   -rollback_end
