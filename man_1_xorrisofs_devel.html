@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Sep 27 15:47:41 2011 -->
+<!-- CreationDate: Tue Oct 25 12:47:17 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -30,7 +30,7 @@
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>xorrisofs &minus; Emulation of ISO 9660 program mkisofs
+<p>xorrisofs - Emulation of ISO 9660 program mkisofs
 by program xorriso</p>
 </td>
 </table>
@@ -55,7 +55,7 @@ by program xorriso</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>xorrisofs</b> produces Rock Ridge enhanced ISO 9660
-filesystems and add&minus;on sessions to such filesystems.
+filesystems and add-on sessions to such filesystems.
 Optionally it can produce Joliet directory trees too.</p>
 <!-- INDENTATION -->
 <p><b>xorrisofs</b> understands options of program mkisofs
@@ -78,8 +78,8 @@ cdrtools.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>ISO 9660</b> (aka <b>ECMA&minus;119</b>) is a
-read&minus;only filesystem that is mainly used for optical
+<p><b>ISO 9660</b> (aka <b>ECMA-119</b>) is a
+read-only filesystem that is mainly used for optical
 media CD, DVD, BD, but may also reside on other storage
 devices like disk files, USB sticks or disk partitions. It
 is widely readable by many operating systems and by boot
@@ -98,17 +98,17 @@ Rock Ridge information is produced unconditionally with any
 <b>xorrisofs</b> image.<b><br>
 Joliet</b> is the name of an additional directory tree which
 provides filenames up to 64 characters encoded as
-UTF&minus;16. A Joliet tree is mainly interesting for
+UTF-16. A Joliet tree is mainly interesting for
 reading the ISO image by operating systems of Microsoft
 Corporation. Production of this directory tree may be
-enabled by option &minus;J.<b><br>
+enabled by option -J.<b><br>
 ISO 9660:1999</b> is the name of an additional directory
 tree which provides longer filenames. It allows single file
 names to have up to 207 characters. It might be of use with
 some older computer system boot facilities which read
 neither Rock Ridge nor Joliet but need longer filenames
 nevertheless. Production of this directory tree may be
-enabled by option &minus;iso&minus;level 4.</p>
+enabled by option -iso-level 4.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -136,30 +136,30 @@ names visible if Rock Ridge gets ignored.)</p>
 <p>A program argument is handled as a <b>pathspec</b>, if it
 is not recognized as original mkisofs option or additional
 <b>xorrisofs</b> option. A pathspec depicts an input file
-object by a disk_path. If option &minus;graft&minus;points
+object by a disk_path. If option -graft-points
 is not present, then the behavior depends on the file type
 of disk_path. Directories get merged with the
-/&minus;directory of the ISO image. Files of other types get
-copied into the /&minus;directory.<br>
-If &minus;graft&minus;points is present then each pathspec
-gets split at the first occurence of the =&minus;character.
+/-directory of the ISO image. Files of other types get
+copied into the /-directory.<br>
+If -graft-points is present then each pathspec
+gets split at the first occurence of the =-character.
 The part before the = is taken as <b>target</b>, i.e. the
 iso_rr_path for the file object in the ISO image. The part
 after the first = is taken as <b>source</b>, i.e. the
 disk_path of the input object.<br>
-It is possible to make =&minus;characters part of the
-iso_rr_path by preceding them with a \&minus;character. The
-same must be done for \&minus;characters which shall be part
+It is possible to make =-characters part of the
+iso_rr_path by preceding them with a \-character. The
+same must be done for \-characters which shall be part
 of the iso_rr_path.</p>
 <!-- INDENTATION -->
 <p>If the source part of the pathspec leads to a directory,
 then all files underneath this directory get inserted into
 the image, too. It is possible to exclude particular files
-from being inserted by help of option &minus;m.<br>
+from being inserted by help of option -m.<br>
 In case that target already exists, the following rules
 apply: Directories and other files may overwrite existing
-non&minus;directories. Directories get merged with existing
-directories. Non&minus;directories may not overwrite
+non-directories. Directories get merged with existing
+directories. Non-directories may not overwrite
 existing directories.</p>
 </td>
 </table>
@@ -179,11 +179,11 @@ existing directories.</p>
 <td width="89%">
 <p><b>xorrisofs</b> is actually a command mode of program
 <b>xorriso</b>, which gets entered either by xorriso command
-&quot;&minus;as mkisofs&quot; or by starting the program by
+&quot;-as mkisofs&quot; or by starting the program by
 one of the names &quot;xorrisofs&quot;, &quot;mkisofs&quot;,
 &quot;genisoimage&quot;, or &quot;genisofs&quot;.<br>
 This command mode can be left by argument
-&quot;&minus;&minus;&quot; which leads to generic xorriso
+&quot;--&quot; which leads to generic xorriso
 command mode. See <b>man xorriso</b> for its
 description.</p>
 <!-- INDENTATION -->
@@ -198,7 +198,7 @@ media space may be quite fictional.<br>
 Nevertheless <b>xorrisofs</b> does not operate directly on
 optical drives, but rather forces libburn to regard them as
 general device files. So for writing of sequential optical
-media (CD, DVD&minus;R, DVD+R, BD&minus;R) one will have to
+media (CD, DVD-R, DVD+R, BD-R) one will have to
 use a burn program. E.g the cdrecord emulation of xorriso.
 See EXAMPLES.</p>
 </td>
@@ -220,7 +220,7 @@ See EXAMPLES.</p>
 <td width="10%"></td>
 <td width="89%">
 <p>The following options control loading of an existing ISO
-image for the purpose of preparing a suitable add&minus;on
+image for the purpose of preparing a suitable add-on
 session. If they are missing then a new image is composed
 from scratch.</p>
 </td>
@@ -231,7 +231,7 @@ from scratch.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;M</b> disk_path</p></td>
+<p><b>-M</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -241,8 +241,8 @@ from scratch.</p>
 <td width="77%">
 <p>Set the path from which to load the existing ISO image
 directory tree on which to base the upcomming directory tree
-as add&minus;on session. The path must lead to a
-random&minus;access readable file object. On GNU/Linux:
+as add-on session. The path must lead to a
+random-access readable file object. On GNU/Linux:
 regular data files or block device files.<br>
 A special kind of pseudo disk_path has the form
 &quot;/dev/fd/&quot;number. It depicts the open file
@@ -258,7 +258,7 @@ was opened by the program that later started xorriso.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;prev-session</b> disk_path</p></td>
+<p><b>-prev-session</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -266,7 +266,7 @@ was opened by the program that later started xorriso.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;M.</p>
+<p>Alias of -M.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -275,7 +275,7 @@ was opened by the program that later started xorriso.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;dev</b> disk_path</p></td>
+<p><b>-dev</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -283,7 +283,7 @@ was opened by the program that later started xorriso.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;M.</p>
+<p>Alias of -M.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -292,7 +292,7 @@ was opened by the program that later started xorriso.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;C</b>
+<p><b>-C</b>
 last_session_start,next_writeable_address</p></td>
 </table>
 <!-- INDENTATION -->
@@ -303,24 +303,24 @@ last_session_start,next_writeable_address</p></td>
 <td width="77%">
 <p>Set the 2 KiB block address last_session_start from where
 to read the ISO image out of the file given by option
-&minus;M.<br>
+-M.<br>
 Separated by a comma, set the next_writeable_address to
-which the add&minus;on session will finally be written.
+which the add-on session will finally be written.
 Decisive is actually the block address which the intended
 readers will have to use as superblock address on the
 intended media.<br>
 Both values can be inquired from optical media by help of
-burn programs and cdrecord option &minus;msinfo. xorriso
+burn programs and cdrecord option -msinfo. xorriso
 itself can obtain it in its cdrecord emulation. Do not let
 it load the drive, but rather do this manually or by a
 program like dd which reads a few bytes. Only then it is
 sure that the device driver knows the true readable size of
 the media.<br>
 dd if=/dev/... count=1 &gt;/dev/null 2&gt;&amp;1<br>
-values=$(xorriso &minus;as cdrecord dev=/dev/...
-&minus;msinfo)<br>
+values=$(xorriso -as cdrecord dev=/dev/...
+-msinfo)<br>
 echo $values<br>
-Option &minus;C may be used without option &minus;M to
+Option -C may be used without option -M to
 create an ISO image from scratch and prepare it for being
 finally written to a block address other than 0. Parameter
 last_session_start must then be set to 0.</p>
@@ -332,7 +332,7 @@ last_session_start must then be set to 0.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;cdrecord-params</b>
+<p><b>-cdrecord-params</b>
 last_session_start,next_writeable_address</p></td>
 </table>
 <!-- INDENTATION -->
@@ -341,7 +341,7 @@ last_session_start,next_writeable_address</p></td>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;C.</p>
+<p>Alias of -C.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -358,7 +358,7 @@ last_session_start,next_writeable_address</p></td>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;path-list</b> disk_path</p></td>
+<p><b>-path-list</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -366,9 +366,9 @@ last_session_start,next_writeable_address</p></td>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Read pathspecs line&minus;by&minus;line from disk_file
+<p>Read pathspecs line-by-line from disk_file
 and insert the depicted file objects into the ISO image. If
-disk_path is &quot;&minus;&quot; then read the pathspecs
+disk_path is &quot;-&quot; then read the pathspecs
 from standard input.</p>
 </td>
 </table>
@@ -386,7 +386,7 @@ from standard input.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Like option &minus;path&minus;list but reading quoted
+<p>Like option -path-list but reading quoted
 words rather than plain lines. Whitespace outside of quotes
 will be discarded. On the other hand it is possible to
 represent pathspecs which contain newline characters.<br>
@@ -405,7 +405,7 @@ appended.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;f</b></p>
+<p><b>-f</b></p>
 </td>
 <td width="85%">
 </td>
@@ -426,7 +426,7 @@ as symbolic links in the ISO image.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;follow-links</b></p></td>
+<p><b>-follow-links</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -434,7 +434,7 @@ as symbolic links in the ISO image.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;f.</p>
+<p>Alias of -f.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -443,7 +443,7 @@ as symbolic links in the ISO image.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;graft-points</b></p></td>
+<p><b>-graft-points</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -453,7 +453,7 @@ as symbolic links in the ISO image.</p>
 <td width="77%">
 <p>Enable interpretation of input file pathspecs as
 combination of iso_rr_path and disk_path, separated by a
-=&minus;character.</p>
+=-character.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -462,7 +462,7 @@ combination of iso_rr_path and disk_path, separated by a
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;m</b> disk_pattern</p></td>
+<p><b>-m</b> disk_pattern</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -473,9 +473,9 @@ combination of iso_rr_path and disk_path, separated by a
 <p>Exclude files from being inserted into the image.
 Silently ignored are those files of which the disk_path
 matches the given shell parser pattern. If no
-/&minus;character is part of the pattern, then it gets
+/-character is part of the pattern, then it gets
 matched against the leaf name of the disk file.<br>
-It is possible to give more than one &minus;m option.</p>
+It is possible to give more than one -m option.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -484,7 +484,7 @@ It is possible to give more than one &minus;m option.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;exclude</b></p></td>
+<p><b>-exclude</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -492,7 +492,7 @@ It is possible to give more than one &minus;m option.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;m.</p>
+<p>Alias of -m.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -502,7 +502,7 @@ It is possible to give more than one &minus;m option.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;x</b></p>
+<p><b>-x</b></p>
 </td>
 <td width="85%">
 </td>
@@ -513,7 +513,7 @@ It is possible to give more than one &minus;m option.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;m.</p>
+<p>Alias of -m.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -522,7 +522,7 @@ It is possible to give more than one &minus;m option.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;old-exclude</b></p></td>
+<p><b>-old-exclude</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -530,7 +530,7 @@ It is possible to give more than one &minus;m option.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;m.</p>
+<p>Alias of -m.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -539,7 +539,7 @@ It is possible to give more than one &minus;m option.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;exclude-list</b> disk_path</p></td>
+<p><b>-exclude-list</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -547,7 +547,7 @@ It is possible to give more than one &minus;m option.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Perform &minus;m using each line out of file disk_path as
+<p>Perform -m using each line out of file disk_path as
 argument disk_pattern.</p>
 </td>
 </table>
@@ -558,7 +558,7 @@ argument disk_pattern.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;z</b></p>
+<p><b>-z</b></p>
 </td>
 <td width="85%">
 </td>
@@ -582,7 +582,7 @@ in uncompressed form.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;transparent-compression</b></p></td>
+<p><b>-transparent-compression</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -590,7 +590,7 @@ in uncompressed form.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;z.</p>
+<p>Alias of -z.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -599,7 +599,7 @@ in uncompressed form.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;root</b> iso_rr_path</p></td>
+<p><b>-root</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -608,9 +608,9 @@ in uncompressed form.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Insert all files under the given iso_rr_path. If option
-&minus;graft&minus;points is given, then iso_rr_path is
+-graft-points is given, then iso_rr_path is
 prepended to each target part of a pathspec.<br>
-The default for &minus;root is &quot;/&quot;.</p>
+The default for -root is &quot;/&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -619,7 +619,7 @@ The default for &minus;root is &quot;/&quot;.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;old-root</b> iso_rr_path</p></td>
+<p><b>-old-root</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -636,10 +636,10 @@ from those on disk. New files and files with changed content
 will get newly added. Target files which do not exist in any
 of the according pathspec sources will get removed from the
 ISO directory tree.<br>
-If the effective setting of &minus;root differs from the
-iso_rr_path given with &minus;old&minus;root, then the files
-underneath the &minus;old&minus;root directory get cloned
-underneath the &minus;root directory. Cloning happens before
+If the effective setting of -root differs from the
+iso_rr_path given with -old-root, then the files
+underneath the -old-root directory get cloned
+underneath the -root directory. Cloning happens before
 file comparison.</p>
 </td>
 </table>
@@ -659,7 +659,7 @@ file comparison.</p>
 <td width="77%">
 <p>Disable recording and use of disk inode numbers. If no
 disk inode numbers are recorded, then option
-&minus;old&minus;root will have to read disk file content
+-old-root will have to read disk file content
 and compare it with the MD5 checksum that is recorded in the
 ISO image.<br>
 With recorded disk inode numbers and with credible ctime and
@@ -667,9 +667,9 @@ mtime, it is possible to detect potential changes in the
 content without actually reading it. A loophole remains if
 multiple different filesystems may get mounted at the same
 directory, like it is habit with /mnt. In this case one has
-to use option &minus;&minus;old&minus;root&minus;devno or
+to use option --old-root-devno or
 disable the inode number shortcut by
-&minus;&minus;old&minus;root&minus;no&minus;ino.</p>
+--old-root-no-ino.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -710,7 +710,7 @@ and thus prevent any incremental size saving.</p>
 <td width="77%">
 <p>Disable recording and use of MD5 checksums for data file
 content. If neither checksums and nor disk inode numbers are
-recorded, then option &minus;old&minus;root will have to
+recorded, then option -old-root will have to
 read ISO image file content when comparing it with disk file
 content.</p>
 </td>
@@ -729,7 +729,7 @@ content.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;o</b> disk_path</p></td>
+<p><b>-o</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -750,7 +750,7 @@ operating system supports this feature by file nodes in
 /dev/fd or not. E.g. /dev/fd/4 is file descriptor 4 which
 was opened by the program that later started xorriso.<br>
 Default is standard output (/dev/fd/1) which may also be set
-by disk_path &quot;&minus;&quot;.</p>
+by disk_path &quot;-&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -759,7 +759,7 @@ by disk_path &quot;&minus;&quot;.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;output</b> disk_path</p></td>
+<p><b>-output</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -767,7 +767,7 @@ by disk_path &quot;&minus;&quot;.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;o.</p>
+<p>Alias of -o.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -811,13 +811,13 @@ content.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Write a second superblock with the first session into
-random&minus;access files. If further sessions get appended
+random-access files. If further sessions get appended
 and the first superblock gets updated, then the second
 superblock will not be overwritten. This allows to still
 mount the first session and to find the start blocks of the
 further sessions.<br>
 The price is 64 KiB extra space consumption. If
-&minus;partition_offset is non&minus;zero, then it is 128
+-partition_offset is non-zero, then it is 128
 KiB plus twice the partition setup.</p>
 </td>
 </table>
@@ -836,7 +836,7 @@ KiB plus twice the partition setup.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Do not write a second superblock with the first session
-into random&minus;access files.<br>
+into random-access files.<br>
 This is the default.</p>
 </td>
 </table>
@@ -857,7 +857,7 @@ This is the default.</p>
 <p>Attribute a LBA weight number to regular files. If
 iso_rr_path leads to a directory then all regular files
 underneath will get the weight_number.<br>
-The weight_number may range from &minus;2147483648 to
+The weight_number may range from -2147483648 to
 2147483647. The higher it is, the lower will be the block
 address of the file data in the emerging ISO image.
 Currently the El Torito boot catalog has a hardcoded weight
@@ -872,7 +872,7 @@ initial weight 0.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;dir-mode</b> mode</p></td>
+<p><b>-dir-mode</b> mode</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -883,8 +883,8 @@ initial weight 0.</p>
 <p>Set the access permissions for all directories in the
 image to the given mode which is either an octal number
 beginning with &quot;0&quot; or a comma separated list of
-statements of the form [ugoa]*[+&minus;=][rwxst]* . E.g.
-ug=rx,a&minus;rwx</p>
+statements of the form [ugoa]*[+-=][rwxst]* . E.g.
+ug=rx,a-rwx</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -893,7 +893,7 @@ ug=rx,a&minus;rwx</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;file-mode</b> mode</p></td>
+<p><b>-file-mode</b> mode</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -901,7 +901,7 @@ ug=rx,a&minus;rwx</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Like &minus;dir&minus;mode but for all regular data files
+<p>Like -dir-mode but for all regular data files
 in the image.</p>
 </td>
 </table>
@@ -912,7 +912,7 @@ in the image.</p>
 <td width="11%"></td>
 <td width="5%">
 
-<p><b>&minus;pad</b></p>
+<p><b>-pad</b></p>
 </td>
 <td width="82%">
 </td>
@@ -927,8 +927,8 @@ in the image.</p>
 circumvents possible read errors from ISO images which have
 been written to CD media in TAO mode. The additional bytes
 are claimed as part of the ISO image if not
-&minus;&minus;emul&minus;toc is given.<br>
-Option &minus;pad is the default.</p>
+--emul-toc is given.<br>
+Option -pad is the default.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -937,7 +937,7 @@ Option &minus;pad is the default.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;no-pad</b></p></td>
+<p><b>-no-pad</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -985,7 +985,7 @@ point.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;iso-level</b> number</p></td>
+<p><b>-iso-level</b> number</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -996,17 +996,17 @@ point.</p>
 <p>Specify the ISO 9660 version which defines the
 limitations of file naming and data file size. The naming
 restrictions do not apply to the Rock Ridge names but only
-to the low&minus;level ISO 9660 names. There are three
+to the low-level ISO 9660 names. There are three
 conformance levels:<br>
 Level 1 allows ISO names of the form 8.3 and file size up to
-4 GiB &minus; 1.<br>
+4 GiB - 1.<br>
 Level 2 allows ISO names with up to 32 characters and file
-size up to 4 GiB &minus; 1.<br>
+size up to 4 GiB - 1.<br>
 Level 3 allows ISO names with up to 32 characters and file
-size of up to 400 GiB &minus; 200 KiB. (This size limitation
+size of up to 400 GiB - 200 KiB. (This size limitation
 is set by the xorriso implementation and not by ISO 9660
 which would allow nearly 8 TiB.)<br>
-Pseudo&minus;level 4 enables production of an additional ISO
+Pseudo-level 4 enables production of an additional ISO
 9660:1999 directory tree.</p>
 </td>
 </table>
@@ -1016,7 +1016,7 @@ Pseudo&minus;level 4 enables production of an additional ISO
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;disallow_dir_id_ext</b></p></td>
+<p><b>-disallow_dir_id_ext</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1036,7 +1036,7 @@ bootable GNU/Linux images depend on this bad habit.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;U</b></p>
+<p><b>-U</b></p>
 </td>
 <td width="85%">
 </td>
@@ -1061,7 +1061,7 @@ This all violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;untranslated-filenames</b></p></td>
+<p><b>-untranslated-filenames</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1069,7 +1069,7 @@ This all violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;U.</p>
+<p>Alias of -U.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1078,7 +1078,7 @@ This all violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;untranslated_name_len</b> number</p></td>
+<p><b>-untranslated_name_len</b> number</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1099,7 +1099,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;allow-lowercase</b></p></td>
+<p><b>-allow-lowercase</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1118,7 +1118,7 @@ This violates ISO 9660 specs.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;d</b></p>
+<p><b>-d</b></p>
 </td>
 <td width="85%">
 </td>
@@ -1140,7 +1140,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;omit-period</b></p></td>
+<p><b>-omit-period</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1148,7 +1148,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;d.</p>
+<p>Alias of -d.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -1158,7 +1158,7 @@ This violates ISO 9660 specs.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;l</b></p>
+<p><b>-l</b></p>
 </td>
 <td width="85%">
 </td>
@@ -1179,7 +1179,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;full-iso9660-filenames</b></p></td>
+<p><b>-full-iso9660-filenames</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1187,7 +1187,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;l.</p>
+<p>Alias of -l.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1196,7 +1196,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;max-iso9660-filenames</b></p></td>
+<p><b>-max-iso9660-filenames</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1204,7 +1204,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;l.</p>
+<p>Alias of -l.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -1214,7 +1214,7 @@ This violates ISO 9660 specs.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;N</b></p>
+<p><b>-N</b></p>
 </td>
 <td width="85%">
 </td>
@@ -1236,7 +1236,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;omit-version-number</b></p></td>
+<p><b>-omit-version-number</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1244,7 +1244,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;N.</p>
+<p>Alias of -N.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1262,7 +1262,7 @@ This violates ISO 9660 specs.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;R</b></p>
+<p><b>-R</b></p>
 </td>
 <td width="85%">
 </td>
@@ -1284,7 +1284,7 @@ This violates ISO 9660 specs.</p>
 <td width="11%"></td>
 <td width="7%">
 
-<p><b>&minus;rock</b></p>
+<p><b>-rock</b></p>
 </td>
 <td width="80%">
 </td>
@@ -1295,7 +1295,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;R.</p>
+<p>Alias of -R.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -1305,7 +1305,7 @@ This violates ISO 9660 specs.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;r</b></p>
+<p><b>-r</b></p>
 </td>
 <td width="85%">
 </td>
@@ -1317,10 +1317,10 @@ This violates ISO 9660 specs.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Set Rock Ridge user and group id of all files in the ISO
-image to 0. Grant r&minus;permissions to all. Deny all
-w&minus;permissions. If any x&minus;permission is set, grant
-x&minus;permission to all. Remove s&minus;bit and
-t&minus;bit.</p>
+image to 0. Grant r-permissions to all. Deny all
+w-permissions. If any x-permission is set, grant
+x-permission to all. Remove s-bit and
+t-bit.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1329,7 +1329,7 @@ t&minus;bit.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;rational-rock</b></p></td>
+<p><b>-rational-rock</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1337,7 +1337,7 @@ t&minus;bit.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;r.</p>
+<p>Alias of -r.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1355,8 +1355,8 @@ t&minus;bit.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Enable options which improve backup fidelity:
-&minus;&minus;acl, &minus;&minus;xattr, &minus;&minus;md5,
-&minus;&minus;hardlinks.</p>
+--acl, --xattr, --md5,
+--hardlinks.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -1428,9 +1428,9 @@ image.</p>
 image and for each single data file in the image. xorriso
 can check the content of an ISO image with these sums and
 raise alert on mismatch. See man xorriso, options
-&minus;check_media, check_md5_r. xorriso can print recorded
+-check_media, check_md5_r. xorriso can print recorded
 MD5 checksums. E.g. by:<br>
-&minus;find / &minus;exec get_md5</p>
+-find / -exec get_md5</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1473,7 +1473,7 @@ when extracting files from the ISO image.</p>
 <td width="77%">
 <p>Append a scdbackup checksum record to the image. This
 works only if the parameter next_writeable_address of option
-&minus;C is 0. If disk_path is not an empty string, then
+-C is 0. If disk_path is not an empty string, then
 append a scdbackup checksum record to the end of this file.
 record_name is a word that gets part of tag and record.<br>
 Program scdbackup_verify will recognize and verify tag resp.
@@ -1487,7 +1487,7 @@ record.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;J</b></p>
+<p><b>-J</b></p>
 </td>
 <td width="85%">
 </td>
@@ -1508,7 +1508,7 @@ tree along with the ISO 9660 Rock Ridge tree.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;joliet</b></p></td>
+<p><b>-joliet</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1516,7 +1516,7 @@ tree along with the ISO 9660 Rock Ridge tree.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;J.</p>
+<p>Alias of -J.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1525,7 +1525,7 @@ tree along with the ISO 9660 Rock Ridge tree.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;joliet-long</b></p></td>
+<p><b>-joliet-long</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1554,7 +1554,7 @@ oversized paths get excluded from the Joliet tree.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;hide</b> disk_path_pattern</p></td>
+<p><b>-hide</b> disk_path_pattern</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1577,7 +1577,7 @@ This command does not apply to the boot catalog.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;hide-list</b> disk_path</p></td>
+<p><b>-hide-list</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1585,7 +1585,7 @@ This command does not apply to the boot catalog.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Perform &minus;hide using each line out of file disk_path
+<p>Perform -hide using each line out of file disk_path
 as argument disk_path_pattern.</p>
 </td>
 </table>
@@ -1595,7 +1595,7 @@ as argument disk_path_pattern.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;hide-joliet</b> disk_path_pattern</p></td>
+<p><b>-hide-joliet</b> disk_path_pattern</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1603,7 +1603,7 @@ as argument disk_path_pattern.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Like option &minus;hide but making files invisible in the
+<p>Like option -hide but making files invisible in the
 directory tree of Joliet, if their disk_path matches the
 given shell parser pattern.</p>
 </td>
@@ -1614,7 +1614,7 @@ given shell parser pattern.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;hide-joliet-list</b> disk_path</p></td>
+<p><b>-hide-joliet-list</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1622,7 +1622,7 @@ given shell parser pattern.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Perform &minus;hide&minus;joliet using each line out of
+<p>Perform -hide-joliet using each line out of
 file disk_path as argument disk_path_pattern.</p>
 </td>
 </table>
@@ -1644,7 +1644,7 @@ file disk_path as argument disk_path_pattern.</p>
 the Primary Volume Descriptor of the ISO9660 image. The file
 addresses are ISO 9660 paths. These files should have
 iso_rr_paths which consist only of the characters
-[A&minus;Z0&minus;9_] and exactly one dot which separates at
+[A-Z0-9_] and exactly one dot which separates at
 most 8 characters from at most 3 characters.</p>
 </td>
 </table>
@@ -1654,7 +1654,7 @@ most 8 characters from at most 3 characters.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;V</b> text</p></td>
+<p><b>-V</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1666,8 +1666,8 @@ most 8 characters from at most 3 characters.</p>
 text up to 32 characters, but according to rarely obeyed
 specs stricter rules apply:<br>
 Conformant are ASCII characters out of
-[A&minus;Z0&minus;9_]. Like: &quot;IMAGE_23&quot;<br>
-Joliet allows 16 UCS&minus;2 characters. Like: &quot;Windows
+[A-Z0-9_]. Like: &quot;IMAGE_23&quot;<br>
+Joliet allows 16 UCS-2 characters. Like: &quot;Windows
 name&quot;<br>
 Be aware that the volume id might get used automatically as
 name of the mount point when the media is inserted into a
@@ -1680,7 +1680,7 @@ playful computer system.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;volid</b> text</p></td>
+<p><b>-volid</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1688,7 +1688,7 @@ playful computer system.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;V.</p>
+<p>Alias of -V.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1697,7 +1697,7 @@ playful computer system.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;volset</b> text</p></td>
+<p><b>-volset</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1715,7 +1715,7 @@ up to 128 characters.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;p</b> text</p></td>
+<p><b>-p</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1734,7 +1734,7 @@ recorded. Permissible are up to 128 characters.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;publisher</b> text</p></td>
+<p><b>-publisher</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1742,7 +1742,7 @@ recorded. Permissible are up to 128 characters.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;p.</p>
+<p>Alias of -p.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1751,7 +1751,7 @@ recorded. Permissible are up to 128 characters.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;A</b> text</p></td>
+<p><b>-A</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1774,7 +1774,7 @@ Application Id.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;appid</b> text</p></td>
+<p><b>-appid</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1782,7 +1782,7 @@ Application Id.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;A.</p>
+<p>Alias of -A.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1791,7 +1791,7 @@ Application Id.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;sysid</b> text</p></td>
+<p><b>-sysid</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1811,7 +1811,7 @@ System Area in image blocks 0 to 15. Permissible are up to
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;p</b> text</p></td>
+<p><b>-p</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1836,7 +1836,7 @@ startup.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;preparer</b> text</p></td>
+<p><b>-preparer</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1844,7 +1844,7 @@ startup.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;p.</p>
+<p>Alias of -p.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1853,7 +1853,7 @@ startup.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;abstract</b> iso_path</p></td>
+<p><b>-abstract</b> iso_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1873,7 +1873,7 @@ content. Permissible are up to 37 characters.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;biblio</b> iso_path</p></td>
+<p><b>-biblio</b> iso_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1893,7 +1893,7 @@ characters.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;copyright</b> iso_path</p></td>
+<p><b>-copyright</b> iso_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1926,8 +1926,8 @@ modification timestamps literally. It must consist of 16
 decimal digits which form YYYYMMDDhhmmsscc, with YYYY
 between 1970 and 2999. Time zone is GMT. It is supposed to
 match this GRUB line:<br>
-search &minus;&minus;fs&minus;uuid &minus;&minus;set
-YYYY&minus;MM&minus;DD&minus;hh&minus;mm&minus;ss&minus;cc<br>
+search --fs-uuid --set
+YYYY-MM-DD-hh-mm-ss-cc<br>
 E.g. 2010040711405800 is 7 Apr 2010 11:40:58 (+0
 centiseconds).</p>
 </td>
@@ -1960,20 +1960,20 @@ which are binary program files stored in the ISO image. The
 content of the boot image files is not in the scope of El
 Torito.<br>
 xorriso composes the boot catalog according to the boot
-image files given and structured by options &minus;b,
-&minus;e, &minus;el&minus;torito&minus;alt&minus;boot, and
-&minus;&minus;efi&minus;boot. Often it contains only one
+image files given and structured by options -b,
+-e, -el-torito-alt-boot, and
+--efi-boot. Often it contains only one
 entry.<br>
-El Torito gets interpreted by boot facilities PC&minus;BIOS
+El Torito gets interpreted by boot facilities PC-BIOS
 and EFI. Most bootable GNU/Linux CDs are equipped with
-ISOLINUX or GRUB boot images for PC&minus;BIOS.<b><br>
+ISOLINUX or GRUB boot images for PC-BIOS.<b><br>
 xorrisofs</b> supports the example options out of the
 ISOLINUX wiki, the options used in GRUB script
-grub&minus;mkrescue, and the example in the FreeBSD
+grub-mkrescue, and the example in the FreeBSD
 AvgLiveCD wiki.</p>
 <!-- INDENTATION -->
 <p>For CD booting via boot facilities other than
-PC&minus;BIOS and EFI, and for booting from USB sticks or
+PC-BIOS and EFI, and for booting from USB sticks or
 hard disks, see the next section about the Sytem Area.</p>
 </td>
 </table>
@@ -1983,7 +1983,7 @@ hard disks, see the next section about the Sytem Area.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;b</b> iso_rr_path</p></td>
+<p><b>-b</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1993,12 +1993,12 @@ hard disks, see the next section about the Sytem Area.</p>
 <td width="77%">
 <p>Specify the boot image file which shall be mentioned in
 the current entry of the El Torito boot catalog. It will be
-marked as suitable for PC&minus;BIOS.<br>
+marked as suitable for PC-BIOS.<br>
 With boot images from ISOLINUX and GRUB this option should
-be accompanied by options &minus;c ,
-&minus;no&minus;emul&minus;boot ,
-&minus;boot&minus;load&minus;size 4 ,
-&minus;boot&minus;info&minus;table.</p>
+be accompanied by options -c ,
+-no-emul-boot ,
+-boot-load-size 4 ,
+-boot-info-table.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2007,7 +2007,7 @@ be accompanied by options &minus;c ,
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;eltorito-boot</b> iso_rr_path</p></td>
+<p><b>-eltorito-boot</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2015,7 +2015,7 @@ be accompanied by options &minus;c ,
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;b.</p>
+<p>Alias of -b.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2024,7 +2024,7 @@ be accompanied by options &minus;c ,
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;eltorito-alt-boot</b></p></td>
+<p><b>-eltorito-alt-boot</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2035,7 +2035,7 @@ be accompanied by options &minus;c ,
 <p>Finalize the current El Torito boot catalog entry and
 begin a new one. A boot image file and all its necessary
 options shall be specified before option
-&minus;eltorito&minus;alt&minus;boot. All further El Torito
+-eltorito-alt-boot. All further El Torito
 boot options apply to the new catalog entry. Up to 32
 catalog entries are possible.</p>
 </td>
@@ -2046,7 +2046,7 @@ catalog entries are possible.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;e</b> iso_rr_path</p></td>
+<p><b>-e</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2059,7 +2059,7 @@ the current entry of the El Torito boot catalog. It will be
 marked as suitable for EFI.<br>
 Normally no other El Torito options should be used with the
 catalog entry that points to an EFI image. Consider to use
-&minus;&minus;efi&minus;boot rather than &minus;e.</p>
+--efi-boot rather than -e.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2076,10 +2076,10 @@ catalog entry that points to an EFI image. Consider to use
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Perform &minus;eltorito&minus;alt&minus;boot, option
-&minus;e with the given iso_rr_path, and again
-&minus;eltorito&minus;alt&minus;boot. This gesture is used
-for achieving EFI&minus;bootability of the GRUB2 rescue
+<p>Perform -eltorito-alt-boot, option
+-e with the given iso_rr_path, and again
+-eltorito-alt-boot. This gesture is used
+for achieving EFI-bootability of the GRUB2 rescue
 CD.</p>
 </td>
 </table>
@@ -2089,7 +2089,7 @@ CD.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;boot-load-size</b> number</p></td>
+<p><b>-boot-load-size</b> number</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2097,9 +2097,9 @@ CD.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the number of 512&minus;byte blocks for boot images
+<p>Set the number of 512-byte blocks for boot images
 which emulate a floppy or a hard disk. A safe default for
-non&minus;emulating boot images is 4.</p>
+non-emulating boot images is 4.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2108,7 +2108,7 @@ non&minus;emulating boot images is 4.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;hard-disk-boot</b></p></td>
+<p><b>-hard-disk-boot</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2127,7 +2127,7 @@ loader.)</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;no-emul-boot</b></p></td>
+<p><b>-no-emul-boot</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2138,8 +2138,8 @@ loader.)</p>
 <p>Mark the boot image in the current catalog entry as not
 emulating floppy or hard disk. (This is to be used with all
 known boot loaders.)<br>
-If neither &minus;hard&minus;disk&minus;boot nor
-&minus;no&minus;emul&minus;boot is given, then the boot
+If neither -hard-disk-boot nor
+-no-emul-boot is given, then the boot
 image will be marked as emulating a floppy. (Not suitable
 for any known boot loader.)</p>
 </td>
@@ -2150,7 +2150,7 @@ for any known boot loader.)</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;boot-info-table</b></p></td>
+<p><b>-boot-info-table</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2171,7 +2171,7 @@ the boot image file.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;c</b> iso_rr_path</p></td>
+<p><b>-c</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2181,7 +2181,7 @@ the boot image file.</p>
 <td width="77%">
 <p>Set the address of the El Torito boot catalog file within
 the image. This file address is not significant for the
-booting PC&minus;BIOS or EFI, but it may later be read by
+booting PC-BIOS or EFI, but it may later be read by
 other programs in order to learn about the available boot
 images.</p>
 </td>
@@ -2192,7 +2192,7 @@ images.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;eltorito-catalog</b> iso_rr_path</p></td>
+<p><b>-eltorito-catalog</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2200,7 +2200,7 @@ images.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;c.</p>
+<p>Alias of -c.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2238,13 +2238,13 @@ in the directory trees of the image.</p>
 <p>The first 16 blocks of an ISO image are the System Area.
 It is reserved for system dependent boot software. This may
 be the CD boot facilities of exotic hardware architectures
-or it may be a MBR for booting via PC&minus;BIOS from USB
+or it may be a MBR for booting via PC-BIOS from USB
 stick or hard disk.<br>
 A <b>MBR</b> (Master Boot Record) contains boot code and a
 partition table. It does not hamper El Torito booting from
 CDROM.<b><br>
 xorrisofs</b> supports boot facilities other than
-PC&minus;BIOS: MIPS Big Endian (SGI), MIPS Little Endian
+PC-BIOS: MIPS Big Endian (SGI), MIPS Little Endian
 (DEC), SUN SPARC. Those are mutually not combinable and also
 not combinable with MBR.</p>
 </td>
@@ -2255,7 +2255,7 @@ not combinable with MBR.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;G</b> disk_path</p></td>
+<p><b>-G</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2276,7 +2276,7 @@ file in the directory trees.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;generic-boot</b> disk_path</p></td>
+<p><b>-generic-boot</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2284,7 +2284,7 @@ file in the directory trees.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;G.</p>
+<p>Alias of -G.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2301,7 +2301,7 @@ file in the directory trees.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;G.</p>
+<p>Alias of -G.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2310,7 +2310,7 @@ file in the directory trees.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;isohybrid-mbr</b> disk_path</p></td>
+<p><b>-isohybrid-mbr</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2319,15 +2319,15 @@ file in the directory trees.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Install disk_path as ISOLINUX isohybrid MBR which makes
-the boot image given by option &minus;b bootable from USB
-sticks and hard disks via PC&minus;BIOS. This preparation is
+the boot image given by option -b bootable from USB
+sticks and hard disks via PC-BIOS. This preparation is
 normally done by ISOLINUX program isohybrid on the already
 produced ISO image.<br>
 The disk path should lead to one of the Syslinux files
 isohdp[fp]x*.bin . The MBR gets patched according to
 isohybrid needs. The first partition describes the range of
 the ISO image. Its start is at block 0 by default, but may
-be set to 64 disk blocks by option &minus;partition_offset
+be set to 64 disk blocks by option -partition_offset
 16.</p>
 </td>
 </table>
@@ -2345,7 +2345,7 @@ be set to 64 disk blocks by option &minus;partition_offset
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Patch the System Area by a simple PC&minus;DOS partition
+<p>Patch the System Area by a simple PC-DOS partition
 table where partition 1 claims the range of the ISO image
 but leaves the first block unclaimed.</p>
 </td>
@@ -2356,7 +2356,7 @@ but leaves the first block unclaimed.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;partition_offset</b> 2kb_block_adr</p></td>
+<p><b>-partition_offset</b> 2kb_block_adr</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2367,8 +2367,8 @@ but leaves the first block unclaimed.</p>
 <p>Cause a partition table with a single partition that
 begins at the given block address. This is counted in 2048
 byte blocks, not in 512 byte blocks. If the block address is
-non&minus;zero then it must be at least 16. Values larger
-than 16 are hardly of use. A non&minus;zero partition offset
+non-zero then it must be at least 16. Values larger
+than 16 are hardly of use. A non-zero partition offset
 causes two superblocks to be generated and two sets of
 directory trees. The image is then mountable from its
 absolute start as well as from the partition start.<br>
@@ -2383,7 +2383,7 @@ here is only in effect if a new ISO image gets written.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;partition_hd_cyl</b> number</p></td>
+<p><b>-partition_hd_cyl</b> number</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2401,7 +2401,7 @@ table. 0 chooses a default value. Maximum is 255.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;partition_sec_hd</b> number</p></td>
+<p><b>-partition_sec_hd</b> number</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2428,7 +2428,7 @@ partition tables are good for 1 TiB.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;partition_cyl_align</b> mode</p></td>
+<p><b>-partition_cyl_align</b> mode</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2442,10 +2442,10 @@ to please program fdisk. Cylinder size must be divisible by
 2048. Images larger than 8,323,596,288 bytes cannot be
 aligned.<br>
 Mode &quot;auto&quot; is default. Alignment by padding
-happens only if option &minus;isohybrid&minus;mbr is
+happens only if option -isohybrid-mbr is
 given.<br>
 Mode &quot;on&quot; causes alignment by padding with option
-&minus;&minus;protective&minus;msdos&minus;label too. Mode
+--protective-msdos-label too. Mode
 &quot;off&quot; disables alignment unconditionally.</p>
 </td>
 </table>
@@ -2455,7 +2455,7 @@ Mode &quot;on&quot; causes alignment by padding with option
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;append_partition</b> partition_number type_code
+<p><b>-append_partition</b> partition_number type_code
 disk_path</p></td>
 </table>
 <!-- INDENTATION -->
@@ -2469,7 +2469,7 @@ ISO image and to be described by a partition table entry in
 a boot block at the start of the emerging ISO image. The
 partition entry will bear the size of the submitted file
 rounded up to the next multiple of 2048 bytes.<br>
-Beware of subsequent multi&minus;session runs. The appended
+Beware of subsequent multi-session runs. The appended
 partition will get overwritten.<br>
 partition_number may be 1 to 4. Number 1 will put the whole
 ISO image into the unclaimed space before partition 1. So
@@ -2488,7 +2488,7 @@ Types&quot; or run fdisk command &quot;L&quot;.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;mips-boot</b> iso_rr_path</p></td>
+<p><b>-mips-boot</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2500,8 +2500,8 @@ Types&quot; or run fdisk command &quot;L&quot;.</p>
 boot file and cause production of a MIPS Big Endian Volume
 Header. This is mutually exclusive with production of other
 boot blocks like MBR. It will overwrite the first 512 bytes
-of any data provided by &minus;G. Up to 15 boot files can be
-declared by multiple &minus;mips&minus;boot options.</p>
+of any data provided by -G. Up to 15 boot files can be
+declared by multiple -mips-boot options.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2510,7 +2510,7 @@ declared by multiple &minus;mips&minus;boot options.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;mipsel-boot</b> iso_rr_path</p></td>
+<p><b>-mipsel-boot</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2521,8 +2521,8 @@ declared by multiple &minus;mips&minus;boot options.</p>
 <p>Declare a data file in the image to be the MIPS Little
 Endian boot file. This is mutually exclusive with other boot
 blocks. It will overwrite the first 512 bytes of any data
-provided by &minus;G. Only a single boot file can be
-declared by &minus;mipsel&minus;boot.</p>
+provided by -G. Only a single boot file can be
+declared by -mipsel-boot.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2531,7 +2531,7 @@ declared by &minus;mipsel&minus;boot.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;B</b> disk_path[,disk_path ...]</p></td>
+<p><b>-B</b> disk_path[,disk_path ...]</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2547,11 +2547,11 @@ up to 8.<br>
 The disk files should contain suitable boot images for SUN
 SPARC systems.<br>
 The pseudo disk_path &quot;...&quot; causes that all empty
-partition entries become copies of the last non&minus;empty
+partition entries become copies of the last non-empty
 entry. If no other disk_path is given before &quot;...&quot;
 then all partitions describe the ISO image. In this case,
 the boot loader code has to be imported by option
-&minus;G.</p>
+-G.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2560,7 +2560,7 @@ the boot loader code has to be imported by option
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;sparc-boot</b> disk_path[,disk_path
+<p><b>-sparc-boot</b> disk_path[,disk_path
 ...]</p></td>
 </table>
 <!-- INDENTATION -->
@@ -2569,7 +2569,7 @@ the boot loader code has to be imported by option
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;B.</p>
+<p>Alias of -B.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2578,7 +2578,7 @@ the boot loader code has to be imported by option
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;sparc-label</b> text</p></td>
+<p><b>-sparc-label</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2613,7 +2613,7 @@ character set is performed when an ISO image gets written.
 Vice versa there is a conversion from output character set
 to the input character set when an ISO image gets loaded.
 The sets can be defined by options
-&minus;input&minus;charset and &minus;output&minus;charset,
+-input-charset and -output-charset,
 if needed.</p>
 </td>
 </table>
@@ -2623,7 +2623,7 @@ if needed.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;input-charset</b> character_set_name</p></td>
+<p><b>-input-charset</b> character_set_name</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2641,7 +2641,7 @@ names when inserting them into the ISO image.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;output-charset</b> character_set_name</p></td>
+<p><b>-output-charset</b> character_set_name</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2675,11 +2675,11 @@ DVD ISO images are published on the web in jigdo format to
 allow end users to download them more efficiently.&quot;<br>
 If the use of libjte was enabled at compile time of xorriso,
 then <b>xorrisofs</b> can produce a .jigdo and a .template
-file together with a single&minus;session ISO image. If not,
+file together with a single-session ISO image. If not,
 then Jigdo options will cause a FAILURE event, which
 normally leads to program abort.<br>
 One may determine the ability for Jigdo by:<br>
-$ xorrisofs &minus;version 2&gt;&amp;1 | grep
+$ xorrisofs -version 2&gt;&amp;1 | grep
 &rsquo;^libjte&rsquo; &amp;&amp; echo YES</p>
 <!-- INDENTATION -->
 <p>The .jigdo file contains checksums and symbolic file
@@ -2712,7 +2712,7 @@ will be counted as part of the ISO image.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;jigdo-jigdo</b> disk_path</p></td>
+<p><b>-jigdo-jigdo</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2731,7 +2731,7 @@ and download addresses for filling the holes in
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;jigdo-template</b> disk_path</p></td>
+<p><b>-jigdo-template</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2749,7 +2749,7 @@ and compressed ISO image copy.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;jigdo-min-file-size</b> size</p></td>
+<p><b>-jigdo-min-file-size</b> size</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2770,7 +2770,7 @@ KiB (1024 bytes), MiB (1024 KiB), or GiB (1024 MiB).</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;jigdo-force-md5</b> disk_path_pattern</p></td>
+<p><b>-jigdo-force-md5</b> disk_path_pattern</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2782,7 +2782,7 @@ KiB (1024 bytes), MiB (1024 KiB), or GiB (1024 MiB).</p>
 with the absolute disk_path of any data file that was not
 found in the .md5 list. A match causes a MISHAP event, which
 normally does not abort the program run but finally causes a
-non&minus;zero exit value of the program.</p>
+non-zero exit value of the program.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2791,7 +2791,7 @@ non&minus;zero exit value of the program.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;jigdo-exclude</b> disk_path_pattern</p></td>
+<p><b>-jigdo-exclude</b> disk_path_pattern</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2810,7 +2810,7 @@ the file to stay in .template in any case.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;jigdo-map</b> To=From</p></td>
+<p><b>-jigdo-map</b> To=From</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2834,7 +2834,7 @@ goes into the .jigdo file. The From string should end by a
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;md5-list</b> disk_path</p></td>
+<p><b>-md5-list</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2851,7 +2851,7 @@ goes into the .jigdo file. The From string should end by a
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;jigdo-template-compress</b>
+<p><b>-jigdo-template-compress</b>
 &quot;gzip&quot;|&quot;bzip2&quot;</p></td>
 </table>
 <!-- INDENTATION -->
@@ -2871,7 +2871,7 @@ out uncompressed.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;checksum_algorithm_iso</b>
+<p><b>-checksum_algorithm_iso</b>
 list_of_names</p></td>
 </table>
 <!-- INDENTATION -->
@@ -2895,7 +2895,7 @@ enabled.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;checksum_algorithm_template</b>
+<p><b>-checksum_algorithm_template</b>
 list_of_names</p></td>
 </table>
 <!-- INDENTATION -->
@@ -2906,7 +2906,7 @@ list_of_names</p></td>
 <td width="77%">
 <p>Choose the algorithms for the &quot;# Template Hex&quot;
 checksums in the .jigdo file. The rules for list_of_names
-are the same as with &minus;checksum_algorithm_iso.</p>
+are the same as with -checksum_algorithm_iso.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2923,7 +2923,7 @@ are the same as with &minus;checksum_algorithm_iso.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;print-size</b></p></td>
+<p><b>-print-size</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2935,9 +2935,9 @@ are the same as with &minus;checksum_algorithm_iso.</p>
 byte blocks in the emerging ISO image. Do not produce this
 image.<br>
 The result depends on several settings.<br>
-If option &minus;&minus;emul&minus;toc is given, then
-padding (see &minus;pad) is not counted as part of the image
-size. In this case either use &minus;no&minus;pad or add 150
+If option --emul-toc is given, then
+padding (see -pad) is not counted as part of the image
+size. In this case either use -no-pad or add 150
 (= 300 KiB) to the resulting number.</p>
 </td>
 </table>
@@ -2967,7 +2967,7 @@ FILES below.</p>
 <td width="11%"></td>
 <td width="7%">
 
-<p><b>&minus;help</b></p>
+<p><b>-help</b></p>
 </td>
 <td width="80%">
 </td>
@@ -2989,7 +2989,7 @@ options bear their original mkisofs description texts.</p>
 <td width="11%"></td>
 <td width="8%">
 
-<p><b>&minus;quiet</b></p>
+<p><b>-quiet</b></p>
 </td>
 <td width="79%">
 </td>
@@ -3011,7 +3011,7 @@ which indicate problems or errors.</p>
 <td width="11%"></td>
 <td width="2%">
 
-<p><b>&minus;v</b></p>
+<p><b>-v</b></p>
 </td>
 <td width="85%">
 </td>
@@ -3031,7 +3031,7 @@ which indicate problems or errors.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;verbose</b></p></td>
+<p><b>-verbose</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3039,7 +3039,7 @@ which indicate problems or errors.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of &minus;v.</p>
+<p>Alias of -v.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3048,7 +3048,7 @@ which indicate problems or errors.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;version</b></p></td>
+<p><b>-version</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3057,7 +3057,7 @@ which indicate problems or errors.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Print to standard output a text that begins with<br>
-&quot;mkisofs 2.01&minus;Emulation Copyright (C)&quot;<br>
+&quot;mkisofs 2.01-Emulation Copyright (C)&quot;<br>
 and to standard error the version information of
 xorriso.</p>
 </td>
@@ -3103,10 +3103,10 @@ Create bootable images for PC-BIOS</p>
 <td width="89%">
 <p>A prepared file tree in directory ./for_iso gets copied
 into the root directory of the ISO image. File permissions
-get set to read&minus;only for everybody. Joliet attributes
+get set to read-only for everybody. Joliet attributes
 for Microsoft systems get added. The resulting image gets
 written as data file ./image.iso on disk.<br>
-$ xorrisofs &minus;r &minus;J &minus;o ./image.iso
+$ xorrisofs -r -J -o ./image.iso
 ./for_iso</p>
 </td>
 </table>
@@ -3124,10 +3124,10 @@ $ xorrisofs &minus;r &minus;J &minus;o ./image.iso
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Without option &minus;graft&minus;points each given disk
+<p>Without option -graft-points each given disk
 file is copied into the root directory of the ISO image,
 maintaining its name. If a directory is given, then its
-files and sub&minus;directories are copied into the root
+files and sub-directories are copied into the root
 directory, maintaining their names.<br>
 $ xorrisofs ... /home/me/datafile /tmp/directory<br>
 yields in the ISO image root directory:<br>
@@ -3136,10 +3136,10 @@ yields in the ISO image root directory:<br>
 ...<br>
 /file_N_from_directory</p>
 <!-- INDENTATION -->
-<p>With option &minus;graft&minus;points it is possible to
+<p>With option -graft-points it is possible to
 put files and directories to arbitrary paths in the ISO
 image.<br>
-$ xorrisofs ... &minus;graft&minus;points /home/me/datafile
+$ xorrisofs ... -graft-points /home/me/datafile
 /dir=/tmp/directory<br>
 yields in the ISO image root directory:<br>
 /datafile<br>
@@ -3174,32 +3174,32 @@ yields in the ISO image:<br>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>This example works for multi&minus;session media only:
-CD&minus;R[W], DVD&minus;R[W], DVD+R, BD&minus;R. Add
-cdrskin option &minus;&minus;grow_overwriteable_iso to all
-&minus;as cdrecord runs in order to enable
-multi&minus;session emulation on overwriteable media.<br>
+<p>This example works for multi-session media only:
+CD-R[W], DVD-R[W], DVD+R, BD-R. Add
+cdrskin option --grow_overwriteable_iso to all
+-as cdrecord runs in order to enable
+multi-session emulation on overwriteable media.<br>
 The first session is written like this:<br>
-$ xorrisofs &minus;graft&minus;points \<br>
+$ xorrisofs -graft-points \<br>
 /tree1=prepared_for_iso/tree1 \<br>
-| xorriso &minus;as cdrecord &minus;v dev=/dev/sr0
-blank=fast &minus;multi &minus;eject &minus;<br>
-Follow&minus;up sessions are written like this:<br>
+| xorriso -as cdrecord -v dev=/dev/sr0
+blank=fast -multi -eject -<br>
+Follow-up sessions are written like this:<br>
 $ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1<br>
-$ m=$(xorriso &minus;as cdrecord dev=/dev/sr0
-&minus;msinfo)<br>
-$ xorrisofs &minus;M /dev/sr0 &minus;C $m
-&minus;graft&minus;points \<br>
+$ m=$(xorriso -as cdrecord dev=/dev/sr0
+-msinfo)<br>
+$ xorrisofs -M /dev/sr0 -C $m
+-graft-points \<br>
 /tree2=prepared_for_iso/tree2 \<br>
-| xorriso &minus;as cdrecord &minus;v dev=/dev/sr0
-&minus;waiti &minus;multi &minus;eject &minus;<br>
+| xorriso -as cdrecord -v dev=/dev/sr0
+-waiti -multi -eject -<br>
 Always eject the drive tray between sessions. The old
 sessions get read via /dev/sr0. Its device driver might not
 be aware of the changed content before it loads the media
 again. In this case the previous session would not be loaded
 and the new session would contain only the newly added
 files.<br>
-For the same reason do not let xorriso &minus;as cdrecord
+For the same reason do not let xorriso -as cdrecord
 load the media, but rather do this manually or by a program
 that reads from /dev/sr0.</p>
 </td>
@@ -3219,29 +3219,29 @@ that reads from /dev/sr0.</p>
 <td width="10%"></td>
 <td width="89%">
 <p>growisofs expects an ISO formatter program which
-understands options &minus;C and &minus;M. A variable is
+understands options -C and -M. A variable is
 defined to override the hardcoded default name.<br>
 $ export MKISOFS=&quot;xorrisofs&quot;<br>
-$ growisofs &minus;Z /dev/dvd /some/files<br>
-$ growisofs &minus;M /dev/dvd /more/files<br>
+$ growisofs -Z /dev/dvd /some/files<br>
+$ growisofs -M /dev/dvd /more/files<br>
 If no &quot;xorrisofs&quot; is available on your system,
 then you will have to create a link pointing to the xorriso
 binary and tell growisofs to use it. E.g. by:<br>
-$ ln &minus;s $(which xorriso)
+$ ln -s $(which xorriso)
 &quot;$HOME/xorrisofs&quot;<br>
 $ export MKISOFS=&quot;$HOME/xorrisofs&quot;<br>
 One may quit mkisofs emulation by argument
-&quot;&minus;&minus;&quot; and make use of all xorriso
+&quot;--&quot; and make use of all xorriso
 commands. growisofs dislikes options which start with
-&quot;&minus;o&quot; but &minus;outdev must be set to
-&quot;&minus;&quot;. So use &quot;outdev&quot; instead:<br>
-$ growisofs &minus;Z /dev/dvd &minus;&minus;for_backup
-&minus;&minus; \<br>
-outdev &minus; &minus;update_r /my/files /files<br>
-$ growisofs &minus;M /dev/dvd &minus;&minus;for_backup
-&minus;&minus; \<br>
-outdev &minus; &minus;update_r /my/files /files<br>
-Note that &minus;&minus;for_backup is given in the mkisofs
+&quot;-o&quot; but -outdev must be set to
+&quot;-&quot;. So use &quot;outdev&quot; instead:<br>
+$ growisofs -Z /dev/dvd --for_backup
+-- \<br>
+outdev - -update_r /my/files /files<br>
+$ growisofs -M /dev/dvd --for_backup
+-- \<br>
+outdev - -update_r /my/files /files<br>
+Note that --for_backup is given in the mkisofs
 emulation. To preserve the recorded extra data it must
 already be in effect, when the emulation loads the
 image.</p>
@@ -3276,33 +3276,33 @@ names matching *.o or *.swp get excluded explicitly.</p>
 update of the two disk trees to the media is desired. Begin
 with blank media and start a new blank media when the run
 fails due to lack of remaining space on the old one.<br>
-Do not let xorriso &minus;as cdrecord load the media, but
+Do not let xorriso -as cdrecord load the media, but
 rather do this manually or by a program that reads from
 /dev/sr0.<br>
 $ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1<br>
-$ msinfo=$(xorriso &minus;as cdrecord dev=/dev/sr0
-&minus;msinfo)<br>
+$ msinfo=$(xorriso -as cdrecord dev=/dev/sr0
+-msinfo)<br>
 $ load_opts=<br>
-$ test &minus;n &quot;$msinfo&quot; &amp;&amp;
-load_opts=&quot;&minus;M /dev/sr0 &minus;C $msinfo&quot;<br>
-$ xorrisofs $load_opts &minus;o &minus;
-&minus;&minus;for_backup &minus;m &rsquo;*.o&rsquo; &minus;m
+$ test -n &quot;$msinfo&quot; &amp;&amp;
+load_opts=&quot;-M /dev/sr0 -C $msinfo&quot;<br>
+$ xorrisofs $load_opts -o -
+--for_backup -m &rsquo;*.o&rsquo; -m
 &rsquo;*.swp&rsquo; \<br>
-&minus;V PROJ_MAIL_&quot;$(date
+-V PROJ_MAIL_&quot;$(date
 &rsquo;+%Y_%m_%d_%H%M%S&rsquo;)&quot;
-&minus;graft&minus;points \<br>
-&minus;old&minus;root / \<br>
+-graft-points \<br>
+-old-root / \<br>
 /projects=/home/thomas/projects \<br>
 /personal_mail=/home/thomas/personal_mail \<br>
-| xorriso &minus;as cdrecord dev=/dev/sr0 &minus;v
-&minus;multi &minus;waiti &minus;eject &minus;</p>
+| xorriso -as cdrecord dev=/dev/sr0 -v
+-multi -waiti -eject -</p>
 <!-- INDENTATION -->
 <p>This makes sense if the full backup leaves substantial
 remaining capacity on media and if the expected changes are
 much smaller than the full backup.</p>
 <!-- INDENTATION -->
 <p><b>Better do not use your youngest backup for
-&minus;old&minus;root</b>. Have at least two media which you
+-old-root</b>. Have at least two media which you
 use alternatingly. So only older backups get endangered by
 the new write operation, while the newest backup is stored
 safely on a different media. Always have a blank media ready
@@ -3310,33 +3310,33 @@ to perform a full backup in case the update attempt fails
 due to insufficient remaining capacity.</p>
 <!-- INDENTATION -->
 <p>If inode numbers on disk are not persistent, then use
-option &minus;&minus;old&minus;root&minus;no&minus;ino . In
+option --old-root-no-ino . In
 this case an update run will compare recorded MD5 sums
 against the current file content on hard disk.</p>
 <!-- INDENTATION -->
-<p>With <b>mount</b> option <b>&minus;o
-&quot;sbsector=&quot;</b> on GNU/Linux resp. <b>&minus;s</b>
+<p>With <b>mount</b> option <b>-o
+&quot;sbsector=&quot;</b> on GNU/Linux resp. <b>-s</b>
 on FreeBSD it is possible to access the session trees which
 represent the older backup versions. With CD media,
 GNU/Linux mount accepts session numbers directly by its
 option &quot;session=&quot;.<br>
-Multi&minus;session media and most overwriteable media
+Multi-session media and most overwriteable media
 written by xorriso can tell the sbsectors of their sessions
-by xorriso option &minus;toc:<br>
-$ xorriso &minus;dev /dev/sr0 &minus;toc<br>
+by xorriso option -toc:<br>
+$ xorriso -dev /dev/sr0 -toc<br>
 xorriso can print the matching mount command for a session
 number:<br>
-$ xorriso &minus;mount_cmd /dev/sr0 session 12 /mnt<br>
+$ xorriso -mount_cmd /dev/sr0 session 12 /mnt<br>
 or for a volume id that matches a search expression:<br>
-$ xorriso &minus;mount_cmd /dev/sr0 volid
+$ xorriso -mount_cmd /dev/sr0 volid
 &rsquo;*2008_12_05*&rsquo; /mnt<br>
 Both yield on standard output something like:<br>
-mount &minus;t iso9660 &minus;o
+mount -t iso9660 -o
 nodev,noexec,nosuid,ro,sbsector=1460256
 &rsquo;/dev/sr0&rsquo; &rsquo;/mnt&rsquo;<br>
 The superuser may let xorriso execute the mount command
 directly:<br>
-# osirrox &minus;mount /dev/sr0 &quot;volid&quot;
+# osirrox -mount /dev/sr0 &quot;volid&quot;
 &rsquo;*2008_12_05*&rsquo; /mnt</p>
 </td>
 </table>
@@ -3358,49 +3358,49 @@ directly:<br>
 sessions. In order to keep them accessible, one may map all
 files to a file tree under a session directory and
 accumulate those directories from session to session. The
-&minus;root tree is cloned from the &minus;old&minus;root
+-root tree is cloned from the -old-root
 tree before it gets compared with the appropriate trees on
 disk.<br>
 This demands to know the previously used session directory
 name.<br>
 With the first session:<br>
-$ xorrisofs &minus;root /session1 \<br>
-&minus;o &minus; &minus;&minus;for_backup &minus;m
-&rsquo;*.o&rsquo; &minus;m &rsquo;*.swp&rsquo; \<br>
-&minus;V PROJ_MAIL_&quot;$(date
+$ xorrisofs -root /session1 \<br>
+-o - --for_backup -m
+&rsquo;*.o&rsquo; -m &rsquo;*.swp&rsquo; \<br>
+-V PROJ_MAIL_&quot;$(date
 &rsquo;+%Y_%m_%d_%H%M%S&rsquo;)&quot;
-&minus;graft&minus;points \<br>
+-graft-points \<br>
 /projects=/home/thomas/projects \<br>
 /personal_mail=/home/thomas/personal_mail \<br>
-| xorriso &minus;as cdrecord dev=/dev/sr0 &minus;v
+| xorriso -as cdrecord dev=/dev/sr0 -v
 blank=as_needed \<br>
-&minus;multi &minus;waiti &minus;eject &minus;</p>
+-multi -waiti -eject -</p>
 <!-- INDENTATION -->
-<p>With the second session, option &minus;old&minus;root
-refers to /session1 and the new &minus;root is
+<p>With the second session, option -old-root
+refers to /session1 and the new -root is
 /session2.<br>
-Do not let xorriso &minus;as cdrecord load the media, but
+Do not let xorriso -as cdrecord load the media, but
 rather do this manually or by a program that reads from
 /dev/sr0.<br>
 $ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1<br>
-$ msinfo=$(xorriso &minus;as cdrecord dev=/dev/sr0
-&minus;msinfo)<br>
+$ msinfo=$(xorriso -as cdrecord dev=/dev/sr0
+-msinfo)<br>
 $ load_opts=<br>
-$ test &minus;n &quot;$msinfo&quot; &amp;&amp;
-load_opts=&quot;&minus;M /dev/sr0 &minus;C $msinfo&quot;<br>
-$ xorrisofs $load_opts &minus;root /session2
-&minus;old&minus;root /session1 \<br>
-&minus;o &minus; &minus;&minus;for_backup &minus;m
-&rsquo;*.o&rsquo; &minus;m &rsquo;*.swp&rsquo; \<br>
-&minus;V PROJ_MAIL_&quot;$(date
+$ test -n &quot;$msinfo&quot; &amp;&amp;
+load_opts=&quot;-M /dev/sr0 -C $msinfo&quot;<br>
+$ xorrisofs $load_opts -root /session2
+-old-root /session1 \<br>
+-o - --for_backup -m
+&rsquo;*.o&rsquo; -m &rsquo;*.swp&rsquo; \<br>
+-V PROJ_MAIL_&quot;$(date
 &rsquo;+%Y_%m_%d_%H%M%S&rsquo;)&quot;
-&minus;graft&minus;points \<br>
+-graft-points \<br>
 /projects=/home/thomas/projects \<br>
 /personal_mail=/home/thomas/personal_mail \<br>
-| xorriso &minus;as cdrecord dev=/dev/sr0 &minus;v
-&minus;multi &minus;waiti &minus;eject &minus;<br>
-With the third session, option &minus;old&minus;root refers
-to /session2. The new &minus;root is /session3. And so
+| xorriso -as cdrecord dev=/dev/sr0 -v
+-multi -waiti -eject -<br>
+With the third session, option -old-root refers
+to /session2. The new -root is /session3. And so
 on.</p>
 </td>
 </table>
@@ -3425,25 +3425,25 @@ to ./CD_root/isolinux/isolinux.bin . This is the boot image
 file.<br>
 The prescribed mkisofs options can be used unchanged with
 <b>xorrisofs</b>:<br>
-$ xorrisofs &minus;o output.iso \<br>
-&minus;b isolinux/isolinux.bin &minus;c isolinux/boot.cat
+$ xorrisofs -o output.iso \<br>
+-b isolinux/isolinux.bin -c isolinux/boot.cat
 \<br>
-&minus;no&minus;emul&minus;boot
-&minus;boot&minus;load&minus;size 4
-&minus;boot&minus;info&minus;table \<br>
+-no-emul-boot
+-boot-load-size 4
+-boot-info-table \<br>
 ./CD_root<br>
 Put it on CD by a burn program. E.g.:<br>
-$ xorriso &minus;as cdrecord &minus;v dev=/dev/sr0
+$ xorriso -as cdrecord -v dev=/dev/sr0
 blank=as_needed output.iso</p>
 <!-- INDENTATION -->
 <p>The image from above example will boot from CD, DVD or
 BD, but not from USB stick or other
-hard&minus;disk&minus;like devices. This can be done by help
+hard-disk-like devices. This can be done by help
 of an isohybrid MBR. Syslinux provides matching template
 files as isohdp[fp]x*.bin . E.g.
 /usr/lib/syslinux/isohdpfx.bin .<br>
 If a few hundred KB of size do not matter, then option
-&minus;partition_offset can be used to create a partition
+-partition_offset can be used to create a partition
 table where partition 1 starts not at block 0. This
 facilitates later manipulations of the USB stick by tools
 for partitioning and formatting.<br>
@@ -3451,14 +3451,14 @@ The image from the following example will be prepared for
 booting via MBR and its first parttion will start at hard
 disk block 64.<br>
 It will also boot from optical media.<br>
-$ xorrisofs &minus;o output.iso \ &minus;b
-isolinux/isolinux.bin &minus;c isolinux/boot.cat \
-&minus;no&minus;emul&minus;boot
-&minus;boot&minus;load&minus;size 4
-&minus;boot&minus;info&minus;table \<br>
-&minus;isohybrid&minus;mbr /usr/lib/syslinux/isohdpfx.bin
+$ xorrisofs -o output.iso \ -b
+isolinux/isolinux.bin -c isolinux/boot.cat \
+-no-emul-boot
+-boot-load-size 4
+-boot-info-table \<br>
+-isohybrid-mbr /usr/lib/syslinux/isohdpfx.bin
 \<br>
-&minus;partition_offset 16 \<br>
+-partition_offset 16 \<br>
 ./CD_root<br>
 Become superuser and copy the image to the unpartitioned
 base device file of the USB stick. On GNU/Linux this is e.g.
@@ -3489,7 +3489,7 @@ Now copy the image onto it<br>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>If not &minus;&minus;no_rc is given as the first argument
+<p>If not --no_rc is given as the first argument
 then <b>xorrisofs</b> attempts on startup to read and
 execute lines from the following files:<br>
 /etc/default/xorriso<br>
@@ -3509,14 +3509,14 @@ $HOME/.mkisofsrc<br>
 $(dirname $0)/.mkisofsrc<br>
 On success it interprets the file content and does not try
 further files. The last address is used only if start
-argument 0 has a non&minus;trivial dirname.<br>
+argument 0 has a non-trivial dirname.<br>
 The reader currently interprets the following NAME=VALUE
 pairs:<br>
-APPI default for &minus;A<br>
-PUBL default for &minus;publisher<br>
-SYSI default for &minus;sysid<br>
-VOLI default for &minus;V<br>
-VOLS default for &minus;volset<br>
+APPI default for -A<br>
+PUBL default for -publisher<br>
+SYSI default for -sysid<br>
+VOLI default for -V<br>
+VOLS default for -volset<br>
 Any other lines will be silently ignored.</p>
 </td>
 </table>
@@ -3537,6 +3537,23 @@ Any other lines will be silently ignored.</p>
 <td width="21%"></td>
 <td width="77%">
 <p><b>xorriso(1)</b></p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>For the cdrecord emulation of xorriso</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p><b>xorrecord(1)</b></p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3654,7 +3671,7 @@ setfattr(1)</b></p>
 <td width="89%">
 <p>To report bugs, request help, or suggest enhancements for
 <b>xorriso</b>, please send electronic mail to the public
-list &lt;bug&minus;xorriso@gnu.org&gt;. If more privacy is
+list &lt;bug-xorriso@gnu.org&gt;. If more privacy is
 desired, mail to &lt;scdbackup@gmx.net&gt;.<br>
 Please describe what you expect <b>xorriso</b> to do, the
 program arguments resp. commands by which you tried to
@@ -3673,7 +3690,7 @@ proposed.</p>
 <td width="10%"></td>
 <td width="89%">
 <p>Thomas Schmitt &lt;scdbackup@gmx.net&gt;<br>
-for libburnia&minus;project.org</p>
+for libburnia-project.org</p>
 </td>
 </table>
 <a name="COPYRIGHT"></a>
@@ -3708,5 +3725,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Sep 27 15:47:42 CEST 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Oct 25 12:47:17 CEST 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

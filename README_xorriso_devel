@@ -73,14 +73,14 @@ or you may execute as superuser:
 For general concepts, options and usage examples see
     info xorriso
     info xorrisofs
+    info xorrecord
     man 1 xorriso
     man 1 xorrisofs 
+    man 1 xorrecord 
 
-You may get a first glimpse by
+You may get a first glimpse by e.g.
     info ./xorriso/xorriso.info
-    info ./xorriso/xorrisofs.info
     man ./xorriso/xorriso.1
-    man ./xorriso/xorrisofs.1
 
 The installation creates several alias links pointing to the xorriso binary:
     xorrisofs  starts xorriso with -as mkisofs emulation already enabled
