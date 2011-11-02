@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Oct 25 12:47:17 2011 -->
+<!-- CreationDate: Wed Nov  2 15:21:37 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -308,14 +308,14 @@ Separated by a comma, set the next_writeable_address to
 which the add-on session will finally be written.
 Decisive is actually the block address which the intended
 readers will have to use as superblock address on the
-intended media.<br>
+intended medium.<br>
 Both values can be inquired from optical media by help of
 burn programs and cdrecord option -msinfo. xorriso
 itself can obtain it in its cdrecord emulation. Do not let
 it load the drive, but rather do this manually or by a
 program like dd which reads a few bytes. Only then it is
 sure that the device driver knows the true readable size of
-the media.<br>
+the medium.<br>
 dd if=/dev/... count=1 &gt;/dev/null 2&gt;&amp;1<br>
 values=$(xorriso -as cdrecord dev=/dev/...
 -msinfo)<br>
@@ -1670,7 +1670,7 @@ Conformant are ASCII characters out of
 Joliet allows 16 UCS-2 characters. Like: &quot;Windows
 name&quot;<br>
 Be aware that the volume id might get used automatically as
-name of the mount point when the media is inserted into a
+name of the mount point when the medium is inserted into a
 playful computer system.</p>
 </td>
 </table>
@@ -2605,7 +2605,7 @@ the boot loader code has to be imported by option
 <td width="89%">
 <p>Character sets should not matter as long as only english
 alphanumeric characters are used for file names or as long
-as all writers and readers of the media use the same
+as all writers and readers of the medium use the same
 character set. Outside these constraints it may be necessary
 to let xorriso convert byte codes.<br>
 A conversion from input character set to the output
@@ -3195,12 +3195,12 @@ $ xorrisofs -M /dev/sr0 -C $m
 -waiti -multi -eject -<br>
 Always eject the drive tray between sessions. The old
 sessions get read via /dev/sr0. Its device driver might not
-be aware of the changed content before it loads the media
+be aware of the changed content before it loads the medium
 again. In this case the previous session would not be loaded
 and the new session would contain only the newly added
 files.<br>
 For the same reason do not let xorriso -as cdrecord
-load the media, but rather do this manually or by a program
+load the medium, but rather do this manually or by a program
 that reads from /dev/sr0.</p>
 </td>
 </table>
@@ -3272,11 +3272,12 @@ It is expected that inode numbers in the disk filesystem are
 persistent over cycles of mounting and booting. Files with
 names matching *.o or *.swp get excluded explicitly.</p>
 <!-- INDENTATION -->
-<p>To be used several times on the same media, whenever an
-update of the two disk trees to the media is desired. Begin
-with blank media and start a new blank media when the run
-fails due to lack of remaining space on the old one.<br>
-Do not let xorriso -as cdrecord load the media, but
+<p>To be used several times on the same medium, whenever an
+update of the two disk trees to the medium is desired. Begin
+with a blank medium and update it until he run fails
+gracefully due to lack of remaining space on the old
+one.<br>
+Do not let xorriso -as cdrecord load the medium, but
 rather do this manually or by a program that reads from
 /dev/sr0.<br>
 $ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1<br>
@@ -3305,9 +3306,11 @@ much smaller than the full backup.</p>
 -old-root</b>. Have at least two media which you
 use alternatingly. So only older backups get endangered by
 the new write operation, while the newest backup is stored
-safely on a different media. Always have a blank media ready
-to perform a full backup in case the update attempt fails
-due to insufficient remaining capacity.</p>
+safely on a different medium.<br>
+Always have a blank medium ready to perform a full backup in
+case the update attempt fails due to insufficient remaining
+capacity. This failure will not spoil the old medium, of
+course.</p>
 <!-- INDENTATION -->
 <p>If inode numbers on disk are not persistent, then use
 option --old-root-no-ino . In
@@ -3379,7 +3382,7 @@ blank=as_needed \<br>
 <p>With the second session, option -old-root
 refers to /session1 and the new -root is
 /session2.<br>
-Do not let xorriso -as cdrecord load the media, but
+Do not let xorriso -as cdrecord load the medium, but
 rather do this manually or by a program that reads from
 /dev/sr0.<br>
 $ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1<br>
@@ -3725,5 +3728,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Oct 25 12:47:17 CEST 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Wed Nov  2 15:21:37 CET 2011 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Oct 25 12:47:16 2011 -->
+<!-- CreationDate: Wed Nov  2 15:21:37 2011 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -182,9 +182,9 @@ each session. The mount programs recognize block devices
 which represent CD media and will by default mount the image
 in the last session.<br>
 This session usually contains an updated directory tree for
-the whole media which governs the data contents in all
+the whole medium which governs the data contents in all
 recorded sessions. So in the view of the mount program all
-sessions of a particular media together form a single
+sessions of a particular medium together form a single
 filesystem image.<br>
 Adding a session to an existing ISO image is in this text
 referred as <b>growing</b>.<br>
@@ -202,7 +202,7 @@ Creating, Growing, Modifying, Blind Growing below.</p>
 <p><b>xorriso</b> adopts the concept of multi-session
 by loading an image directory tree if present, by allowing
 to manipulate it by several actions, and by writing the new
-image to the target media.<br>
+image to the target medium.<br>
 The first session of a <b>xorriso</b> run begins by the
 definition of the input drive with the ISO image or by the
 definition of an output drive. The session ends by command
@@ -319,7 +319,7 @@ an output drive is defined. This is achieved by option
 -dev on blank media or by option -outdev on
 media in any state.<br>
 The new empty image can be populated with directories and
-files. Before it can be written, the media in the output
+files. Before it can be written, the medium in the output
 drive must get into blank state if it was not blank
 already.</p>
 <!-- INDENTATION -->
@@ -330,12 +330,12 @@ determines which write method will be used. They have quite
 different capabilities and constraints.</p>
 <!-- INDENTATION -->
 <p>The method of <b>growing</b> adds new data to the
-existing media. These data comprise of new file content and
-they override the existing ISO 9660 + Rock Ridge directory
-tree. It is possible to hide files from previous sessions
-but they still exist on media and with many types of optical
-media it is quite easy to recover them by mounting older
-sessions.<br>
+existing data on the medium. These data comprise of new file
+content and they override the existing ISO 9660 + Rock Ridge
+directory tree. It is possible to hide files from previous
+sessions but they still exist on the medium and with many
+types of optical media it is quite easy to recover them by
+mounting older sessions.<br>
 Growing is achieved by option -dev.</p>
 <!-- INDENTATION -->
 <p>The write method of <b>modifying</b> produces compact
@@ -348,7 +348,7 @@ devices, sockets. On the other hand modified sessions cannot
 be written to appendable media but to blank media only.<br>
 So for this method one needs either two optical drives or
 has to work with filesystem objects as source and/or target
-media.<br>
+medium.<br>
 Modifying takes place if input drive and output drive are
 not the same and if option -grow_blindly is set to its
 default &quot;off&quot;. This is achieved by options
@@ -1315,8 +1315,8 @@ Some operating systems are not able to mount the most recent
 session of multi-session DVD or BD. If on such a
 system <b>xorriso</b> has no own MMC capabilities then it
 may still find that session from a scanned table of content.
-Setting &quot;force&quot; handles any media like a ROM media
-with setting &quot;on&quot;.<br>
+Setting &quot;force&quot; handles any media like a ROM
+medium with setting &quot;on&quot;.<br>
 On the other hand the emulation of session history on
 overwriteable media can hamper reading of partly damaged
 media. Setting &quot;off:emul_off&quot; disables the
@@ -1324,7 +1324,7 @@ elsewise trustworthy table-of-content scan for
 those media.<br>
 To be in effect, the -rom_toc_scan setting has to be
 made before the -*dev command which aquires drive and
-media.</p>
+medium.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1736,7 +1736,7 @@ iso_rr_path</p></td>
 <td width="77%">
 <p>Map a byte interval of a regular disk file into a regular
 file in the ISO image. This may be necessary if the disk
-file is larger than a single media, or if it exceeds the
+file is larger than a single medium, or if it exceeds the
 traditional limit of 2 GiB - 1 for old operating
 systems, or the limit of 4 GiB - 1 for newer ones.
 Only the newest Linux kernels seem to read properly files
@@ -2272,10 +2272,10 @@ Default is &quot;on&quot;.</p>
 <td width="77%">
 <p>Delete the given files from the ISO image.<br>
 Note: This does not free any space on the -indev
-media, even if the deletion is committed to that same
-media.<br>
+medium, even if the deletion is committed to that same
+medium.<br>
 The image size will shrink if the image is written to a
-different media in modification mode.</p>
+different medium in modification mode.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3253,7 +3253,7 @@ To suppress a final write, execute -rollback_end.</p>
 <!-- INDENTATION -->
 <p>Writing can last quite a while. It is not unnormal with
 several types of media that there is no progress visible for
-the first few minutes or that the drive gnaws on the media
+the first few minutes or that the drive gnaws on the medium
 for a few minutes after all data have been transmitted.
 <b>xorriso</b> and the drives are in a client-server
 relationship. The drives have much freedom about what to do
@@ -3280,7 +3280,7 @@ listed below under SEE ALSO.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Eject the media in -indev, resp. -outdev,
+<p>Eject the medium in -indev, resp. -outdev,
 resp. both drives. Note: It is not possible yet to
 effectively eject disk files.</p>
 </td>
@@ -3397,7 +3397,7 @@ Management.<br>
 The formatting action has no effect on media if -dummy
 is activated.<br>
 Formatting is normally needed only once during the lifetime
-of a media, if ever. But it is a reason for
+of a medium, if ever. But it is a reason for
 re-formatting if:<br>
 DVD-RW was deformatted by -blank,<br>
 DVD+RW has read failures (re-format before next
@@ -3431,10 +3431,10 @@ frozen progress.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Put out a list of format descriptors as reported by the
-output drive for the current media. The list gives the index
-number after &quot;Format idx&quot;, a MMC format code, the
-announced size in blocks (like &quot;2236704s&quot;) and the
-same size in MiB.<br>
+output drive for the current medium. The list gives the
+index number after &quot;Format idx&quot;, a MMC format
+code, the announced size in blocks (like
+&quot;2236704s&quot;) and the same size in MiB.<br>
 MMC format codes are manifold. Most important are:
 &quot;00h&quot; general formatting, &quot;01h&quot;
 increases reserve space for DVD-RAM, &quot;26h&quot;
@@ -3460,11 +3460,11 @@ BD-R means more reserve space.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Put out a list of speed values as reported by the output
-drive with the loaded media. This does not necessarily mean
-that the media is writable or that these speeds are actually
-achievable. Especially the lists reported with empty drive
-or with ROM media obviously advertise speeds for other
-media.<br>
+drive with the loaded medium. This does not necessarily mean
+that the medium is writable or that these speeds are
+actually achievable. Especially the lists reported with
+empty drive or with ROM media obviously advertise speeds for
+other media.<br>
 It is not mandatory to use speed values out of the listed
 range. The drive is supposed to choose a safe speed that is
 as near to the desired speed as possible.<br>
@@ -3491,14 +3491,14 @@ override the list of other speed offers.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Try to close the upcomming track and session if the drive
-reported the media as damaged. This may apply to CD-R,
-CD-RW, DVD-R, DVD-RW, DVD+R, DVD+R DL, or
-BD-R media. It is indicated by warning messages when
-the drive gets aquired, and by a remark &quot;but next track
-is damaged&quot; with the line &quot;Media status :&quot; of
-command -toc.<br>
+reported the medium as damaged. This may apply to
+CD-R, CD-RW, DVD-R, DVD-RW, DVD+R,
+DVD+R DL, or BD-R media. It is indicated by warning
+messages when the drive gets aquired, and by a remark
+&quot;but next track is damaged&quot; with the line
+&quot;Media status :&quot; of command -toc.<br>
 The setting of option -close determines whether the
-media stays appendable.<br>
+medium stays appendable.<br>
 Mode &quot;as_needed&quot; gracefully refuses on media which
 are not reported as damaged. Mode &quot;force&quot; attempts
 the close operation even with media which appear
@@ -3695,7 +3695,7 @@ ECMA 119 demands ASCII characters out of
 Joliet allows 16 UCS-2 characters. Like: &quot;Windows
 name&quot;<br>
 Be aware that the volume id might get used automatically as
-name of the mount point when the media is inserted into a
+name of the mount point when the medium is inserted into a
 playful computer system.<br>
 If an ISO image gets loaded while the volume ID is set to
 default &quot;ISOIMAGE&quot; or to &quot;&quot;, then the
@@ -4036,8 +4036,8 @@ Example speeds:<br>
 &nbsp;&nbsp;706k = 706kB/s = 4c = 4xCD<br>
 &nbsp;&nbsp;5540k = 5540kB/s = 4d = 4xDVD<br>
 If there is no hint about the speed unit attached, then the
-media in the -outdev will decide. Default unit is CD =
-176.4k.<br>
+medium in the -outdev will decide. Default unit is CD
+= 176.4k.<br>
 MMC drives usually activate their own idea of speed and take
 the speed value given by the burn program only as upper
 limit for their own decision.</p>
@@ -4061,7 +4061,7 @@ limit for their own decision.</p>
 <p>Setting &quot;on&quot; tries to circumvent the management
 of defects on DVD-RAM, BD-RE, or BD-R.
 Defect management keeps partly damaged media usable. But it
-reduces write speed to half nominal speed even if the media
+reduces write speed to half nominal speed even if the medium
 is in perfect shape. For the case of flawless media, one may
 use -stream_recording &quot;on&quot; to get full
 speed.<br>
@@ -4176,7 +4176,7 @@ means unit is kiB (= 1024) or MiB (= 1024 kiB).</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>If &quot;on&quot; then mark the written media as not
+<p>If &quot;on&quot; then mark the written medium as not
 appendable any more (if possible at all with the given type
 of target media).<br>
 This is the contrary of cdrecord, wodim, cdrskin option
@@ -4350,11 +4350,11 @@ which is to be started by the hardware boot facility (e.g.
 the BIOS) at boot time.<b><br>
 efi_path=</b> depicts a boot image file that is ready for
 EFI booting. Its load_size is determined automatically, no
-boot info table gets written, no boot media gets emulated,
+boot info table gets written, no boot medium gets emulated,
 platform_id is 0xef.<b><br>
 emul_type=</b> can be one of &quot;no_emulation&quot;,
 &quot;hard_disk&quot;, &quot;diskette&quot;. It controls the
-boot media emulation code of a boot image. The default
+boot medium emulation code of a boot image. The default
 &quot;no_emulation&quot; is suitable for ISOLINUX, GRUB,
 FreeBSD cdboot.<b><br>
 load_size=</b> is a value which depends on the boot image.
@@ -5181,8 +5181,8 @@ addresses of such links if they begin by
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Show media specific table of content. This is the media
-session history, not the ISO image directory tree.<br>
+<p>Show media specific table of content. This is the session
+history of the medium, not the ISO image directory tree.<br>
 In case of overwriteable media holding a valid ISO image, it
 may happen that only a single session gets shown. But if the
 first session on the overwriteable media was written by
@@ -5250,7 +5250,7 @@ give up the affected drive with command -mount. On
 GNU/Linux it adds mount option &quot;loop&quot; which may
 allow to mount several sessions of the same block device at
 the same time. One should not write to a mounted optical
-media, of course. Take care to umount all sessions before
+medium, of course. Take care to umount all sessions before
 ejecting.</p>
 </td>
 </table>
@@ -5325,9 +5325,9 @@ as part of the image size.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Print available space on output media and the free space
-after subtracting already foreseeable consumption by next
--commit.</p>
+<p>Print available space on the output medium and the free
+space after subtracting already foreseeable consumption by
+next -commit.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5966,10 +5966,10 @@ extra data on the media. If a drive returns data then one
 can quite trust that they are valid. But at some degree of
 read problems the correction will fail and the drive is
 supposed to indicate error.<b><br>
-xorriso</b> can scan the media for readable data blocks,
+xorriso</b> can scan a medium for readable data blocks,
 classify them according to their read speed, save them to a
 file, and keep track of successfuly saved blocks for further
-tries on the same media.<br>
+tries on the same medium.<br>
 By option -md5 checksums may get recorded with data
 files and whole sessions. These checksums are reachable only
 via indev and a loaded image. They work independently of the
@@ -6063,8 +6063,8 @@ image tree from media.<b><br>
 use=&quot;sector_map&quot;</b> does not read any media but
 loads the file given by option sector_map= and processes
 this virtual outcome.<b><br>
-what=&quot;disc&quot;</b> scans the payload range of a media
-without respecting track gaps.<b><br>
+what=&quot;disc&quot;</b> scans the payload range of a
+medium without respecting track gaps.<b><br>
 what=&quot;image&quot;</b> similar to &quot;disc&quot;, but
 restricts scanning to the range of the ISO 9660 image, if
 present.<b><br>
@@ -6104,7 +6104,7 @@ sector_map=disk_path</b> tries to read the file given by
 disk_path as sector bitmap and to store such a map file
 after the scan run. The bitmap tells which blocks have been
 read successfully in previous runs. It allows to do several
-scans on the same media, even with intermediate eject, in
+scans on the same medium, even with intermediate eject, in
 order to collect readable blocks whenever the drive is lucky
 enough to produce them. The stored file contains a human
 readable TOC of tracks and their start block addresses,
@@ -6711,7 +6711,7 @@ refuses on -audio, -scanbus, and on blanking
 modes unknown to <b>xorriso</b>.<br>
 The scope is only a single data track per session to be
 written to blank, overwriteable, or appendable media. The
-media gets closed if closing is applicable and not option
+medium gets closed if closing is applicable and not option
 -multi is present.<br>
 If an input drive was aquired, then it is given up. This is
 only allowed if no image changes are pending.<br>
@@ -6814,7 +6814,7 @@ record_name</p></td>
 checksum record. It will be appended in an scdbackup
 checksum tag to the -md5 session tag if the image
 starts at LBA 0. This is the case if it gets written as
-first session onto a sequential media, or piped into a
+first session onto a sequential medium, or piped into a
 program, named pipe or character device.<br>
 If list_path is not empty then the record will also be
 appended to the data file given by this path.<br>
@@ -7472,15 +7472,15 @@ messages</p>
 <td width="10%"></td>
 <td width="89%">
 <p>As superuser learn about available drives<br>
-Blank media and compose a new ISO image as batch run<br>
+Blank medium and compose a new ISO image as batch run<br>
 A dialog session doing about the same<br>
-Manipulate an existing ISO image on the same media<br>
-Copy modified ISO image from one media to another<br>
-Bring a prepared ISOLINUX tree onto media and make it
+Manipulate an existing ISO image on the same medium<br>
+Copy modified ISO image from one medium to another<br>
+Bring a prepared ISOLINUX tree onto medium and make it
 bootable<br>
 Change existing file name tree from ISO-8859-1 to UTF-8<br>
 Operate on storage facilities other than optical drives<br>
-Burn an existing ISO image file to media<br>
+Burn an existing ISO image file to medium<br>
 Perform multi-session runs as of cdrtools traditions<br>
 Let xorriso work underneath growisofs<br>
 Adjust thresholds for verbosity, exit value and program
@@ -7489,7 +7489,7 @@ Examples of input timestrings<br>
 Incremental backup of a few directory trees<br>
 Restore directory trees from a particular ISO session to
 disk<br>
-Try to retrieve blocks from a damaged media</p>
+Try to retrieve blocks from a damaged medium</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7530,7 +7530,7 @@ SH-S223B&rsquo;<br>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p><b>Blank media and compose a new ISO image as batch
+<p><b>Blank medium and compose a new ISO image as batch
 run</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -7539,11 +7539,12 @@ run</b></p></td>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Aquire drive /dev/sr2, make media ready for writing a new
-image, fill the image with the files from hard disk
+<p>Aquire drive /dev/sr2, make medium ready for writing a
+new image, fill the image with the files from hard disk
 directories /home/me/sounds and /home/me/pictures.<br>
 Because no -dialog &quot;on&quot; is given, the
-program will then end by writing the session to media.<br>
+program will then end by writing the session to the
+medium.<br>
 $ xorriso -outdev /dev/sr2 \<br>
 -blank as_needed \<br>
 -map /home/me/sounds /sounds \<br>
@@ -7593,8 +7594,8 @@ The drive is acquired by option -dev rather than
 content. By option -blank this content is made ready
 for being overwritten and the loaded ISO image is made
 empty.<br>
-In order to be able to eject the media, the session needs to
-be committed explicitly.<b><br>
+In order to be able to eject the medium, the session needs
+to be committed explicitly.<b><br>
 $ xorriso -dialog on -page 20 80 -disk_pattern on</b><br>
 enter option and arguments :<b><br>
 -dev /dev/sr2</b><br>
@@ -7623,7 +7624,7 @@ enter option and arguments :<b><br>
 <td width="4%"></td>
 <td width="95%">
 <p><b>Manipulate an existing ISO image on the same
-media</b></p></td>
+medium</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -7636,7 +7637,7 @@ media</b></p></td>
 /pictures/confidential to /pictures/restricted. Change
 access permissions of directory /pictures/restricted. Add
 new directory trees /sounds and /movies. Burn to the same
-media, check whether the tree can be loaded, and eject.<br>
+medium, check whether the tree can be loaded, and eject.<br>
 $ xorriso -dev /dev/sr2 \<br>
 -rm_r /sounds -- \<br>
 -mv \<br>
@@ -7657,7 +7658,7 @@ $ xorriso -dev /dev/sr2 \<br>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p><b>Copy modified ISO image from one media to
+<p><b>Copy modified ISO image from one medium to
 another</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -7683,7 +7684,7 @@ $ xorriso -indev /dev/sr2 \<br>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p><b>Bring a prepared ISOLINUX tree onto media and make it
+<p><b>Bring a prepared ISOLINUX tree onto medium and make it
 bootable</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -7695,7 +7696,7 @@ bootable</b></p></td>
 <p>The user has already created a suitable file tree on disk
 and copied the ISOLINUX files into subdirectory
 ./boot/isolinux of that tree. Now <b>xorriso</b> can burn an
-El Torito bootable media:<br>
+El Torito bootable medium:<br>
 $ xorriso -outdev /dev/sr0 -blank as_needed
 \<br>
 -map /home/me/ISOLINUX_prepared_tree / \<br>
@@ -7777,7 +7778,7 @@ $ xorriso -outdev - \<br>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p><b>Burn an existing ISO image file to media</b></p></td>
+<p><b>Burn an existing ISO image file to medium</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -7822,13 +7823,13 @@ xorriso -as cdrecord -v dev=/dev/sr0
 -waiti -multi -eject -<br>
 Always eject the drive tray between sessions. The old
 sessions get read via /dev/sr0. Its device driver might not
-be aware of the changed content before it loads the media
+be aware of the changed content before it loads the medium
 again. In this case the previous session would not be loaded
 and the new session would contain only the newly added
 files.<br>
 For the same reason do not let <b>xorriso</b> -as
-cdrecord load the media, but rather do this manually or by a
-program that reads from /dev/sr0.<br>
+cdrecord load the medium, but rather do this manually or by
+a program that reads from /dev/sr0.<br>
 This example works for multi-session media only. Add
 cdrskin option --grow_overwriteable_iso to all
 -as cdrecord runs in order to enable
@@ -7970,10 +7971,11 @@ $ xorriso \<br>
 \<br>
 -commit -toc -check_md5 FAILURE
 -- -eject all<br>
-To be used several times on the same media, whenever an
-update of the two disk trees to the media is desired. Begin
-with blank media and start a new blank media when the run
-fails due to lack of remaining space on the old one.<br>
+To be used several times on the same medium, whenever an
+update of the two disk trees to the medium is desired. Begin
+with a blank medium and update it until he run fails
+gracefully due to lack of remaining space on the old
+one.<br>
 This makes sense if the full backup leaves substantial
 remaining capacity on media and if the expected changes are
 much smaller than the full backup. To apply zisofs
@@ -8026,17 +8028,19 @@ The cloned tree will have a name like
 <p>Sessions on multi-session media are separated by
 several MB of unused blocks. So with small sessions the
 payload capacity can become substantially lower than the
-overall media capacity. If the remaining space on media does
-not suffice for the next gap, the drive is supposed to close
-the media automatically.</p>
+overall media capacity. If the remaining space on a medium
+does not suffice for the next gap, the drive is supposed to
+close the medium automatically.</p>
 <!-- INDENTATION -->
 <p><b>Better do not use your youngest backup for
 -update_r</b>. Have at least two media which you use
 alternatingly. So only older backups get endangered by the
 new write operation, while the newest backup is stored
-safely on a different media. Always have a blank media ready
-to perform a full backup in case the update attempt fails
-due to insufficient remaining capacity.</p>
+safely on a different medium.<br>
+Always have a blank medium ready to perform a full backup in
+case the update attempt fails due to insufficient remaining
+capacity. This failure will not spoil the old medium, of
+course.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8054,9 +8058,9 @@ to disk</b></p></td>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>This is an alternative to mounting the media and using
+<p>This is an alternative to mounting the medium and using
 normal file operations.<br>
-First check which backup sessions are on the media:<br>
+First check which backup sessions are on the medium:<br>
 $ xorriso -outdev /dev/sr0 -toc<br>
 Then load the desired session and copy the file trees to
 disk. Enable restoring of ACL, xattr and hard links. Avoid
@@ -8084,7 +8088,7 @@ message about the altered image being discarded.</p>
 <td width="4%"></td>
 <td width="95%">
 <p><b>Try to retrieve blocks from a damaged
-media</b></p></td>
+medium</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -8408,5 +8412,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Oct 25 12:47:16 CEST 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Nov  2 15:21:37 CET 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
