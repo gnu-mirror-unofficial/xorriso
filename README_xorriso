@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-http://www.gnu.org/software/xorriso/xorriso-1.1.6.tar.gz
+http://www.gnu.org/software/xorriso/xorriso-1.1.8.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -46,10 +46,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.1.6.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.1.8.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.1.6.tar.gz
-    cd xorriso-1.1.6
+    tar xzf xorriso-1.1.8.tar.gz
+    cd xorriso-1.1.8
 
 Within that directory execute:
 
@@ -73,14 +73,14 @@ or you may execute as superuser:
 For general concepts, options and usage examples see
     info xorriso
     info xorrisofs
+    info xorrecord
     man 1 xorriso
     man 1 xorrisofs 
+    man 1 xorrecord 
 
-You may get a first glimpse by
+You may get a first glimpse by e.g.
     info ./xorriso/xorriso.info
-    info ./xorriso/xorrisofs.info
     man ./xorriso/xorriso.1
-    man ./xorriso/xorrisofs.1
 
 The installation creates several alias links pointing to the xorriso binary:
     xorrisofs  starts xorriso with -as mkisofs emulation already enabled
@@ -316,8 +316,8 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-1.1.6 :
-- libburn.so.4  , version libburn-1.1.6 or higher
+Dynamic library and compile time header requirements for libisoburn-1.1.8 :
+- libburn.so.4  , version libburn-1.1.8 or higher
 - libisofs.so.6 , version libisofs-1.1.6 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation

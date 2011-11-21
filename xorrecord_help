@@ -1,4 +1,4 @@
-GNU xorriso 1.1.6 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.1.8 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as cdrecord [options|source_addresses]
 Note: This is not cdrecord. See xorriso -help, xorriso -version, man xorriso
@@ -7,8 +7,9 @@ Options:
 	--devices	print list of available MMC drives and exit emulation
 	dev=target	pseudo-SCSI target to use as CD-Recorder
 	-v		increment verbose level by one
+	-V		increment SCSI command transport verbose level by one
 	-checkdrive	check if a driver for the drive is present
-	-inq		do an inquiry for the drive and exit emulation
+	-inq		do an inquiry for the drive
 	speed=#		set speed of drive
 	blank=type	blank a CD-RW disc (see blank=help)
 	fs=#		Set fifo size to # (0 to disable, default is 4 MB)

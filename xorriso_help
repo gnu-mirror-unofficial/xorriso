@@ -67,9 +67,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -early_stdio_test "on"|"appendable_wo"|"off"
                  Classify stdio drives by effective access permissions.
   -blank "fast"|"all"|"deformat"|"deformat_quickest"
-                 Blank media resp. invalidate ISO image on media.
+                 Blank medium resp. invalidate ISO image on medium.
   -close_damaged "as_needed"|"force"
-                 Close track and session of damaged media.
+                 Close track and session of damaged medium.
   -format "as_needed"|"full"|"fast"|"by_index_#"|"by_size_#"
                  Format BD-RE, BD-R, DVD-RAM, DVD-RW, DVD+RW.
   -volid volume_id
@@ -151,7 +151,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -print_size    Print the foreseeable consumption by next -commit.
 
   -tell_media_space
-                 Print foreseeable available space on output media
+                 Print foreseeable available space on output medium
   -pvd_info      Print various id strings of the loaded ISO image.
 Options with variable length path list [...] need the list delimiter text
 as end mark if they are followed by another option. By default this delimiter
@@ -335,11 +335,11 @@ Write-to-media options:
                  Like -commit but rather eject than load image from outdrive.
                  Give up any unejected drive afterwards.
   -close "on"|"off"
-                 If "on" then mark the written media as not appendable.
+                 If "on" then mark the written medium as not appendable.
   -padding number["k"|"m"]|"included"|"appended"
                  Append extra bytes to image stream. (Default is 300k)
   -dummy "on"|"off"
-                 If "on" simulate burning. Refuse if media cannot simulate.
+                 If "on" simulate burning. Refuse if medium cannot simulate.
   -speed number["k/s"|"m/s"|"[x]CD"|"[x]DVD"|"[x]BD"]
                  Set the burn speed. Default is 0 = maximum speed.
   -stream_recording "on"|"off"
@@ -352,7 +352,7 @@ Write-to-media options:
   -fs number["k"|"m"]
                  Set the size of the fifo buffer. (Default is 4m)
   -eject "in"|"out"|"all"
-                 Immediately eject the media in -indev, resp. -outdev,
+                 Immediately eject the medium in -indev, resp. -outdev,
                  resp. both.
 
 Navigation options:
@@ -459,7 +459,7 @@ Restore options which copy file objects from ISO image to disk filesystem:
 
 Evaluation of readability:
   -check_media [options] --
-                 Try to read data blocks from media and report about the
+                 Try to read data blocks from the medium and report about the
                  outcome. Several options modify the behavior:
                   use=indev|outdev , what=track|session ,
                   min_lba=blockadr , max_lba=blockadr ,
@@ -559,6 +559,8 @@ General options:
               Print a text to mark channel.
   -prompt text
               Wait for Enter key resp. for a line of input at stdin.
+  -sleep number
+              Do nothing during the given number of seconds.
   -errfile_log mode path|channel
               Log disk paths of files involved in problem events.
   -session_log path
