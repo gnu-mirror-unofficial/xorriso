@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Nov 20 19:37:45 2011 -->
+<!-- CreationDate: Fri Jan 27 14:12:23 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3640,9 +3640,13 @@ length limit.<br>
 than 240 characters.<br>
 &quot;always_gmt&quot; stores timestamps in GMT
 representation with timezone 0.<br>
-&quot;rec_mtime&quot; records with ISO files the disk
-file&rsquo;s mtime and not the creation time of the
-image.<br>
+&quot;rec_mtime&quot; records with non-RockRidge
+directory entries the disk file&rsquo;s mtime and not the
+creation time of the image. This applies to the
+ECMA-119 tree (plain ISO 9660), to Joliet, and to ISO
+9660:1999. &quot;rec_time&quot; is default. If disabled, it
+gets automatically re-enabled by -as mkisofs
+emulation when a pathspec is encountered.<br>
 &quot;new_rr&quot; uses Rock Ridge version 1.12 (suitable
 for GNU/Linux but not for older FreeBSD or for Solaris).
 This implies &quot;aaip_susp_1_10_off&quot; which may be
@@ -8386,7 +8390,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2007 - 2011 Thomas Schmitt<br>
+<p>Copyright (c) 2007 - 2012 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -8412,5 +8416,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Nov 20 19:37:45 CET 2011 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jan 27 14:12:23 CET 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

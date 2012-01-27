@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Nov 21 09:29:26 2011 -->
+<!-- CreationDate: Fri Jan 27 14:12:24 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -231,7 +231,9 @@ The libburn address of this drive is &rsquo;/dev/sr0&rsquo;.
 &rsquo;TSSTcorp&rsquo; is the name of the vendor (in this
 case: Toshiba Samsung Storage Technologies Corporation),
 &rsquo;CDDVDW SH-S203B&rsquo; is the model name (in
-this case: a DVD burner).</p>
+this case: a DVD burner).<br>
+Afterwards end emulation without performing any further
+drive operation.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -255,7 +257,11 @@ E.g. on Solaris: dev=/dev/rdsk/c2t2d0s2<br>
 See also above &quot;Drive preparation and
 addressing&quot;.<br>
 The medium in the drive should not be mounted or be
-otherwise in use.</p>
+otherwise in use.<br>
+This option will only get into effect if a track source, a
+blank= option, or a drive inquiry option is given. Else it
+will lead to a SORRY event and normally cause a
+non-zero exit value.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -611,7 +617,31 @@ For re-formatting already formatted media or for
 formatting with non-default size, use program
 <b>xorriso</b> with command <b>-format</b>.<br>
 (Note: blank=format_overwrite is not an original cdrecord
-options)</p></td>
+options)</p>
+</td>
+</table>
+<!-- TABS -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="3" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="5%">
+
+<p>help</p>
+</td>
+<td width="71%">
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="32%"></td>
+<td width="67%">
+<p>Print a short overview of blank modes to standard error
+output.<br>
+Afterwards end emulation without performing any drive
+operation.</p></td>
 </table>
 <!-- TABS -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -927,7 +957,9 @@ their own decision.</p>
 and further lines which report the version of xorriso and
 its supporting libraries. They also state the license under
 which the program is provided, and disclaim any warranty, to
-the extent permitted by law.</p>
+the extent permitted by law.<br>
+Afterwards end emulation without performing any drive
+operation.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -991,6 +1023,16 @@ bug report.</p>
 
 <p>Print a sparse list of program options to standard error
 and declare not to be cdrecord.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Afterwards end emulation without performing any drive
+operation.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1539,7 +1581,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2011 Thomas Schmitt<br>
+<p>Copyright (c) 2011 - 2012 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -1565,5 +1607,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Mon Nov 21 09:29:26 CET 2011 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Fri Jan 27 14:12:24 CET 2012 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>

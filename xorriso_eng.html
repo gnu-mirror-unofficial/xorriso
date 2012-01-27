@@ -170,8 +170,11 @@ Provides navigation commands for interactive ISO image manipulation.
 <DD><KBD>...</KBD></DD>
 <DT>Being superuser avoids permission problems with /dev/srN resp. /dev/hdX .
 </DT>
-<DT>Ordinary users should then get granted rw access to the /dev files
-as listed by option -devices.</DT>
+<DT>
+Ordinary users should then get granted access to the /dev files
+as listed by option --devices. GNU/Linux and FreeBSD demand rw-permission.
+On Solaris it is r-permission and privileges "basic,sys_devices".
+</DT>
 <DT>&nbsp;</DT>
 
 <DT>Options are either performed as program arguments or as dialog input.
@@ -446,21 +449,21 @@ This can bring effective read performance near to the raw media reading speed.
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.1.8.tar.gz">xorriso-1.1.8.tar.gz</A>
-(2020 KB).
+<DD><A HREF="xorriso-1.2.0.tar.gz">xorriso-1.2.0.tar.gz</A>
+(2050 KB).
 </DD>
-<DD>(Released 21 Nov 2011)</DD>
-<DD><A HREF="xorriso-1.1.8.tar.gz.sig">xorriso-1.1.8.tar.gz.sig</A></DD>
+<DD>(Released 28 Jan 2012)</DD>
+<DD><A HREF="xorriso-1.2.0.tar.gz.sig">xorriso-1.2.0.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.1.8.tar.gz.sig xorriso-1.1.8.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.2.0.tar.gz.sig xorriso-1.2.0.tar.gz</KBD>
 <BR>
 after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.1.8.tar.gz
+as xorriso/xorriso-1.2.0.tar.gz
 </DD>
 </DL>
 </DD>
@@ -497,9 +500,11 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards xorriso-1.1.6:
+Bug fixes towards xorriso-1.1.8:
 <UL>
-<LI>- none -</LI>
+<LI>mkisofs emulation did not record mtime in ECMA-119 directories</LI>
+<LI>Program abort while drive tray is loading led to endless loop</LI>
+<LI>Solaris adapter mishandled write commands which failed on first try</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -518,13 +523,9 @@ Bug fixes in xorriso-1.1.0.pl01 towards xorriso-1.1.0:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-1.1.6:
+Enhancements towards previous stable version xorriso-1.1.8:
 <UL>
-<LI>New option -sleep</LI>
-<LI>Info document and man page for xorrecord</LI>
-<LI>Enabled recognition of QEMU DVD-ROM 0.12</LI>
-<LI>Enabled out-of the box use of xorriso on Linux guest on qemu virtio-blk-pci
-</LI>
+<LI>Made -compliance "rec_mtime" default</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -547,16 +548,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-1.1.8</DT>
+<DT>libburn-1.2.0</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.1.7</DT>
+<DT>libisofs-1.2.0</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org)</DD>
-<DT>libisoburn-1.1.8</DT>
+<DT>libisoburn-1.2.0</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -577,16 +578,16 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.1.9 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.1.8:
+<DT><H3>Development snapshot, version 1.2.1 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.2.0:
 <UL>
-<LI>Solaris adapter mishandled write commands which failed on first try</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.1.8:
+<DD>Enhancements towards stable version 1.2.0:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
@@ -598,13 +599,13 @@ cdrecord and mkisofs.</DT>
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.1.9</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.1.9 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.1.9 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.1.9 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.1.9)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.1.9)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.1.9)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.2.1</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.2.1 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.2.1 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.2.1 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.2.1)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.2.1)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.2.1)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -614,8 +615,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.1.9.tar.gz">xorriso-1.1.9.tar.gz</A>
-(2020 KB).
+<A HREF="xorriso-1.2.1.tar.gz">xorriso-1.2.1.tar.gz</A>
+(2050 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of
@@ -715,7 +716,7 @@ scdbackup, multi volume CD/DVD/BD backup</A></DD>
 <BR>
 Legal statement: This website does not serve any commercial purpose.
 <BR><BR>
-Copyright &copy; 2008 - 2011 Thomas Schmitt.
+Copyright &copy; 2008 - 2012 Thomas Schmitt.
 <BR>
 This text is freely distributable. It shall only be modified in sync with
 the factual properties of xorriso and its public storage locations.
