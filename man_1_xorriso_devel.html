@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Jan 27 17:02:40 2012 -->
+<!-- CreationDate: Thu Feb  2 09:28:24 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -572,7 +572,8 @@ are known as extattr.</p>
 <td width="89%">
 <p>Commands are either actions which happen immediately or
 settings which influence following actions. So their
-sequence does matter.<br>
+sequence does matter, unless they are given as program
+arguments and option <b>-x</b> is among them.<br>
 Commands consist of a command word, followed by zero or more
 parameter words. If the list of parameter words is of
 variable length (indicated by &quot;[...]&quot; or
@@ -716,6 +717,85 @@ emulated options are mandatory.<br>
 Normally any number of leading dashes is ignored with
 command words and inner dashes are interpreted as
 underscores.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>Execution order of program arguments:</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>By default the program arguments of a xorriso run are
+interpreted as a sequence of commands which get performed
+exactly in the given order. This requires the user to write
+commands for desired settings before the commands which
+shall be influenced by those settings.<br>
+Many other programs allow to hand over options as program
+arguments in an arbitrary sequence and perform settings and
+actions in a sequence of their own discretion. xorriso
+provides an option to enable such a behavior at the cost of
+losing freedom of expression.</p>
+</td>
+</table>
+<!-- TABS -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="4" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="2%">
+
+<p><b>-x</b></p>
+</td>
+<td width="7%"></td>
+<td width="77%">
+
+<p>Enable automatic sorting of program arguments to a
+sequence that most likely makes some sense. This command may
+be given at any position among the commands which are handed
+over as program arguments.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>It works only if it is given as program argument, and
+with a single dash. I.e. not in startup files, not with
+-options_from_file, not in dialog mode, not as
+&quot;x&quot; and not as &quot;--x&quot;. It
+affects only the commands given as program arguments.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-list_arg_sorting</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>List all xorriso commands in the order which applies if
+option -x is in effect.<br>
+This list may also be helpful without -x, for a user
+who ponders over the sequence in which to put commands.
+Deviations from the sorting order may well make sense,
+though.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8416,5 +8496,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jan 27 17:02:40 CET 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Feb  2 09:28:24 CET 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
