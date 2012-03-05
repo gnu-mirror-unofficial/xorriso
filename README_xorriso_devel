@@ -387,7 +387,7 @@ Run xorriso by
 The following settings will make pfexec keep original UID and EUID and prevent
 most superuser powers. Be aware that you still can manipulate all device files
 if you have the file permissions for that.
-Full root privileges for xorriso can then be aquired only by command su.
+Full root privileges for xorriso can then be acquired only by command su.
 
 Edit /etc/security/exec_attr and add this line to the other "Media Backup"
 lines:

@@ -4,14 +4,18 @@ usage: xorriso [settings|actions]
 This program creates, loads, manipulates and writes ISO 9660 filesystem
 images with Rock Ridge extensions. Write targets can be drives with optical
 media or local filesystem objects.
+The program operations are controlled by a sequence of commands, of which
+the initial ones are given as program arguments or as lines in startup
+files. Further commands may get read from files in batch mode or from
+standard input in dialog mode.
 
   -x             Only in effect if given as program argument:
                  Execute commands given as program arguments in a sequence
                  that most likely makes some sense. Default is to execute
                  program arguments exactly in the sequence as given.
 
-Preparation options:
-Drive addresses are either /dev/... as listed with option -devices or
+Preparation commands:
+Drive addresses are either /dev/... as listed with command -devices or
 disk files, eventually with prefix "stdio:" if non-CD-drive in /dev tree.
 E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -dev address   Set input and output drive and load eventual ISO image.
@@ -158,23 +162,23 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -tell_media_space
                  Print foreseeable available space on output medium
   -pvd_info      Print various id strings of the loaded ISO image.
-Options with variable length path list [...] need the list delimiter text
-as end mark if they are followed by another option. By default this delimiter
-is "--". In dialog and with options read from files, the line end serves
-as such a mark. With program arguments this mark can be omitted only with
-the last option in the list of arguments.
+Commands with variable length path list [...] need the list delimiter text
+as end mark if they are followed by another command. By default this
+delimiter is "--". In dialog and with commands read from files, the line
+end serves as such a mark. With program arguments this mark can be omitted
+only with the last command in the list of program arguments.
 For brevity the list delimiter is referred as "--" throughout this text.
 
   -list_delimiter text   Set the list delimiter to be used instead of "--"
                  It has to be a single word, must not be empty, not longer
                  than 80 characters, may mot contain quotation marks.
 
-Manipulation options:
+Manipulation commands:
 disk_path is a path to an object in the local filesystem tree.
 iso_rr_path is the Rock Ridge name of a file object in the ISO image.
 pathspec is either a disk_path or (if allowed) a pair: iso_rr_path=disk_path
-Options marked by [***] have variable argument length and perform pattern
-expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
+Commands marked by [***] have variable length parameter lists and perform
+pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
 
   -pathspecs "on"|"off"  Allow or disallow pathspecs of form 
                  iso_rr_path=disk_path . Only "off" allows eventual
@@ -215,8 +219,7 @@ expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
   -rm_r iso_rr_path [***]
                  Delete the given directory trees from ISO image.
   -mv iso_rr_path [***] iso_rr_path
-                 Rename the given file objects in the ISO tree to the last
-                 argument in the list.
+                 Rename the given file objects in the ISO tree to iso_rr_path.
   -chown uid iso_rr_path [***]
                  Equivalent to chown in the ISO image.
   -chown_r uid iso_rr_path [***]
@@ -271,7 +274,7 @@ expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                    getfacl, setfacl, getfattr, setfattr, get_any_xattr,
                    list_extattr, get_md5, check_md5, make_md5,
                    set_filter, show_stream, mkisofs_r, hide, find.
-                 params are their arguments except iso_rr_path.
+                 params are their parameters except iso_rr_path.
   -mkdir iso_rr_path [...]
                  Create empty directories if they do not exist yet.
   -rmdir iso_rr_path [***]
@@ -281,8 +284,8 @@ expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
   -cp_clone iso_rr_path_original [***] iso_rr_path_dest
                  Create ISO to ISO copies according to the rules of cp -r.
 
-  --             Default list delimiter marking the end of action argument
-                 list. It may be changed by option -list_delimiter.
+  --             Default list delimiter marking the end of command parameter
+                 lists. It may be changed by command -list_delimiter.
 
   -not_paths disk_path [***]
                  Add the given paths to the list of excluded absolute paths.
@@ -305,7 +308,7 @@ expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                  If "on" then ask the user for "y" or "n" with any
                  file before deleting or overwriting it in the ISO image.
 
-Filter options:
+Filter commands:
 External filter processes may produce synthetic file content by reading the
 original content from stdin and writing to stdout whatever they want.
   -external_filter name option[:option] program_path [arguments] --
@@ -330,12 +333,16 @@ compressed content is detected with a file in the ISO image.
                  Set global zisofs parameters:
                    level=0|...|9 , block_size=32k|64k|128k , by_magic=on|off
 
-Write-to-media options:
+Write-to-media commands:
   -rollback      Discard the manipulated ISO image and reload it.
 
-  -commit        Perform the write operation and then perform -dev outdrive.
+  -changes_pending "no"|"yes"|"mkisofs_printed"|"show_status"
+                 Override the automatically determined change status of the
+                 loaded image, or show the current status.
+  -commit        Perform the write operation if changes are pending.
+                 Then perform -dev outdrive.
                  Hint: To perform a final write operation with no new -dev
-                       and no new loading of image, execute option -end.
+                       and no new loading of image, execute command -end.
   -commit_eject  "in"|"out"|"all"|"none"
                  Like -commit but rather eject than load image from outdrive.
                  Give up any unejected drive afterwards.
@@ -360,7 +367,7 @@ Write-to-media options:
                  Immediately eject the medium in -indev, resp. -outdev,
                  resp. both.
 
-Navigation options:
+Navigation commands:
 
   -cd iso_rr_path  Change working directory in the ISO image. iso_rr_paths
                  which do not begin with '/' will be inserted beginning at
@@ -428,7 +435,7 @@ Navigation options:
   -show_stream_r iso_rr_path [***]
                  Like -show_stream but affecting all files below directories.
 
-Restore options which copy file objects from ISO image to disk filesystem:
+Restore commands which copy file objects from ISO image to disk filesystem:
   -osirrox "on"|"device_files"|"off"|"banned"
            [:"concat_split_on"|"concat_split_off"]
            [:"auto_chmod_on"|"auto_chmod_off"]
@@ -477,7 +484,7 @@ Evaluation of readability:
   -check_media_defaults [options] --
                  Preset options for runs of -check_media and -extract_cut.
 
-Compatibility emulation (argument list may be ended by list delimiter --):
+Compatibility emulation (option list may be ended by list delimiter --):
   -as mkisofs  [-help|-version|-o|-R|-r|-J|-V|-P|-f|-m|-exclude-list|
                 -no-pad|-M|-C|-graft-points|-path-list|pathspecs|-z|
                 -no-emul-boot|-b|-c|-boot-info-table|-boot-load-size|-G|...]
@@ -493,7 +500,7 @@ Compatibility emulation (argument list may be ended by list delimiter --):
   -pacifier "xorriso"|"cdrecord"|"mkisofs"
               Choose format of UPDATE pacifier during write operations.
 
-General options:
+General commands:
   -help       Print this text
   -abort_on severity   Set the threshhold for events to abort the program.
               Useful severities: NEVER, ABORT, FATAL, FAILURE, SORRY, WARNING
@@ -508,7 +515,7 @@ General options:
               Behavior "best_effort" is most endurant but may produce
               results which are correct only on the first glimpse.
   -dialog "on"|"off"|"single_line"
-              After all arguments are processed, enter dialog mode.
+              After all program arguments are processed, enter dialog mode.
               "single_line" does not support newline characters within
               open quotation marks and no line continuation by trailing \.
   -page len width  Prompt user after len output lines (0=no prompt).
@@ -535,16 +542,16 @@ General options:
   -logfile channel fileaddress  Copy output of a channel to the given file.
               channel may be 'R','I','M' as with -pkt_output or '.'
               for the consolidated -pkt_output stream.
-  -mark text  If text is not empty it will get put out each time an
-              option is completed.
+  -mark text  If text is not empty it will get put out each time a command
+              is completed.
   -temp_mem_limit number["k"|"m"]
               Set the maximum size for pattern expansion. (Default is 16m)
   -prog text  Use text as this program's name in subsequent messages
   -prog_help text  Use text as this program's name and perform -help
-  -status mode|filter  Report the current settings of persistent options.
+  -status mode|filter  Report the current settings of persistent commands.
               Modes:
-                 short... print only important or altered options
-                 long ... print options even if they have default settings
+                 short... print only important or altered settings
+                 long ... print settings even if they have default values
                  long_history  like long plus -history: lines
               Filters begin with '-' and are compared literally against the
               output lines of -status long_history. A line is put out only
@@ -552,10 +559,11 @@ General options:
   -status_history_max number  Maximum number of history lines to be reported
               with -status:long_history
   -options_from_file fileaddress
-              Reads lines from the given file and executes them as program
-              options.
-  -no_rc      Only if used as first command line argument this option
-              prevents reading and interpretation of startup files.
+              Reads lines from the given file and executes them as commands.
+  -no_rc      Only if used as first program argument, this command
+              prevents reading and interpretation of these startup files:
+               /etc/default/xorriso , /etc/opt/xorriso/rc
+               /etc/xorriso/xorriso.conf , $HOME/.xorrisorc
   -print text
               Print a text to result channel.
   -print_info text
@@ -587,12 +595,11 @@ General options:
               End program. Discard pending changes.
 
 
-Option -page causes a user prompt after the given number of result lines.
+Command -page causes a user prompt after the given number of result lines.
 Empty input resumes output until the next prompt. Other input may be:
   @     suppresses paging until the current action is done
   @@    suppresses further result output but continues the action
   @@@   aborts the current action
-  other aborts the current action and executes input as new
-        option
+  other aborts the current action and executes input as new command
 
 
