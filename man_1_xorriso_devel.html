@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Mar  5 15:54:15 2012 -->
+<!-- CreationDate: Wed Mar 14 21:50:16 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -159,10 +159,10 @@ hundred lines of background information.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Unlike other filesystems, ISO 9660 is not intended for
-read-write operation but rather for being generated in
-a single sweep and being written to media as a
-<b>session</b>.<br>
+<p>Unlike other filesystems, <b>ISO 9660</b> (aka
+<b>ECMA-119</b>) is not intended for read-write
+operation but rather for being generated in a single sweep
+and being written to media as a <b>session</b>.<br>
 The data content of the session is called filesystem
 <b>image</b>.</p>
 <!-- INDENTATION -->
@@ -1485,6 +1485,39 @@ Mode &quot;appendable_wo&quot; is like &quot;on&quot; with
 the additional property that non-empty
 write-only files are regarded as appendable rather
 than blank.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-data_cache_size</b> number_of_tiles
+blocks_per_tile</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the size and granularity of the data cache which is
+used when ISO images are loaded and when file content is
+read from ISO images. The cache consists of several tiles,
+which each consists of several blocks. A larger cache
+reduces the need for tiles being read multiple times. Larger
+tiles might additionally improve the data throughput from
+the drive, but can be wasteful if the data are scattered
+over the medium.<br>
+Larger cache sizes help best with image loading from MMC
+drives. They are an inferior alternative to -osirrox
+option &quot;sort_lba_on&quot;.<br>
+blocks_per_tile must be a power of 2. E.g. 16, 32, or 64.
+The overall cache size must not exceed 1 GiB. The default
+values can be restored by parameter &quot;default&quot;
+instead of one or both of the numbers. Currently the default
+is 32 tiles of 32 blocks = 2 MiB.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3701,10 +3734,11 @@ additional to ISO 9660 + Rock Ridge tree.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Adjust the compliance to specifications of ISO 9660 and
-its contemporary extensions. In some cases it is worth to
-deviate a bit in order to circumvent bugs of the intended
-reader system or to get unofficial extra features.<br>
+<p>Adjust the compliance to specifications of ISO
+9660/ECMA-119 and its contemporary extensions. In some
+cases it is worth to deviate a bit in order to circumvent
+bugs of the intended reader system or to get unofficial
+extra features.<br>
 There are several adjustable rules which have a keyword
 each. If they are mentioned with this command then their
 rule gets added to the relaxation list. This list can be
@@ -3714,42 +3748,47 @@ All of the following relaxation rules can be revoked
 individually by appending &quot;_off&quot;. Like
 &quot;deep_paths_off&quot;.<br>
 Rule keywords are:<br>
-&quot;iso_9660_level=&quot;number chooses level 1 with ISO
-names of the form 8.3 and -file_size_limit &lt;= 4g
-- 1, or level 2 with ISO names up to length 32 and the
-same -file_size_limit, or level 3 with ISO names up to
-length 32 and -file_size_limit &gt;= 400g -200k.
-If necessary -file_size_limit gets adjusted.<br>
-&quot;allow_dir_id_ext&quot; allows ISO names of directories
-to have a name extension as with other file types. It does
-not force dots and it omits the version number, though. This
-is a bad tradition of mkisofs which violates ECMA-119.
-Especially ISO level 1 only allows 8 characters in a
-directory name and not 8.3.<br>
+&quot;iso_9660_level=&quot;number chooses level 1 with
+ECMA-119 names of the form 8.3 and
+-file_size_limit &lt;= 4g - 1, or level 2 with
+ECMA-119 names up to length 32 and the same
+-file_size_limit, or level 3 with ECMA-119 names
+up to length 32 and -file_size_limit &gt;= 400g
+-200k. If necessary -file_size_limit gets
+adjusted.<br>
+&quot;allow_dir_id_ext&quot; allows ECMA-119 names of
+directories to have a name extension as with other file
+types. It does not force dots and it omits the version
+number, though. This is a bad tradition of mkisofs which
+violates ECMA-119. Especially ISO level 1 only allows
+8 characters in a directory name and not 8.3.<br>
 &quot;omit_version&quot; does not add versions
-(&quot;;1&quot;) to ISO and Joliet file names.<br>
+(&quot;;1&quot;) to ECMA-119 and Joliet file
+names.<br>
 &quot;only_iso_version&quot; does not add versions
 (&quot;;1&quot;) to Joliet file names.<br>
-&quot;deep_paths&quot; allows ISO file paths deeper than 8
-levels.<br>
-&quot;long_paths&quot; allows ISO file paths longer than 255
-characters.<br>
-&quot;long_names&quot; allows up to 37 characters with ISO
-file names.<br>
-&quot;no_force_dots&quot; does not add a dot to ISO file
-names which have none.<br>
+&quot;deep_paths&quot; allows ECMA-119 file paths
+deeper than 8 levels.<br>
+&quot;long_paths&quot; allows ECMA-119 file paths
+longer than 255 characters.<br>
+&quot;long_names&quot; allows up to 37 characters with
+ECMA-119 file names.<br>
+&quot;no_force_dots&quot; does not add a dot to
+ECMA-119 file names which have none.<br>
 &quot;no_j_force_dots&quot; does not add a dot to Joliet
 file names which have none.<br>
-&quot;lowercase&quot; allows lowercase characters in ISO
-file names.<br>
+&quot;lowercase&quot; allows lowercase characters in
+ECMA-119 file names.<br>
 &quot;full_ascii&quot; allows all 8-bit characters
-except 0x0 and &rsquo;/&rsquo; in ISO file names.<br>
+except 0x0 and &rsquo;/&rsquo; in ECMA-119 file
+names.<br>
 &quot;untranslated_names&quot; might be dangerous for
 inadverted reader programs which rely on the restriction to
-at most 37 characters in ISO file names. This rule allows
-ISO file names up to 96 characters with no character
-conversion. If a file name has more characters, then image
-production will fail deliberately.<br>
+at most 37 characters in ECMA-119 file names. This
+rule allows ECMA-119 file names up to 96 characters
+with no character conversion. If a file name has more
+characters, then image production will fail
+deliberately.<br>
 &quot;untranslated_name_len=&quot;number enables
 untranslated_names with a smaller limit for the length of
 file names. 0 disables this feature, -1 chooses
@@ -3793,9 +3832,45 @@ Default setting is<br>
 
 &quot;clear:only_iso_version:deep_paths:long_paths:no_j_force_dots:<br>
 always_gmt:old_rr&quot;.<br>
-Note: The term &quot;ISO file&quot; means the plain ISO 9660
-names and attributes which get visible if the reader ignores
-Rock Ridge.</p>
+Note: The term &quot;ECMA-119 name&quot; means the
+plain ISO 9660 names and attributes which get visible if the
+reader ignores Rock Ridge.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-rr_reloc_dir</b> name</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Specify the name of the relocation directory in which
+deep directory subtrees shall be placed if -compliance
+is set to &quot;deep_paths_off&quot; or
+&quot;long_paths_off&quot;. A deep directory is one that has
+a chain of 8 parent directories (including root) above
+itself, or one that contains a file with an ECMA-119
+path of more than 255 characters.<br>
+The overall directory tree will appear originally deep when
+interpreted as Rock Ridge tree. It will appear as
+re-arranged if only ECMA-119 information is
+considered.<br>
+The default relocation directory is the root directory. By
+giving a non-empty name with -rr_reloc_dir, a
+directory in the root directory may get this role. If that
+directory does not already exist at -commit time, then
+it will get created and marked for Rock Ridge as relocation
+artefact. At least on GNU/Linux it will not be displayed in
+mounted Rock Ridge images.<br>
+The name must not contain a &rsquo;/&rsquo; character and
+must not be longer than 255 bytes.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3815,7 +3890,7 @@ Rock Ridge.</p>
 <p>Specify the volume ID. <b>xorriso</b> accepts any text up
 to 32 characters, but according to rarely obeyed specs
 stricter rules apply:<br>
-ECMA 119 demands ASCII characters out of
+ECMA-119 demands ASCII characters out of
 [A-Z0-9_]. Like: &quot;IMAGE_23&quot;<br>
 Joliet allows 16 UCS-2 characters. Like: &quot;Windows
 name&quot;<br>
@@ -8537,5 +8612,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Mar  5 15:54:16 CET 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Mar 14 21:50:16 CET 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

@@ -75,6 +75,8 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Allow for writing only the usage of optical drives.
   -early_stdio_test "on"|"appendable_wo"|"off"
                  Classify stdio drives by effective access permissions.
+  -data_cache_size number_of_tiles blocks_per_tile
+                 Adjust size and granularity of the data read cache.
   -blank "fast"|"all"|"deformat"|"deformat_quickest"
                  Blank medium resp. invalidate ISO image on medium.
   -close_damaged "as_needed"|"force"
@@ -111,6 +113,10 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -compliance rule[:rule...]
                  Allow more or less harmless deviations from strict standards
                  compliance.
+  -rr_reloc_dir name
+                 Specifies name of relocation directory in root directory,
+                 to which deep subtrees will get relocated if -compliance
+                 is set to "deep_paths_off".
   -boot_image "any"|"isolinux"|"grub"
               |"discard"|"keep"|"patch"|"dir="|"bin_path="
               |"cat_path="|"cat_hidden=on|iso_rr|joliet|off"

@@ -23,6 +23,10 @@ Options:
   -l, -full-iso9660-filenames Allow full 31 character filenames for ISO9660 names
   -max-iso9660-filenames      Allow 37 character filenames for ISO9660 names (violates ISO9660)
   -N, -omit-version-number    Omit version number from ISO9660 filename (violates ISO9660)
+  -D, -disable-deep-relocation
+                              Disable deep directory relocation (violates ISO9660)
+  -hide-rr-moved              Relocate deep directories to /.rr_moved
+  -rr_reloc_dir NAME          Set deep directory relocation target in root
   -o FILE, -output FILE       Set output file name
   -m GLOBFILE, -exclude GLOBFILE
                               Exclude file name

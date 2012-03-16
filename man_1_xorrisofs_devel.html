@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Mar  5 15:54:16 2012 -->
+<!-- CreationDate: Wed Mar 14 21:50:17 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1169,8 +1169,7 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Allow up to 37 characters in ISO file names.<br>
-This violates ISO 9660 specs.</p>
+<p>Allow up to 31 characters in ISO file names.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1204,7 +1203,8 @@ This violates ISO 9660 specs.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of -l.</p>
+<p>Allow up to 37 characters in ISO file names.<br>
+This violates ISO 9660 specs.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -1338,6 +1338,110 @@ t-bit.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Alias of -r.</p>
+</td>
+</table>
+<!-- TABS -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="4" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="2%">
+
+<p><b>-D</b></p>
+</td>
+<td width="7%"></td>
+<td width="77%">
+
+<p>The standard ECMA-119 demands that no path in the
+image shall have more than 8 name components or 255
+characters. Therefore it would be necessary to move deeper
+directory trees to a higher directory. Rock Ridge offers an
+opportunity to let these relocated directories appear at
+their orginal deep position, but this feature might not be
+implemented properly by operating systems which mount the
+image.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Option -D disables this deep directory relocation,
+and thus violates ISO 9660 specs.<br>
+xorrisofs has -D set by default. If given explicitely
+then it overrides the options -rr_reloc_dir and
+-hide-rr-moved.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-disable-deep-relocation</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Alias of -D.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-rr_reloc_dir</b> name</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Enable the relocation of deep directories and thus avoid
+ECMA-119 file paths of more than 8 name components or
+255 characters. Directories which lead to such file paths
+will get moved to a directory in the root directory of the
+image. Its name gets set by this option. It is permissible
+to use the root directory itself.<br>
+The overall directory tree will appear originally deep when
+interpreted as Rock Ridge tree. It will appear as
+re-arranged if only ECMA-119 information is
+considered.<br>
+If the given relocation target directory does not already
+exist when image production begins, then it will get created
+and marked for Rock Ridge as relocation artefact. At least
+on GNU/Linux it will not be displayed in mounted Rock Ridge
+images.<br>
+The name must not contain a &rsquo;/&rsquo; character after
+its first character and it must not be longer than 255
+bytes.<br>
+This option has no effect if option -D is present.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hide-rr-moved</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Alias of -rr_reloc_dir &quot;/.rr_moved&quot;</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3728,5 +3832,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Mon Mar  5 15:54:16 CET 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Wed Mar 14 21:50:17 CET 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
