@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Jan 27 14:12:23 2012 -->
+<!-- CreationDate: Mon Apr  2 15:47:32 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -75,7 +75,7 @@ incorporates the libraries of libburnia-project.org
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>Overview of features:</b></p></td>
+<p>&nbsp;<BR><A NAME="Overview"></A><b>Overview of features:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -124,7 +124,7 @@ reporting.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>General information paragraphs:</b></p></td>
+<p>&nbsp;<BR><A NAME="General"></A><b>General information paragraphs:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -132,13 +132,13 @@ reporting.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Session model<br>
-Media types and states<br>
-Creating, Growing, Modifying, Blind Growing<br>
-Libburn drives<br>
-Rock Ridge, POSIX, X/Open, El Torito, ACL, xattr<br>
-Command processing<br>
-Dialog, Readline, Result pager</p>
+<p><A HREF="#Model">Session model</A><br>
+<A HREF="#Media">Media types and states<br>
+<A HREF="#Methods">Creating, Growing, Modifying, Blind Growing</A><br>
+<A HREF="#Drives">Libburn drives</A><br>
+<A HREF="#Extras">Rock Ridge, POSIX, X/Open, El Torito, ACL, xattr</A><br>
+<A HREF="#Processing">Command processing</A><br>
+<A HREF="#Dialog">Dialog, Readline, Result pager</A></p>
 <!-- INDENTATION -->
 <p>Maybe you first want to have a look at section <A HREF="#EXAMPLES">EXAMPLES</A>
 near the end of this text before reading the next few
@@ -151,7 +151,7 @@ hundred lines of background information.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>Session model:</b></p></td>
+<p>&nbsp;<BR><A NAME="Model"></A><b>Session model:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -159,10 +159,10 @@ hundred lines of background information.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Unlike other filesystems, ISO 9660 is not intended for
-read-write operation but rather for being generated in
-a single sweep and being written to media as a
-<b>session</b>.<br>
+<p>Unlike other filesystems, <b>ISO 9660</b> (aka
+<b>ECMA-119</b>) is not intended for read-write
+operation but rather for being generated in a single sweep
+and being written to media as a <b>session</b>.<br>
 The data content of the session is called filesystem
 <b>image</b>.</p>
 <!-- INDENTATION -->
@@ -197,7 +197,7 @@ filesystems.</p>
 <p><b>xorriso</b> provides growing as well as an own method
 named <b>modifying</b> which produces a completely new ISO
 image from the old one and the modifications. See paragraph
-Creating, Growing, Modifying, Blind Growing below.</p>
+<A HREF="#Methods">Creating, Growing, Modifying, Blind Growing</A> below.</p>
 <!-- INDENTATION -->
 <p><b>xorriso</b> adopts the concept of multi-session
 by loading an image directory tree if present, by allowing
@@ -229,7 +229,7 @@ manipulations.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>Media types and states:</b></p></td>
+<p>&nbsp;<BR><A NAME="Media"></A><b>Media types and states:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -242,12 +242,12 @@ standard:<b><br>
 Multi-session media</b> are CD-R, CD-RW,
 DVD-R, DVD+R, DVD+R/DL, BD-R, and unformatted
 DVD-RW. These media provide a table of content which
-describes their existing sessions. See option
+describes their existing sessions. See command
 <b>-toc</b>.<br>
 Similar to multi-session media are DVD-R DL and
 minimally blanked DVD-RW. They allow only a single
 session of which the size must be known in advance.
-<b>xorriso</b> will write onto them only if option
+<b>xorriso</b> will write onto them only if command
 -close is set to &quot;on&quot;.<b><br>
 Overwriteable media</b> are DVD-RAM, DVD+RW,
 BD-RE, and formatted DVD-RW. They allow random
@@ -279,12 +279,12 @@ Appendable</b> media accept further sessions. Either they
 are MMC multi-session media in appendable state, or
 they are overwriteable media which contain an ISO image
 suitable for <b>xorriso</b>.<br>
-Appendable is the state after writing a session with option
+Appendable is the state after writing a session with command
 -close off.<b><br>
 Closed</b> media cannot be written. They may contain an ISO
 image suitable for <b>xorriso</b>.<br>
 Closed is the state of DVD-ROM media and of
-multi-session media which were written with option
+multi-session media which were written with command
 -close on. If the drive is read-only hardware
 then it will probably show any media as closed CD-ROM
 resp. DVD-ROM.<br>
@@ -293,7 +293,7 @@ read-only drives or if they contain unrecognizable
 data in the first 32 data blocks.<br>
 Read-only drives may or may not show session histories
 of multi-session media. Often only the first and the
-last session are visible. Sometimes not even that. Option
+last session are visible. Sometimes not even that. Command
 -rom_toc_scan might or might not help in such
 cases.</p>
 </td>
@@ -304,7 +304,7 @@ cases.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>Creating, Growing, Modifying, Blind
+<p>&nbsp;<BR><A NAME="Methods"></A><b>Creating, Growing, Modifying, Blind
 Growing:</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -315,8 +315,8 @@ Growing:</b></p></td>
 <td width="89%">
 <p>A new empty ISO image gets <b>created</b> if there is no
 input drive with a valid ISO 9660 image when the first time
-an output drive is defined. This is achieved by option
--dev on blank media or by option -outdev on
+an output drive is defined. This is achieved by command
+-dev on blank media or by command -outdev on
 media in any state.<br>
 The new empty image can be populated with directories and
 files. Before it can be written, the medium in the output
@@ -336,7 +336,7 @@ directory tree. It is possible to hide files from previous
 sessions but they still exist on the medium and with many
 types of optical media it is quite easy to recover them by
 mounting older sessions.<br>
-Growing is achieved by option -dev.</p>
+Growing is achieved by command -dev.</p>
 <!-- INDENTATION -->
 <p>The write method of <b>modifying</b> produces compact
 filesystem images with no outdated files or directory trees.
@@ -350,11 +350,11 @@ So for this method one needs either two optical drives or
 has to work with filesystem objects as source and/or target
 medium.<br>
 Modifying takes place if input drive and output drive are
-not the same and if option -grow_blindly is set to its
-default &quot;off&quot;. This is achieved by options
+not the same and if command -grow_blindly is set to
+its default &quot;off&quot;. This is achieved by commands
 -indev and -outdev.</p>
 <!-- INDENTATION -->
-<p>If option -grow_blindly is set to a
+<p>If command -grow_blindly is set to a
 non-negative number and if -indev and
 -outdev are both set to different drives, then
 <b>blind growing</b> is performed. It produces an
@@ -375,7 +375,7 @@ desired. -C $msc1,$msc2 is equivalent to:<br>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>Libburn drives:</b></p></td>
+<p>&nbsp;<BR><b>Libburn drives:</b><A NAME="Drives"></A></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -455,11 +455,11 @@ accessible file or device by using its path with the
 &quot;stdio:&quot; prefix. By default any address in the
 /dev tree without prefix &quot;stdio:&quot; will work only
 if it leads to a MMC drive.<br>
-One may use option <b>-ban_stdio_write</b> to surely
+One may use command <b>-ban_stdio_write</b> to surely
 prevent this risk and to allow only MMC drives.<br>
 One may prepend &quot;mmc:&quot; to a path to surely
 disallow any automatic &quot;stdio:&quot;.<br>
-By option -drive_class one may ban certain paths or
+By command -drive_class one may ban certain paths or
 allow access without prefix &quot;stdio:&quot; to other
 paths.</p>
 </td>
@@ -470,7 +470,7 @@ paths.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>Rock Ridge, POSIX, X/Open, El Torito, ACL,
+<p>&nbsp;<BR><A NAME="Extras"></A><b>Rock Ridge, POSIX, X/Open, El Torito, ACL,
 xattr:</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -501,10 +501,10 @@ the boot image files is not in the scope of El Torito.<br>
 Most bootable GNU/Linux CDs are equipped with ISOLINUX or
 GRUB boot images. <b>xorriso</b> is able to create or
 maintain an El Torito object which makes such an image
-bootable. For details see option -boot_image.<br>
+bootable. For details see command -boot_image.<br>
 It is possible to make ISO images bootable from USB stick or
 other hard-disk-like media by -boot_image
-argument system_area= . This installs a Master Boot Record
+parameter system_area= . This installs a Master Boot Record
 which may get adjusted according to the needs of GRUB resp.
 ISOLINUX. An <b>MBR</b> contains boot code and a partition
 table. It does not hamper CDROM booting. The new MBR of a
@@ -522,7 +522,7 @@ SPARC.</p>
 permissions to file objects. Neither ISO 9660 nor Rock Ridge
 specify a way to record ACLs. So libisofs has introduced a
 standard conformant extension named AAIP for that purpose.
-It uses this extension if enabled by option
+It uses this extension if enabled by command
 <b>-acl</b>.<br>
 AAIP enhanced images are supposed to be mountable normally,
 but one cannot expect that the mounted filesystem will show
@@ -546,7 +546,7 @@ I.e. those which begin with &quot;user.&quot;, like
 &quot;user.x&quot; or &quot;user.whatever&quot;. Name has to
 be a 0 terminated string. Value may be any array of bytes
 which does not exceed the size of 4095 bytes. xattr
-processing happens only if it is enabled by option
+processing happens only if it is enabled by command
 <b>-xattr</b>.<br>
 As with ACL, currently only <b>xorriso</b> is able to
 retrieve xattr from AAIP enhanced images, to restore them to
@@ -562,7 +562,7 @@ are known as extattr.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>Command processing:</b></p></td>
+<p>&nbsp;<BR><A NAME="Processing"></A><b>Command processing:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -572,68 +572,69 @@ are known as extattr.</p>
 <td width="89%">
 <p>Commands are either actions which happen immediately or
 settings which influence following actions. So their
-sequence does matter.<br>
+sequence does matter, unless they are given as program
+arguments and command <b>-x</b> is among them.<br>
 Commands consist of a command word, followed by zero or more
 parameter words. If the list of parameter words is of
 variable length (indicated by &quot;[...]&quot; or
-&quot;[***]&quot;) then it has to be terminated by either
-the <b>list delimiter</b>, or the end of argument list, or
-an end of an input line.</p>
+&quot;[***]&quot;) then it must be terminated by either the
+<b>list delimiter</b>, occur at the end of the argument
+list, or occur at the end of an input line.</p>
 <!-- INDENTATION -->
-<p>At program start the list delimiter is the word
-&quot;--&quot;. This may be changed by option
--list_delimiter in order to allow
-&quot;--&quot; as argument in a list of variable
-length. It is advised to reset the delimiter to
+<p>At program start the list delimiter is the string
+&quot;--&quot;. This may be changed with the
+-list_delimiter command in order to allow
+&quot;--&quot; as parameter in a variable length
+list. However, it is advised to reset the delimiter to
 &quot;--&quot; immediately afterwards.<br>
 For brevity the list delimiter is referred as
 &quot;--&quot; throughout this text.<br>
-The list delimiter is silently tolerated if it appears after
+The list delimiter is silently ignored if it appears after
 the parameters of a command with a fixed list length. It is
-handled as normal text if it appears among the arguments of
+handled as normal text if it appears among the parameters of
 such a command.</p>
 <!-- INDENTATION -->
 <p><b>Pattern expansion</b> converts a list of pattern words
 into a list of existing file addresses. Unmatched pattern
-words appear themselves in that result list, though.<br>
+words will appear unaltered in that result list.<br>
 Pattern matching supports the usual shell parser wildcards
 &rsquo;*&rsquo; &rsquo;?&rsquo; &rsquo;[xyz]&rsquo; and
-respects &rsquo;/&rsquo; as separator which may only be
-matched literally.<br>
-It is a property of some particular commands and not a
-general feature. It gets controlled by commands
+respects &rsquo;/&rsquo; as the path separator, which may
+only be matched literally.<br>
+Pattern expansion is a property of some particular commands
+and not a general feature. It is controlled by commands
 -iso_rr_pattern and -disk_pattern. Commands
-which may use pattern expansion all have variable argument
-lists which are marked in this man page by &quot;[***]&quot;
+which use pattern expansion all have variable parameter
+lists which are specified in this text by &quot;[***]&quot;
 rather than &quot;[...]&quot;.<br>
 Some other commands perform pattern matching
 unconditionally.</p>
 <!-- INDENTATION -->
-<p>Command and parameter words are either read from program
-arguments, where one argument is one word, or from quoted
-input lines where words are recognized similar to the
+<p>Command and parameter words are either read from the
+program arguments, where one argument is one word, or from
+quoted input lines where words are recognized similar to the
 quotation rules of a shell parser.<b><br>
-xorriso</b> is not a shell, although it might appear so on
+xorriso</b> is not a shell, although it might appear so at
 first glimpse. Be aware that the interaction of quotation
 marks and pattern symbols like &quot;*&quot; differs from
 the usual shell parsers. In <b>xorriso</b>, a quotation mark
 does not make a pattern symbol literal.</p>
 <!-- INDENTATION -->
-<p><b>Quoted input</b> converts whitespace separated text
-pieces into words. The double quotation mark &quot; and the
+<p><b>Quoted input</b> converts whitespace-separated
+text into words. The double quotation mark &quot; and the
 single quotation mark &rsquo; can be used to enclose
 whitespace and make it part of words (e.g. of file names).
 Each mark type can enclose the marks of the other type. A
 trailing backslash \ outside quotations or an open quotation
 cause the next input line to be appended.<br>
-Quoted input accepts any ASCII character except NUL (0) as
-content of quotes. Nevertheless it can be cumbersome for the
-user to produce those characters at all. Therefore quoted
-input and program arguments allow optional <b>Backslash
-Interpretation</b> which can represent all ASCII characters
-except NUL (0) by backslash codes as in $&rsquo;...&rsquo;
-of bash.<br>
-It is not enabled by default. See option
+Quoted input accepts any 8-bit character except NUL
+(0) as the content of the quotes. Nevertheless it can be
+cumbersome for the user to produce those characters
+directly. Therefore quoted input and program arguments allow
+optional <b>Backslash Interpretation</b> which can represent
+all 8-bit characters except NUL (0) via backslash
+codes as in $&rsquo;...&rsquo; of bash.<br>
+This is not enabled by default. See command
 -backslash_codes.</p>
 <!-- INDENTATION -->
 <p>When the program starts then it first looks for argument
@@ -641,11 +642,12 @@ It is not enabled by default. See option
 startup files and reads their content as command input
 lines. Then it interprets the program arguments as commands
 and parameters. Finally it enters dialog mode if command
--dialog &quot;on&quot; was executed up to then.</p>
+-dialog &quot;on&quot; has been executed by this
+point.</p>
 <!-- INDENTATION -->
 <p>The program ends either by command -end, or by the
-end of program arguments if not dialog was enabled up to
-that moment, or by a problem event which triggers the
+end of program arguments if dialog mode has not been enabled
+at that point, or by a problem event which triggers the
 threshold of command -abort_on.</p>
 </td>
 </table>
@@ -655,7 +657,7 @@ threshold of command -abort_on.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>Dialog, Readline, Result pager:</b></p></td>
+<p>&nbsp;<BR><A NAME="Dialog"></A<b>Dialog, Readline, Result pager:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -669,35 +671,34 @@ parameters. It provides assisting services to make dialog
 more comfortable.</p>
 <!-- INDENTATION -->
 <p>Readline is an enhancement for the input line. You may
-know it already from the bash shell. Whether it is available
+already know it from the bash shell. Whether it is available
 in <b>xorriso</b> depends on the availability of package
 readline-dev at the time when <b>xorriso</b> was built
 from its sourcecode.<br>
-It allows to move the cursor over the text in the line by
-help of the Leftward and the Rightward arrow key. Text may
-be inserted at the cursor position. The Delete key removes
-the character under the cursor. Upward and Downward arrow
-keys navigate through the history of previous input
-lines.<br>
+Readline allows to move the cursor over the text in the line
+by help of the Left and the Right arrow keys. Text may be
+inserted at the cursor position. The Delete key removes the
+character under the cursor. Up and Down arrow keys navigate
+through the history of previous input lines.<br>
 See man readline for more info about libreadline.</p>
 <!-- INDENTATION -->
-<p>Option -page activates a built-in result text
-pager which may be convenient in dialog. After an action has
-put out the given number of terminal lines, the pager
-prompts the user for a line of input.<br>
+<p>Command -page activates a built-in result
+text pager which may be convenient in dialog mode. After an
+action has output the given number of terminal lines, the
+pager prompts the user for a line of input.<br>
 An empty line lets <b>xorriso</b> resume work until the next
-page is put out.<br>
+page is output.<br>
 The single character &quot;@&quot; disables paging for the
 current action.<br>
 &quot;@@@&quot;, &quot;x&quot;, &quot;q&quot;,
-&quot;X&quot;, or &quot;Q&quot; urge the current action to
-abort and suppress further result output.<br>
-Any other line will be interpreted as new dialog line. The
-current action is urged to abort. Afterwards, the input line
-is executed.</p>
+&quot;X&quot;, or &quot;Q&quot; request that the current
+action aborts and suppress further result output.<br>
+Any other line input will be interpreted as new dialog line.
+The current action is requested to abort. Afterwards, the
+input line is executed.</p>
 <!-- INDENTATION -->
 <p>Some actions apply paging to their info output, too.<br>
-The urge to abort may or may not be obeyed by the current
+The request to abort may or may not be obeyed by the current
 action. All actions try to abort as soon as possible.</p>
 </td>
 </table>
@@ -710,9 +711,9 @@ action. All actions try to abort as soon as possible.</p>
 <td width="10%"></td>
 <td width="89%">
 <p>All command words are shown with a leading dash although
-this dash is not mandatory for the option to be recognized.
-Nevertheless within option -as the dashes of the
-emulated options are mandatory.<br>
+this dash is not mandatory for the command to be recognized.
+Nevertheless within command -as the dashes of the
+emulated commands are mandatory.<br>
 Normally any number of leading dashes is ignored with
 command words and inner dashes are interpreted as
 underscores.</p>
@@ -724,7 +725,7 @@ underscores.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Aquiring source and target drive:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="ArgSort"></A><b>Execution order of program arguments:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -732,11 +733,92 @@ underscores.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>The effect of aquiring a drive may depend on several
-options in the next paragraph &quot;Influencing the behavior
-of image loading&quot;. If desired, their enabling commands
-have to be performed before the commands which aquire the
-drive.</p>
+<p>By default the program arguments of a xorriso run are
+interpreted as a sequence of commands which get performed
+exactly in the given order. This requires the user to write
+commands for desired settings before the commands which
+shall be influenced by those settings.<br>
+Many other programs support program arguments in an
+arbitrary ordering and perform settings and actions in a
+sequence at their own discretion. xorriso provides an option
+to enable such a behavior at the cost of loss of
+expressivity.</p>
+</td>
+</table>
+<!-- TABS -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="4" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="13%"></td>
+<td width="2%">
+
+<p><b>-x</b></p>
+</td>
+<td width="5%"></td>
+<td width="77%">
+
+<p>Enable automatic sorting of program arguments into a
+sequence that (most likely) is sensible. This command may be
+given at any position among the commands which are handed
+over as program arguments.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Note: It works only if it is given as program argument
+and with a single dash (i.e. &quot;-x&quot;). It will
+not work in startup files, nor with
+-options_from_file, nor in dialog mode, nor as
+&quot;x&quot; and finally not as
+&quot;--x&quot;. It affects only the commands
+given as program arguments.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-list_arg_sorting</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>List all xorriso commands in the order which applies if
+command -x is in effect.<br>
+This list may also be helpful without -x for a user
+who ponders over the sequence in which to put commands.
+Deviations from the listed sorting order may well make
+sense, though.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>&nbsp;<BR><A NAME="AqDrive"></A><b>Acquiring source and target drive:</b><BR>&nbsp;<BR></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>The effect of acquiring a drive may depend on several
+commands in the next paragraph &quot;Influencing the
+behavior of image loading&quot;. If desired, their enabling
+commands have to be performed before the commands which
+acquire the drive.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -765,7 +847,7 @@ Special address string &quot;-&quot; means standard
 output, to which several restrictions apply. See above
 paragraph &quot;Libburn drives&quot;.<br>
 An empty address string &quot;&quot; gives up the current
-device without aquiring a new one.</p>
+device without acquiring a new one.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -819,7 +901,7 @@ Special address string &quot;-&quot; means standard
 output, to which several restrictions apply. See above
 paragraph &quot;Libburn drives&quot;.<br>
 An empty address string &quot;&quot; gives up the current
-output drive without aquiring a new one. No writing is
+output drive without acquiring a new one. No writing is
 possible without an output drive.</p>
 </td>
 </table>
@@ -862,7 +944,7 @@ writing is done.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Influencing the behavior of image
+<p>&nbsp;<BR><A NAME="Loading"></A><b>Influencing the behavior of image
 loading:</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -871,9 +953,9 @@ loading:</b></p></td>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>The following options should normally be performed before
-loading an image by aquiring an input drive. In rare cases
-it is desirable to activate them only after image
+<p>The following commands should normally be performed
+before loading an image by acquiring an input drive. In rare
+cases it is desirable to activate them only after image
 loading.</p>
 </td>
 </table>
@@ -893,7 +975,7 @@ loading.</p>
 <td width="77%">
 <p>Load a particular (possibly outdated) ISO session from
 -dev or -indev. Usually all available sessions
-are shown with option -toc.<br>
+are shown with command -toc.<br>
 entity depicts the kind of addressing. id depicts the
 particular address. The following entities are defined:<br>
 &quot;auto&quot; with any id addresses the last session in
@@ -938,7 +1020,7 @@ loading of ISO images and reading of their files. The
 multi-session method of growing is not allowed as long
 as -displacement is non-zero. I.e. -indev
 and -outdev must be different. The displacement gets
-reset to 0 before the drive gets re-aquired after
+reset to 0 before the drive gets re-acquired after
 writing.<br>
 Examples:<br>
 If a track of a CD starts at block 123456 and gets copied to
@@ -1021,7 +1103,7 @@ match the given search pattern. When refusing an image, give
 up the input drive and issue an event of the given severity
 (like FAILURE, see -abort_on). An empty search pattern
 accepts any image.<br>
-This option does not hamper the creation of an empty image
+This command does not hamper the creation of an empty image
 from blank input media and does not discard an already
 loaded image.</p>
 </td>
@@ -1148,7 +1230,7 @@ expensive hardlink accumulation.</p>
 store ACLs in the ISO image using the libisofs specific AAIP
 format, load AAIP data from ISO images, test ACL during file
 comparison, and restore ACLs to disk files when extracting
-them from ISO images. See also options -getfacl,
+them from ISO images. See also commands -getfacl,
 -setfacl.</p>
 </td>
 </table>
@@ -1169,7 +1251,7 @@ them from ISO images. See also options -getfacl,
 <td width="77%">
 <p>Enable or disable processing of xattr attributes in user
 namespace. If enabled, then <b>xorriso</b> will handle xattr
-similar to ACL. See also options -getfattr,
+similar to ACL. See also commands -getfattr,
 -setfattr and above paragraph about xattr.</p>
 </td>
 </table>
@@ -1194,7 +1276,7 @@ then images with checksum tags get loaded only if the tags
 of superblock and directory tree match properly. The MD5
 checksums of data files and whole session get loaded from
 the image if there are any.<br>
-With options -compare and -update the recorded
+With commands -compare and -update the recorded
 MD5 of a file will be used to avoid content reading from the
 image. Only the disk file content will be read and compared
 with that MD5. This can save much time if
@@ -1218,7 +1300,7 @@ when <b>xorriso</b> -as mkisofs option -M is
 performed.<br>
 The test can be re-enabled by mode
 &quot;load_check_on&quot;.<br>
-Checksums can be exploited via options -check_md5,
+Checksums can be exploited via commands -check_md5,
 -check_md5_r, via find actions get_md5, check_md5, and
 via -check_media.</p>
 </td>
@@ -1323,7 +1405,7 @@ media. Setting &quot;off:emul_off&quot; disables the
 elsewise trustworthy table-of-content scan for
 those media.<br>
 To be in effect, the -rom_toc_scan setting has to be
-made before the -*dev command which aquires drive and
+made before the -*dev command which acquires drive and
 medium.</p>
 </td>
 </table>
@@ -1411,7 +1493,40 @@ than blank.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Inserting files into ISO image:</b><BR>&nbsp;<BR></p></td>
+<p><b>-data_cache_size</b> number_of_tiles
+blocks_per_tile</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the size and granularity of the data cache which is
+used when ISO images are loaded and when file content is
+read from ISO images. The cache consists of several tiles,
+which each consists of several blocks. A larger cache
+reduces the need for tiles being read multiple times. Larger
+tiles might additionally improve the data throughput from
+the drive, but can be wasteful if the data are scattered
+over the medium.<br>
+Larger cache sizes help best with image loading from MMC
+drives. They are an inferior alternative to -osirrox
+option &quot;sort_lba_on&quot;.<br>
+blocks_per_tile must be a power of 2. E.g. 16, 32, or 64.
+The overall cache size must not exceed 1 GiB. The default
+values can be restored by parameter &quot;default&quot;
+instead of one or both of the numbers. Currently the default
+is 32 tiles of 32 blocks = 2 MiB.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>&nbsp;<BR><A NAME="Insert"></A><b>Inserting files into ISO image:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1466,7 +1581,7 @@ the local filesystem.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Set the pattern expansion mode for the disk_path
-arguments of several commands which support this
+parameters of several commands which support this
 feature.<br>
 Setting &quot;off&quot; disables this feature for all
 commands which are marked in this man page by
@@ -1641,7 +1756,7 @@ sub tree is not inserted.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Perform -map with each of the disk_path arguments.
+<p>Perform -map with each of the disk_path parameters.
 iso_rr_path will be composed from disk_path by replacing
 disk_prefix by iso_rr_prefix.</p>
 </td>
@@ -1664,7 +1779,7 @@ disk_prefix by iso_rr_prefix.</p>
 iso_rr_path. If they do not match, then perform the
 necessary image manipulations to make iso_rr_path a matching
 copy of disk_path. By default this comparison will imply
-lengthy content reading before a decision is made. Options
+lengthy content reading before a decision is made. Commands
 -disk_dev_ino or -md5 may accelerate comparison
 if they were already in effect when the loaded session was
 recorded.<br>
@@ -1692,7 +1807,7 @@ objects below both addresses get compared whether they have
 counterparts below the other address and whether both
 counterparts match. If there is a mismatch then the
 necessary update manipulation is done.<br>
-Note that the comparison result may depend on option
+Note that the comparison result may depend on command
 -follow. Its setting should always be the same as with
 the first adding of disk_path as iso_rr_path.<br>
 If iso_rr_path does not exist yet, then it gets added. If
@@ -1715,7 +1830,7 @@ disk_path [***]</p></td>
 <td width="21%"></td>
 <td width="77%">
 <p>Perform -update_r with each of the disk_path
-arguments. iso_rr_path will be composed from disk_path by
+parameters. iso_rr_path will be composed from disk_path by
 replacing disk_prefix by iso_rr_prefix.</p>
 </td>
 </table>
@@ -1754,12 +1869,12 @@ image but a SORRY event. E.g:<br>
 /file/part_2_of_3_at_2047m_with_2047m_of_5753194821 \<br>
 -cut_out /my/disk/file 4094m 2047m \<br>
 /file/part_3_of_3_at_4094m_with_2047m_of_5753194821<br>
-While option -split_size is set larger than 0, and if
+While command -split_size is set larger than 0, and if
 all pieces of a file reside in the same ISO directory with
 no other files, and if the names look like above, then their
 ISO directory will be recognized and handled like a regular
-file. This affects options -compare*, -update*,
-and overwrite situations. See option -split_size for
+file. This affects commands -compare*, -update*,
+and overwrite situations. See command -split_size for
 details.</p>
 </td>
 </table>
@@ -1866,7 +1981,7 @@ iso_rr_path_original will get prepended the -cd path
 and not the -cdx path. Consider to -mkdir
 iso_rr_path_dest before -cp_clone so the copy address
 does not depend on the number of iso_rr_path_original
-arguments.</p>
+parameters.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1875,7 +1990,7 @@ arguments.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Settings for file insertion:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="SetInsert"></A><b>Settings for file insertion:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2017,8 +2132,8 @@ when the exclusion checks are made.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Read lines from disk_path and use each of them either as
--not_paths argument, if they contain a / character, or
-as -not_leaf pattern.</p>
+-not_paths parameter, if they contain a / character,
+or as -not_leaf pattern.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2036,7 +2151,7 @@ as -not_leaf pattern.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Like -not_list but with quoted input reading rules.
-Each word is handled as one argument for -not_paths
+Each word is handled as one parameter for -not_paths
 resp. -not_leaf.</p>
 </td>
 </table>
@@ -2185,11 +2300,11 @@ Default is 0 which will exclude files larger than
 -file_size_limit by a FAILURE event. A well tested
 -split_size is 2047m. Sizes above
 -file_size_limit are not permissible.<br>
-While option -split_size is set larger than 0 such a
+While command -split_size is set larger than 0 such a
 directory with split file pieces will be recognized and
-handled like a regular file by options -compare* ,
+handled like a regular file by commands -compare* ,
 -update*, and in overwrite situations. There are
--ossirox options &quot;concat_split_on&quot; and
+-ossirox parameters &quot;concat_split_on&quot; and
 &quot;concat_split_off&quot; which control the handling when
 files get restored to disk.<br>
 In order to be recognizable, the names of the part files
@@ -2204,7 +2319,7 @@ even if leading zeros are present.<br>
 E.g: /file/part_1_of_3_at_0_with_2047m_of_5753194821<br>
 No other files are allowed in the directory. All parts have
 to be present and their numbers have to be plausible. E.g.
-byte_count must be valid as -cut_out argument and
+byte_count must be valid as -cut_out parameter and
 their contents may not overlap.</p>
 </td>
 </table>
@@ -2214,7 +2329,7 @@ their contents may not overlap.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>File manipulations:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Manip"></A><b>File manipulations:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2243,7 +2358,7 @@ newly inserted.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Set the pattern expansion mode for the iso_rr_path
-arguments of several commands which support this
+parameters of several commands which support this
 feature.<br>
 Setting &quot;off&quot; disables pattern expansion for all
 commands which are marked in this man page by
@@ -2293,7 +2408,7 @@ different medium in modification mode.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Delete the given files or directory trees from the ISO
-image. See also the note with option -rm.</p>
+image. See also the note with command -rm.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2328,9 +2443,9 @@ image. See also the note with option -rm.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Rename the given file objects in the ISO tree to the last
-argument in the list. Use the same rules as with shell
+parameter in the list. Use the same rules as with shell
 command mv.<br>
-If pattern expansion is enabled and if the last argument
+If pattern expansion is enabled and if the last parameter
 contains wildcard characters then it must match exactly one
 existing file address, or else the command fails with a
 FAILURE event.</p>
@@ -2576,8 +2691,8 @@ Only names from the user namespace are allowed. I.e. a name
 has to begin with &quot;user.&quot;, like &quot;user.x&quot;
 or &quot;user.whatever&quot;.<br>
 Values and names undergo the normal input processing of
-<b>xorriso</b>. See also option -backslash_codes.
-Other than with option -setfattr_list, the byte value
+<b>xorriso</b>. See also command -backslash_codes.
+Other than with command -setfattr_list, the byte value
 0 cannot be expressed via -setfattr.</p>
 </td>
 </table>
@@ -2635,7 +2750,7 @@ should consist of printable characters only. The separator
 kind of bytes. It must be in quotes. Trailing whitespace
 after the end quote will be ignored. Non-printables
 bytes and quotes must be represented as \XYZ by their octal
-ASCII code XYZ. Use code \000 for 0-bytes.</p>
+8-bit code XYZ. Use code \000 for 0-bytes.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2734,7 +2849,7 @@ This command does not apply to the boot catalog. Rather use:
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Tree traversal command -find:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="CmdFind"></A><b>Tree traversal command -find:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2754,7 +2869,7 @@ This command does not apply to the boot catalog. Rather use:
 <p>A restricted substitute for shell command find in the ISO
 image. It performs an action on matching file objects at or
 below iso_rr_path.<br>
-If not used as last command in the line then the argument
+If not used as last command in the line then the parameter
 list needs to get terminated by
 &quot;--&quot;.<br>
 Tests are optional. If they are omitted then action is
@@ -2877,7 +2992,7 @@ lsdl</b> prints file information like shell command ls
 -dl.<b><br>
 compare</b> performs command -compare with the found
 file address as iso_rr_path and the corresponding file
-address below its argument disk_path_start. For this the
+address below its parameter disk_path_start. For this the
 iso_rr_path of the -find command gets replaced by the
 disk_path_start.<br>
 E.g.: -find /thomas -exec compare /home/thomas
@@ -2921,7 +3036,7 @@ in column &quot;xt&quot;.<b><br>
 getfacl</b> prints access permissions in ACL text form to
 the result channel.<b><br>
 setfacl</b> attaches ACLs after removing existing ones. The
-new ACL is given in text form as defined with option
+new ACL is given in text form as defined with command
 -setfacl.<br>
 E.g.: -exec setfacl
 u:lisa:rw,u::rw,g::r,o::-,m::rw --<b><br>
@@ -2944,7 +3059,7 @@ terminal-safe but should work in script files. Mode
 &quot;b&quot; prints backslash encoding. Not suitable for
 shell parsing.<br>
 E.g. -exec list_extattr e --<br>
-Option -backslash_codes does not affect the
+Command -backslash_codes does not affect the
 output.<b><br>
 get_md5</b> prints the MD5 sum, if recorded, together with
 file path.<b><br>
@@ -3008,7 +3123,7 @@ E.g.:<br>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Filters for data file content:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Filter"></A><b>Filters for data file content:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3165,7 +3280,11 @@ The reserved filter name
 revokes filtering. This will revoke suffix renamings as
 well. Use
 &quot;--remove-all-filters+&quot; to
-prevent any suffix renaming.</p>
+prevent any suffix renaming.<br>
+Attaching or detaching filters will not alter the state of
+-changes_pending. If the filter manipulations shall be
+the only changes in a write run, then explicitely execute
+-changes_pending &quot;yes&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3193,7 +3312,7 @@ eventual directories.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Writing the result, drive control:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Writing"></A><b>Writing the result, drive control:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3229,6 +3348,41 @@ end is desired.)</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>-changes_pending</b>
+&quot;no&quot;|&quot;yes&quot;|&quot;mkisofs_printed&quot;|&quot;show_status&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Write runs are performed only if a change of the image
+has been made since the image was loaded or created blank.
+Vice versa the program will start a write run for pending
+changes when it ends normally (i.e. not by abort and not by
+command -rollback_end).<br>
+The command -changes_pending can be used to override
+the automatically determined state. This is mainly useful
+for setting state &quot;yes&quot; despite no real changes
+were made. The sequence -changes_pending
+&quot;no&quot; -end is equivalent to the command
+-rollback_end. State &quot;mkisofs_printed&quot; is
+caused by emulation command -as mkisofs if option
+-print-size is present.<br>
+The pseudo-state &quot;show_status&quot; can be used
+to print the current state to result channel.<br>
+Image loading or manipulations which happen after this
+command will again update automatically the change status of
+the image.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>-commit</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -3245,7 +3399,7 @@ growing.) -commit is performed automatically at end of
 program if there are uncommitted manipulations pending.<br>
 So, to perform a final write operation with no new
 -dev and no new loading of image, rather execute
-option -end. If you want to go on without image
+command -end. If you want to go on without image
 loading, execute -commit_eject &quot;none&quot;. To
 eject after write without image loading, use
 -commit_eject &quot;all&quot;.<br>
@@ -3344,7 +3498,7 @@ blank DVD-RW but produces media which are only
 suitable for a single session. Some drives announce this
 state by not offering feature 21h, but some drives offer it
 anyway. If feature 21h is missing, then <b>xorriso</b> will
-refuse to write on DVD-RW if not option -close
+refuse to write on DVD-RW if not command -close
 is set to &quot;on&quot;.<br>
 The progress reports issued by some drives while blanking
 are quite unrealistic. Do not conclude success or failure
@@ -3382,7 +3536,7 @@ BD-R.<br>
 &quot;fast&quot; does the same as &quot;full&quot; but tries
 to be quicker.<br>
 &quot;by_index_&quot; selects a format out of the descriptor
-list issued by option -list_formats. The index number
+list issued by command -list_formats. The index number
 from that list is to be appended to the mode word. E.g:
 &quot;by_index_3&quot;.<br>
 &quot;fast_by_index_&quot; does the same as
@@ -3494,10 +3648,10 @@ override the list of other speed offers.</p>
 reported the medium as damaged. This may apply to
 CD-R, CD-RW, DVD-R, DVD-RW, DVD+R,
 DVD+R DL, or BD-R media. It is indicated by warning
-messages when the drive gets aquired, and by a remark
+messages when the drive gets acquired, and by a remark
 &quot;but next track is damaged&quot; with the line
 &quot;Media status :&quot; of command -toc.<br>
-The setting of option -close determines whether the
+The setting of command -close determines whether the
 medium stays appendable.<br>
 Mode &quot;as_needed&quot; gracefully refuses on media which
 are not reported as damaged. Mode &quot;force&quot; attempts
@@ -3534,7 +3688,7 @@ type is marked by text &quot;(current)&quot;.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Settings for result writing:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="SetWrite"></A><b>Settings for result writing:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3544,7 +3698,7 @@ type is marked by text &quot;(current)&quot;.</p>
 <td width="89%">
 <p>Rock Ridge info will be generated by the program
 unconditionally. ACLs will be written according to the
-setting of option -acl.</p>
+setting of command -acl.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3580,55 +3734,66 @@ additional to ISO 9660 + Rock Ridge tree.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Adjust the compliance to specifications of ISO 9660 and
-its contemporary extensions. In some cases it is worth to
-deviate a bit in order to circumvent bugs of the intended
-reader system or to get unofficial extra features.<br>
+<p>Adjust the compliance to specifications of ISO
+9660/ECMA-119 and its contemporary extensions. In some
+cases it is worth to deviate a bit in order to circumvent
+bugs of the intended reader system or to get unofficial
+extra features.<br>
 There are several adjustable rules which have a keyword
-each. If they are mentioned with this option then their rule
-gets added to the relaxation list. This list can be erased
-by rules &quot;strict&quot; or &quot;clear&quot;. It can be
-reset to its start setting by &quot;default&quot;. All of
-the following relaxation rules can be revoked individually
-by appending &quot;_off&quot;. Like
+each. If they are mentioned with this command then their
+rule gets added to the relaxation list. This list can be
+erased by rules &quot;strict&quot; or &quot;clear&quot;. It
+can be reset to its start setting by &quot;default&quot;.
+All of the following relaxation rules can be revoked
+individually by appending &quot;_off&quot;. Like
 &quot;deep_paths_off&quot;.<br>
 Rule keywords are:<br>
-&quot;iso_9660_level=&quot;number chooses level 1 with ISO
-names of the form 8.3 and -file_size_limit &lt;= 4g
-- 1, or level 2 with ISO names up to length 32 and the
-same -file_size_limit, or level 3 with ISO names up to
-length 32 and -file_size_limit &gt;= 400g -200k.
-If necessary -file_size_limit gets adjusted.<br>
-&quot;allow_dir_id_ext&quot; allows ISO names of directories
-to have a name extension as with other file types. It does
-not force dots and it omits the version number, though. This
-is a bad tradition of mkisofs which violates ECMA-119.
-Especially ISO level 1 only allows 8 characters in a
-directory name and not 8.3.<br>
+&quot;iso_9660_level=&quot;number chooses level 1 with
+ECMA-119 names of the form 8.3 and
+-file_size_limit &lt;= 4g - 1, or level 2 with
+ECMA-119 names up to length 32 and the same
+-file_size_limit, or level 3 with ECMA-119 names
+up to length 32 and -file_size_limit &gt;= 400g
+-200k. If necessary -file_size_limit gets
+adjusted.<br>
+&quot;allow_dir_id_ext&quot; allows ECMA-119 names of
+directories to have a name extension as with other file
+types. It does not force dots and it omits the version
+number, though. This is a bad tradition of mkisofs which
+violates ECMA-119. Especially ISO level 1 only allows
+8 characters in a directory name and not 8.3.<br>
 &quot;omit_version&quot; does not add versions
-(&quot;;1&quot;) to ISO and Joliet file names.<br>
+(&quot;;1&quot;) to ECMA-119 and Joliet file
+names.<br>
 &quot;only_iso_version&quot; does not add versions
 (&quot;;1&quot;) to Joliet file names.<br>
-&quot;deep_paths&quot; allows ISO file paths deeper than 8
-levels.<br>
-&quot;long_paths&quot; allows ISO file paths longer than 255
-characters.<br>
-&quot;long_names&quot; allows up to 37 characters with ISO
-file names.<br>
-&quot;no_force_dots&quot; does not add a dot to ISO file
-names which have none.<br>
+&quot;deep_paths&quot; allows ECMA-119 file paths
+deeper than 8 levels.<br>
+&quot;long_paths&quot; allows ECMA-119 file paths
+longer than 255 characters.<br>
+&quot;long_names&quot; allows up to 37 characters with
+ECMA-119 file names.<br>
+&quot;no_force_dots&quot; does not add a dot to
+ECMA-119 file names which have none.<br>
 &quot;no_j_force_dots&quot; does not add a dot to Joliet
 file names which have none.<br>
-&quot;lowercase&quot; allows lowercase characters in ISO
-file names.<br>
-&quot;full_ascii&quot; allows all ASCII characters in ISO
-file names.<br>
+&quot;lowercase&quot; allows lowercase characters in
+ECMA-119 file names.<br>
+&quot;7bit_ascii&quot; allows nearly all 7-bit
+characters in ECMA-119 file names. Not allowed are 0x0
+and &rsquo;/&rsquo;. If not &quot;lowercase&quot; is
+enabled, then lowercase letters get converted to
+uppercase.<br>
+&quot;full_ascii&quot; allows all 8-bit characters
+except 0x0 and &rsquo;/&rsquo; in ECMA-119 file
+names.<br>
 &quot;untranslated_names&quot; might be dangerous for
 inadverted reader programs which rely on the restriction to
-at most 37 characters in ISO file names. This option allows
-ISO file names up to 96 characters with no character
-conversion. If a file name has more characters, then image
-production will fail deliberately.<br>
+at most 37 characters in ECMA-119 file names. This
+rule allows ECMA-119 file names up to 96 characters
+with no character conversion. If a file name has more
+characters, then image production will fail
+deliberately.<br>
 &quot;untranslated_name_len=&quot;number enables
 untranslated_names with a smaller limit for the length of
 file names. 0 disables this feature, -1 chooses
@@ -3672,9 +3837,45 @@ Default setting is<br>
 
 &quot;clear:only_iso_version:deep_paths:long_paths:no_j_force_dots:<br>
 always_gmt:old_rr&quot;.<br>
-Note: The term &quot;ISO file&quot; means the plain ISO 9660
-names and attributes which get visible if the reader ignores
-Rock Ridge.</p>
+Note: The term &quot;ECMA-119 name&quot; means the
+plain ISO 9660 names and attributes which get visible if the
+reader ignores Rock Ridge.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-rr_reloc_dir</b> name</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Specify the name of the relocation directory in which
+deep directory subtrees shall be placed if -compliance
+is set to &quot;deep_paths_off&quot; or
+&quot;long_paths_off&quot;. A deep directory is one that has
+a chain of 8 parent directories (including root) above
+itself, or one that contains a file with an ECMA-119
+path of more than 255 characters.<br>
+The overall directory tree will appear originally deep when
+interpreted as Rock Ridge tree. It will appear as
+re-arranged if only ECMA-119 information is
+considered.<br>
+The default relocation directory is the root directory. By
+giving a non-empty name with -rr_reloc_dir, a
+directory in the root directory may get this role. If that
+directory does not already exist at -commit time, then
+it will get created and marked for Rock Ridge as relocation
+artefact. At least on GNU/Linux it will not be displayed in
+mounted Rock Ridge images.<br>
+The name must not contain a &rsquo;/&rsquo; character and
+must not be longer than 255 bytes.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3694,7 +3895,7 @@ Rock Ridge.</p>
 <p>Specify the volume ID. <b>xorriso</b> accepts any text up
 to 32 characters, but according to rarely obeyed specs
 stricter rules apply:<br>
-ECMA 119 demands ASCII characters out of
+ECMA-119 demands ASCII characters out of
 [A-Z0-9_]. Like: &quot;IMAGE_23&quot;<br>
 Joliet allows 16 UCS-2 characters. Like: &quot;Windows
 name&quot;<br>
@@ -3829,7 +4030,7 @@ search --fs-uuid --set
 YYYY-MM-DD-hh-mm-ss-cc<br>
 E.g. 2010040711405800 is 7 Apr 2010 11:40:58 (+0
 centiseconds).<br>
-Timestrings for the other types may be given as with option
+Timestrings for the other types may be given as with command
 -alter_date. They are prone to timezone computations.
 The timestrings &quot;default&quot; or
 &quot;overridden&quot; cause default settings: &quot;c&quot;
@@ -4002,7 +4203,7 @@ gets written to media.</p>
 <td width="77%">
 <p>Set global parameters for zisofs compression. This data
 format is recognized and transparently uncompressed by some
-Linux kernels. It is to be applied via option
+Linux kernels. It is to be applied via command
 -set_filter with built-in filter
 &quot;--zisofs&quot;. Parameters are:<br>
 &quot;level=&quot;[0-9] zlib compression: 0=none,
@@ -4097,7 +4298,7 @@ content blocks begins.</p>
 transmitted with each write operation to DVD or BD media. A
 number of 64 KB may improve throughput with bus systems
 which show latency problems. The default depends on media
-type, on option -stream_recording , and on compile
+type, on command -stream_recording , and on compile
 time options.</p>
 </td>
 </table>
@@ -4183,7 +4384,7 @@ means unit is kiB (= 1024) or MiB (= 1024 kiB).</p>
 <p>If &quot;on&quot; then mark the written medium as not
 appendable any more (if possible at all with the given type
 of target media).<br>
-This is the contrary of cdrecord, wodim, cdrskin option
+This is the contrary of cdrecord, wodim, cdrskin command
 -multi, and is one aspect of growisofs option
 -dvd-compat.</p>
 </td>
@@ -4226,7 +4427,7 @@ image. The same effect is achieved by -padding mode
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>Bootable ISO images:</b></p></td>
+<p>&nbsp;<BR><A NAME="Bootable"></A><b>Bootable ISO images:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4281,7 +4482,7 @@ Define the handling of a set of El Torito boot images which
 has been read from an existing ISO image or define how to
 make a prepared boot image file set bootable. Such file sets
 get produced by ISOLINUX or GRUB.<br>
-Each -boot_image command has two arguments: type and
+Each -boot_image command has two parameters: type and
 setting. More than one -boot_image command may be used
 to define the handling of one or more boot images. Sequence
 matters.<br>
@@ -4478,7 +4679,7 @@ mipsel_path=.<b><br>
 sparc_label=</b>text causes the production of a SUN Disk
 Label with the given text as ASCII label. This boot block
 format allows to append images for partitions 2 to 8.
-Partition 1 will always be the ISO image. See option
+Partition 1 will always be the ISO image. See command
 -append_partition. The first 512 bytes of any data
 provided by system_area= will be overwritten.<b><br>
 mips_discard</b> and <b>sparc_discard</b> revoke any boot
@@ -4539,7 +4740,7 @@ become a copy of the next lower valid one.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Jigdo Template Extraction:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Jigdo"></A><b>Jigdo Template Extraction:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4657,7 +4858,7 @@ Alias: -checksum_algorithm_template</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Character sets:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Charset"></A><b>Character sets:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4680,7 +4881,7 @@ There is an input conversion from input character set to the
 local character set which applies when an ISO image gets
 loaded. A conversion from local character set to the output
 character set is performed when an image tree gets written.
-The sets can be defined independently by options
+The sets can be defined independently by commands
 -in_charset and -out_charset. Normally one will
 have both identical, if ever.<br>
 If conversions are desired then <b>xorriso</b> needs to know
@@ -4695,7 +4896,7 @@ conversion happens between local filesystem names and
 emerging names in the image. The situation stays ambigous
 and the reader has to riddle what character set was
 used.<br>
-By option -auto_charset it is possible to attribute
+By command -auto_charset it is possible to attribute
 the output charset name to the image. This makes the
 situation unambigous. But if your terminal character set
 does not match the character set of the local file names,
@@ -4756,7 +4957,7 @@ dangerous binary codes being sent to the terminal.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Exception processing:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Exception"></A><b>Exception processing:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4816,9 +5017,9 @@ Useful: &quot;NEVER&quot;, &quot;ABORT&quot;,
 &quot;FATAL&quot;, &quot;FAILURE&quot; , &quot;MISHAP&quot;,
 &quot;SORRY&quot;<br>
 It may become necessary to abort the program anyway, despite
-the setting by this option. Expect not many
+the setting by this command. Expect not many
 &quot;ABORT&quot; events to be ignorable.<br>
-A special property of this option is that it works
+A special property of this command is that it works
 preemptive if given as program start argument. I.e. the
 first -abort_on setting among the start arguments is
 in effect already when the first operations of
@@ -4883,7 +5084,7 @@ Event messages are sent to the info channel &quot;I&quot;
 which is usually stderr but may be influenced by command
 -pkt_output. Info messages which belong to no event
 get attributed severity &quot;NOTE&quot;.<br>
-A special property of this option is that the first
+A special property of this command is that the first
 -report_about setting among the start arguments is in
 effect already when the first operations of <b>xorriso</b>
 begin. Only &quot;-report_about&quot; with dash
@@ -4931,7 +5132,7 @@ kill -9 then imposes the risk that the drive is left
 in unusable state and needs poweroff to be reset. So during
 burning, blanking, and formatting wait for at least their
 normal run time before killing externally.<br>
-A special property of this option is that the first
+A special property of this command is that the first
 -signal_handling setting among the start arguments is
 in effect already when the first operations of
 <b>xorriso</b> begin. Only
@@ -4957,11 +5158,11 @@ in effect already when the first operations of
 For now this applies to occasions &quot;image_loading&quot;
 which is given while an image tree is read from the input
 device, and to &quot;file_extraction&quot; which is given
-with osirrox options like -extract.<br>
+with osirrox commands like -extract.<br>
 With &quot;image_loading&quot; there are three behaviors
 available:<br>
 &quot;best_effort&quot; goes on with reading after events
-with severity below FAILURE if the threshold of option
+with severity below FAILURE if the threshold of command
 -abort_on allows this.<br>
 &quot;failure&quot; aborts image tree reading on first event
 of at least SORRY. It issues an own FAILURE event. This is
@@ -4985,7 +5186,7 @@ loaded ISO image and is not filtered.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Dialog mode control:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="DialogCtl"></A><b>Dialog mode control:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -5002,7 +5203,7 @@ loaded ISO image and is not filtered.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Enable or disable to enter dialog mode after all
+<p>Enable or disable to enter dialog mode after all program
 arguments are processed. In dialog mode input lines get
 prompted via readline or from stdin.<br>
 If no -abort_on severity was set when dialog starts,
@@ -5093,10 +5294,10 @@ appear for an eventual directory only once and not for each
 file in its whole subtree.<br>
 Setting &quot;off&quot; silently kills any kind of image
 file object resp. performs above irrevocable actions.<br>
-To really produce user prompts, option -dialog needs
+To really produce user prompts, command -dialog needs
 to be set to &quot;on&quot;. Note that the prompt does not
 appear in situations where file removal is forbidden by
-option -overwrite. -reassure only imposes an
+command -overwrite. -reassure only imposes an
 additional curb for removing existing file objects.<br>
 Be aware that file objects get deleted from the ISO image
 immediately after confirmation. They are gone even if the
@@ -5111,7 +5312,7 @@ revoked. In case of severe mess-up, consider to use
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Drive and media related inquiry actions:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Inquiry"></A><b>Drive and media related inquiry actions:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -5130,7 +5331,7 @@ revoked. In case of severe mess-up, consider to use
 <p>Show list of available MMC drives with the addresses of
 their libburn standard device files.<br>
 This is only possible when no ISO image changes are pending.
-After this option was executed, there is no drive current
+After this command was executed, there is no drive current
 and no image loaded.<br>
 In order to be visible, a device has to offer
 rw-permissions with its libburn standard device file.
@@ -5197,7 +5398,7 @@ CD-ROM or DVD-ROM with only one or two sessions
 on it. The last of these sessions is supposed to be the most
 recent real session then.<br>
 Some read-only drives and media show no usable session
-history at all. Option -rom_toc_scan might help.</p>
+history at all. Command -rom_toc_scan might help.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5228,7 +5429,7 @@ number, or &quot;volid&quot; with a search pattern for the
 volume id, or &quot;auto&quot; with any text as id.<br>
 path will be used as mount point and must already exist as a
 directory on disk.<br>
-The command gets printed to the result channel. See option
+The command gets printed to the result channel. See command
 -mount for direct execution of this command.</p>
 </td>
 </table>
@@ -5308,11 +5509,11 @@ session number, resp. volume id of the depicted session.</p>
 <p>Print the foreseeable consumption of 2048 byte blocks by
 next -commit. This can last a while as a -commit
 gets prepared and only in last moment is revoked by this
-option. The result depends on several settings and also on
+command. The result depends on several settings and also on
 the kind of output device. If no -jidgo options are
-given and not command -as &quot;mkisofs&quot; was
-used, then -padding (300 kB by default) is not counted
-as part of the image size.</p>
+set and not command -as &quot;mkisofs&quot; was used,
+then -padding (300 kB by default) is not counted as
+part of the image size.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5349,7 +5550,7 @@ next -commit.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Print various id strings which can be found in loaded ISO
-images. Some of them may be changed by options like
+images. Some of them may be changed by commands like
 -volid or -publisher. For these ids
 -pvd_info reports what would be written with the next
 -commit.</p>
@@ -5361,7 +5562,7 @@ images. Some of them may be changed by options like
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Navigation in ISO image and disk
+<p>&nbsp;<BR><A NAME="Navigate"></A><b>Navigation in ISO image and disk
 filesystem:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
@@ -5639,7 +5840,7 @@ attributes. Output format resembles shell command ls
 ISO image using the format of shell command getfacl. If a
 file has no ACL then it gets fabricated from the
 -chmod settings. A file may have a real ACL if it was
-introduced into the ISO image while option -acl was
+introduced into the ISO image while command -acl was
 set to &quot;on&quot;.</p>
 </td>
 </table>
@@ -5791,7 +5992,7 @@ command du -sk.</p>
 <p>Like -find but operating on local filesystem and
 not on the ISO image. This is subject to the settings of
 -follow.<br>
--findx accepts the same -type arguments as
+-findx accepts the same -type parameters as
 -find. Additionally it recognizes type
 &quot;mountpoint&quot; (or &quot;m&quot;) which matches
 subdirectories which reside on a different device than their
@@ -5895,7 +6096,7 @@ disk_path [***]</p></td>
 <td width="21%"></td>
 <td width="77%">
 <p>Perform -compare_r with each of the disk_path
-arguments. iso_rr_path will be composed from disk_path by
+parameters. iso_rr_path will be composed from disk_path by
 replacing disk_prefix by iso_rr_prefix.</p>
 </td>
 </table>
@@ -5955,7 +6156,7 @@ disk:&rsquo;/home/me/x&rsquo;</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Evaluation of readability and recovery:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Verify"></A><b>Evaluation of readability and recovery:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -5974,7 +6175,7 @@ xorriso</b> can scan a medium for readable data blocks,
 classify them according to their read speed, save them to a
 file, and keep track of successfuly saved blocks for further
 tries on the same medium.<br>
-By option -md5 checksums may get recorded with data
+By command -md5 checksums may get recorded with data
 files and whole sessions. These checksums are reachable only
 via indev and a loaded image. They work independently of the
 media type and can detect transmission errors.</p>
@@ -5999,10 +6200,10 @@ media type and can detect transmission errors.</p>
 copy them to a disk file, and finally report about the
 encountered quality. Several options may be used to modify
 the default behavior.<br>
-The options given with this command override the default
-settings which may have been changed by option
+The parameters given with this command override the default
+settings which may have been changed by command
 -check_media_defaults. See there for a description of
-options.<br>
+available options.<br>
 The result list tells intervals of 2 KiB blocks with start
 address, number of blocks and quality. Qualities which begin
 with &quot;+&quot; are supposed to be valid readable data.
@@ -6165,10 +6366,10 @@ one read operation. This gets rounded down to full blocks of
 image with their recorded MD5 checksums, if there are any.
 In case of any mismatch an event of the given severity is
 issued. It may then be handled by appropriate settings of
-options -abort_on or -return_with which both can
-cause non-zero exit values of the program run.
+commands -abort_on or -return_with which both
+can cause non-zero exit values of the program run.
 Severity ALL suppresses that event.<br>
-This option reports match and mismatch of data files to the
+This command reports match and mismatch of data files to the
 result channel. Non-data files cause NOTE events.
 There will also be UPDATE events from data reading.<br>
 If no iso_rr_path is given then the whole loaded session is
@@ -6203,7 +6404,7 @@ be reported.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>osirrox ISO-to-disk restore options:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Restore"></A><b>osirrox ISO-to-disk restore commands:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -6356,7 +6557,7 @@ iso_rr_path [***]</p></td>
 <td width="21%"></td>
 <td width="77%">
 <p>Perform -extract with each of the iso_rr_path
-arguments. disk_path will be composed from iso_rr_path by
+parameters. disk_path will be composed from iso_rr_path by
 replacing iso_rr_prefix by disk_prefix.</p>
 </td>
 </table>
@@ -6494,7 +6695,7 @@ byte_count</p></td>
 <td width="77%">
 <p>Read the content of a ISO data file and write it into a
 data file on disk beginning at the byte_offset. Write at
-most byte_count bytes. This is the inverse of option
+most byte_count bytes. This is the inverse of command
 -cut_out.</p>
 </td>
 </table>
@@ -6527,7 +6728,7 @@ only executed if it is reachable as /bin/mount or
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Command compatibility emulations:</b><BR>&nbsp;<BR></p></td>
+<p>&nbsp;<BR><A NAME="Emulation"></A><b>Command compatibility emulations:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -6596,7 +6797,7 @@ set to &quot;mkisofs&quot; if files are added to the
 image.<br>
 -graft-points is equivalent to -pathspecs
 on. Note that pathspecs without &quot;=&quot; are
-interpreted differently than with <b>xorriso</b> option
+interpreted differently than with <b>xorriso</b> command
 -add. Directories get merged with the root directory
 of the ISO image, other filetypes get mapped into that root
 directory.<br>
@@ -6606,9 +6807,9 @@ standard output (-outdev &quot;-&quot;) will get
 into effect. If -o points to a regular file, then it
 will be truncated to 0 bytes when finally writing begins.
 This truncation does not happen if the drive is chosen by
-<b>xorriso</b> options before -as mkisofs or after its
-list delimiter. Directories and symbolic links are no valid
--o targets.<br>
+<b>xorriso</b> commands before -as mkisofs or after
+its list delimiter. Directories and symbolic links are no
+valid -o targets.<br>
 Writing to stdout is possible only if -as
 &quot;mkisofs&quot; was among the start arguments or if
 other start arguments pointed the output drive to standard
@@ -6639,15 +6840,15 @@ Not original mkisofs options are
 --quoted_path_list , --hardlinks ,
 --acl , --xattr , --md5
 , --stdio_sync . They work like the
-<b>xorriso</b> options with the same name and hardcoded
-argument &quot;on&quot;, e.g. -acl &quot;on&quot;.
-Explicit arguments are expected by --stdio_sync
+<b>xorriso</b> commands with the same name and hardcoded
+parameter &quot;on&quot;, e.g. -acl &quot;on&quot;.
+Explicit parameters are expected by --stdio_sync
 and --scdbackup_tag.<br>
 The capability to preserve multi-session history on
 overwriteable media gets disabled by default. It can be
 enabled by using --emul-toc with the first
 session. See -compliance no_emul_toc.<br>
---sort-weight gets as arguments a number
+--sort-weight gets as parameters a number
 and an iso_rr_path. The number becomes the LBA sorting
 weight of regular file iso_rr_path or of all regular files
 underneath directory iso_rr_path. (See -find
@@ -6675,13 +6876,13 @@ mips_path= .<br>
 -mipsel-boot leads to mipsel_path= .<br>
 -partition_offset number is -boot_image any
 partition_offset=number.<br>
-Option -append_partition is supported.<br>
+Command -append_partition is supported.<br>
 -untranslated_name_len number is -compliance
 untranslated_name_len=number.<br>
 --old-empty is -compliance
 old_empty.<br>
 The options of genisoimage Jigdo Template Extraction are
-recognized and performed via <b>xorriso</b> option
+recognized and performed via <b>xorriso</b> command
 -jigdo. See the &quot;Alias:&quot; names there for the
 meaning of the genisoimage options.</p>
 <!-- INDENTATION -->
@@ -6693,10 +6894,10 @@ If <b>xorriso</b> is started with one of the leafnames
 &quot;xorrisofs&quot;, &quot;genisofs&quot;,
 &quot;mkisofs&quot;, or &quot;genisoimage&quot;, then it
 performs -read_mkisofsrc and prepends -as
-&quot;genisofs&quot; to the command line arguments. I.e. all
+&quot;genisofs&quot; to the program arguments. I.e. all
 arguments will be interpreted mkisofs style until
 &quot;--&quot; is encountered. From then on,
-options are interpreted as <b>xorriso</b> options.<br>
+arguments are interpreted as <b>xorriso</b> commands.<br>
 --no_rc as first argument of such a program
 start prevents interpretation of startup files. See section
 FILES below.</p>
@@ -6717,7 +6918,7 @@ The scope is only a single data track per session to be
 written to blank, overwriteable, or appendable media. The
 medium gets closed if closing is applicable and not option
 -multi is present.<br>
-If an input drive was aquired, then it is given up. This is
+If an input drive was acquired, then it is given up. This is
 only allowed if no image changes are pending.<br>
 dev= must be given as <b>xorriso</b> device address.
 Addresses like 0,0,0 or ATA:1,1,0 are not supported.<br>
@@ -6739,10 +6940,10 @@ If <b>xorriso</b> is started with one of the leafnames
 &quot;xorrecord&quot;, &quot;cdrskin&quot;,
 &quot;cdrecord&quot;, or &quot;wodim&quot;, then it
 automatically prepends -as &quot;cdrskin&quot; to the
-command line arguments. I.e. all arguments will be
-interpreted cdrecord style until &quot;--&quot;
-is encountered. From then on, options are interpreted as
-<b>xorriso</b> options.<br>
+program arguments. I.e. all arguments will be interpreted
+cdrecord style until &quot;--&quot; is
+encountered. From then on, arguments are interpreted as
+<b>xorriso</b> commands.<br>
 --no_rc as first argument of such a program
 start prevents interpretation of <b>xorriso</b> startup
 files. See section <A HREF="#FILES">FILES</A> below.</p>
@@ -6832,7 +7033,7 @@ record.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Scripting, dialog and program control
+<p>&nbsp;<BR><A NAME="Scripting"></A><b>Scripting, dialog and program control
 features:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- TABS -->
@@ -6853,7 +7054,7 @@ features:</b><BR>&nbsp;<BR></p></td>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Only if used as first command line argument this option
+<p>Only if used as first program argument this command
 prevents reading and interpretation of startup files. See
 section FILES below.</p>
 </td>
@@ -6875,7 +7076,7 @@ section FILES below.</p>
 <p>Read quoted input from fileaddress and execute it like
 dialog lines. Empty lines and lines which begin by # are
 ignored. Normally one line should hold one <b>xorriso</b>
-command and all its arguments. Nevertheless lines may be
+command and all its parameters. Nevertheless lines may be
 concatenated by a trailing backslash.<br>
 See also section &quot;Command processing&quot;, paragraph
 &quot;Quoted input&quot;.</p>
@@ -7076,11 +7277,11 @@ arguments.<br>
 Mode &quot;encode_output&quot; encodes output characters. It
 combines &quot;encode_results&quot; with
 &quot;encode_infos&quot;. Inside single or double quotation
-marks encoding applies to ASCII characters octal 001 to 037
-, 177 to 377 and to backslash(134). Outside quotation marks
-some harmless control characters stay unencoded: bell(007),
-backspace(010), tab(011), linefeed(012), formfeed(014),
-carriage_return(015).<br>
+marks encoding applies to 8-bit characters octal 001
+to 037 , 177 to 377 and to backslash(134). Outside quotation
+marks some harmless ASCII control characters stay unencoded:
+bell(007), backspace(010), tab(011), linefeed(012),
+formfeed(014), carriage_return(015).<br>
 Mode &quot;off&quot; is default and disables any
 translation. Mode &quot;on&quot; is
 &quot;with_quoted_input:with_program_arguments:encode_output&quot;.</p>
@@ -7230,8 +7431,8 @@ Any text that does not begin with &quot;-&quot; is
 used as path for a file to append the log lines.<br>
 Problematic files can be recorded multiple times during one
 program run. If the program run aborts then the list might
-not be complete because some input file arguments might not
-have been processed at all.<br>
+not be complete because some input files might not have been
+processed at all.<br>
 The errfile paths are transported as messages of very low
 severity &quot;ERRFILE&quot;. This transport becomes visible
 with -report_about &quot;ALL&quot;.</p>
@@ -7281,7 +7482,7 @@ is the volume id.</p>
 commands and drive replies. Logging messages get printed to
 stderr, not to any of the <b>xorriso</b> output
 channels.<br>
-A special property of this option is that the first
+A special property of this command is that the first
 -scsi_log setting among the start arguments is in
 effect already when the first operations of <b>xorriso</b>
 begin. Only &quot;-scsi_log&quot; with dash
@@ -7351,7 +7552,7 @@ store it in readline history.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>Support for frontend programs via stdin and
+<p>&nbsp;<BR><A NAME="Frontend"></A><b>Support for frontend programs via stdin and
 stdout:</b></p></td>
 </table>
 <!-- INDENTATION -->
@@ -7380,7 +7581,7 @@ the newline character at the end of the output line belongs
 to the payload. After another colon and a blank follows the
 payload text.<br>
 Example:<br>
-I:1: enter option and arguments :</p>
+I:1: enter option and parameters :</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7543,7 +7744,7 @@ run</b></p></td>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Aquire drive /dev/sr2, make medium ready for writing a
+<p>Acquire drive /dev/sr2, make medium ready for writing a
 new image, fill the image with the files from hard disk
 directories /home/me/sounds and /home/me/pictures.<br>
 Because no -dialog &quot;on&quot; is given, the
@@ -7571,8 +7772,8 @@ $ xorriso -outdev /dev/sr2 \<br>
 -add pictures/confidential/work* --<br>
 Note that &rsquo;/pictures/*private*&rsquo; is a pattern for
 iso_rr_paths while pictures/confidential/work* gets expanded
-by the shell with addresses from the hard disk. Options
--add and -map have different argument rules but
+by the shell with addresses from the hard disk. Commands
+-add and -map have different parameter rules but
 finally the same effect: they put files into the image.</p>
 </td>
 </table>
@@ -7593,9 +7794,9 @@ finally the same effect: they put files into the image.</p>
 <p>Some settings are already given as start argument. The
 other activities are done as dialog input. The pager gets
 set to 20 lines of 80 characters.<br>
-The drive is acquired by option -dev rather than
+The drive is acquired by command -dev rather than
 -outdev in order to see the message about its current
-content. By option -blank this content is made ready
+content. By command -blank this content is made ready
 for being overwritten and the loaded ISO image is made
 empty.<br>
 In order to be able to eject the medium, the session needs
@@ -7672,7 +7873,7 @@ another</b></p></td>
 <td width="10%"></td>
 <td width="89%">
 <p>Load image from input drive. Do the same manipulations as
-in the previous example. Aquire output drive and blank it.
+in the previous example. Acquire output drive and blank it.
 Burn the modified image as first and only session to the
 output drive.<br>
 $ xorriso -indev /dev/sr2 \<br>
@@ -7729,7 +7930,7 @@ same files gets added with converted file names. In order to
 avoid any weaknesses of the local character set, this
 command pretends that it uses already the final target set
 UTF-8. Therefore strange file names may appear in
-messages, which will be made terminal-safe by option
+messages, which will be made terminal-safe by command
 -backslash_codes.<br>
 $ xorriso -in_charset ISO-8859-1
 -local_charset UTF-8 \<br>
@@ -7984,12 +8185,12 @@ This makes sense if the full backup leaves substantial
 remaining capacity on media and if the expected changes are
 much smaller than the full backup. To apply zisofs
 compression to those data files which get newly copied from
-the local filesystem, insert these options immediately
+the local filesystem, insert these commands immediately
 before -commit :<br>
 -hardlinks perform_update \<br>
 -find / -type f -pending_data -exec
 set_filter --zisofs -- \<br>
-Options -disk_dev_ino and -for_backup depend on
+Commands -disk_dev_ino and -for_backup depend on
 stable device and inode numbers on disk. Without them, an
 update run may use -md5 &quot;on&quot; to match
 recorded MD5 sums against the current file content on hard
@@ -8003,13 +8204,13 @@ GNU/Linux mount accepts session numbers directly by its
 option &quot;session=&quot;.<br>
 Multi-session media and most overwriteable media
 written by <b>xorriso</b> can tell the sbsectors of their
-sessions by <b>xorriso</b> option -toc. Used after
--commit the following option prints the matching mount
-command for the newly written session (here for mount point
-/mnt):<br>
+sessions by <b>xorriso</b> command -toc. Used after
+-commit the following command prints the matching
+mount command for the newly written session (here for mount
+point /mnt):<br>
 -mount_cmd &quot;indev&quot; &quot;auto&quot;
 &quot;auto&quot; /mnt<br>
-Options -mount_cmd and -mount are also able to
+Commands -mount_cmd and -mount are also able to
 produce the mount commands for older sessions in the
 table-of-content. E.g. as superuser:<br>
 # osirrox -mount /dev/sr0 &quot;volid&quot;
@@ -8137,8 +8338,8 @@ xorrecord</b> starts <b>xorriso</b> with -as cdrecord
 emulation.<b><br>
 osirrox</b> starts with -osirrox
 &quot;on:o_excl_off&quot; which allows to copy files from
-ISO image to disk and to apply option -mount to one or
-more of the existing ISO sessions.</p>
+ISO image to disk and to apply command -mount to one
+or more of the existing ISO sessions.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8416,5 +8617,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jan 27 14:12:23 CET 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Apr  2 15:47:32 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

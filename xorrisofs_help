@@ -1,4 +1,4 @@
-GNU xorriso 1.2.0 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.2.2 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -19,10 +19,15 @@ Options:
   -U, -untranslated-filenames Allow Untranslated filenames (for HPUX & AIX - violates ISO9660).
   -untranslated_name_len LEN  Allow up to LEN (1..96) name characters (heavily violates ISO9660).
   -allow-lowercase            Allow lower case characters in addition to the current character set (violates ISO9660)
+  -relaxed-filenames          Allow 7 bit ASCII except lower case characters (violates ISO9660)
   -d, -omit-period            Omit trailing periods from filenames (violates ISO9660)
   -l, -full-iso9660-filenames Allow full 31 character filenames for ISO9660 names
   -max-iso9660-filenames      Allow 37 character filenames for ISO9660 names (violates ISO9660)
   -N, -omit-version-number    Omit version number from ISO9660 filename (violates ISO9660)
+  -D, -disable-deep-relocation
+                              Disable deep directory relocation (violates ISO9660)
+  -hide-rr-moved              Relocate deep directories to /.rr_moved
+  -rr_reloc_dir NAME          Set deep directory relocation target in root
   -o FILE, -output FILE       Set output file name
   -m GLOBFILE, -exclude GLOBFILE
                               Exclude file name
