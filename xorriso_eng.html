@@ -355,6 +355,15 @@ To be later unmounted by: <KBD>umount /mnt</KBD>
 </DT>
 
 <DT>
+For creating bootable ISO images with GRUB2, use its script
+<KBD>grub-mkrescue</KBD> which knows how to operate xorriso.
+</DT>
+
+<DT>
+<HR>
+</DT>
+
+<DT>
 After the user has already created a suitable file tree on disk
 and copied the ISOLINUX files into subdirectory ./boot/isolinux of
 that tree, xorriso can burn an El Torito bootable media:
@@ -363,9 +372,12 @@ that tree, xorriso can burn an El Torito bootable media:
 <DD><KBD>&nbsp;&nbsp; -map /home/me/ISOLINUX_prepared_tree / \</KBD></DD>
 <DD><KBD>&nbsp;&nbsp; -boot_image isolinux dir=/boot/isolinux</KBD></DD>
 <DT>
-An additional MBR is generated if the file isolinux.bin is modern enough
-(syslinux version 3.72) and ready for "isohybrid". An MBR enables booting
-from hard disk or USB stick.
+An MBR may be added if the file isolinux.bin is modern enough for "isohybrid"
+(syslinux version 3.72). It enables booting from hard disk or USB stick:
+</DT>
+<DD><KBD>&nbsp;&nbsp; -boot_image isolinux system_area=mbr/isohdpfx.bin \</KBD></DD>
+<DD><KBD>&nbsp;&nbsp; -boot_image isolinux partition_table=on \</KBD></DD>
+<DT>
 <HR>
 </DT>
 
@@ -594,7 +606,22 @@ cdrecord and mkisofs.</DT>
 </DD>
 <DD>Enhancements towards stable version 1.2.2:
 <UL>
-<LI>New -as mkisofs option -log-file</LI>
+<LI>New -as mkisofs option -log-file</LI></LI>
+<LI>New -check_media option async_chunks=</LI>
+<LI>New command -rockridge</LI>
+<LI>New xorriso command -hfsplus</LI>
+<LI>New -find tests -has_hfs_crtp, has_hfs_bless</LI>
+<LI>New -find actions set/get_hfs_crtp,  set/get_hfs_bless</LI>
+<LI>New -boot_image bootspec hfsplus_serial=</LI>
+<LI>Command -hide allows hiding in HFS+ filesystem</LI>
+<LI>New -as mkisofs option --norock</LI>
+<LI>New -as mkisofs option -hfsplus</LI>
+<LI>New -as mkisofs option -hfsplus-file-creator-type</LI>
+<LI>New -as mkisofs options -hfs-bless and -hfs-bless-by</LI>
+<LI>New -as mkisofs option -hfsplus-serial-no</LI>
+<LI>New -as mkisofs option -hide-hfsplus, -hide-hfsplus-list</LI>
+<LI>Provisory new -as mkisofs options -prep-boot-part, -efi-boot-part, -chrp-boot-part</LI>
+
 <!-- 
 <LI>- none yet -</LI>
  -->

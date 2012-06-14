@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Apr 19 09:43:26 2012 -->
+<!-- CreationDate: Thu Jun 14 16:31:01 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -70,7 +70,7 @@ cdrtools.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>ISO 9660, Rock Ridge, Joliet:</b></p></td>
+<p><b>ISO 9660, Rock Ridge, Joliet, HFS+:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -94,8 +94,8 @@ can represent a POSIX compliant filesystem with ownership,
 access permissions, symbolic links, and other attributes.
 Rock Ridge allows filenames of up to 255 bytes and paths of
 up to 1024 bytes.<br>
-Rock Ridge information is produced unconditionally with any
-<b>xorrisofs</b> image.<b><br>
+xorrisofs produces Rock Ridge information by default. It is
+strongly discouraged to disable this feature.<b><br>
 Joliet</b> is the name of an additional directory tree which
 provides filenames up to 64 characters encoded as
 UTF-16. A Joliet tree is mainly interesting for
@@ -108,7 +108,16 @@ names to have up to 207 characters. It might be of use with
 some older computer system boot facilities which read
 neither Rock Ridge nor Joliet but need longer filenames
 nevertheless. Production of this directory tree may be
-enabled by option -iso-level 4.</p>
+enabled by option -iso-level 4.<b><br>
+HFS+</b> is the name of a filesystem which is normally used
+for writing and reading on hard disks and similar devices.
+It is possible to embed a HFS+ partition into the emerging
+ISO 9660 image and to mark it by Apple Partition Map
+entries. This interferes with options which copy data into
+the first 32 KiB of the ISO image, like -G or
+-isohybrid-mbr. See option -hfsplus.<br>
+The main purpose for having an embedded HFS+ partition is
+booting of certain models of Apple computers.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -130,8 +139,9 @@ addresses:<b><br>
 disk_path</b> is a path to an object in the local filesystem
 tree.<b><br>
 iso_rr_path</b> is the Rock Ridge address of a file object
-in the ISO image. (Do not confuse with the lowlevel ISO 9660
-names visible if Rock Ridge gets ignored.)</p>
+in the ISO image. If no Rock Ridge information shall be
+stored in an emerging ISO, then the names will get mapped to
+ISO 9660 names of limited length and character set.</p>
 <!-- INDENTATION -->
 <p>A program argument is handled as a <b>pathspec</b>, if it
 is not recognized as original mkisofs option or additional
@@ -1295,7 +1305,9 @@ This violates ISO 9660 specs.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>With mkisofs this option enables Rock Ridge extensions.
-<b>xorrisofs</b> produces them unconditionally.</p>
+<b>xorrisofs</b> produces them by default. It is strongly
+discouraged to disable them by option
+--norock.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -1361,16 +1373,37 @@ t-bit.</p>
 <p>Alias of -r.</p>
 </td>
 </table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>--norock</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>This option disables the production of Rock Ridge
+extensions for the ISO 9660 file objects. The
+multi-session capabilities of <b>xorrisofs</b> depend
+much on the naming fidelity of Rock Ridge. So it is strongly
+discouraged to disable it by this option.</p>
+</td>
+</table>
 <!-- TABS -->
 <table width="100%" border=0 rules="none" frame="void"
        cols="4" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="11%"></td>
+<td width="13%"></td>
 <td width="2%">
 
 <p><b>-D</b></p>
 </td>
-<td width="7%"></td>
+<td width="5%"></td>
 <td width="77%">
 
 <p>The standard ECMA-119 demands that no path in the
@@ -1671,6 +1704,107 @@ oversized paths get excluded from the Joliet tree.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>-hfsplus</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Enable the production of an additional HFS+ filesystem
+inside the ISO 9660 image and mark it by Apple Partition Map
+(APM) entries in the System Area, the first 32 KiB of the
+image.<br>
+This may collide with options like -G or
+-isohybrid-mbr which submit user data for
+inclusion in the same address range. The first 8 bytes of
+the System Area get overwritten by { 0x45, 0x52, 0x08 0x00,
+0xeb, 0x02, 0xff, 0xff } which can be executed as x86
+machine code without negative effects. So if an MBR gets
+combined with this feature, then its first 8 bytes should
+contain no essential commands.<br>
+The next blocks of 2 KiB in the System Area will be occupied
+by APM entries. The first one covers the part of the ISO
+image before the HFS+ filesystem metadata. The second one
+marks the range from HFS+ metadata to the end of file
+content data. If more ISO image data follow, then a third
+partition entry gets produced. Other features of xorriso
+might cause the need for more APM entries.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hfsplus-file-creator-type</b> creator type
+iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the HFS+ creator and type attributes of a file in the
+emerging image. These are two codes of 4 characters
+each.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hfsplus-bless-by</b> blessing
+iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Issue a HFS+ blessing. They are roles which can be
+attributed to up to four directories and a data file:<br>
+&quot;ppc_bootdir&quot;, &quot;intel_bootfile&quot;,
+&quot;show_folder&quot;, &quot;os9_folder&quot;,
+&quot;osx_folder&quot;.<br>
+They may be abbreviated as &quot;p&quot;, &quot;i&quot;,
+&quot;s&quot;, &quot;9&quot;, and &quot;x&quot;.<br>
+Each such role can be attributed to at most one file object.
+&quot;intel_bootfile&quot; is the one that would apply to a
+data file. All others apply to directories. No file object
+can bear more than one blessing.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hfsplus-bless</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Alias for -hfsplus-bless-by
+&quot;ppc_bootdir&quot; iso_rr_path</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p>&nbsp;<BR><b>Settings for file hiding:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
@@ -1748,6 +1882,43 @@ given shell parser pattern.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Perform -hide-joliet using each line out of
+file disk_path as argument disk_path_pattern.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hide-hfsplus</b> disk_path_pattern</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like option -hide but making files invisible in the
+directory tree of HFS+, if their disk_path matches the given
+shell parser pattern.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hide-hfsplus-list</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Perform -hide-hfsplus using each line out of
 file disk_path as argument disk_path_pattern.</p>
 </td>
 </table>
@@ -3867,11 +4038,13 @@ this text under that same license.</p>
 <td width="89%">
 <p><b>xorrisofs</b> is in part based on work by Vreixo
 Formoso who provides libisofs together with Mario Danic who
-also leads the libburnia team.<br>
+also leads the libburnia team. Vladimir Serbinenko
+contributed the HFS+ filesystem code and related
+knowledge.<br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Apr 19 09:43:26 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Jun 14 16:31:01 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

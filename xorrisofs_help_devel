@@ -6,10 +6,20 @@ Options:
   -f, -follow-links           Follow symbolic links
   -graft-points               Allow to use graft points for filenames
   -help                       Print option help
+  -hfsplus                    Generate HFS+ filesystem
+  -hfsplus-file-creator-type CREATOR TYPE iso_rr_path
+                              Attach creator and type to a File
+  -hfs-bless FOLDER_NAME      Name of Folder to be blessed
+  -hfs-bless-by BLESS_TYPE ISO_RR_PATH
+                              Bless ISO_RR_PATH by BLESS_TYPE {p,i,s,9,x}
+  -hfsplus-serial-no HEXSTRING
+                              HFS serial number: 16 characters [0-9a-fA-F]
   -hide GLOBFILE              Hide ISO9660/RR file
   -hide-list FILE             File with list of ISO9660/RR files to hide
   -hide-joliet GLOBFILE       Hide Joliet file
   -hide-joliet-list FILE      File with list of Joliet files to hide
+  -hide-hfsplus GLOBFILE      Hide HFS+ file
+  -hide-hfsplus-list FILE     File with list of HFS+ files to hide
   -input-charset CHARSET      Local input charset for file name conversion
   -output-charset CHARSET     Output charset for file name conversion
   -iso-level LEVEL            Set ISO9660 conformance level (1..3) or 4 for ISO9660 version 2
@@ -46,6 +56,7 @@ Options:
   -quiet                      Run quietly
   -R, -rock                   Generate Rock Ridge directory information
   -r, -rational-rock          Generate rationalized Rock Ridge directory information
+  --norock                    Disable Rock Ridge. (Strongly discouraged !)
   --hardlinks                 Record eventual hard link relations of files
   --acl                       Record eventual ACLs of files
   --xattr                     Record eventual user space xattr of files
