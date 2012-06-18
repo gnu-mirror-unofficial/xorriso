@@ -125,6 +125,8 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"discard"|"keep"|"patch"|"dir="|"bin_path="
               |"cat_path="|"cat_hidden=on|iso_rr|joliet|off"
               |"load_size="|"system_area="|"partition_table=on|off"
+              |"chrp_boot_part=on|off="|"prep_boot_part="
+              |"efi_boot_part="|"efi_boot_part=--efi-boot-image"
               |"mips_path="|"mipsel_path="|"mips_discard"
               |"sparc_label="|"sparc_discard"
               |"hfsplus_serial="|"show_status"
@@ -136,6 +138,8 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  ISO image by the usual commands like -map or -add.
                  system_area= and partition_table= are for MBR based booting
                  from USB stick. The system_area= file needs not to be added.
+                 chrp_boot_part= and prep_boot_part= are for PowerPC.
+                 efi_boot_part= is for booting EFI systems from USB stick.
                  mips_path= adds Big Endian MIPS boot files. mipsel_path=
                  sets one Little Endian MIPS boot file. sparc_label=
                  activates SUN Disk Label. All three are mutually exclusive

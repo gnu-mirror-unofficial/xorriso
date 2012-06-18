@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Jun 14 16:31:01 2012 -->
+<!-- CreationDate: Mon Jun 18 14:53:53 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1759,8 +1759,7 @@ each.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-hfsplus-bless-by</b> blessing
-iso_rr_path</p></td>
+<p><b>-hfs-bless-by</b> blessing iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1787,7 +1786,7 @@ can bear more than one blessing.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-hfsplus-bless</b> iso_rr_path</p></td>
+<p><b>-hfs-bless</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1795,7 +1794,7 @@ can bear more than one blessing.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias for -hfsplus-bless-by
+<p>Alias for -hfs-bless-by
 &quot;ppc_bootdir&quot; iso_rr_path</p>
 </td>
 </table>
@@ -2523,7 +2522,8 @@ in the directory trees of the image.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>System Area, MBR, other boot blocks:</b><BR>&nbsp;<BR></p></td>
+<p><b>System Area, MBR, GPT, APM, other boot
+blocks:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2533,16 +2533,27 @@ in the directory trees of the image.</p>
 <td width="89%">
 <p>The first 16 blocks of an ISO image are the System Area.
 It is reserved for system dependent boot software. This may
-be the CD boot facilities of exotic hardware architectures
-or it may be a MBR for booting via PC-BIOS from USB
-stick or hard disk.<br>
+be the boot facilities and partition tables of various
+hardware architectures.<br>
 A <b>MBR</b> (Master Boot Record) contains boot code and a
-partition table. It does not hamper El Torito booting from
-CDROM.<b><br>
-xorrisofs</b> supports boot facilities other than
-PC-BIOS: MIPS Big Endian (SGI), MIPS Little Endian
-(DEC), SUN SPARC. Those are mutually not combinable and also
-not combinable with MBR.</p>
+partition table. It is read by PC-BIOS when booting
+from USB stick or hard disk, and by PowerPC CHRP or PReP
+when booting. An MBR partiton with type 0xee indicates the
+presence of GPT.<br>
+A <b>GPT</b> (GUID Partition Table) marks partitions in a
+more modern way. It is read by EFI when booting from USB
+stick or hard disk, and may be used for finding and mounting
+a HFS+ partition inside the ISO image.<br>
+An <b>APM</b> (Apple Partition Map) marks the HFS+
+partition. It is read by Macs for booting and for
+mounting.<br>
+MBR, GPT and APM are combinable. APM occupies the first 8
+bytes of MBR boot code. All three do not hamper El Torito
+booting from CDROM.<b><br>
+xorrisofs</b> supports further boot facilities: MIPS Big
+Endian (SGI), MIPS Little Endian (DEC), SUN SPARC. Those are
+mutually not combinable and also not combinable with MBR,
+GPT, or APM.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2776,6 +2787,75 @@ The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
 0xff. Not all those numbers will yield usable results. For a
 list of codes search the Internet for &quot;Partition
 Types&quot; or run fdisk command &quot;L&quot;.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-efi-boot-part</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Copy a file from disk into the emerging ISO image and
+mark it by a GPT entry as EFI System Partition. EFI boot
+firmware is supposed to use a FAT filesystem image in such a
+partition for booting from USB stick or hard disk.<br>
+Instead of a disk_path, the word
+--efi-boot-image may be given. It
+exposes in GPT the content of the first El Torito EFI boot
+image as EFI system partition. EFI boot images are
+introduced by options -e or
+--efi-boot. The affected EFI boot image
+cannot show up in HFS+ because it is stored outside the HFS+
+partition.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-chrp-boot-part</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Mark the block range of the whole emerging ISO image as
+MBR partition of type 0x41. This is not compatible with any
+other feature that produces MBR partition entries. It makes
+GPT unrecognizable.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-prep-boot-part</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Copy a file from disk into the emerging ISO image and
+mark it by a MBR partition entry of type 0x96. PReP boot
+firmware is supposed to read the content of the partition as
+single ELF executable file. This option is compatible with
+other MBR partitions and with GPT.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4046,5 +4126,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Jun 14 16:31:01 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Mon Jun 18 14:53:53 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

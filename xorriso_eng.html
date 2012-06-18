@@ -573,7 +573,7 @@ Thomas Schmitt from team of libburnia-project.org)</DD>
 <DT>libisofs-1.2.2</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
-from team of libburnia-project.org)</DD>
+from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
 <DT>libisoburn-1.2.2</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
@@ -613,6 +613,8 @@ cdrecord and mkisofs.</DT>
 <LI>New -find tests -has_hfs_crtp, has_hfs_bless</LI>
 <LI>New -find actions set/get_hfs_crtp,  set/get_hfs_bless</LI>
 <LI>New -boot_image bootspec hfsplus_serial=</LI>
+<LI>New -boot_image bootspecs efi_boot_part, prep_boot_part, chrp_boot_part
+</LI>
 <LI>Command -hide allows hiding in HFS+ filesystem</LI>
 <LI>New -as mkisofs option --norock</LI>
 <LI>New -as mkisofs option -hfsplus</LI>
@@ -620,7 +622,7 @@ cdrecord and mkisofs.</DT>
 <LI>New -as mkisofs options -hfs-bless and -hfs-bless-by</LI>
 <LI>New -as mkisofs option -hfsplus-serial-no</LI>
 <LI>New -as mkisofs option -hide-hfsplus, -hide-hfsplus-list</LI>
-<LI>Provisory new -as mkisofs options -prep-boot-part, -efi-boot-part, -chrp-boot-part</LI>
+<LI>New -as mkisofs options -prep-boot-part, -efi-boot-part, -chrp-boot-part</LI>
 
 <!-- 
 <LI>- none yet -</LI>

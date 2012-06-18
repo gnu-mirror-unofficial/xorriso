@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Jun 14 16:31:00 2012 -->
+<!-- CreationDate: Mon Jun 18 14:53:52 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -504,20 +504,34 @@ GRUB boot images. <b>xorriso</b> is able to create or
 maintain an El Torito object which makes such an image
 bootable. For details see command -boot_image.<br>
 It is possible to make ISO images bootable from USB stick or
-other hard-disk-like media by -boot_image
-parameter system_area= . This installs a Master Boot Record
-which may get adjusted according to the needs of GRUB resp.
-ISOLINUX. An <b>MBR</b> contains boot code and a partition
-table. It does not hamper CDROM booting. The new MBR of a
-follow-up session can get in effect only on
-overwriteable media.<br>
+other hard-disk-like media. Several options
+install a <b>MBR</b> (Master Boot Record), It may get
+adjusted according to the needs of the intended boot
+firmware and the involved boot loaders, e.g. GRUB2 or
+ISOLINUX. A MBR contains boot code and a partition table.
+The new MBR of a follow-up session can get in effect
+only on overwriteable media.<br>
+MBR is read by PC-BIOS when booting from USB stick or
+hard disk, and by PowerPC CHRP or PReP when booting. An MBR
+partiton with type 0xee indicates the presence of GPT.<br>
 Emulation -as mkisofs supports the example options out
 of the ISOLINUX wiki, the options used in GRUB script
 grub-mkrescue, and the example in the FreeBSD
 AvgLiveCD wiki.<br>
-There is support for boot facilities other than PC BIOS:
-EFI, MIPS Big Endian (SGI), MIPS Little Endian (DEC), SUN
-SPARC.</p>
+A <b>GPT</b> (GUID Partition Table) marks partitions in a
+more modern way. It is read by EFI when booting from USB
+stick or hard disk, and may be used for finding and mounting
+a HFS+ partition inside the ISO image.<br>
+An <b>APM</b> (Apple Partition Map) marks the HFS+
+partition. It is read by Macs for booting and for
+mounting.<br>
+MBR, GPT and APM are combinable. APM occupies the first 8
+bytes of MBR boot code. All three do not hamper El Torito
+booting from CDROM.<br>
+There is support for further facilities: MIPS Big Endian
+(SGI), MIPS Little Endian (DEC), SUN SPARC. Those are
+mutually not combinable and also not combinable with MBR,
+GPT, or APM.</p>
 <!-- INDENTATION -->
 <p><b>ACL</b> are an advanced way of controlling access
 permissions to file objects. Neither ISO 9660 nor Rock Ridge
@@ -750,12 +764,12 @@ expressivity.</p>
 <table width="100%" border=0 rules="none" frame="void"
        cols="4" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="13%"></td>
+<td width="11%"></td>
 <td width="2%">
 
 <p><b>-x</b></p>
 </td>
-<td width="5%"></td>
+<td width="7%"></td>
 <td width="77%">
 
 <p>Enable automatic sorting of program arguments into a
@@ -4738,9 +4752,12 @@ image to be written into the MBR. For the first session this
 works only if also &quot;system_area=&quot; and
 &quot;bin_path=&quot; or &quot;dir=&quot; is given.<br>
 With types &quot;any&quot; and &quot;grub&quot; it shows a
-single partiton which starts at byte 512 and ends where the
+single partition which starts at byte 512 and ends where the
 ISO image ends. This works with or without system_area= or
 boot image.<br>
+Bootspecs chrp_boot_part=, prep_boot_part=, and
+efi_boot_part= overwrite this entry in the MBR partition
+table.<br>
 In follow-up sessions the existing System Area is
 preserved by default. If types &quot;isolinux&quot; or
 &quot;grub&quot; are set to &quot;patch&quot;, then
@@ -4753,6 +4770,27 @@ written.<br>
 Special &quot;system_area=/dev/zero&quot; causes 32k of
 NUL-bytes. Use this to discard an MBR which was loaded
 with the ISO image.<b><br>
+chrp_boot_part=on</b> causes a single partition in MBR which
+covers the whole ISO image and has type 0x41. This is not
+compatible with any other feature that produces MBR
+partition entries. It makes GPT unrecognizable.<b><br>
+prep_boot_part=</b> inserts the content of a data file into
+the image and marks it by an MBR partition of type 0x96. The
+parts of the ISO image before and after this partition will
+be covered by further MBR partitions. The data file is
+supposed to contain ELF executable code.<b><br>
+efi_boot_part=</b> inserts the content of a data file into
+the image and marks it by a GPT partition. If not
+chrp_boot_part=on, then the first partition in MBR will have
+type 0xee to announce the presence of GPT. The data file is
+supposed to contain a FAT filesystem.<br>
+Instead of a disk_path, the word
+--efi-boot-image may be given. It
+exposes in GPT the content of the first El Torito EFI boot
+image as EFI system partition. EFI boot images are
+introduced by bootspec efi_path=. The affected EFI boot
+image cannot show up in HFS+ because it is stored outside
+the HFS+ partition.<b><br>
 partition_offset=</b>2kb_block_adr causes a partition table
 with a single partition that begins at the given block
 address. This is counted in 2048 byte blocks, not in 512
@@ -8754,5 +8792,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jun 14 16:31:00 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Jun 18 14:53:52 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
