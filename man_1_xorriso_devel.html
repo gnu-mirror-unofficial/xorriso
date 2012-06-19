@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Jun 18 14:53:52 2012 -->
+<!-- CreationDate: Tue Jun 19 11:39:31 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3137,7 +3137,13 @@ run will end as soon as the first blessing is issued. The
 previous bearer of the blessing will lose it then. No file
 object can bear more than one blessing.<br>
 E.g.: -find /my/blessed/directory -exec
-set_hfs_bless p<b><br>
+set_hfs_bless p<br>
+Further there is blessing &quot;none&quot; or &quot;n&quot;
+which revokes any blessing from the found files. This
+-find run will not stop when the first match is
+reached.<br>
+E.g.: -find / -has_hfs_bless any -exec
+set_hfs_bless none<b><br>
 get_hfs_bless</b> prints the HFS+ blessing role and the
 iso_rr_path, if the file is blessed at all.<br>
 E.g.: -exec get_hfs_bless<b><br>
@@ -8792,5 +8798,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Jun 18 14:53:52 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Jun 19 11:39:32 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
