@@ -98,6 +98,9 @@ Options:
   -hard-disk-boot             Boot image is a hard disk image
   -no-emul-boot               Boot image is 'no emulation' image
   -boot-info-table            Patch boot image with info table
+  -isohybrid-gpt-basdat       Mark El Torito boot image as Basic Data in GPT
+  -isohybrid-gpt-hfsplus      Mark El Torito boot image as HFS+ in GPT
+  -isohybrid-apm-hfsplus      Mark El Torito boot image as HFS+ in APM
   -G FILE, -generic-boot FILE Set generic boot image name
   --embedded-boot FILE        Alias of -G
   --protective-msdos-label    Patch System Area by partition table
