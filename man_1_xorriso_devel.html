@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Jun 20 21:10:26 2012 -->
+<!-- CreationDate: Fri Jun 22 16:42:14 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2907,8 +2907,14 @@ the file path as it would be printed by action
 &quot;echo&quot;. Character &rsquo;/&rsquo; is not special
 but can be matched by wildcards.<b><br>
 -disk_name</b> pattern : Like -name but testing
-the leaf name of the file source on disk. Can be true only
-for data files which stem not from the loaded image.<b><br>
+the leaf name of the file source on disk. Can match only
+data files which do not stem from the loaded image, or for
+directories above such data files. With directories the
+result can change between -find runs if their content
+stems from multiple sources.<b><br>
+-disk_path</b> disk_path : Matches if the given
+disk_path is equal to the path of the file source on disk.
+The same restrictions apply as with -disk_name.<b><br>
 -type</b> type_letter : Matches files of the given
 type: &quot;block&quot;, &quot;char&quot;, &quot;dir&quot;,
 &quot;pipe&quot;, &quot;file&quot;, &quot;link&quot;,
@@ -8798,5 +8804,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Jun 20 21:10:26 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jun 22 16:42:14 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

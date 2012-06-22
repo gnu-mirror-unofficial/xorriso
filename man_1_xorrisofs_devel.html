@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Jun 20 21:10:27 2012 -->
+<!-- CreationDate: Fri Jun 22 16:42:14 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1786,7 +1786,7 @@ can bear more than one blessing.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-hfs-bless</b> iso_rr_path</p></td>
+<p><b>-hfs-bless</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1794,8 +1794,15 @@ can bear more than one blessing.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias for -hfs-bless-by
-&quot;ppc_bootdir&quot; iso_rr_path</p>
+<p>Issue HFS+ blessing &quot;ppc_bootdir&quot; to the
+directory which stems from the directory disk_path in the
+local filesystem tree.<br>
+This works only if there is at least one data file
+underneath the directory. disk_path can become ambigous if
+files from different local filesystem sub-trees are
+put into the same sub-tree of the ISO image. Consider
+to use -hfs-bless-by &quot;p&quot; for
+unambigous addressing via iso_rr_path.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2680,8 +2687,14 @@ Impact and restrictions are like with
 -isohybrid-gpt-basdat.</p>
 </td>
 </table>
-
-<p><b>-isohybrid-apm-hfsplus</b></p>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-isohybrid-apm-hfsplus</b></p></td>
+</table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -4188,5 +4201,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Wed Jun 20 21:10:27 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri Jun 22 16:42:14 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
