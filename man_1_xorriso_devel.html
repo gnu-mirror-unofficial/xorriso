@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Jun 22 16:42:14 2012 -->
+<!-- CreationDate: Thu Jun 28 14:20:55 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4865,7 +4865,17 @@ ban on production of other boot blocks.<b><br>
 hfsplus_serial=</b>hexstring sets a string of 16 digits
 &quot;0&quot; to &quot;9&quot; and letters &quot;a&quot; to
 &quot;f&quot;, which will be used as unique serial number of
-an emerging HFS+ filesystem.</p>
+an emerging HFS+ filesystem.<b><br>
+hfsplus_block_size=</b>number sets the allocation block size
+to be used when producing HFS+ filesystems. Permissible are
+512, 2048, or 0. The latter lets the program decide.<b><br>
+apm_block_size=</b>number sets the block size to be used
+when describing partitions by an Apple Partition Map.
+Permissible are 512, 2048, or 0. The latter lets the program
+decide.<br>
+Note that size 512 is not compatible with production of GPT,
+and that size 2048 will not be mountable -t hfsplus at
+least by older Linux kernels.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8804,5 +8814,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jun 22 16:42:14 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jun 28 14:20:55 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

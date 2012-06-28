@@ -14,6 +14,8 @@ Options:
                               Bless ISO_RR_PATH by BLESS_TYPE {p,i,s,9,x}
   -hfsplus-serial-no HEXSTRING
                               HFS serial number: 16 characters [0-9a-fA-F]
+  -hfsplus-block-size NUMBER  Set HFS+ block size
+  -apm-block-size NUMBER      Set Apple Partition Map block size
   -hide GLOBFILE              Hide ISO9660/RR file
   -hide-list FILE             File with list of ISO9660/RR files to hide
   -hide-joliet GLOBFILE       Hide Joliet file

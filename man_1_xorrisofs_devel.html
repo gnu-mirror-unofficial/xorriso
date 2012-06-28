@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Jun 22 16:42:14 2012 -->
+<!-- CreationDate: Thu Jun 28 14:20:56 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1739,6 +1739,67 @@ might cause the need for more APM entries.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>-hfsplus-serial-no</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set a string of 16 digits &quot;0&quot; to &quot;9&quot;
+and letters &quot;a&quot; to &quot;f&quot;, which will be
+used as unique serial number of an emerging HFS+
+filesystem.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hfsplus-block-size</b> number</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the allocation block size to be used when producing
+HFS+ filesystems. Permissible are 512, 2048, or 0. The
+latter lets the program decide.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-apm-block-size</b> number</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the block size to be used when describing partitions
+by an Apple Partition Map. Permissible are 512, 2048, or 0.
+The latter lets the program decide.<br>
+Note that size 512 is not compatible with production of GPT,
+and that size 2048 will not be mountable -t hfsplus at
+least by older Linux kernels.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>-hfsplus-file-creator-type</b> creator type
 iso_rr_path</p></td>
 </table>
@@ -2909,7 +2970,10 @@ partition.</p>
 <p>Mark the block range of the whole emerging ISO image as
 MBR partition of type 0x41. This is not compatible with any
 other feature that produces MBR partition entries. It makes
-GPT unrecognizable.</p>
+GPT unrecognizable.<br>
+CHRP is used in conjunction with HFS. It is not yet tested
+whether HFS+ filesystems produced with option -hfsplus
+would boot on any CHRP capable machine.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4201,5 +4265,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri Jun 22 16:42:14 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Jun 28 14:20:56 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
