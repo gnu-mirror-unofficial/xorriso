@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Jun 28 14:20:55 2012 -->
+<!-- CreationDate: Tue Jul 10 10:31:15 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3846,7 +3846,14 @@ stored by xorriso if -hfsplus is enabled at
 -commit time. It is stored as copy outside the HFS+
 partition, but rather along with the Rock Ridge information.
 xorriso does not read any information from the HFS+ meta
-data.</p>
+data.<br>
+Be aware that HFS+ is case-insensitive although it can
+record file names with upper-case and lower-case
+letters. Therefore, file names from the iso_rr name tree may
+collide in the HFS+ name tree. In this case they get changed
+by adding underscore characters and counting numbers. In
+case of very long names, it might be necessary to map them
+to &quot;MANGLED_...&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4539,6 +4546,30 @@ of target media).<br>
 This is the contrary of cdrecord, wodim, cdrskin command
 -multi, and is one aspect of growisofs option
 -dvd-compat.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-write_type</b>
+&quot;auto&quot;|&quot;tao&quot;|&quot;sao/dao&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the write type for the next burn run.
+&quot;auto&quot; will select SAO with blank CD media, DAO
+with DVD-R[W] if -close is &quot;on&quot;, and
+elsewise CD TAO or the equivalent write type of the
+particular DVD/BD media. Choosing TAO or SAO/DAO explicitely
+might cause the burn run to fail if the desired write type
+is not possible with the given media state.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8374,7 +8405,7 @@ $ xorriso \<br>
 -- -eject all<br>
 To be used several times on the same medium, whenever an
 update of the two disk trees to the medium is desired. Begin
-with a blank medium and update it until he run fails
+with a blank medium and update it until the run fails
 gracefully due to lack of remaining space on the old
 one.<br>
 This makes sense if the full backup leaves substantial
@@ -8814,5 +8845,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jun 28 14:20:55 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Jul 10 10:31:15 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

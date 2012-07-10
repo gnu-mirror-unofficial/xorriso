@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Jun 28 14:20:56 2012 -->
+<!-- CreationDate: Tue Jul 10 10:31:16 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1730,7 +1730,14 @@ image before the HFS+ filesystem metadata. The second one
 marks the range from HFS+ metadata to the end of file
 content data. If more ISO image data follow, then a third
 partition entry gets produced. Other features of xorriso
-might cause the need for more APM entries.</p>
+might cause the need for more APM entries.<br>
+Be aware that HFS+ is case-insensitive although it can
+record file names with upper-case and lower-case
+letters. Therefore, file names from the iso_rr name tree may
+collide in the HFS+ name tree. In this case they get changed
+by adding underscore characters and counting numbers. In
+case of very long names, it might be necessary to map them
+to &quot;MANGLED_...&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4265,5 +4272,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Jun 28 14:20:56 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Jul 10 10:31:16 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

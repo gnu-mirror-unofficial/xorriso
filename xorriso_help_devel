@@ -363,6 +363,8 @@ Write-to-media commands:
   -commit_eject  "in"|"out"|"all"|"none"
                  Like -commit but rather eject than load image from outdrive.
                  Give up any unejected drive afterwards.
+  -write_type "auto"|"tao"|"sao/dao"
+                 Set write type for CD-R[W], DVD-R[W], DVD+R, BD-R.
   -close "on"|"off"
                  If "on" then mark the written medium as not appendable.
   -padding number["k"|"m"]|"included"|"appended"

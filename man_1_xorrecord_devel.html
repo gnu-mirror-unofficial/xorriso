@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Jun 28 14:20:56 2012 -->
+<!-- CreationDate: Tue Jul 10 10:31:16 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -849,6 +849,46 @@ recorded as data track, and not as audio track. This option
 has no effect with <b>xorrecord</b>, because there is no
 support for other track formats anyway.</p>
 </td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="8%">
+
+<p><b>-tao</b></p>
+</td>
+<td width="1%"></td>
+<td width="77%">
+
+<p>Explicitely demand that write type TAO shall be used for
+CD, or Incremental for DVD-R. Normally the program
+will choose the write type according to the given medium
+state, option -multi, and track source. Demanding it
+explicitely prevents the start of a write run, if it is not
+appropriate to the situation.</p>
+</td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="8%">
+
+<p><b>-sao</b></p>
+</td>
+<td width="1%"></td>
+<td width="77%">
+
+<p>Explicitely demand that write type SAO shall be used for
+CD, or DAO for DVD-R. This might prevent the write
+run, if it is not appropriate to the situation.</p>
+</td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="8%">
+
+<p><b>-dao</b></p>
+</td>
+<td width="1%"></td>
+<td width="77%">
+
+<p>Alias of -sao.</p>
+</td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1607,5 +1647,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Thu Jun 28 14:20:56 CEST 2012 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Tue Jul 10 10:31:16 CEST 2012 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>
