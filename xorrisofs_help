@@ -1,4 +1,4 @@
-GNU xorriso 1.2.2 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.2.4 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -6,10 +6,22 @@ Options:
   -f, -follow-links           Follow symbolic links
   -graft-points               Allow to use graft points for filenames
   -help                       Print option help
+  -hfsplus                    Generate HFS+ filesystem
+  -hfsplus-file-creator-type CREATOR TYPE iso_rr_path
+                              Attach creator and type to a File
+  -hfs-bless FOLDER_NAME      Name of Folder to be blessed
+  -hfs-bless-by BLESS_TYPE ISO_RR_PATH
+                              Bless ISO_RR_PATH by BLESS_TYPE {p,i,s,9,x}
+  -hfsplus-serial-no HEXSTRING
+                              HFS serial number: 16 characters [0-9a-fA-F]
+  -hfsplus-block-size NUMBER  Set HFS+ block size
+  -apm-block-size NUMBER      Set Apple Partition Map block size
   -hide GLOBFILE              Hide ISO9660/RR file
   -hide-list FILE             File with list of ISO9660/RR files to hide
   -hide-joliet GLOBFILE       Hide Joliet file
   -hide-joliet-list FILE      File with list of Joliet files to hide
+  -hide-hfsplus GLOBFILE      Hide HFS+ file
+  -hide-hfsplus-list FILE     File with list of HFS+ files to hide
   -input-charset CHARSET      Local input charset for file name conversion
   -output-charset CHARSET     Output charset for file name conversion
   -iso-level LEVEL            Set ISO9660 conformance level (1..3) or 4 for ISO9660 version 2
@@ -46,6 +58,7 @@ Options:
   -quiet                      Run quietly
   -R, -rock                   Generate Rock Ridge directory information
   -r, -rational-rock          Generate rationalized Rock Ridge directory information
+  --norock                    Disable Rock Ridge. (Strongly discouraged !)
   --hardlinks                 Record eventual hard link relations of files
   --acl                       Record eventual ACLs of files
   --xattr                     Record eventual user space xattr of files
@@ -87,6 +100,9 @@ Options:
   -hard-disk-boot             Boot image is a hard disk image
   -no-emul-boot               Boot image is 'no emulation' image
   -boot-info-table            Patch boot image with info table
+  -isohybrid-gpt-basdat       Mark El Torito boot image as Basic Data in GPT
+  -isohybrid-gpt-hfsplus      Mark El Torito boot image as HFS+ in GPT
+  -isohybrid-apm-hfsplus      Mark El Torito boot image as HFS+ in APM
   -G FILE, -generic-boot FILE Set generic boot image name
   --embedded-boot FILE        Alias of -G
   --protective-msdos-label    Patch System Area by partition table
@@ -98,6 +114,10 @@ Options:
   -mipsel-boot FILE           Set mipsel boot image name (relative to image root)
   -B FILES, -sparc-boot FILES Set sparc boot image names
   -sparc-label label text     Set sparc boot disk label
+  -efi-boot-part DISKFILE|--efi-boot-image
+                              Set data source for EFI System Partition
+  -chrp-boot-part             Mark ISO image size by MBR partition type 0x41
+  -prep-boot-part DISKFILE    Set data source for MBR partition type 0x96
   -append_partition NUMBER TYPE FILE
                               Append FILE after image. TYPE is hex: 0x..
   --modification-date=YYYYMMDDhhmmsscc
@@ -115,6 +135,7 @@ Options:
   --old-root-no-md5           Do not record and use MD5 with -old-root
   --old-root-no-ino           Do not use disk inode numbers with -old-root
   --old-root-devno            Use disk device numbers with -old-root
+  -log-file LOG_FILE          Re-direct messages to LOG_FILE
   --no_rc                     Do not execute startup files
   -v, -verbose                Verbose
   -version                    Print the current version

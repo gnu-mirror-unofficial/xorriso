@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Apr  2 15:47:33 2012 -->
+<!-- CreationDate: Fri Jul 20 15:53:14 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -70,7 +70,7 @@ cdrtools.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p>&nbsp;<BR><b>ISO 9660, Rock Ridge, Joliet:</b></p></td>
+<p><b>ISO 9660, Rock Ridge, Joliet, HFS+:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -94,8 +94,8 @@ can represent a POSIX compliant filesystem with ownership,
 access permissions, symbolic links, and other attributes.
 Rock Ridge allows filenames of up to 255 bytes and paths of
 up to 1024 bytes.<br>
-Rock Ridge information is produced unconditionally with any
-<b>xorrisofs</b> image.<b><br>
+xorrisofs produces Rock Ridge information by default. It is
+strongly discouraged to disable this feature.<b><br>
 Joliet</b> is the name of an additional directory tree which
 provides filenames up to 64 characters encoded as
 UTF-16. A Joliet tree is mainly interesting for
@@ -108,7 +108,16 @@ names to have up to 207 characters. It might be of use with
 some older computer system boot facilities which read
 neither Rock Ridge nor Joliet but need longer filenames
 nevertheless. Production of this directory tree may be
-enabled by option -iso-level 4.</p>
+enabled by option -iso-level 4.<b><br>
+HFS+</b> is the name of a filesystem which is normally used
+for writing and reading on hard disks and similar devices.
+It is possible to embed a HFS+ partition into the emerging
+ISO 9660 image and to mark it by Apple Partition Map
+entries. This interferes with options which copy data into
+the first 32 KiB of the ISO image, like -G or
+-isohybrid-mbr. See option -hfsplus.<br>
+The main purpose for having an embedded HFS+ partition is
+booting of certain models of Apple computers.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -130,8 +139,9 @@ addresses:<b><br>
 disk_path</b> is a path to an object in the local filesystem
 tree.<b><br>
 iso_rr_path</b> is the Rock Ridge address of a file object
-in the ISO image. (Do not confuse with the lowlevel ISO 9660
-names visible if Rock Ridge gets ignored.)</p>
+in the ISO image. If no Rock Ridge information shall be
+stored in an emerging ISO, then the names will get mapped to
+ISO 9660 names of limited length and character set.</p>
 <!-- INDENTATION -->
 <p>A program argument is handled as a <b>pathspec</b>, if it
 is not recognized as original mkisofs option or additional
@@ -1295,7 +1305,9 @@ This violates ISO 9660 specs.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>With mkisofs this option enables Rock Ridge extensions.
-<b>xorrisofs</b> produces them unconditionally.</p>
+<b>xorrisofs</b> produces them by default. It is strongly
+discouraged to disable them by option
+--norock.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -1361,16 +1373,37 @@ t-bit.</p>
 <p>Alias of -r.</p>
 </td>
 </table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>--norock</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>This option disables the production of Rock Ridge
+extensions for the ISO 9660 file objects. The
+multi-session capabilities of <b>xorrisofs</b> depend
+much on the naming fidelity of Rock Ridge. So it is strongly
+discouraged to disable it by this option.</p>
+</td>
+</table>
 <!-- TABS -->
 <table width="100%" border=0 rules="none" frame="void"
        cols="4" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="11%"></td>
+<td width="13%"></td>
 <td width="2%">
 
 <p><b>-D</b></p>
 </td>
-<td width="7%"></td>
+<td width="5%"></td>
 <td width="77%">
 
 <p>The standard ECMA-119 demands that no path in the
@@ -1671,6 +1704,181 @@ oversized paths get excluded from the Joliet tree.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>-hfsplus</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Enable the production of an additional HFS+ filesystem
+inside the ISO 9660 image and mark it by Apple Partition Map
+(APM) entries in the System Area, the first 32 KiB of the
+image.<br>
+This may collide with options like -G or
+-isohybrid-mbr which submit user data for
+inclusion in the same address range. The first 8 bytes of
+the System Area get overwritten by { 0x45, 0x52, 0x08 0x00,
+0xeb, 0x02, 0xff, 0xff } which can be executed as x86
+machine code without negative effects. So if an MBR gets
+combined with this feature, then its first 8 bytes should
+contain no essential commands.<br>
+The next blocks of 2 KiB in the System Area will be occupied
+by APM entries. The first one covers the part of the ISO
+image before the HFS+ filesystem metadata. The second one
+marks the range from HFS+ metadata to the end of file
+content data. If more ISO image data follow, then a third
+partition entry gets produced. Other features of xorriso
+might cause the need for more APM entries.<br>
+Be aware that HFS+ is case-insensitive although it can
+record file names with upper-case and lower-case
+letters. Therefore, file names from the iso_rr name tree may
+collide in the HFS+ name tree. In this case they get changed
+by adding underscore characters and counting numbers. In
+case of very long names, it might be necessary to map them
+to &quot;MANGLED_...&quot;.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hfsplus-serial-no</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set a string of 16 digits &quot;0&quot; to &quot;9&quot;
+and letters &quot;a&quot; to &quot;f&quot;, which will be
+used as unique serial number of an emerging HFS+
+filesystem.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hfsplus-block-size</b> number</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the allocation block size to be used when producing
+HFS+ filesystems. Permissible are 512, 2048, or 0. The
+latter lets the program decide.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-apm-block-size</b> number</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the block size to be used when describing partitions
+by an Apple Partition Map. Permissible are 512, 2048, or 0.
+The latter lets the program decide.<br>
+Note that size 512 is not compatible with production of GPT,
+and that size 2048 will not be mountable -t hfsplus at
+least by older Linux kernels.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hfsplus-file-creator-type</b> creator type
+iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the HFS+ creator and type attributes of a file in the
+emerging image. These are two codes of 4 characters
+each.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hfs-bless-by</b> blessing iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Issue a HFS+ blessing. They are roles which can be
+attributed to up to four directories and a data file:<br>
+&quot;ppc_bootdir&quot;, &quot;intel_bootfile&quot;,
+&quot;show_folder&quot;, &quot;os9_folder&quot;,
+&quot;osx_folder&quot;.<br>
+They may be abbreviated as &quot;p&quot;, &quot;i&quot;,
+&quot;s&quot;, &quot;9&quot;, and &quot;x&quot;.<br>
+Each such role can be attributed to at most one file object.
+&quot;intel_bootfile&quot; is the one that would apply to a
+data file. All others apply to directories. No file object
+can bear more than one blessing.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hfs-bless</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Issue HFS+ blessing &quot;ppc_bootdir&quot; to the
+directory which stems from the directory disk_path in the
+local filesystem tree.<br>
+This works only if there is at least one data file
+underneath the directory. disk_path can become ambigous if
+files from different local filesystem sub-trees are
+put into the same sub-tree of the ISO image. Consider
+to use -hfs-bless-by &quot;p&quot; for
+unambigous addressing via iso_rr_path.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p>&nbsp;<BR><b>Settings for file hiding:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
@@ -1748,6 +1956,43 @@ given shell parser pattern.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Perform -hide-joliet using each line out of
+file disk_path as argument disk_path_pattern.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hide-hfsplus</b> disk_path_pattern</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like option -hide but making files invisible in the
+directory tree of HFS+, if their disk_path matches the given
+shell parser pattern.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hide-hfsplus-list</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Perform -hide-hfsplus using each line out of
 file disk_path as argument disk_path_pattern.</p>
 </td>
 </table>
@@ -2352,7 +2597,8 @@ in the directory trees of the image.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>&nbsp;<BR><b>System Area, MBR, other boot blocks:</b><BR>&nbsp;<BR></p></td>
+<p><b>System Area, MBR, GPT, APM, other boot
+blocks:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2362,16 +2608,27 @@ in the directory trees of the image.</p>
 <td width="89%">
 <p>The first 16 blocks of an ISO image are the System Area.
 It is reserved for system dependent boot software. This may
-be the CD boot facilities of exotic hardware architectures
-or it may be a MBR for booting via PC-BIOS from USB
-stick or hard disk.<br>
+be the boot facilities and partition tables of various
+hardware architectures.<br>
 A <b>MBR</b> (Master Boot Record) contains boot code and a
-partition table. It does not hamper El Torito booting from
-CDROM.<b><br>
-xorrisofs</b> supports boot facilities other than
-PC-BIOS: MIPS Big Endian (SGI), MIPS Little Endian
-(DEC), SUN SPARC. Those are mutually not combinable and also
-not combinable with MBR.</p>
+partition table. It is read by PC-BIOS when booting
+from USB stick or hard disk, and by PowerPC CHRP or PReP
+when booting. An MBR partiton with type 0xee indicates the
+presence of GPT.<br>
+A <b>GPT</b> (GUID Partition Table) marks partitions in a
+more modern way. It is read by EFI when booting from USB
+stick or hard disk, and may be used for finding and mounting
+a HFS+ partition inside the ISO image.<br>
+An <b>APM</b> (Apple Partition Map) marks the HFS+
+partition. It is read by Macs for booting and for
+mounting.<br>
+MBR, GPT and APM are combinable. APM occupies the first 8
+bytes of MBR boot code. All three do not hamper El Torito
+booting from CDROM.<b><br>
+xorrisofs</b> supports further boot facilities: MIPS Big
+Endian (SGI), MIPS Little Endian (DEC), SUN SPARC. Those are
+mutually not combinable and also not combinable with MBR,
+GPT, or APM.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2454,6 +2711,74 @@ isohybrid needs. The first partition describes the range of
 the ISO image. Its start is at block 0 by default, but may
 be set to 64 disk blocks by option -partition_offset
 16.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-isohybrid-gpt-basdat</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Mark the current El Torito boot image (see options
+-b and -e) in GPT as partition of type Basic
+Data. This works only with -isohybrid-mbr and
+has the same impact on the system area as
+-efi-boot-part. It cannot be combined with
+-efi-boot-part or -hfsplus.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-isohybrid-gpt-hfsplus</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Mark the current El Torito boot image (see options
+-b and -e) in GPT as partition of type HFS+.
+Impact and restrictions are like with
+-isohybrid-gpt-basdat.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-isohybrid-apm-hfsplus</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Mark the current El Torito boot image (see options
+-b and -e) in Apple Partition Map as partition
+of type HFS+. This works only with
+-isohybrid-mbr and has a similar impact on the
+system area as -hfsplus. It cannot be combined with
+-efi-boot-part or -hfsplus.<br>
+The ISOLINUX isohybrid MBR file must begin by a known
+pattern of 32 bytes of x86 machine code which essentially
+does nothing. It will get overwritten by 32 bytes of APM
+header mock-up.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2605,6 +2930,78 @@ The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
 0xff. Not all those numbers will yield usable results. For a
 list of codes search the Internet for &quot;Partition
 Types&quot; or run fdisk command &quot;L&quot;.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-efi-boot-part</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Copy a file from disk into the emerging ISO image and
+mark it by a GPT entry as EFI System Partition. EFI boot
+firmware is supposed to use a FAT filesystem image in such a
+partition for booting from USB stick or hard disk.<br>
+Instead of a disk_path, the word
+--efi-boot-image may be given. It
+exposes in GPT the content of the first El Torito EFI boot
+image as EFI system partition. EFI boot images are
+introduced by options -e or
+--efi-boot. The affected EFI boot image
+cannot show up in HFS+ because it is stored outside the HFS+
+partition.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-chrp-boot-part</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Mark the block range of the whole emerging ISO image as
+MBR partition of type 0x41. This is not compatible with any
+other feature that produces MBR partition entries. It makes
+GPT unrecognizable.<br>
+CHRP is used in conjunction with HFS. It is not yet tested
+whether HFS+ filesystems produced with option -hfsplus
+would boot on any CHRP capable machine.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-prep-boot-part</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Copy a file from disk into the emerging ISO image and
+mark it by a MBR partition entry of type 0x96. PReP boot
+firmware is supposed to read the content of the partition as
+single ELF executable file. This option is compatible with
+other MBR partitions and with GPT.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3127,6 +3524,26 @@ options bear their original mkisofs description texts.</p>
 <td width="77%">
 <p>Suppress most messages of the program run, except those
 which indicate problems or errors.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-log-file</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Truncate file disk_path to 0 size and redirect to it all
+messages which would normally appear on stderr.
+-log-file with empty text as disk_path
+re-enables output to stderr.</p>
 </td>
 </table>
 <!-- TABS -->
@@ -3847,11 +4264,13 @@ this text under that same license.</p>
 <td width="89%">
 <p><b>xorrisofs</b> is in part based on work by Vreixo
 Formoso who provides libisofs together with Mario Danic who
-also leads the libburnia team.<br>
+also leads the libburnia team. Vladimir Serbinenko
+contributed the HFS+ filesystem code and related
+knowledge.<br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Mon Apr  2 15:47:33 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri Jul 20 15:53:14 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

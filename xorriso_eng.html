@@ -461,21 +461,21 @@ This can bring effective read performance near to the raw media reading speed.
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.2.2.tar.gz">xorriso-1.2.2.tar.gz</A>
-(2070 KB).
+<DD><A HREF="xorriso-1.2.4.tar.gz">xorriso-1.2.4.tar.gz</A>
+(2270 KB).
 </DD>
-<DD>(Released 02 Apr 2012)</DD>
-<DD><A HREF="xorriso-1.2.2.tar.gz.sig">xorriso-1.2.2.tar.gz.sig</A></DD>
+<DD>(Released 20 Jul 2012)</DD>
+<DD><A HREF="xorriso-1.2.4.tar.gz.sig">xorriso-1.2.4.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.2.2.tar.gz.sig xorriso-1.2.2.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.2.4.tar.gz.sig xorriso-1.2.4.tar.gz</KBD>
 <BR>
 after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.2.2.tar.gz
+as xorriso/xorriso-1.2.4.tar.gz
 </DD>
 </DL>
 </DD>
@@ -512,10 +512,10 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards xorriso-1.2.0:
+Bug fixes towards xorriso-1.2.2:
 <UL>
-<LI>-osirrox on:sort_lba_on -extract from / restored nearly nothing</LI>
-<LI>-as mkisofs without -graft-points could not handle names with "="</LI>
+<LI>Memory corruption when reading bootable image that was truncated</LI>
+<LI>-update deleted MD5 of files of which only attributes had changed</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -534,78 +534,7 @@ Bug fixes in xorriso-1.1.0.pl01 towards xorriso-1.1.0:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-1.2.0:
-<UL>
-<LI>New commands -x, -list_arg_sorting</LI>
-<LI>New command -data_cache_size</LI>
-<LI>New command -rr_reloc_dir</LI>
-<LI>New -as mkisofs option -rr_reloc, implemented option -hide-rr-moved</LI>
-<LI>
-Now ignoring -as mkisofs -no-split-symlink-components -no-split-symlink-fields
-</LI>
-<!--
-<LI>- none -</LI>
--->
-</UL>
-</P>
-
-<HR>
-
-<P>
-<H3>
-Software copies included in GNU xorriso:
-</H3>
-<DL>
-<DT>
-GNU xorriso is feature-wise equivalent to the dynamic compilation of
-<A HREF="http://libburnia-project.org/"> libburnia </A>
-libraries, libjte, and libburnia program xorriso.
-It restricts itself to a technical form where the legal commitments of the
-libburnia project and the legal intentions of
-<A HREF="http://www.fsf.org/"> FSF </A> match completely.
-</DT>
-<DD>&nbsp;</DD>
-<DT>libburn-1.2.2</DT>
-<DD>reads and writes data from and to CD, DVD, BD.</DD>
-<DD>(founded by Derek Foreman and Ben Jansens,
-developed and maintained since August 2006 by
-Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.2.2</DT>
-<DD>operates on ISO 9660 filesystem images.</DD>
-<DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
-from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
-<DT>libisoburn-1.2.2</DT>
-<DD>coordinates libburn and libisofs, emulates multi-session where needed,
-and hosts the original source code of program xorriso.</DD>
-<DD>It provides the complete functionality of xorriso via
-a C language API.</DD>
-<DD>(By Vreixo Formoso and Thomas Schmitt
-from team of libburnia-project.org)</DD>
-<DT>libjte-1.0.0</DT>
-<DD>produces jigdo and template file together with the emerging ISO image.</DD>
-<DD>(By Free Software Foundation, Steve McIntyre, George Danchev,
-Thomas Schmitt)</DD>
-<DD>&nbsp;</DD>
-<DT>The source code of this software is independent of 
-cdrecord and mkisofs.</DT>
-</DL>
-</P>
-
-<HR>
-
-<P>
-<DL>
-<DT><H3>Development snapshot, version 1.2.3 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.2.2:
-<UL>
-<LI>Memory corruption when reading bootable image that was truncated</LI>
-<LI>-update deleted MD5 of files of which only attributes had changed</LI>
-<!-- 
-<LI>- none yet -</LI>
- -->
-</UL>
-</DD>
-<DD>Enhancements towards stable version 1.2.2:
+Enhancements towards previous stable version xorriso-1.2.2:
 <UL>
 <LI>New -check_media option async_chunks=</LI>
 <LI>New xorriso command -write_type</LI>
@@ -631,6 +560,70 @@ cdrecord and mkisofs.</DT>
 <LI>New -as mkisofs options -prep-boot-part, -efi-boot-part, -chrp-boot-part</LI>
 <LI>New -as mkisofs options -isohybrid-gpt-basdat, -isohybrid-gpt-hfsplus, -isohybrid-apm-hfsplus</LI>
 
+<!--
+<LI>- none -</LI>
+-->
+</UL>
+</P>
+
+<HR>
+
+<P>
+<H3>
+Software copies included in GNU xorriso:
+</H3>
+<DL>
+<DT>
+GNU xorriso is feature-wise equivalent to the dynamic compilation of
+<A HREF="http://libburnia-project.org/"> libburnia </A>
+libraries, libjte, and libburnia program xorriso.
+It restricts itself to a technical form where the legal commitments of the
+libburnia project and the legal intentions of
+<A HREF="http://www.fsf.org/"> FSF </A> match completely.
+</DT>
+<DD>&nbsp;</DD>
+<DT>libburn-1.2.4</DT>
+<DD>reads and writes data from and to CD, DVD, BD.</DD>
+<DD>(founded by Derek Foreman and Ben Jansens,
+developed and maintained since August 2006 by
+Thomas Schmitt from team of libburnia-project.org)</DD>
+<DT>libisofs-1.2.4</DT>
+<DD>operates on ISO 9660 filesystem images.</DD>
+<DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
+from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
+<DT>libisoburn-1.2.4</DT>
+<DD>coordinates libburn and libisofs, emulates multi-session where needed,
+and hosts the original source code of program xorriso.</DD>
+<DD>It provides the complete functionality of xorriso via
+a C language API.</DD>
+<DD>(By Vreixo Formoso and Thomas Schmitt
+from team of libburnia-project.org)</DD>
+<DT>libjte-1.0.0</DT>
+<DD>produces jigdo and template file together with the emerging ISO image.</DD>
+<DD>(By Free Software Foundation, Steve McIntyre, George Danchev,
+Thomas Schmitt)</DD>
+<DD>&nbsp;</DD>
+<DT>The source code of this software is independent of 
+cdrecord and mkisofs.</DT>
+</DL>
+</P>
+
+<HR>
+
+<P>
+<DL>
+<DT><H3>Development snapshot, version 1.2.5 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.2.4:
+<UL>
+<LI>- none yet -</LI>
+<!-- 
+<LI>- none yet -</LI>
+ -->
+</UL>
+</DD>
+<DD>Enhancements towards stable version 1.2.4:
+<UL>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -640,13 +633,13 @@ cdrecord and mkisofs.</DT>
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.2.3</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.2.3 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.2.3 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.2.3 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.2.3)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.2.3)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.2.3)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.2.5</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.2.5 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.2.5 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.2.5 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.2.5)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.2.5)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.2.5)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -656,8 +649,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.2.3.tar.gz">xorriso-1.2.3.tar.gz</A>
-(2070 KB).
+<A HREF="xorriso-1.2.5.tar.gz">xorriso-1.2.5.tar.gz</A>
+(2270 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

@@ -1,4 +1,4 @@
-GNU xorriso 1.2.2 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.2.4 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as cdrecord [options|source_addresses]
 Note: This is not cdrecord. See xorriso -help, xorriso -version, man xorriso
@@ -20,6 +20,9 @@ Options:
 	-atip		retrieve media state, print "Is *erasable"
 	-multi		generate a TOC that allows multi session
 	-waiti		wait until input is available before opening SCSI
+	-tao		Write disk in TAO mode.
+	-dao		Write disk in SAO mode.
+	-sao		Write disk in SAO mode.
 	tsize=#		announces exact size of source data
 	padsize=#	Amount of padding
 	-data		Subsequent tracks are CD-ROM data mode 1 (default)
