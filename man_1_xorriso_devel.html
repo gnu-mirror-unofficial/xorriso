@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Jul 20 21:21:22 2012 -->
+<!-- CreationDate: Sat Sep  8 20:12:17 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1386,7 +1386,7 @@ effect only if -hardlinks is &quot;off&quot;, too.</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>-rom_toc_scan</b>
-&quot;on&quot;|&quot;force&quot;|&quot;off&quot;[:&quot;emul_on&quot;|&quot;emul_off&quot;]</p></td>
+&quot;on&quot;|&quot;force&quot;|&quot;off&quot;[:&quot;emul_off&quot;][:&quot;emul_wide&quot;]</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1419,9 +1419,13 @@ overwriteable media can hamper reading of partly damaged
 media. Setting &quot;off:emul_off&quot; disables the
 elsewise trustworthy table-of-content scan for
 those media.<br>
-To be in effect, the -rom_toc_scan setting has to be
-made before the -*dev command which acquires drive and
-medium.</p>
+The table-of-content scan on overwriteable media
+normally searches only up to the end of the session that is
+pointed to by the superblock at block 0. Setting
+&quot;on:emul_wide&quot; lets the scan continue up to the
+end of the medium. This may be useful after copying a medium
+with -check_media patch_lba0=on when not the last
+session was loaded.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6543,10 +6547,11 @@ human readable TOC of sector_map=.<b><br>
 patch_lba0=&quot;on&quot;</b> transfers within the data_to=
 file a copy of the currently loaded session head to the
 start of that file and patches it to be valid at that
-position. This makes the loaded session the default session
-of the image file when it gets mounted or loaded as stdio:
-drive. But it usually makes the original session 1
-inaccessible.<b><br>
+position. This makes the loaded session the last valid
+session of the image file when it gets mounted or loaded as
+stdio: drive. New sessions will be appended after this last
+session and will overwrite any sessions which have followed
+it.<b><br>
 patch_lba0=&quot;force&quot;</b> performs
 patch_lba0=&quot;on&quot; even if <b>xorriso</b> believes
 that the copied data are not valid.<br>
@@ -8845,5 +8850,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jul 20 21:21:22 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Sep  8 20:12:17 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

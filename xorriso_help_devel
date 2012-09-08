@@ -1,10 +1,5 @@
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 50: ls: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 82: rm: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 96: rm: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 97: mv: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 98: rm: command not found
 
-usage: /u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/.libs/lt-xorriso [settings|actions]
+usage: xorriso [settings|actions]
 
 This program creates, loads, manipulates and writes ISO 9660 filesystem
 images with Rock Ridge extensions. Write targets can be drives with optical
@@ -42,6 +37,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  displacement versus the start address for which the image
                  was prepared.
   -rom_toc_scan "on"|"force"|"off"[:"emul_on"|"emul_off"]
+                [:"emul_wide"|"emul_narrow"]
                  Enable scanning for ISO sessions on read-only drives/media
                  resp. on overwriteable media with emulated TOC.
   -calm_drive "in"|"out"|"all"|"on"|"off"
