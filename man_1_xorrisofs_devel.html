@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat Sep  8 20:12:18 2012 -->
+<!-- CreationDate: Sat Sep 22 19:24:34 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2896,7 +2896,10 @@ happens only if option -isohybrid-mbr is
 given.<br>
 Mode &quot;on&quot; causes alignment by padding with option
 --protective-msdos-label too. Mode
-&quot;off&quot; disables alignment unconditionally.</p>
+&quot;all&quot; is like &quot;on&quot; but also pads up
+partitions from -append_partition to an aligned
+size.<br>
+Mode &quot;off&quot; disables alignment unconditionally.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2918,7 +2921,8 @@ disk_path</p></td>
 ISO image and to be described by a partition table entry in
 a boot block at the start of the emerging ISO image. The
 partition entry will bear the size of the submitted file
-rounded up to the next multiple of 2048 bytes.<br>
+rounded up to the next multiple of 2048 bytes or to the next
+multiple of the cylinder size.<br>
 Beware of subsequent multi-session runs. The appended
 partition will get overwritten.<br>
 partition_number may be 1 to 4. Number 1 will put the whole
@@ -4272,5 +4276,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Sep  8 20:12:18 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Sep 22 19:24:34 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

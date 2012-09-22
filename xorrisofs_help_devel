@@ -109,7 +109,7 @@ Options:
   -partition_offset LBA       Make image mountable by first partition, too
   -partition_sec_hd NUMBER    Define number of sectors per head
   -partition_hd_cyl NUMBER    Define number of heads per cylinder
-  -partition_cyl_align MODE   Control cylinder alignment: off, on, auto
+  -partition_cyl_align MODE   Control cylinder alignment: off, on, auto, all
   -mips-boot FILE             Set mips boot image name (relative to image root)
   -mipsel-boot FILE           Set mipsel boot image name (relative to image root)
   -B FILES, -sparc-boot FILES Set sparc boot image names

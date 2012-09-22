@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat Sep  8 20:12:17 2012 -->
+<!-- CreationDate: Sat Sep 22 19:24:34 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1162,7 +1162,7 @@ will be copied to -in_charset.</p>
 <p>Enable or disable recording and interpretation of the
 output character set name in an xattr attribute of the image
 root directory. If enabled and if a recorded character set
-name is found, then this name will be used as namoe of the
+name is found, then this name will be used as name of the
 input character set when reading an image.<br>
 Note that the default output charset is the local character
 set of the terminal where <b>xorriso</b> runs. Before
@@ -4873,7 +4873,10 @@ happens only with &quot;isolinux&quot;
 &quot;partition_table=on&quot;.<br>
 Mode &quot;on&quot; causes alignment by padding with
 &quot;partition_table=on&quot; for any type. Mode
-&quot;off&quot; disables alignment for any type.<b><br>
+&quot;all&quot; is like &quot;on&quot; but also pads up
+partitions from -append_partition to an aligned
+size.<br>
+Mode &quot;off&quot; disables alignment for any type.<b><br>
 mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
@@ -4932,7 +4935,8 @@ disk_path</p></td>
 ISO image and to be described by a partition table entry in
 a boot block at the start of the emerging ISO image. The
 partition entry will bear the size of the submitted file
-rounded up to the next multiple of 2048 bytes.<br>
+rounded up to the next multiple of 2048 bytes or to the next
+multiple of the cylinder size.<br>
 Beware of subsequent multi-session runs. The appended
 partition will get overwritten.<br>
 Partitions may be appended with boot block type MBR and with
@@ -8850,5 +8854,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Sep  8 20:12:17 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Sep 22 19:24:34 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
