@@ -210,6 +210,12 @@ which is accessible by generic SCSI/MMC commands.
 
                               Testing
 
+For automated and manual tests of xorriso's functionality see file
+  releng/README
+
+
+              Result comparison with self produced ISO images
+
 We are quite sure that libisofs produces accurate representations of the disk
 files. This opinion is founded on a lot of test burns and checks by a little
 test program which compares files from the mounted image with the orignals
