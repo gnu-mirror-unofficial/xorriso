@@ -295,6 +295,8 @@ pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                  params are their parameters except iso_rr_path.
   -mkdir iso_rr_path [...]
                  Create empty directories if they do not exist yet.
+  -lns target_text iso_rr_path
+                 Create a symbolic link pointing to target_text
   -rmdir iso_rr_path [***]
                  Delete empty directories.
   -clone iso_rr_path_original iso_rr_path_copy
