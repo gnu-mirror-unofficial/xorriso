@@ -78,8 +78,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Classify stdio drives by effective access permissions.
   -data_cache_size number_of_tiles blocks_per_tile
                  Adjust size and granularity of the data read cache.
-  -blank "fast"|"all"|"deformat"|"deformat_quickest"
+  -blank ["force:"]"fast"|"all"|"deformat"|"deformat_quickest"
                  Blank medium resp. invalidate ISO image on medium.
+                 Prefix "force:" overrides medium evaluation.
   -close_damaged "as_needed"|"force"
                  Close track and session of damaged medium.
   -format "as_needed"|"full"|"fast"|"by_index_#"|"by_size_#"
@@ -561,6 +562,9 @@ General commands:
               packet payload. Example of a info message with newline:
                 I:1: enter option text :
               -pkt_output:on is intended for use by frontend programs.
+  -msg_op "start_sieve"|"read_sieve"|"clear_sieve"|"end_sieve"|"parse"
+              Enable, use, or disable message sieve. Or parse line into
+              words.
   -logfile channel fileaddress  Copy output of a channel to the given file.
               channel may be 'R','I','M' as with -pkt_output or '.'
               for the consolidated -pkt_output stream.

@@ -167,7 +167,7 @@ This is equivalent to the traditional setup chmod a+x,u+s cdrecord.
 
 On FreeBSD, device permissions are to be set in /etc/devfs.rules.
 On Solaris, pfexec privileges may be restricted to "basic,sys_devices".
-See below "System Dependend Drive Permission Examples".
+See below "System Dependent Drive Permission Examples".
 
 I strongly discourage to run xorriso with setuid root or via sudo !
 It is not checked for the necessary degree of hacker safety.
@@ -333,7 +333,7 @@ setup unless you have reason to enforce a newer bug fix level.
 GNU xorriso has less runtime dependencies and can be moved more freely.
 
 
-                  System Dependend Drive Permission Examples
+                  System Dependent Drive Permission Examples
 
 Accessing the optical drives requires privileges which usually are granted
 only to the superuser. GNU/Linux, FreeBSD and Solaris offer quite different
