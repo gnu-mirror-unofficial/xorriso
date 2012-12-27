@@ -158,7 +158,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -device_links  Like devices, but showing link paths which are hopefully
                  persistent over reboot on modern Linux systems.
 
-  -toc           Show media specific table of content (sessions).
+  -toc           Show media specific tables of content (sessions).
+  -toc_of "in"|"out"|"all"[":short"]
+                 Show -toc of either input drive or output drive or both.
 
   -mount_cmd drive entity id path
                  Print to result channel a command suitable to mount the
@@ -562,9 +564,14 @@ General commands:
               packet payload. Example of a info message with newline:
                 I:1: enter option text :
               -pkt_output:on is intended for use by frontend programs.
-  -msg_op "start_sieve"|"read_sieve"|"clear_sieve"|"end_sieve"|"parse"
-              Enable, use, or disable message sieve. Or parse line into
-              words.
+  -msg_op "start_sieve"|"read_sieve"|"clear_sieve"|"end_sieve"|
+          "parse"|"parse_bulk"|"compare_sev"|"list_sev" param_text
+              Enable, use, or disable message sieve. Or parse lines into
+              words. Or compare or list severity names.
+  -launch_frontend program [args ...] --
+              Start a program, connect its stdin to xorriso stdout and
+              stderr, connect its stdout to xorriso stdin.
+              Use any given parameters as arguments for the started program.
   -logfile channel fileaddress  Copy output of a channel to the given file.
               channel may be 'R','I','M' as with -pkt_output or '.'
               for the consolidated -pkt_output stream.

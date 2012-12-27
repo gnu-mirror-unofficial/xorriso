@@ -617,6 +617,7 @@ cdrecord and mkisofs.</DT>
 <UL>
 <LI>SIGSEGV by uninitialized local variable with -check_media patch_lba0="on". Regression by version 1.0.6</LI>
 <LI>-partition_offset 16 kept -isohybrid-gpt-basdat from writing MBR entries 0xef</LI>
+<LI>-rollback did not work if indev and outdev were empty</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -627,7 +628,12 @@ cdrecord and mkisofs.</DT>
 <LI>New -boot_image partition_cyl_align mode "all"</LI>
 <LI>New -blank mode prefix "force:"</LI>
 <LI>New command -lns for creating symbolic links</LI>
+<LI>New command -toc_of</LI>
 <LI>New command -msg_op</LI>
+<LI>New command -launch_frontend</LI>
+<LI>
+Proof-of-concept of a GUI frontend program: xorriso-tcltk written in Tcl/Tk.
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->

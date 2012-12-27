@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Dec 11 21:29:56 2012 -->
+<!-- CreationDate: Thu Dec 27 11:01:19 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -5642,8 +5642,9 @@ addresses of such links if they begin by
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Show media specific table of content. This is the session
-history of the medium, not the ISO image directory tree.<br>
+<p>Show media specific tables of content. This is the
+session history of the medium, not the ISO image directory
+tree.<br>
 In case of overwriteable media holding a valid ISO image, it
 may happen that only a single session gets shown. But if the
 first session on the overwriteable media was written by
@@ -5654,7 +5655,37 @@ CD-ROM or DVD-ROM with only one or two sessions
 on it. The last of these sessions is supposed to be the most
 recent real session then.<br>
 Some read-only drives and media show no usable session
-history at all. Command -rom_toc_scan might help.</p>
+history at all. Command -rom_toc_scan might help.<br>
+If input device and output device are both aquired and not
+the same, then both tables-of-content get
+shown.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-toc_of</b>
+&quot;in&quot;|&quot;out&quot;|&quot;all&quot;[&quot;:short&quot;]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like command -toc but explicitely choosing which
+drive&rsquo;s table-of-content to show.
+&quot;in&quot; shows -indev or -dev,
+&quot;out&quot; shows -outdev or -dev,
+&quot;all&quot; shows the same as -toc.<br>
+If &quot;:short&quot; is appended to the drive choosing
+word, then only a short summary of drive state and medium
+content is printed.<br>
+As further difference to -toc, this command does not
+emit FAILURE events if the desired drive is not aquired.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7903,9 +7934,10 @@ was entered to the pager prompt.</p>
 <td width="77%">
 <p>This command shall facilitate extraction of particular
 information from the message output of other commands. It
-gives access to the C API function Xorriso_parse_line and to
-the message sieve that is provided by the C API. Please
-refer to their description in file xorriso.h.<br>
+gives access to the C API function Xorriso_parse_line() and
+to the message sieve that is provided by the C API. Please
+refer to their descriptions in file xorriso.h. Further it
+helps to interpret the severity codes of info messages.<br>
 Intended users are frontend programs which operate xorriso
 in dialog mode.<br>
 The result output of this command is not caught by the
@@ -7964,7 +7996,92 @@ line tells the return value of Xorriso_parse_line(). The
 next line tells the number of strings. Each string begins by
 a line that tells the number of lines of the string. Then
 follow these lines. They are to be concatenated with a
-newline character inbetween each of them.</p>
+newline character inbetween each of them.<b><br>
+parse_bulk</b><br>
+Like &quot;parse&quot;, but with the fifth parameter word
+being number_of_input_texts rather than
+number_of_input_lines. Each input text has to be preceded by
+a line that tells number_of_input_lines as with
+&quot;parse&quot;. Then come the announced number of text
+lines.<br>
+All input texts will be read before printing of result lines
+begins. This consumes memory in xorriso. So the
+number_of_input_texts should not be extremely high. On the
+other hand, large transactions of command, input texts, and
+results are desirable if connection latency is an
+issue.<b><br>
+compare_sev</b><br>
+The parameter_text should contain two comma separated
+severity texts as issued by this program. Like
+&quot;SORRY,UPDATE&quot;. See also paragraph &quot;Exception
+processing&quot;.<br>
+These two severity texts get compared and a number gets
+printed to the result channel. This number is 0 if both
+severities are equal. It is -1 if the first severity
+is lower than the second one. It is 1 is the first severity
+is higher than the second one.<br>
+Above example &quot;SORRY,UPDATE&quot; will yield 1.<b><br>
+list_sev</b><br>
+Print to the result channel a blank separated list of all
+severity names. Sorted from low to high severity.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-launch_frontend</b> program [arguments ...]
+--</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Start the program that is given as first parameter.
+Submit the other parameters as program arguments. Enable
+xorriso dialog mode.<br>
+Two nameless pipe objects are created. xorriso standard
+input gets connected to the standard output of the started
+program. xorriso standard output and standard error get
+connected to the standard input of that program.<br>
+xorriso will abort when the started program ends or if it
+cannot be started at all. In both cases it will return a
+non-zero exit value. The exit value will be zero if
+the frontend sends -end or -rollback_end before
+ending itself.<br>
+This command may be totaly banned at compile time. It is
+banned by default if xorriso runs under setuid
+permissions.<br>
+The program name will not be searched in the $PATH
+directories. To make this clear, it must contain at least
+one /-character. Best is an absolute path.<br>
+Example:<br>
+xorriso -launch_frontend &quot;$(which
+xorriso-tcltk)&quot; -stdio --<br>
+The frontend program should first send via its standard
+output:<br>
+-mark 0 -pkt_output on -msg_op start_sieve
+- -reassure off<br>
+It should be ready to decode -pkt_output and to react
+on -mark messages. Best is to increment the
+-mark number after each sent command sequence and then
+to wait for the new number to show up in a mark message:<br>
+...some...commands... -mark
+&lt;incremented_number&gt;<br>
+Further are advised:<br>
+-report_about UPDATE -abort_on NEVER<br>
+-iso_rr_pattern off -disk_pattern off<br>
+A check of the xorriso version should be done, in order to
+make sure that all desired features are present.<br>
+Command -launch_frontend will only work once per
+xorriso run. If no command parameters are submitted or if
+program is an empty text, then no program will be started
+but nevertheless -launch_frontend will be irrevocably
+disabled.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8961,5 +9078,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Dec 11 21:29:56 CET 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Dec 27 11:01:19 CET 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
