@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Dec 27 11:01:20 2012 -->
+<!-- CreationDate: Sun Dec 30 21:46:24 2012 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -120,7 +120,7 @@ options <b>blank=format_overwrite</b> and
 <b>blank=deformat</b>.<br>
 If ISO 9660 filesystems are to be stored on overwritable
 media, then it is possible to emulate multiple sessions, by
-using option <b>--grow_overriteable_iso</b>. In
+using option <b>--grow_overwriteable_iso</b>. In
 this case, the need for blanking before re-use is
 emulated too.</p>
 </td>
@@ -372,7 +372,7 @@ address and size is reported. If a session contains an ISO
 9660 filesystem, then its Volume Id is reported. If the
 medium is writable, then the next writable block address is
 reported.<br>
-If not option <b>--grow_overriteable_iso</b> is
+If not option <b>--grow_overwriteable_iso</b> is
 given or no ISO 9660 file system is present on the medium,
 then overwritable media are reported as being blank. This is
 due to the fact that they can be written from scratch
@@ -1404,7 +1404,7 @@ directory /dir1:<br>
 $ xorrisofs -o image_1.iso -J
 -graft-points /dir1=./tree1<br>
 $ xorrecord -v dev=/dev/sr0 speed=12 fs=8m \<br>
--multi --grow_overwritable_iso \<br>
+-multi --grow_overwriteable_iso \<br>
 blank=as_needed -eject padsize=300k image_1.iso<br>
 For the second session xorrisofs needs to know the
 -msinfo numbers of the medium. Further it will read
@@ -1425,7 +1425,7 @@ image_2.iso \<br>
 Now burn the new session onto the same medium. This time
 without blanking:<br>
 $ xorrecord -v dev=/dev/sr0 speed=12 fs=8m \<br>
--multi --grow_overwritable_iso \<br>
+-multi --grow_overwriteable_iso \<br>
 -eject padsize=300k image_2.iso<br>
 Operating systems which mount this medium will read the
 superblock of the second session and show both directories
@@ -1453,7 +1453,7 @@ $ xorrisofs -M /dev/sr0 -C $m \<br>
 -J -graft-points /dir2=./tree2 \<br>
 | xorrecord -v dev=/dev/sr0 speed=12 fs=8m \<br>
 -waiti -multi
---grow_overwritable_iso \<br>
+--grow_overwriteable_iso \<br>
 -eject padsize=300k -<br>
 This is also the main use case of program <b>xorriso</b>
 itself, where this run would look like:<br>
@@ -1647,5 +1647,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Thu Dec 27 11:01:20 CET 2012 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Sun Dec 30 21:46:24 CET 2012 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>

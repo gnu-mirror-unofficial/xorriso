@@ -149,15 +149,17 @@ input and output of xorriso. Several commands of xorriso help with receiving
 and parsing of reply messages.
 
 As a proof of concept, there is the Tcl/Tk script xorriso-tcltk which can
-be launched by this shell command in the directory where xorriso was built:
+be launched by this shell command:
+
+    xorriso-tcltk
+
+Or in the xorriso build directory, without installation of xorriso:
 
     xorriso/xorriso -launch_frontend frontend/xorriso-tcltk --stdio --
 
-resp. after installation:
-
-    xorriso -launch_frontend $(which xorriso-tcltk) --stdio --
-
-See file frontend/README-tcltk for a description of its GUI. 
+In the running GUI, click with the rightmost mouse button on any GUI element
+to get its particular help text.
+See file frontend/README-tcltk for a short introduction.
 See its Tcl code for getting an idea how this gets achieved.
 
 Further there is the C program frontend/frontend_pipes_xorriso.c which
