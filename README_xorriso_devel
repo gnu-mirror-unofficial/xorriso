@@ -158,9 +158,14 @@ Or in the xorriso build directory, without installation of xorriso:
     xorriso/xorriso -launch_frontend frontend/xorriso-tcltk --stdio --
 
 In the running GUI, click with the rightmost mouse button on any GUI element
-to get its particular help text.
-See file frontend/README-tcltk for a short introduction.
+to get its particular help text. The "Help" button at the upper right corner
+gives a short introduction and instructions for some common use cases.
+See also file frontend/README-tcltk.
 See its Tcl code for getting an idea how this gets achieved.
+
+The script is part of the tarball and gets installed by make install. If a 
+xorriso distro package does not install it, you may get it directly from
+  http://libburnia-project.org/export/head/libisoburn/trunk/frontend/xorriso-tcltk
 
 Further there is the C program frontend/frontend_pipes_xorriso.c which
 forks a xorriso process and shows the same communication gestures as 

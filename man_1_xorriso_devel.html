@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sun Dec 30 21:46:24 2012 -->
+<!-- CreationDate: Sat Jan  5 11:51:01 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -6728,8 +6728,7 @@ rwx.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-osirrox</b>
-&quot;on&quot;|&quot;device_files&quot;|&quot;off&quot;|&quot;banned&quot;|[:option:...]</p></td>
+<p><b>-osirrox</b> setting[:option:...]</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -6743,6 +6742,11 @@ started with leafname &quot;osirrox&quot;. Elsewise the
 capability to restore files can be enabled explicitly by
 -osirrox &quot;on&quot;. It can be irrevocably
 disabled by -osirrox &quot;banned&quot;.<br>
+The setting &quot;blocked&quot; is like &quot;off&quot;. But
+it can only be revoked by setting &quot;unblock&quot;, which
+elsewise is like &quot;on&quot;. This can be used to curb
+command scripts which might use &quot;on&quot;
+undesiredly.<br>
 To enable restoring of special files by
 &quot;device_files&quot; is potentially dangerous. The
 meaning of the number st_rdev (see man 2 stat) depends much
@@ -9078,5 +9082,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Dec 30 21:46:24 CET 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Jan  5 11:51:01 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

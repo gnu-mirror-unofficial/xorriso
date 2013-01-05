@@ -461,7 +461,7 @@ Navigation commands:
                  Like -show_stream but affecting all files below directories.
 
 Restore commands which copy file objects from ISO image to disk filesystem:
-  -osirrox "on"|"device_files"|"off"|"banned"
+  -osirrox "on"|"device_files"|"off"|"blocked"|"unblock"|"banned"
            [:"concat_split_on"|"concat_split_off"]
            [:"auto_chmod_on"|"auto_chmod_off"]
            [:"sort_lba_on"|"sort_lba_off"]
@@ -469,7 +469,8 @@ Restore commands which copy file objects from ISO image to disk filesystem:
                  By default "off" the inverse operation of xorriso from ISO
                  image to disk filesystem is disabled. "on" allows xorriso
                  to create, overwrite, delete files in the disk filesystem.
-                 "banned" is irrevocably "off".
+                 "banned" is irrevocably "off". "blocked" can only be
+                 revoked by "unblock". ("device_files" is dangerous.)
   -extract iso_rr_path disk_path
                  Copy tree under iso_rr_path onto disk address disk_path.
                  This avoids the pitfalls of cp -r addressing rules.
