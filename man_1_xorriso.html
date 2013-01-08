@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Jul 20 15:53:13 2012 -->
+<!-- CreationDate: Tue Jan  8 11:29:11 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1113,7 +1113,7 @@ rw-permissions in the filesystem.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Refuse to load ISO images with volume ids which do not
+<p>Refuse to load ISO images with volume IDs which do not
 match the given search pattern. When refusing an image, give
 up the input drive and issue an event of the given severity
 (like FAILURE, see -abort_on). An empty search pattern
@@ -1162,7 +1162,7 @@ will be copied to -in_charset.</p>
 <p>Enable or disable recording and interpretation of the
 output character set name in an xattr attribute of the image
 root directory. If enabled and if a recorded character set
-name is found, then this name will be used as namoe of the
+name is found, then this name will be used as name of the
 input character set when reading an image.<br>
 Note that the default output charset is the local character
 set of the terminal where <b>xorriso</b> runs. Before
@@ -1386,7 +1386,7 @@ effect only if -hardlinks is &quot;off&quot;, too.</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>-rom_toc_scan</b>
-&quot;on&quot;|&quot;force&quot;|&quot;off&quot;[:&quot;emul_on&quot;|&quot;emul_off&quot;]</p></td>
+&quot;on&quot;|&quot;force&quot;|&quot;off&quot;[:&quot;emul_off&quot;][:&quot;emul_wide&quot;]</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -1419,9 +1419,13 @@ overwriteable media can hamper reading of partly damaged
 media. Setting &quot;off:emul_off&quot; disables the
 elsewise trustworthy table-of-content scan for
 those media.<br>
-To be in effect, the -rom_toc_scan setting has to be
-made before the -*dev command which acquires drive and
-medium.</p>
+The table-of-content scan on overwriteable media
+normally searches only up to the end of the session that is
+pointed to by the superblock at block 0. Setting
+&quot;on:emul_wide&quot; lets the scan continue up to the
+end of the medium. This may be useful after copying a medium
+with -check_media patch_lba0=on when not the last
+session was loaded.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1944,6 +1948,26 @@ with &rsquo;/&rsquo; then -cd is prepended.</p>
 <p>Create empty directories if they do not exist yet.
 Existence as directory generates a WARNING event, existence
 as other file causes a FAILURE event.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-lns</b> target_text iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Create a symbolic link with address iso_rr_path which
+points to target_text. iso_rr_path may not exist yet.<br>
+Hint: Command -clone produces the ISO equivalent of a
+hard link.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3580,7 +3604,11 @@ is set to &quot;on&quot;.<br>
 The progress reports issued by some drives while blanking
 are quite unrealistic. Do not conclude success or failure
 from the reported percentages. Blanking was successful if no
-SORRY event or worse occured.</p>
+SORRY event or worse occured.<br>
+Mode may be prepended by &quot;force:&quot; in order to
+override the evaluation of the medium state by libburn. E.g.
+&quot;force:fast&quot;. Blanking will nevertheless only
+succeed if the drive is willing to do it.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4051,21 +4079,24 @@ must not be longer than 255 bytes.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Specify the volume ID. <b>xorriso</b> accepts any text up
-to 32 characters, but according to rarely obeyed specs
-stricter rules apply:<br>
+<p>Specify the volume ID, which most operating systems will
+consider to be the volume name of the image or
+medium.<b><br>
+xorriso</b> accepts any text up to 32 characters, but
+according to rarely obeyed specs stricter rules apply:<br>
 ECMA-119 demands ASCII characters out of
-[A-Z0-9_]. Like: &quot;IMAGE_23&quot;<br>
-Joliet allows 16 UCS-2 characters. Like: &quot;Windows
-name&quot;<br>
+[A-Z0-9_]. Like:<br>
+&quot;IMAGE_23&quot;<br>
+Joliet allows 16 UCS-2 characters. Like:<br>
+&quot;Windows name&quot;<br>
 Be aware that the volume id might get used automatically as
-name of the mount point when the medium is inserted into a
-playful computer system.<br>
+the name of the mount point when the medium is inserted into
+a playful computer system.<br>
 If an ISO image gets loaded while the volume ID is set to
 default &quot;ISOIMAGE&quot; or to &quot;&quot;, then the
 volume ID of the loaded image will become the effective
 volume id for the next write run. But as soon as command
--volid is performed afterwards, this pending id is
+-volid is performed afterwards, this pending ID is
 overridden by the new setting.<br>
 Consider this when setting -volid &quot;ISOIMAGE&quot;
 before executing -dev, -indev, or
@@ -4087,7 +4118,7 @@ before executing -dev, -indev, or
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the volume set id string to be written with the next
+<p>Set the volume set ID string to be written with the next
 -commit. Permissible are up to 128 characters. This
 setting gets overridden by image loading.</p>
 </td>
@@ -4106,7 +4137,7 @@ setting gets overridden by image loading.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the publisher id string to be written with the next
+<p>Set the publisher ID string to be written with the next
 -commit. This may identify the person or organisation
 who specified what shall be recorded. Permissible are up to
 128 characters. This setting gets overridden by image
@@ -4127,14 +4158,14 @@ loading.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the application id string to be written with the next
+<p>Set the application ID string to be written with the next
 -commit. This may identify the specification of how
 the data are recorded. Permissible are up to 128 characters.
 This setting gets overridden by image loading.<br>
 The special text &quot;@xorriso@&quot; gets converted to the
-id string of <b>xorriso</b> which is normally written as
+ID string of <b>xorriso</b> which is normally written as
 -preparer_id. It is a wrong tradition to write the
-program id as -application_id.</p>
+program ID as -application_id.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4151,7 +4182,7 @@ program id as -application_id.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the system id string to be written with the next
+<p>Set the system ID string to be written with the next
 -commit. This may identify the system which can
 recognize and act upon the content of the System Area in
 image blocks 0 to 15. Permissible are up to 32 characters.
@@ -4275,17 +4306,17 @@ image loading.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the preparer id string to be written with the next
+<p>Set the preparer ID string to be written with the next
 -commit. This may identify the person or other entity
 which controls the preparation of the data which shall be
-recorded. Normally this should be the id of <b>xorriso</b>
+recorded. Normally this should be the ID of <b>xorriso</b>
 and not of the person or program which operates
 <b>xorriso</b>. Please avoid to change it. Permissible are
 up to 128 characters.<br>
 The special text &quot;@xorriso@&quot; gets converted to the
-id string of <b>xorriso</b> which is default at program
+ID string of <b>xorriso</b> which is default at program
 startup.<br>
-Unlike other id strings, this setting is not influenced by
+Unlike other ID strings, this setting is not influenced by
 image loading.</p>
 </td>
 </table>
@@ -4565,8 +4596,8 @@ This is the contrary of cdrecord, wodim, cdrskin command
 <td width="77%">
 <p>Set the write type for the next burn run.
 &quot;auto&quot; will select SAO with blank CD media, DAO
-with DVD-R[W] if -close is &quot;on&quot;, and
-elsewise CD TAO or the equivalent write type of the
+with blank DVD-R[W] if -close is &quot;on&quot;,
+and elsewise CD TAO or the equivalent write type of the
 particular DVD/BD media. Choosing TAO or SAO/DAO explicitely
 might cause the burn run to fail if the desired write type
 is not possible with the given media state.</p>
@@ -4869,7 +4900,10 @@ happens only with &quot;isolinux&quot;
 &quot;partition_table=on&quot;.<br>
 Mode &quot;on&quot; causes alignment by padding with
 &quot;partition_table=on&quot; for any type. Mode
-&quot;off&quot; disables alignment for any type.<b><br>
+&quot;all&quot; is like &quot;on&quot; but also pads up
+partitions from -append_partition to an aligned
+size.<br>
+Mode &quot;off&quot; disables alignment for any type.<b><br>
 mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
@@ -4928,7 +4962,8 @@ disk_path</p></td>
 ISO image and to be described by a partition table entry in
 a boot block at the start of the emerging ISO image. The
 partition entry will bear the size of the submitted file
-rounded up to the next multiple of 2048 bytes.<br>
+rounded up to the next multiple of 2048 bytes or to the next
+multiple of the cylinder size.<br>
 Beware of subsequent multi-session runs. The appended
 partition will get overwritten.<br>
 Partitions may be appended with boot block type MBR and with
@@ -5607,8 +5642,9 @@ addresses of such links if they begin by
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Show media specific table of content. This is the session
-history of the medium, not the ISO image directory tree.<br>
+<p>Show media specific tables of content. This is the
+session history of the medium, not the ISO image directory
+tree.<br>
 In case of overwriteable media holding a valid ISO image, it
 may happen that only a single session gets shown. But if the
 first session on the overwriteable media was written by
@@ -5619,7 +5655,37 @@ CD-ROM or DVD-ROM with only one or two sessions
 on it. The last of these sessions is supposed to be the most
 recent real session then.<br>
 Some read-only drives and media show no usable session
-history at all. Command -rom_toc_scan might help.</p>
+history at all. Command -rom_toc_scan might help.<br>
+If input device and output device are both aquired and not
+the same, then both tables-of-content get
+shown.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-toc_of</b>
+&quot;in&quot;|&quot;out&quot;|&quot;all&quot;[&quot;:short&quot;]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like command -toc but explicitely choosing which
+drive&rsquo;s table-of-content to show.
+&quot;in&quot; shows -indev or -dev,
+&quot;out&quot; shows -outdev or -dev,
+&quot;all&quot; shows the same as -toc.<br>
+If &quot;:short&quot; is appended to the drive choosing
+word, then only a short summary of drive state and medium
+content is printed.<br>
+As further difference to -toc, this command does not
+emit FAILURE events if the desired drive is not aquired.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5770,9 +5836,9 @@ next -commit.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Print various id strings which can be found in loaded ISO
+<p>Print various ID strings which can be found in loaded ISO
 images. Some of them may be changed by commands like
--volid or -publisher. For these ids
+-volid or -publisher. For these IDs
 -pvd_info reports what would be written with the next
 -commit.</p>
 </td>
@@ -6538,15 +6604,16 @@ enough to produce them. The stored file contains a human
 readable TOC of tracks and their start block addresses,
 followed by binary bitmap data.<b><br>
 map_with_volid=&quot;on&quot;</b> examines tracks whether
-they are ISO images and prints their volume ids into the
+they are ISO images and prints their volume IDs into the
 human readable TOC of sector_map=.<b><br>
 patch_lba0=&quot;on&quot;</b> transfers within the data_to=
 file a copy of the currently loaded session head to the
 start of that file and patches it to be valid at that
-position. This makes the loaded session the default session
-of the image file when it gets mounted or loaded as stdio:
-drive. But it usually makes the original session 1
-inaccessible.<b><br>
+position. This makes the loaded session the last valid
+session of the image file when it gets mounted or loaded as
+stdio: drive. New sessions will be appended after this last
+session and will overwrite any sessions which have followed
+it.<b><br>
 patch_lba0=&quot;force&quot;</b> performs
 patch_lba0=&quot;on&quot; even if <b>xorriso</b> believes
 that the copied data are not valid.<br>
@@ -6661,8 +6728,7 @@ rwx.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-osirrox</b>
-&quot;on&quot;|&quot;device_files&quot;|&quot;off&quot;|&quot;banned&quot;|[:option:...]</p></td>
+<p><b>-osirrox</b> setting[:option:...]</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -6676,6 +6742,11 @@ started with leafname &quot;osirrox&quot;. Elsewise the
 capability to restore files can be enabled explicitly by
 -osirrox &quot;on&quot;. It can be irrevocably
 disabled by -osirrox &quot;banned&quot;.<br>
+The setting &quot;blocked&quot; is like &quot;off&quot;. But
+it can only be revoked by setting &quot;unblock&quot;, which
+elsewise is like &quot;on&quot;. This can be used to curb
+command scripts which might use &quot;on&quot;
+undesiredly.<br>
 To enable restoring of special files by
 &quot;device_files&quot; is potentially dangerous. The
 meaning of the number st_rdev (see man 2 stat) depends much
@@ -7683,11 +7754,11 @@ with -report_about &quot;ALL&quot;.</p>
 file where a log record gets appended after each session.
 This log can be used to determine the start_lba of a session
 for mount options -o sbsector= resp. -s from
-date or volume id.<br>
+date or volume ID.<br>
 Record format is: timestamp start_lba size
 volume-id<br>
 The first three items are single words, the rest of the line
-is the volume id.</p>
+is the volume ID.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7849,6 +7920,176 @@ for -mark texts.</p>
 channel each time <b>xorriso</b> is ready for the next
 dialog line or before <b>xorriso</b> performs a command that
 was entered to the pager prompt.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-msg_op</b> opcode parameter_text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>This command shall facilitate extraction of particular
+information from the message output of other commands. It
+gives access to the C API function Xorriso_parse_line() and
+to the message sieve that is provided by the C API. Please
+refer to their descriptions in file xorriso.h. Further it
+helps to interpret the severity codes of info messages.<br>
+Intended users are frontend programs which operate xorriso
+in dialog mode.<br>
+The result output of this command is not caught by the
+message sieve.<br>
+The following opcodes are defined:<b><br>
+start_sieve</b><br>
+Install the message sieve as of Xorriso_sieve_big() and
+start watching program messages. The parameter_text has no
+meaning.<b><br>
+show_sieve</b><br>
+Show a list of filter rule names. The parameter_text has no
+meaning. The list begins by a line with the return value of
+Xorriso_sieve_get_result() with flag bit3. If this value is
+larger than 0, then the next line tells the number of names.
+The following lines show one name each.<b><br>
+read_sieve</b><br>
+Use the parameter_text as name of a filter rule and inquire
+its next recorded result. See Xorriso_sieve_big() for a list
+of names and reply strings.<br>
+The recorded strings are put out on result channel. They get
+wrapped into lines which tell their structure. The first
+line tells the return value of Xorriso_sieve_get_result().
+The next line tells the number of strings. Each string
+begins by a line that tells the number of lines of the
+string. Then follow these lines. They are to be concatenated
+with a newline character inbetween each of them. Finally the
+number of still available recorded results of the given name
+is put out.<b><br>
+clear_sieve</b><br>
+Dispose all recorded strings and continue watching program
+messages. The parameter_text has no meaning.<b><br>
+end_sieve</b><br>
+Dispose the sieve with its filter rules and stop watching
+program messages. The parameter_text has no meaning.<b><br>
+parse</b><br>
+Read a text from dialog input and submit it to
+Xorriso_parse_line(). The parameter_text word shall consist
+of several words separated by blanks. It will be necessary
+to use both kinds of quotation marks.<br>
+E.g. &quot;&rsquo;ISO session :&rsquo; &rsquo;&rsquo; 0 0
+1&quot;<br>
+The five parameter words are: prefix, separators, max_words,
+flag, number_of_input_lines. The former four are handed over
+to Xorriso_parse_line(). The number of input lines minus one
+tells xorriso how many newline characters are part of the
+input text.<br>
+The announced number of text lines will be read from dialog
+input, concatenated with a newline character inbetween each
+of them, and submitted to Xorriso_parse_line() as parameter
+line. Note that newlines outside of quotation marks are
+interpreted as separators if the separators parameter is
+empty.<br>
+The parsed strings are put out on result channel. They get
+wrapped into lines which tell their structure. The first
+line tells the return value of Xorriso_parse_line(). The
+next line tells the number of strings. Each string begins by
+a line that tells the number of lines of the string. Then
+follow these lines. They are to be concatenated with a
+newline character inbetween each of them.<br>
+If -backslash_codes &quot;encode_output&quot; is
+enabled, then the strings undergo encoding as if they were
+enclosed in quotes. Escpecially each string will be put out
+as a single result line.<b><br>
+parse_bulk</b><br>
+Like &quot;parse&quot;, but with the fifth parameter word
+being number_of_input_texts rather than
+number_of_input_lines. Each input text has to be preceded by
+a line that tells number_of_input_lines as with
+&quot;parse&quot;. Then come the announced number of text
+lines.<br>
+All input texts will be read before printing of result lines
+begins. This consumes memory in xorriso. So the
+number_of_input_texts should not be extremely high. On the
+other hand, large transactions of command, input texts, and
+results are desirable if connection latency is an
+issue.<b><br>
+compare_sev</b><br>
+The parameter_text should contain two comma separated
+severity texts as issued by this program. Like
+&quot;SORRY,UPDATE&quot;. See also paragraph &quot;Exception
+processing&quot;.<br>
+These two severity texts get compared and a number gets
+printed to the result channel. This number is 0 if both
+severities are equal. It is -1 if the first severity
+is lower than the second one. It is 1 is the first severity
+is higher than the second one.<br>
+Above example &quot;SORRY,UPDATE&quot; will yield 1.<b><br>
+list_sev</b><br>
+Print to the result channel a blank separated list of all
+severity names. Sorted from low to high severity.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-launch_frontend</b> program [arguments ...]
+--</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Start the program that is given as first parameter.
+Submit the other parameters as program arguments. Enable
+xorriso dialog mode.<br>
+Two nameless pipe objects are created. xorriso standard
+input gets connected to the standard output of the started
+program. xorriso standard output and standard error get
+connected to the standard input of that program.<br>
+xorriso will abort when the started program ends or if it
+cannot be started at all. In both cases it will return a
+non-zero exit value. The exit value will be zero if
+the frontend sends -end or -rollback_end before
+ending itself.<br>
+This command may be totaly banned at compile time. It is
+banned by default if xorriso runs under setuid
+permissions.<br>
+The program name will not be searched in the $PATH
+directories. To make this clear, it must contain at least
+one /-character. Best is an absolute path.<br>
+Example:<br>
+xorriso -launch_frontend &quot;$(which
+xorriso-tcltk)&quot; -stdio --<br>
+The frontend program should first send via its standard
+output:<br>
+-mark 0 -pkt_output on -msg_op start_sieve
+- -reassure off<br>
+It should be ready to decode -pkt_output and to react
+on -mark messages. Best is to increment the
+-mark number after each sent command sequence and then
+to wait for the new number to show up in a mark message:<br>
+...some...commands... -mark
+&lt;incremented_number&gt;<br>
+Further are advised:<br>
+-report_about UPDATE -abort_on NEVER<br>
+-iso_rr_pattern off -disk_pattern off<br>
+A check of the xorriso version should be done, in order to
+make sure that all desired features are present.<br>
+Command -launch_frontend will only work once per
+xorriso run. If no command parameters are submitted or if
+program is an empty text, then no program will be started
+but nevertheless -launch_frontend will be irrevocably
+disabled.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8384,7 +8625,7 @@ accordingly.<br>
 ACL, xattr, hard links and MD5 checksums will be recorded.
 Accelerated comparison is enabled at the expense of
 potentially larger backup size. Only media with the expected
-volume id or blank media are accepted. Files with names
+volume ID or blank media are accepted. Files with names
 matching *.o or *.swp get excluded explicitly.<br>
 When done with writing the new session gets checked by its
 recorded MD5.<br>
@@ -8818,7 +9059,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2007 - 2012 Thomas Schmitt<br>
+<p>Copyright (c) 2007 - 2013 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -8845,5 +9086,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jul 20 15:53:14 CEST 2012 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Jan  8 11:29:11 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

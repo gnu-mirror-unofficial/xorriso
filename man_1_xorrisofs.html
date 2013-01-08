@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri Jul 20 15:53:14 2012 -->
+<!-- CreationDate: Tue Jan  8 11:29:12 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -70,7 +70,7 @@ cdrtools.</p>
 <tr valign="top" align="left">
 <td width="4%"></td>
 <td width="95%">
-<p><b>ISO 9660, Rock Ridge, Joliet, HFS+:</b></p></td>
+<p>&nbsp;<BR><b>ISO 9660, Rock Ridge, Joliet, HFS+:</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2085,7 +2085,7 @@ up to 128 characters.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-p</b> text</p></td>
+<p><b>-P</b> text</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2112,7 +2112,7 @@ recorded. Permissible are up to 128 characters.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alias of -p.</p>
+<p>Alias of -P.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2732,7 +2732,12 @@ be set to 64 disk blocks by option -partition_offset
 Data. This works only with -isohybrid-mbr and
 has the same impact on the system area as
 -efi-boot-part. It cannot be combined with
--efi-boot-part or -hfsplus.</p>
+-efi-boot-part or -hfsplus.<br>
+The first three boot images which are marked by GPT will
+also show up as partition entries of type 0xfe in MBR. The
+MBR partition for PC-BIOS gets type 0x00 rather than
+0x17 in this case. Often the further MBR entries are the
+ones which actually get used by EFI.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2896,7 +2901,10 @@ happens only if option -isohybrid-mbr is
 given.<br>
 Mode &quot;on&quot; causes alignment by padding with option
 --protective-msdos-label too. Mode
-&quot;off&quot; disables alignment unconditionally.</p>
+&quot;all&quot; is like &quot;on&quot; but also pads up
+partitions from -append_partition to an aligned
+size.<br>
+Mode &quot;off&quot; disables alignment unconditionally.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2918,7 +2926,8 @@ disk_path</p></td>
 ISO image and to be described by a partition table entry in
 a boot block at the start of the emerging ISO image. The
 partition entry will bear the size of the submitted file
-rounded up to the next multiple of 2048 bytes.<br>
+rounded up to the next multiple of 2048 bytes or to the next
+multiple of the cylinder size.<br>
 Beware of subsequent multi-session runs. The appended
 partition will get overwritten.<br>
 partition_number may be 1 to 4. Number 1 will put the whole
@@ -4246,7 +4255,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2011 - 2012 Thomas Schmitt<br>
+<p>Copyright (c) 2011 - 2013 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -4272,5 +4281,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri Jul 20 15:53:14 CEST 2012 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Jan  8 11:29:12 CET 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
