@@ -85,6 +85,8 @@ but rather not with CD, DVD-R, DVD+R, BD-R.
 <DD>allow zisofs, gzip compression, and Jigdo file production.</DD>
 <DT>libbz2 and libbz2-devel</DT>
 <DD>allow bzip2 compression of Jigdo template files.</DD>
+<DT>Tcl, Tk >= 8.4, Tcl/Tk package BWidget</DT>
+<DD>enable the operation of GUI frontend script <KBD>xorriso-tcltk</KBD>.</DD>
 </DL>
 </P>
 
@@ -155,6 +157,45 @@ Provides navigation commands for interactive ISO image manipulation.
 </LI>
 
 </UL>
+</P>
+
+<P>
+<H2>GUI Frontend:</H2>
+xorriso itself is entirely controlled by text commands. In dialog mode,
+xorriso reads them as text lines from standard input.
+Together with some helpful xorriso commands, it is quite easy for frontend
+programs to operate a separate xorriso process.
+<BR>
+Other than the usual batch programs, xorriso will take care of maintaining
+the emerging ISO image model. Its state can be inquired by the frontend
+at any time. The frontend is supposed to care for the display of the inquired
+xorriso state and to send xorriso commands to manipulate the ISO image model.
+<BR>
+As a proof of concept, there is a Tcl/Tk script which can
+be launched by shell command <KBD>xorriso-tcltk</KBD>
+<BR>
+Click on this image to see a screenshot:
+<BR>
+<A HREF="xorriso-tcltk-screen.gif">
+<IMG SRC="xorriso-tcltk-thumb.jpg" BORDER=1
+     ALT="To screenshot of frontend script xorriso-tcltk"></A>
+<BR>
+See also file
+<A HREF="http://svn.libburnia-project.org/libisoburn/trunk/frontend/README-tcltk">
+frontend/README-tcltk.
+</A>
+<BR>
+The script <KBD>xorriso-tcltk</KBD>
+is part of the tarball and gets installed by <KBD>make install</KBD>. If a
+xorriso distro package does not install it, you may get it directly from
+<A HREF="http://libburnia-project.org/export/head/libisoburn/trunk/frontend/xorriso-tcltk">
+libburnia SVN: frontend/xorriso-tcltk
+</A>
+You will probably have to give it x-permission after download. Some browsers
+insist in adding &quot;.htm&quot; to the file name.
+<BR>
+Further you need xorriso >= 1.2.6, Tcl, Tk >= 8.4,
+Tcl/Tk package &quot;BWidget&quot;.
 </P>
 
 <P>
@@ -700,7 +741,7 @@ with DVD media and how to emulate multi-session on overwriteable media.
      outside of official GNU sites, GNU xorriso thanks the following
      entities for their long standing support.
 -->
-<!-- Start not-www.gnu.org --
+<!-- Start not-www.gnu.org -->
 
 <P>
 <CENTER><FONT SIZE=+0>
@@ -731,7 +772,7 @@ scdbackup, multi volume CD/DVD/BD backup</A></DD>
 (a second source of above)</A></DD></DL>
 </DL>
 
--- End not-www.gnu.org -->
+<!-- End not-www.gnu.org -->
 
 <BR>
 Legal statement: This website does not serve any commercial purpose.
