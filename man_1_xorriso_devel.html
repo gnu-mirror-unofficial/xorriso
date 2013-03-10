@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Feb 18 21:42:10 2013 -->
+<!-- CreationDate: Sun Mar 10 20:38:57 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3731,7 +3731,11 @@ At the end of the list, &quot;Write speed L&quot; and
 &quot;Write speed H&quot; are the best guesses for lower and
 upper speed limit. &quot;Write speed l&quot; and &quot;Write
 speed h&quot; may appear only with CD and eventually
-override the list of other speed offers.</p>
+override the list of other speed offers.<br>
+Only if the drive reports contradicting speed information
+there will appear &quot;Write speed 0&quot;, which tells the
+outcome of speed selection by command -speed 0, if it
+deviates from &quot;Write speed H&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7097,9 +7101,15 @@ is no automatic -commit at the end of a
 (= &quot;UPDATE&quot;) and -quiet (=
 &quot;SORRY&quot;) persist. The output file persists until
 things happen like -commit, -rollback,
--dev, or end of <b>xorriso</b>. -pacifier gets
-set to &quot;mkisofs&quot; if files are added to the
-image.<br>
+-dev, or end of <b>xorriso</b>.<br>
+Options which affect all file objects in the ISO image, like
+-r or -dir-mode, will be applied only to
+files which are present in the ISO image when the command
+-as ends. If you use several -as mkisofs
+commands in the same run, then consider to put such options
+into the last -as command.<br>
+-pacifier gets set to &quot;mkisofs&quot; if files are
+added to the image.<br>
 -graft-points is equivalent to -pathspecs
 on. Note that pathspecs without &quot;=&quot; are
 interpreted differently than with <b>xorriso</b> command
@@ -9093,5 +9103,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Feb 18 21:42:10 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Mar 10 20:38:57 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
