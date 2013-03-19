@@ -85,6 +85,8 @@ but rather not with CD, DVD-R, DVD+R, BD-R.
 <DD>allow zisofs, gzip compression, and Jigdo file production.</DD>
 <DT>libbz2 and libbz2-devel</DT>
 <DD>allow bzip2 compression of Jigdo template files.</DD>
+<DT>Tcl, Tk >= 8.4, Tcl/Tk package BWidget</DT>
+<DD>enable the operation of GUI frontend script <KBD>xorriso-tcltk</KBD>.</DD>
 </DL>
 </P>
 
@@ -155,6 +157,45 @@ Provides navigation commands for interactive ISO image manipulation.
 </LI>
 
 </UL>
+</P>
+
+<P>
+<H2>GUI Frontend:</H2>
+xorriso itself is entirely controlled by text commands. In dialog mode,
+xorriso reads them as text lines from standard input.
+Together with some helpful xorriso commands, it is quite easy for frontend
+programs to operate a separate xorriso process.
+<BR>
+Other than the usual batch programs, xorriso will take care of maintaining
+the emerging ISO image model. Its state can be inquired by the frontend
+at any time. The frontend is supposed to care for the display of the inquired
+xorriso state and to send xorriso commands to manipulate the ISO image model.
+<BR>
+As a proof of concept, there is a Tcl/Tk script which can
+be launched by shell command <KBD>xorriso-tcltk</KBD>
+<BR>
+Click on this image to see a screenshot:
+<BR>
+<A HREF="xorriso-tcltk-screen.gif">
+<IMG SRC="xorriso-tcltk-thumb.jpg" BORDER=1
+     ALT="To screenshot of frontend script xorriso-tcltk"></A>
+<BR>
+See also file
+<A HREF="http://svn.libburnia-project.org/libisoburn/trunk/frontend/README-tcltk">
+frontend/README-tcltk.
+</A>
+<BR>
+The script <KBD>xorriso-tcltk</KBD>
+is part of the tarball and gets installed by <KBD>make install</KBD>. If a
+xorriso distro package does not install it, you may get it directly from
+<A HREF="http://libburnia-project.org/export/head/libisoburn/trunk/frontend/xorriso-tcltk">
+libburnia SVN: frontend/xorriso-tcltk
+</A>
+You will probably have to give it x-permission after download. Some browsers
+insist in adding &quot;.htm&quot; to the file name.
+<BR>
+Further you need xorriso >= 1.2.8, Tcl, Tk >= 8.4,
+Tcl/Tk package &quot;BWidget&quot;.
 </P>
 
 <P>
@@ -461,21 +502,21 @@ This can bring effective read performance near to the raw media reading speed.
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.2.6.tar.gz">xorriso-1.2.6.tar.gz</A>
-(2315 KB).
+<DD><A HREF="xorriso-1.2.8.tar.gz">xorriso-1.2.8.tar.gz</A>
+(2325 KB).
 </DD>
-<DD>(Released 08 Jan 2013)</DD>
-<DD><A HREF="xorriso-1.2.6.tar.gz.sig">xorriso-1.2.6.tar.gz.sig</A></DD>
+<DD>(Released 18 Mar 2013)</DD>
+<DD><A HREF="xorriso-1.2.8.tar.gz.sig">xorriso-1.2.8.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.2.6.tar.gz.sig xorriso-1.2.6.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.2.8.tar.gz.sig xorriso-1.2.8.tar.gz</KBD>
 <BR>
 after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.2.6.tar.gz
+as xorriso/xorriso-1.2.8.tar.gz
 </DD>
 </DL>
 </DD>
@@ -512,11 +553,23 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards previous stable version xorriso-1.2.4:
+Bug fixes towards previous stable version xorriso-1.2.6:
 <UL>
-<LI>SIGSEGV by uninitialized local variable with -check_media patch_lba0="on". Regression by version 1.0.6</LI>
-<LI>-partition_offset 16 kept -isohybrid-gpt-basdat from writing MBR entries 0xef</LI>
-<LI>-rollback did not work if indev and outdev were empty</LI>
+<LI>
+-tell_media_space altered the pointers to MD5 
+of data files which stem from a previous session. This produced
+false mismatches with -check_md5_r.
+</LI>
+<LI>
+CD tracks were reported with the sizes of the tracks in the first session.
+</LI>
+<LI>
+-check_media use=outdev sector_map= stored TOC of input drive
+</LI>
+<LI>
+-hide hfsplus and -as mkisofs -hide-hfsplus had no effect.
+</LI>
+<LI>./configure did not abort if libburn.h or libisofs.h were missing</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -535,19 +588,10 @@ Bug fixes in xorriso-1.1.0.pl01 towards xorriso-1.1.0:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-1.2.4:
+Enhancements towards previous stable version xorriso-1.2.6:
 <UL>
-<LI>New -boot_image partition_cyl_align mode "all"</LI>
-<LI>New -blank mode prefix "force:"</LI>
-<LI>New -osirrox settings "blocked" and "unblock"</LI>
-<LI>New command -lns for creating symbolic links</LI>
-<LI>New command -toc_of</LI>
-<LI>New command -msg_op</LI>
-<LI>New command -launch_frontend</LI>
-<LI>
-Proof-of-concept of a GUI frontend program: xorriso-tcltk written in Tcl/Tk.
-<A HREF="xorriso-tcltk-screen.gif">(See screenshot)</A>
-</LI>
+<LI>New command -move</LI>
+<LI>New -as mkisofs options -eltorito-id , -eltorito-selcrit</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -570,16 +614,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-1.2.6</DT>
+<DT>libburn-1.2.8</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.2.6</DT>
+<DT>libisofs-1.2.8</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
-<DT>libisoburn-1.2.6</DT>
+<DT>libisoburn-1.2.8</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -600,18 +644,20 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.2.7 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.2.6:
+<DT><H3>Development snapshot, version 1.2.9 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.2.8:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
+<LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.2.6:
+<DD>Enhancements towards stable version 1.2.8:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
+<LI>- none yet -</LI>
  -->
 </UL>
 
@@ -619,13 +665,13 @@ cdrecord and mkisofs.</DT>
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.2.7</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.2.7 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.2.7 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.2.7 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.2.7)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.2.7)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.2.7)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.2.9</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.2.9 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.2.9 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.2.9 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.2.9)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.2.9)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.2.9)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -635,8 +681,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.2.7.tar.gz">xorriso-1.2.7.tar.gz</A>
-(2315 KB).
+<A HREF="xorriso-1.2.9.tar.gz">xorriso-1.2.9.tar.gz</A>
+(2325 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of
@@ -710,12 +756,6 @@ with DVD media and how to emulate multi-session on overwriteable media.
 Enjoying free hosting by<BR>
 <A HREF="http://www.webframe.org">www.webframe.org</A><BR>
 <A HREF="http://sourceforge.net">sourceforge.net</A><BR>
-
-<!--
-Enjoying a FreeBSD shell account with the opportunity to
-build, install and test xorriso at<BR>
-<A HREF="http://www.en.free-shells.com.ar">free-shells.com.ar</A>
--->
 
 </FONT></CENTER>
 </P>
