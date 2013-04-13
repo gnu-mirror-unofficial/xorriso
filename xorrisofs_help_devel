@@ -117,6 +117,7 @@ Options:
   -mipsel-boot FILE           Set mipsel boot image name (relative to image root)
   -B FILES, -sparc-boot FILES Set sparc boot image names
   -sparc-label label text     Set sparc boot disk label
+  --grub2-sparc-core FILE     Set path of core file for disk label patching
   -efi-boot-part DISKFILE|--efi-boot-image
                               Set data source for EFI System Partition
   -chrp-boot-part             Mark ISO image size by MBR partition type 0x41
