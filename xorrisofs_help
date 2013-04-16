@@ -1,4 +1,4 @@
-GNU xorriso 1.2.6 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.2.8 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -100,6 +100,8 @@ Options:
   -hard-disk-boot             Boot image is a hard disk image
   -no-emul-boot               Boot image is 'no emulation' image
   -boot-info-table            Patch boot image with info table
+  -eltorito-id ID             Set El Torito Id String
+  -eltorito-selcrit HEXBYTES  Set El Torito Selection Criteria
   -isohybrid-gpt-basdat       Mark El Torito boot image as Basic Data in GPT
   -isohybrid-gpt-hfsplus      Mark El Torito boot image as HFS+ in GPT
   -isohybrid-apm-hfsplus      Mark El Torito boot image as HFS+ in APM

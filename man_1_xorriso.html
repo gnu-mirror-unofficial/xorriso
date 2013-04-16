@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Jan  8 11:29:11 2013 -->
+<!-- CreationDate: Mon Mar 18 11:06:06 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1582,7 +1582,8 @@ Renaming of files has similar collision handling, but
 directories can only be replaced, not merged. Note that if
 the target directory exists, then -mv inserts the
 source objects into this directory rather than attempting to
-replace it.</p>
+replace it. Command -move, on the other hand, would
+attempt to replace it.</p>
 <!-- INDENTATION -->
 <p>The commands in this section alter the ISO image and not
 the local filesystem.</p>
@@ -2477,6 +2478,28 @@ image. See also the note with command -rm.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>-move</b> iso_rr_path iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Rename the file given by the first (origin) iso_rr_path
+to the second (destination) iso_rr_path. Deviate from rules
+of shell command mv by not moving the origin file underneath
+an existing destination directory. The origin file will
+rather replace such a directory, if this is allowed by
+command -overwrite.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>-mv</b> iso_rr_path [***] iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
@@ -2833,7 +2856,14 @@ YYYY.MM.DD[.hh[mm[ss]]]<br>
 scdbackup timestamps:<br>
 YYMMDD[.hhmm[ss]]<br>
 where &quot;A0&quot; is year 2000, &quot;B0&quot; is 2010,
-etc.</p>
+etc.<br>
+ECMA-119 volume timestamps:<br>
+YYYYMMDDhhmmsscc<br>
+These are normally given as GMT. The suffix &quot;LOC&quot;
+causes local timezone conversion. E.g. 2013010720574700,
+2013010720574700LOC. The last two digits cc (centiseconds)
+will be ignored, but must be present in order to make the
+format recognizable.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3731,7 +3761,11 @@ At the end of the list, &quot;Write speed L&quot; and
 &quot;Write speed H&quot; are the best guesses for lower and
 upper speed limit. &quot;Write speed l&quot; and &quot;Write
 speed h&quot; may appear only with CD and eventually
-override the list of other speed offers.</p>
+override the list of other speed offers.<br>
+Only if the drive reports contradicting speed information
+there will appear &quot;Write speed 0&quot;, which tells the
+outcome of speed selection by command -speed 0, if it
+deviates from &quot;Write speed H&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4221,8 +4255,8 @@ YYYY-MM-DD-hh-mm-ss-cc<br>
 E.g. 2010040711405800 is 7 Apr 2010 11:40:58 (+0
 centiseconds).<br>
 Timestrings for the other types may be given as with command
--alter_date. They are prone to timezone computations.
-The timestrings &quot;default&quot; or
+-alter_date. Some of them are prone to timezone
+computations. The timestrings &quot;default&quot; or
 &quot;overridden&quot; cause default settings: &quot;c&quot;
 and &quot;m&quot; will show the current time of image
 creation. &quot;x&quot; and &quot;f&quot; will be marked as
@@ -5819,7 +5853,14 @@ part of the image size.</p>
 <td width="77%">
 <p>Print available space on the output medium and the free
 space after subtracting already foreseeable consumption by
-next -commit.</p>
+next -commit.<br>
+Note that the title of the prediction &quot;After commit
+:&quot; is misleading. It is rather the space that may still
+be filled in this session without making the next
+-commit fail from medium overflow.<br>
+The free space after the next -commit might be smaller
+by several MB. This depends on medium type, number of
+recorded sessions, and drive habits.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5836,11 +5877,15 @@ next -commit.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Print various ID strings which can be found in loaded ISO
-images. Some of them may be changed by commands like
--volid or -publisher. For these IDs
--pvd_info reports what would be written with the next
--commit.</p>
+<p>Print various ID strings and timestamps which can be
+found in loaded ISO images. Some of the IDs may be changed
+by commands like -volid or -publisher. For these
+IDs -pvd_info reports what would be written with the
+next -commit. The timestamps get not automatically
+propagated from loaded image to newly written image. The
+ones for new images may be set by command
+-volume_date. See there for the meaning of the
+particular timestamps.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7090,9 +7135,15 @@ is no automatic -commit at the end of a
 (= &quot;UPDATE&quot;) and -quiet (=
 &quot;SORRY&quot;) persist. The output file persists until
 things happen like -commit, -rollback,
--dev, or end of <b>xorriso</b>. -pacifier gets
-set to &quot;mkisofs&quot; if files are added to the
-image.<br>
+-dev, or end of <b>xorriso</b>.<br>
+Options which affect all file objects in the ISO image, like
+-r or -dir-mode, will be applied only to
+files which are present in the ISO image when the command
+-as ends. If you use several -as mkisofs
+commands in the same run, then consider to put such options
+into the last -as command.<br>
+-pacifier gets set to &quot;mkisofs&quot; if files are
+added to the image.<br>
 -graft-points is equivalent to -pathspecs
 on. Note that pathspecs without &quot;=&quot; are
 interpreted differently than with <b>xorriso</b> command
@@ -9086,5 +9137,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Jan  8 11:29:11 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Mar 18 11:06:06 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

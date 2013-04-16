@@ -237,8 +237,12 @@ pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                  Delete the given files from the ISO image.
   -rm_r iso_rr_path [***]
                  Delete the given directory trees from ISO image.
+  -move iso_rr_path iso_rr_path
+                 Rename the single file given by the first iso_rr_path to
+                 the second iso_rr_path.
   -mv iso_rr_path [***] iso_rr_path
-                 Rename the given file objects in the ISO tree to iso_rr_path.
+                 Like shell command mv rename the given file objects in the
+                 ISO tree to the last of the iso_rr_path parameters.
   -chown uid iso_rr_path [***]
                  Equivalent to chown in the ISO image.
   -chown_r uid iso_rr_path [***]
