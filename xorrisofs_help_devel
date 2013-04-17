@@ -127,7 +127,7 @@ Options:
   --modification-date=YYYYMMDDhhmmsscc
                               Override date of creation and modification
   -isohybrid-mbr FILE         Set SYSLINUX mbr/isohdp[fp]x*.bin for isohybrid
-  --grub2-mbr FILE            Set GRUB2 MBR for patching at byte 432
+  --grub2-mbr FILE            Set GRUB2 MBR for boot image address patching
   --sort-weight NUMBER FILE   Set LBA weight number to file or file tree
   --stdio_sync on|off|number  Control forced output to disk files
   --no-emul-toc               Save 64 kB size on random access output files

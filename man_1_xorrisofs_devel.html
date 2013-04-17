@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat Apr 13 23:17:04 2013 -->
+<!-- CreationDate: Wed Apr 17 21:12:33 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2571,11 +2571,32 @@ boot image entry in the catalog.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Overwrite certain bytes in the current boot image. The
+<p>Overwrite bytes 8 to 63 in the current boot image. The
 information will be supplied by xorriso in the course of
 image production: Block address of the Primary Volume
 Descriptor, block address of the boot image file, size of
 the boot image file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>--grub2-boot-info</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Overwrite bytes 2548 to 2555 in the current boot image by
+the address of that boot image. The address is written as 64
+bit little-endian number. It is the 2KB block address
+of the boot image content, multiplied by 4, and then
+incremented by 5.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2727,6 +2748,27 @@ file in the directory trees.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Alias of -G.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>--grub2-mbr disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Install disk_path in the System Area and treat it as
+modern GRUB2 MBR. The content start address of the first
+boot image is converted to a count of 512 byte blocks, and
+an offset of 4 is added. The result is written as 64 bit
+little-endian number to byte address 0x1b0.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3161,6 +3203,27 @@ the boot loader code has to be imported by option
 <td width="21%"></td>
 <td width="77%">
 <p>Set the ASCII label text of a SUN Disk Label.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>--grub2-sparc-core iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Cause the content address and size of the given data file
+in the image to be written after the SUN Disk Label. Both
+numbers are counted in bytes. The address is written as 64
+bit big-endian number to byte 0x228. The size is
+written as 32 bit big-endian number to byte 0x230.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4324,5 +4387,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Apr 13 23:17:04 CEST 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Wed Apr 17 21:12:33 CEST 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
