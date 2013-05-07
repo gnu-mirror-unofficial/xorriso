@@ -160,6 +160,11 @@ Provides navigation commands for interactive ISO image manipulation.
 </P>
 
 <P>
+Note that xorriso does not write audio CDs and that it does not
+produce UDF filesystems which are specified for official video DVD or BD.
+</P>
+
+<P>
 <H2>GUI Frontend:</H2>
 xorriso itself is entirely controlled by text commands. In dialog mode,
 xorriso reads them as text lines from standard input.
@@ -672,6 +677,7 @@ The protective MBR partition for GPT started at block 0 instead of 1.
 <LI>
 New -as mkisofs options --grub2-mbr , --grub2-boot-info , --grub2-sparc-core
 </LI>
+<LI>New -hardlinks mode "lsl_count" / "no_lsl_count"</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->

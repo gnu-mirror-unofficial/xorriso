@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Apr 17 21:12:33 2013 -->
+<!-- CreationDate: Tue May  7 22:05:32 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -116,6 +116,10 @@ Provides navigation commands for interactive ISO image
 manipulation.<br>
 Adjustable thresholds for abort, exit value, and problem
 reporting.</p>
+<!-- INDENTATION -->
+<p>Note that <b>xorriso</b> does not write audio CDs and
+that it does not produce UDF filesystems which are specified
+for official video DVD or BD.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -764,12 +768,12 @@ expressivity.</p>
 <table width="100%" border=0 rules="none" frame="void"
        cols="4" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="11%"></td>
+<td width="13%"></td>
 <td width="2%">
 
 <p><b>-x</b></p>
 </td>
-<td width="7%"></td>
+<td width="5%"></td>
 <td width="77%">
 
 <p>Enable automatic sorting of program arguments into a
@@ -1200,6 +1204,11 @@ from the same disk file, have identical content filtering
 and have identical properties. The family members all get
 the same inode number. Whether these numbers are respected
 at mount time depends on the operating system.<br>
+Command -lsl displays hardlink counts if
+&quot;lsl_count&quot; is enabled. This can slow down the
+command substantially after changes to the ISO image have
+been made. Therefore the default is
+&quot;no_lsl_count&quot;.<br>
 Commands -update and -update_r track splits and
 fusions of hard links in filesystems which have stable
 device and inode numbers. This can cause automatic last
@@ -9156,5 +9165,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Apr 17 21:12:33 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue May  7 22:05:32 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

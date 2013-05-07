@@ -1,7 +1,12 @@
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 50: ls: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 82: rm: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 96: rm: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 97: mv: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 98: rm: command not found
 xorriso 1.2.9 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as cdrecord [options|source_addresses]
-Note: This is not cdrecord. See xorriso -help, xorriso -version, man xorriso
+Note: This is not cdrecord. See xorriso -help, xorriso -version, man xorrecord
 Options:
 	-version	print version information and exit emulation
 	--devices	print list of available MMC drives and exit emulation
