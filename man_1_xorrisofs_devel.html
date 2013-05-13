@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue May  7 22:05:32 2013 -->
+<!-- CreationDate: Mon May 13 14:58:16 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2584,7 +2584,7 @@ the boot image file.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>--grub2-boot-info</p></td>
+<p><b>--grub2-boot-info</b></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -2756,7 +2756,7 @@ file in the directory trees.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>--grub2-mbr disk_path</p></td>
+<p><b>--grub2-mbr</b> disk_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3211,7 +3211,7 @@ the boot loader code has to be imported by option
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>--grub2-sparc-core iso_rr_path</p></td>
+<p><b>--grub2-sparc-core</b> iso_rr_path</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -3575,7 +3575,11 @@ The result depends on several settings.<br>
 If option --emul-toc is given, then
 padding (see -pad) is not counted as part of the image
 size. In this case either use -no-pad or add 150
-(= 300 KiB) to the resulting number.</p>
+(= 300 KiB) to the resulting number.<br>
+If mkisofs emulation ends after option
+-print-size, then the properties of the most
+recently specified boot image file cannot be edited by
+subsequent xorriso commands.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4387,5 +4391,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue May  7 22:05:32 CEST 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Mon May 13 14:58:16 CEST 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue May  7 22:05:32 2013 -->
+<!-- CreationDate: Mon May 13 14:58:15 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -5862,7 +5862,12 @@ command. The result depends on several settings and also on
 the kind of output device. If no -jidgo options are
 set and not command -as &quot;mkisofs&quot; was used,
 then -padding (300 kB by default) is not counted as
-part of the image size.</p>
+part of the image size.<br>
+If an El Torito boot image file is already depicted, then
+command -print_size automatically executes
+-boot_image &quot;any&quot; &quot;next&quot;. This
+means that the properties of that boot image cannot be
+edited by subsequent commands.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8696,7 +8701,7 @@ trees</b></p></td>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>This changes the directory trees /open_source_project and
+<p>This changes the directory trees /projects and
 /personal_mail in the ISO image so that they become exact
 copies of their disk counterparts. ISO file objects get
 created, deleted or get their attributes adjusted
@@ -8814,9 +8819,9 @@ to disk</b></p></td>
 normal file operations.<br>
 First check which backup sessions are on the medium:<br>
 $ xorriso -outdev /dev/sr0 -toc<br>
-Then load the desired session and copy the file trees to
-disk. Enable restoring of ACL, xattr and hard links. Avoid
-to create /home/thomas/restored without
+Then enable restoring of ACL, xattr and hard links. Load the
+desired session and copy the file trees to disk. Avoid to
+create /home/thomas/restored without
 rwx-permission.<br>
 $ xorriso -for_backup \<br>
 -load volid &rsquo;PROJECTS_MAIL_2008_06_19*&rsquo;
@@ -8824,8 +8829,8 @@ $ xorriso -for_backup \<br>
 -indev /dev/sr0 \<br>
 -osirrox on:auto_chmod_on \<br>
 -chmod u+rwx / -- \<br>
--extract /open_source_projects \<br>
-/home/thomas/restored/open_source_projects \<br>
+-extract /projects /home/thomas/restored/projects
+\<br>
 -extract /personal_mail
 /home/thomas/restored/personal_mail \<br>
 -rollback_end<br>
@@ -9165,5 +9170,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue May  7 22:05:32 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon May 13 14:58:15 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
