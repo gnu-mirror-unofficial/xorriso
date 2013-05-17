@@ -199,7 +199,7 @@ libburnia SVN: frontend/xorriso-tcltk
 You will probably have to give it x-permission after download. Some browsers
 insist in adding &quot;.htm&quot; to the file name.
 <BR>
-Further you need xorriso >= 1.2.8, Tcl, Tk >= 8.4,
+Further you need xorriso >= 1.3.0, Tcl, Tk >= 8.4,
 Tcl/Tk package &quot;BWidget&quot;.
 </P>
 
@@ -507,21 +507,21 @@ This can bring effective read performance near to the raw media reading speed.
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.2.8.tar.gz">xorriso-1.2.8.tar.gz</A>
-(2325 KB).
+<DD><A HREF="xorriso-1.3.0.tar.gz">xorriso-1.3.0.tar.gz</A>
+(2335 KB).
 </DD>
-<DD>(Released 18 Mar 2013)</DD>
-<DD><A HREF="xorriso-1.2.8.tar.gz.sig">xorriso-1.2.8.tar.gz.sig</A></DD>
+<DD>(Released 17 May 2013)</DD>
+<DD><A HREF="xorriso-1.3.0.tar.gz.sig">xorriso-1.3.0.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.2.8.tar.gz.sig xorriso-1.2.8.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.3.0.tar.gz.sig xorriso-1.3.0.tar.gz</KBD>
 <BR>
 after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.2.8.tar.gz
+as xorriso/xorriso-1.3.0.tar.gz
 </DD>
 </DL>
 </DD>
@@ -558,23 +558,27 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards previous stable version xorriso-1.2.6:
+Bug fixes towards previous stable version xorriso-1.2.8:
 <UL>
-<LI>
--tell_media_space altered the pointers to MD5 
-of data files which stem from a previous session. This produced
-false mismatches with -check_md5_r.
+<LI>Disk paths with components '.' or '..' could be mistaken for directories.
 </LI>
 <LI>
-CD tracks were reported with the sizes of the tracks in the first session.
+-as mkisofs -print-size failed with -isohybrid-mbr and a single boot image.
 </LI>
 <LI>
--check_media use=outdev sector_map= stored TOC of input drive
+-as mkisofs -path-list did not switch to --no-emul-toc by default.
+</LI>
+<LI>Reserved and unused fields of APM entries were not zeroed.</LI>
+<LI>
+Unspecified Expiration Time and Effective Time of ISO volume was
+represented by 0-bytes rather than ASCII '0' digits.
 </LI>
 <LI>
--hide hfsplus and -as mkisofs -hide-hfsplus had no effect.
+GPT header CRC was computed from all 512 bytes rather than from 92.
 </LI>
-<LI>./configure did not abort if libburn.h or libisofs.h were missing</LI>
+<LI>
+The protective MBR partition for GPT started at block 0 instead of 1.
+</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -593,10 +597,14 @@ Bug fixes in xorriso-1.1.0.pl01 towards xorriso-1.1.0:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-1.2.6:
+Enhancements towards previous stable version xorriso-1.2.8:
 <UL>
-<LI>New command -move</LI>
-<LI>New -as mkisofs options -eltorito-id , -eltorito-selcrit</LI>
+<LI>New -boot_image bootspecs grub2_mbr= and grub2_boot_info=</LI>
+<LI>New -boot_image bootspec grub2_sparc_core=</LI>
+<LI>
+New -as mkisofs options --grub2-mbr , --grub2-boot-info , --grub2-sparc-core
+</LI>
+<LI>New -hardlinks mode "lsl_count" / "no_lsl_count"</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -619,16 +627,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-1.2.8</DT>
+<DT>libburn-1.3.0</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.2.8</DT>
+<DT>libisofs-1.3.0</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
-<DT>libisoburn-1.2.8</DT>
+<DT>libisoburn-1.3.0</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -649,41 +657,18 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.2.9 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.2.8:
+<DT><H3>Development snapshot, version 1.3.1 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.3.0:
 <UL>
-<LI>Disk paths with components '.' or '..' could be mistaken for directories.
-</LI>
-<LI>
--as mkisofs -print-size failed with -isohybrid-mbr and a single boot image.
-</LI>
-<LI>
--as mkisofs -path-list did not switch to --no-emul-toc by default.
-</LI>
-<LI>Reserved and unused fields of APM entries were not zeroed.</LI>
-<LI>
-Unspecified Expiration Time and Effective Time of ISO volume was
-represented by 0-bytes rather than ASCII '0' digits.
-</LI>
-<LI>
-GPT header CRC was computed from all 512 bytes rather than from 92.
-</LI>
-<LI>
-The protective MBR partition for GPT started at block 0 instead of 1.
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.2.8:
+<DD>Enhancements towards stable version 1.3.0:
 <UL>
-<LI>New -boot_image bootspecs grub2_mbr= and grub2_boot_info=</LI>
-<LI>New -boot_image bootspec grub2_sparc_core=</LI>
-<LI>
-New -as mkisofs options --grub2-mbr , --grub2-boot-info , --grub2-sparc-core
-</LI>
-<LI>New -hardlinks mode "lsl_count" / "no_lsl_count"</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -693,13 +678,13 @@ New -as mkisofs options --grub2-mbr , --grub2-boot-info , --grub2-sparc-core
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.2.9</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.2.9 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.2.9 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.2.9 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.2.9)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.2.9)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.2.9)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.3.1</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.3.1 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.3.1 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.3.1 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.3.1)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.3.1)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.3.1)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -709,8 +694,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.2.9.tar.gz">xorriso-1.2.9.tar.gz</A>
-(2325 KB).
+<A HREF="xorriso-1.3.1.tar.gz">xorriso-1.3.1.tar.gz</A>
+(2335 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

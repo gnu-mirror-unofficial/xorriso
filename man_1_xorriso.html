@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Mar 18 11:06:06 2013 -->
+<!-- CreationDate: Fri May 17 16:58:27 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -116,6 +116,10 @@ Provides navigation commands for interactive ISO image
 manipulation.<br>
 Adjustable thresholds for abort, exit value, and problem
 reporting.</p>
+<!-- INDENTATION -->
+<p>Note that <b>xorriso</b> does not write audio CDs and
+that it does not produce UDF filesystems which are specified
+for official video DVD or BD.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -764,12 +768,12 @@ expressivity.</p>
 <table width="100%" border=0 rules="none" frame="void"
        cols="4" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="11%"></td>
+<td width="13%"></td>
 <td width="2%">
 
 <p><b>-x</b></p>
 </td>
-<td width="7%"></td>
+<td width="5%"></td>
 <td width="77%">
 
 <p>Enable automatic sorting of program arguments into a
@@ -1200,6 +1204,11 @@ from the same disk file, have identical content filtering
 and have identical properties. The family members all get
 the same inode number. Whether these numbers are respected
 at mount time depends on the operating system.<br>
+Command -lsl displays hardlink counts if
+&quot;lsl_count&quot; is enabled. This can slow down the
+command substantially after changes to the ISO image have
+been made. Therefore the default is
+&quot;no_lsl_count&quot;.<br>
 Commands -update and -update_r track splits and
 fusions of hard links in filesystems which have stable
 device and inode numbers. This can cause automatic last
@@ -4813,10 +4822,17 @@ FreeBSD cdboot.<b><br>
 load_size=</b> is a value which depends on the boot image.
 Default 2048 should be overridden only if a better value is
 known.<b><br>
-boot_info_table=on</b> may be used to apply patching to a
-boot image which is given by &quot;any&quot;
+boot_info_table=on</b> causes address patching to bytes 8 to
+63 of the boot image which is given by &quot;any&quot;
 &quot;bin_path=&quot;. &quot;boot_info_table=off&quot;
-disables patching.<b><br>
+disables this patching.<b><br>
+grub2_boot_info=on</b> causes address patching to byte 2548
+of the boot image which is given by &quot;any&quot;
+&quot;bin_path=&quot;. The address is written as 64 bit
+little-endian number. It is the 2KB block address of
+the boot image content, multiplied by 4, and then
+incremented by 5. &quot;grub2_boot_info=off&quot; disables
+this patching.<b><br>
 platform_id=</b> defines by two hex digits the Platform ID
 of the boot image. &quot;00&quot; is 80x86 PC-BIOS,
 &quot;01&quot; is PowerPC, &quot;02&quot; is Mac,
@@ -4852,6 +4868,12 @@ Other than a El Torito boot image, the file disk_path needs
 not to be added to the ISO image.<br>
 -boot_image isolinux system_area= implies
 &quot;partition_table=on&quot;.<b><br>
+grub2_mbr=</b>disk_path works like &quot;any&quot;
+system_area= with additional patching for modern GRUB MBRs.
+The content start address of the first boot image is
+converted to a count of 512 byte blocks, and an offset of 4
+is added. The result is written as 64 bit
+little-endian number to byte address 0x1b0.<b><br>
 partition_table=on</b> causes a simple partition table to be
 written into bytes 446 to 511 of the System Area.<br>
 With type &quot;isolinux&quot; it shows a partition that
@@ -4957,6 +4979,12 @@ format allows to append images for partitions 2 to 8.
 Partition 1 will always be the ISO image. See command
 -append_partition. The first 512 bytes of any data
 provided by system_area= will be overwritten.<b><br>
+grub2_sparc_core=</b>iso_rr_path causes the content address
+and size of the given file to be written after the SUN Disk
+Label. Both numbers are counted in bytes. The address is
+written as 64 bit big-endian number to byte 0x228. The
+size is written as 32 bit big-endian number to byte
+0x230.<b><br>
 mips_discard</b> and <b>sparc_discard</b> revoke any boot
 file declarations made by mips_path= or mipsel_path=. They
 also disable production of SUN Disk Label. This removes the
@@ -5834,7 +5862,12 @@ command. The result depends on several settings and also on
 the kind of output device. If no -jidgo options are
 set and not command -as &quot;mkisofs&quot; was used,
 then -padding (300 kB by default) is not counted as
-part of the image size.</p>
+part of the image size.<br>
+If an El Torito boot image file is already depicted, then
+command -print_size automatically executes
+-boot_image &quot;any&quot; &quot;next&quot;. This
+means that the properties of that boot image cannot be
+edited by subsequent commands.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8668,7 +8701,7 @@ trees</b></p></td>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>This changes the directory trees /open_source_project and
+<p>This changes the directory trees /projects and
 /personal_mail in the ISO image so that they become exact
 copies of their disk counterparts. ISO file objects get
 created, deleted or get their attributes adjusted
@@ -8786,9 +8819,9 @@ to disk</b></p></td>
 normal file operations.<br>
 First check which backup sessions are on the medium:<br>
 $ xorriso -outdev /dev/sr0 -toc<br>
-Then load the desired session and copy the file trees to
-disk. Enable restoring of ACL, xattr and hard links. Avoid
-to create /home/thomas/restored without
+Then enable restoring of ACL, xattr and hard links. Load the
+desired session and copy the file trees to disk. Avoid to
+create /home/thomas/restored without
 rwx-permission.<br>
 $ xorriso -for_backup \<br>
 -load volid &rsquo;PROJECTS_MAIL_2008_06_19*&rsquo;
@@ -8796,8 +8829,8 @@ $ xorriso -for_backup \<br>
 -indev /dev/sr0 \<br>
 -osirrox on:auto_chmod_on \<br>
 -chmod u+rwx / -- \<br>
--extract /open_source_projects \<br>
-/home/thomas/restored/open_source_projects \<br>
+-extract /projects /home/thomas/restored/projects
+\<br>
 -extract /personal_mail
 /home/thomas/restored/personal_mail \<br>
 -rollback_end<br>
@@ -9137,5 +9170,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Mar 18 11:06:06 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri May 17 16:58:27 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
