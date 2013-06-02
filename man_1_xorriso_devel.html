@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri May 17 21:45:42 2013 -->
+<!-- CreationDate: Sun Jun  2 13:52:37 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3231,8 +3231,14 @@ The number may range from -2147483648 to 2147483647.
 The higher it is, the lower will be the block address of the
 file data in the emerging ISO image. Currently the boot
 catalog has a hardcoded weight of 1 billion. Normally it
-should occupy the block with the lowest possible address.
-Data files get added or loaded with initial weight 0.<br>
+should occupy the block with the lowest possible
+address.<br>
+Data files which are loaded by -indev or -dev
+get a weight between 1 and 2 exp 28 = 268,435,456, depending
+on their block address. This shall keep them roughly in the
+same order if the write method of modifying is applied.<br>
+Data files which are added by other commands get an initial
+weight of 0.<br>
 E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
 file.<b><br>
@@ -7379,7 +7385,11 @@ Writing: sector XXXXX of YYYYYY [fifo active, nn% fill]<br>
 &quot;cdrecord&quot; looks like:<br>
 X of Y MB written (fifo nn%) [buf mmm%]<br>
 &quot;mkisofs&quot;<br>
-nn% done, estimate finish Tue Jul 15 20:13:28 2008</p>
+nn% done, estimate finish Tue Jul 15 20:13:28 2008<br>
+The frequency of the messages can be adjusted by<br>
+&quot;interval=number&quot;<br>
+where number gives the seconds between two messages.
+Permissible settings are 0.1 to 60.0.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -7654,7 +7664,7 @@ quotation.<br>
 &quot;with_quoted_input&quot; translates inside and outside
 quotes.<br>
 With the start program arguments there is mode:<br>
-&quot;with_program_arguments&quot; translates all program
+&quot;with_program_arguments&quot; translates program
 arguments.<br>
 Mode &quot;encode_output&quot; encodes output characters. It
 combines &quot;encode_results&quot; with
@@ -9170,5 +9180,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri May 17 21:45:42 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jun  2 13:52:37 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

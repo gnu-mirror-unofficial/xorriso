@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Fri May 17 21:45:43 2013 -->
+<!-- CreationDate: Sun Jun  2 13:52:37 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -882,6 +882,64 @@ initial weight 0.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>--sort-weight-list</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Read pairs of weight number and iso_rr_path from a file
+of the local filesystem. Apply each pair like with
+--sort-weight.<br>
+Only the last --sort-weight-list or
+--sort-weight-patterns of a
+xorrisofs run gets into effect.<br>
+The weight number is read from the start of the line. The
+iso_rr_path part of an input line begins immediately after
+the first blank or tab character of the line.<br>
+Notes for the case that this feature is used within a
+sequence of generic xorriso commands (not an issue with a
+pure mkisofs emulation run):<br>
+The addressed files must already be in the ISO image model
+when you execute<br>
+-as mkisofs --sort-weight-list
+disk_path --<br>
+Several such commands may be used to apply more than one
+weight file.<br>
+Data files which are loaded by -indev or -dev
+get a weight between 1 and 2 exp 28 = 268,435,456, depending
+on their block address. This shall keep them roughly in the
+same order if the write method of modifying is applied.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>--sort-weight-patterns</b> disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Like --sort-weight-list , but
+expanding the iso_rr_paths as shell parser patterns and
+applying --sort-weight to each matching
+file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>-dir-mode</b> mode</p></td>
 </table>
 <!-- INDENTATION -->
@@ -1398,12 +1456,12 @@ discouraged to disable it by this option.</p>
 <table width="100%" border=0 rules="none" frame="void"
        cols="4" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="13%"></td>
+<td width="11%"></td>
 <td width="2%">
 
 <p><b>-D</b></p>
 </td>
-<td width="5%"></td>
+<td width="7%"></td>
 <td width="77%">
 
 <p>The standard ECMA-119 demands that no path in the
@@ -3645,6 +3703,28 @@ options bear their original mkisofs description texts.</p>
 which indicate problems or errors.</p>
 </td>
 </table>
+<!-- TABS -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="3" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="5%">
+
+<p><b>-gui</b></p>
+</td>
+<td width="82%">
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Increase the frequency of pacifier messages while writing
+an ISO image.</p>
+</td>
+</table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -4391,5 +4471,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri May 17 21:45:43 CEST 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sun Jun  2 13:52:37 CEST 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
