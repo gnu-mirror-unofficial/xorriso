@@ -553,10 +553,14 @@ General commands:
   -page len width  Prompt user after len output lines (0=no prompt).
               width (default 80) can adjust line number computation
               to the output terminal's line width.
-  -use_stdin  Use raw standard input even if libreadline is available
-  -use_readline  Use libreadline for dialog if available
+  -use_readline "on"|"off"
+              Whether to use libreadline for dialog if available.
   -history text  Copy text into libreadline history. This command
               itself is not copied to the history list.
+  -sh_style_result "on"|"off"
+              If "on" do not wrap file addresses in quotation marks with
+                -pwd -pwdx -ls -lsd -lsl -lsdl -lsx -lsdx -lslx -lsdlx
+                -du -dus -dux -dusx -findx -find
   -backslash_codes "on"|"off"|
                    "in_double_quotes"|"in_quotes"|"with_quoted_input"
                    [:"with_program_arguments"][:"encode_output"]
@@ -572,9 +576,17 @@ General commands:
                 I:1: enter option text :
               -pkt_output:on is intended for use by frontend programs.
   -msg_op "start_sieve"|"read_sieve"|"clear_sieve"|"end_sieve"|
-          "parse"|"parse_bulk"|"compare_sev"|"list_sev" param_text
+          "parse"|"parse_silently"|"parse_bulk"|"parse_bulk_silently"|
+          "compare_sev"|"list_sev" param_text
               Enable, use, or disable message sieve. Or parse lines into
               words. Or compare or list severity names.
+  -named_pipes_loop mode[:mode]
+                    disk_path_stdin disk_path_stdout disk_path_stderr
+              Enter an EOF resistant dialog loop at a named pipe as input
+              and zero, one or two named pipes as output. "-" = no pipe.
+              Mode "cleanup" removes pipes at loop end. "keep" does not.
+              Mode "buffered" reads all lines from input pipe before it
+              opens the output pipes. "direct" opens after first input.
   -launch_frontend program [args ...] --
               Start a program, connect its stdin to xorriso stdout and
               stderr, connect its stdout to xorriso stdin.

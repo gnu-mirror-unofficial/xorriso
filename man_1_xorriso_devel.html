@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Jun 10 10:37:28 2013 -->
+<!-- CreationDate: Fri Jul  5 09:41:24 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3676,7 +3676,8 @@ BD-RE or BD-R, re-format DVD-RAM or
 BD-RE.<br>
 Defined modes are:<br>
 as_needed, full, fast, by_index_&lt;num&gt;,
-fast_by_index_&lt;num&gt;<br>
+fast_by_index_&lt;num&gt;, by_size_&lt;num&gt;,
+fast_by_size_&lt;num&gt;, without_spare<br>
 &quot;as_needed&quot; formats yet unformatted DVD-RW,
 DVD-RAM, BD-RE, or blank unformatted BD-R.
 Other media are left untouched.<br>
@@ -3695,9 +3696,13 @@ from that list is to be appended to the mode word. E.g:
 list which provides at least the given size. That size is to
 be appended to the mode word. E.g:
 &quot;by_size_4100m&quot;. This applies to media with Defect
-Management.<br>
+Management. On BD-RE it will not choose format 0x31,
+which offers no Defect Management.<br>
 &quot;fast_by_size_&quot; does the same as
 &quot;by_size_&quot; but tries to be quicker.<br>
+&quot;without_spare&quot; selects the largest format out of
+the descriptor list which provides no Spare Area for Defect
+Management. On BD-RE this will be format 0x31.<br>
 The formatting action has no effect on media if -dummy
 is activated.<br>
 Formatting is normally needed only once during the lifetime
@@ -7636,6 +7641,35 @@ For brevity the list delimiter is referred as
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>-sh_style_result</b>
+&quot;on&quot;|&quot;off&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Make the result output of some filesystem inspection
+commands look more like the output of equivalent shell
+commands. The most important effect is to prevent the
+wrapping of file addresses into quotation marks with
+commands -pwd -pwdx -ls -lsd
+-lsl -lsdl -lsx -lsdx -lslx
+-lsdlx -du -dus -dux -dusx
+-findx -find<br>
+This will make ambigous the representation of file names
+which contain newline characters. On the other hand it
+should facilitate integration of xorriso into shell scripts
+which already use the corresponding shell commands.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>-backslash_codes</b>
 &quot;on&quot;|&quot;off&quot;|mode[:mode]</p></td>
 </table>
@@ -8112,6 +8146,12 @@ number_of_input_texts should not be extremely high. On the
 other hand, large transactions of command, input texts, and
 results are desirable if connection latency is an
 issue.<b><br>
+parse_silently</b><br>
+Like &quot;parse&quot; but not issueing a prompting message.
+Confusing to humans.<b><br>
+parse_bulk_silently</b><br>
+Like &quot;parse_bulk&quot; but not issueing a prompting
+message. Confusing to humans.<b><br>
 compare_sev</b><br>
 The parameter_text should contain two comma separated
 severity texts as issued by this program. Like
@@ -8126,6 +8166,50 @@ Above example &quot;SORRY,UPDATE&quot; will yield 1.<b><br>
 list_sev</b><br>
 Print to the result channel a blank separated list of all
 severity names. Sorted from low to high severity.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-named_pipe_loop</b> mode[:mode] disk_path_stdin
+disk_path_stdout disk_path_stderr</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Temporarily replace standard input, standard output and
+standard error by named pipes. Enter dialog mode without
+readline.<br>
+Defined modes are:<br>
+&quot;cleanup&quot; removes the submitted pipe files when
+the loop ends.<br>
+&quot;keep&quot; does not delete them. This is the
+default.<br>
+&quot;buffered&quot; reads all lines from the input pipe
+until EOF before it opens the output pipes and processes the
+input lines.<br>
+&quot;direct&quot; opens the output pipes after the first
+input line was read. Each line is executed directly after it
+is read. This is the default.<br>
+The other three parameters must either be disk paths to
+existing named pipes, or be &quot;-&quot; to leave the
+according standard i/o channel unreplaced.<br>
+xorriso will open the stdin pipe, read and execute dialog
+lines from it until the sender closes the pipe. The output
+pipes get opened depending on mode &quot;buffered&quot;
+resp. &quot;direct&quot;. After all lines are executed,
+xorriso will close its side of the pipes and enter a new
+cycle of opening, reading and executing.<br>
+If an input line consists only of the word
+&quot;end_named_pipe_loop&quot; then -named_pipe_loop
+will end and further xorriso commands may be executed from
+other sources.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -9180,5 +9264,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Jun 10 10:37:28 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jul  5 09:41:24 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
