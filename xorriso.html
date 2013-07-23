@@ -666,6 +666,15 @@ cdrecord and mkisofs.</DT>
 <LI>
 -backslash_codes "with_program_arguments" was interpreted too late
 </LI>
+<LI>
+Missing or empty parameter with -dus was interpreted as "*" rather than "."
+</LI>
+<LI>
+readline history was spammed by -msg_op parsing and pipe loops
+</LI>
+<LI>
+xorriso aborted on SIGCONT, SIGTSTP, SIGTTIN, SIGTTOU
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -690,6 +699,9 @@ New command -sh_style_result
 </LI>
 <LI>
 New -msg_op opcodes "parse_silently" and "parse_bulk_silently"
+</LI>
+<LI>
+Improved granularity of SCSI log time measurement, now with timestamp
 </LI>
 <!-- 
 <LI>- none yet -</LI>
