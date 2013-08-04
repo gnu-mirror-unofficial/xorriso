@@ -103,6 +103,10 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Specifies the name of the Bibliographic File. (37 chars)
   -abstract_file name
                  Specifies the name of the Abstract File. (37 chars)
+  -application_use character|0xXY|disk_path
+                 Specifies the content of Application Use field. (512 bytes)
+                 A single character or a hex code gets repeated 512 times.
+                 Other text gets opened as data file and 512 bytes are read.
   -joliet "on"|"off"
                  Generate Joliet info additional to Rock Ridge info.
   -hfsplus "on"|"off"

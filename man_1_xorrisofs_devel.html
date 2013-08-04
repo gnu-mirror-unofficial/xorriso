@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Jul 22 22:27:59 2013 -->
+<!-- CreationDate: Sun Aug  4 12:33:17 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2366,6 +2366,35 @@ centiseconds).</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>--application_use</b>
+character|0xXY|disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Specify the content of the Application Use field which
+can take at most 512 bytes.<br>
+If the parameter of this command is empty, then the field is
+filled with 512 0-bytes. If it is a single character,
+then it gets repeated 512 times. If it begins by
+&quot;0x&quot; followed by two hex digits
+[0-9a-fA-F], then the digits are read as
+byte value which gets repeated 512 times.<br>
+Any other parameter text is used as disk_path to open a data
+file and to read up to 512 bytes from it. If the file is
+smaller than 512 bytes, then the remaining bytes in the
+field get set to binary 0.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p>&nbsp;<BR><b>El Torito Bootable ISO images:</b><BR>&nbsp;<BR></p></td>
 </table>
 <!-- INDENTATION -->
@@ -4195,8 +4224,9 @@ The image from the following example will be prepared for
 booting via MBR and its first parttion will start at hard
 disk block 64.<br>
 It will also boot from optical media.<br>
-$ xorrisofs -o output.iso \ -b
-isolinux/isolinux.bin -c isolinux/boot.cat \
+$ xorrisofs -o output.iso \<br>
+-b isolinux/isolinux.bin -c isolinux/boot.cat
+\<br>
 -no-emul-boot
 -boot-load-size 4
 -boot-info-table \<br>
@@ -4471,5 +4501,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Mon Jul 22 22:27:59 CEST 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sun Aug  4 12:33:17 CEST 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

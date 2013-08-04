@@ -75,6 +75,7 @@ Options:
   -abstract FILE              Set Abstract filename
   -biblio FILE                Set Bibliographic filename
   -copyright FILE             Set Copyright filename
+  --application_use CHAR|PATH  Set content of Application Use field
   -jigdo-jigdo FILE           Produce a jigdo .jigdo file as well as the .iso
   -jigdo-template FILE        Produce a jigdo .template file as well as the .iso
   -jigdo-min-file-size SIZE   Minimum size for a file to be listed in the jigdo file
