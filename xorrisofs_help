@@ -1,4 +1,4 @@
-GNU xorriso 1.3.0 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.3.1 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -56,6 +56,7 @@ Options:
   --quoted_path_list FILE     File with list of quoted pathnames to process
   -print-size                 Print estimated filesystem size and exit
   -quiet                      Run quietly
+  -gui                        Switch behaviour for GUI
   -R, -rock                   Generate Rock Ridge directory information
   -r, -rational-rock          Generate rationalized Rock Ridge directory information
   --norock                    Disable Rock Ridge. (Strongly discouraged !)
@@ -74,6 +75,7 @@ Options:
   -abstract FILE              Set Abstract filename
   -biblio FILE                Set Bibliographic filename
   -copyright FILE             Set Copyright filename
+  --application_use CHAR|PATH  Set content of Application Use field
   -jigdo-jigdo FILE           Produce a jigdo .jigdo file as well as the .iso
   -jigdo-template FILE        Produce a jigdo .template file as well as the .iso
   -jigdo-min-file-size SIZE   Minimum size for a file to be listed in the jigdo file
@@ -129,6 +131,8 @@ Options:
   -isohybrid-mbr FILE         Set SYSLINUX mbr/isohdp[fp]x*.bin for isohybrid
   --grub2-mbr FILE            Set GRUB2 MBR for boot image address patching
   --sort-weight NUMBER FILE   Set LBA weight number to file or file tree
+  --sort-weight-list DISKFILE Read list of NUMBER FILE pairs for --sort-weight
+  --sort-weight-patterns DISKFILE  --sort-weight-list with pattern expansion
   --stdio_sync on|off|number  Control forced output to disk files
   --no-emul-toc               Save 64 kB size on random access output files
   --emul-toc                  Multi-session history on such output files
