@@ -475,23 +475,21 @@ One may switch from mkisofs emulation to xorriso's own command mode:
 <DT>If for any reason the reading operating system mishandles the ISO image
 or some files in it, one may enable reverse operation of xorriso and copy
 files or trees to disk:
+</DT>
 <DD>$<KBD>&nbsp;xorriso -acl on -xattr on \</KBD></DD>
 <DD><KBD>&nbsp;&nbsp; -indev /dev/sr0 \</KBD></DD>
 <DD><KBD>&nbsp;&nbsp; -osirrox on \</KBD></DD>
 <DD><KBD>&nbsp;&nbsp; -cpx '/pictures/private/horses*/*buttercup*' \</KBD></DD>
 <DD><KBD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /home/her/buttercup_dir -- \</KBD>
-<DD><KBD>&nbsp;&nbsp; -extract /sounds /home/her/sounds_from_me</KBD></DD>
 </DD>
-<DT>Each copy command processes its files sorted by block address
-in the ISO image in order to reduce head moves with optical media.
-This can bring effective read performance near to the raw media reading speed.
-</DT>
+<DD><KBD>&nbsp;&nbsp; -extract /sounds /home/her/sounds_from_me</KBD></DD>
 <DT>Consider to enter dialog mode and use commands like
 <KBD>-cd , -du , -lsl , -find<KBD>.
+</DT>
+
 <DT>
 <HR>
 </DT>
-
 
 <DT>Get overview of the options:</DT>
 <DD>$<KBD>&nbsp;<A HREF="xorriso_help">xorriso -help</A></KBD></DD>
@@ -675,6 +673,8 @@ cdrecord and mkisofs.</DT>
 <DD>Bug fixes towards xorriso-1.3.2:
 <UL>
 <LI>Command -blank "as_needed" formatted blank BD-R.</LI>
+<LI>-as mkisofs option -log-file put the log file into the image</LI>
+<LI>-cut_out did not add x-permission to r-permission of directory</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -682,7 +682,7 @@ cdrecord and mkisofs.</DT>
 </DD>
 <DD>Enhancements towards stable version 1.3.2:
 <UL>
-<LI>- none yet -</LI>
+<LI>New command -read_speed</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->

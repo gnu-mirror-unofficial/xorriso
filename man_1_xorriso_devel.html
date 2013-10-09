@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Aug 27 12:25:25 2013 -->
+<!-- CreationDate: Wed Oct  9 15:33:32 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -976,6 +976,48 @@ loading:</b></p></td>
 before loading an image by acquiring an input drive. In rare
 cases it is desirable to activate them only after image
 loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-read_speed</b> code|number[k|m|c|d|b]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the speed for reading. Default is &quot;none&quot;,
+which avoids to send a speed setting command to the drive
+before reading begins.<br>
+Further special speed codes are:<br>
+&quot;max&quot; (or &quot;0&quot;) selects maximum speed as
+announced by the drive.<br>
+&quot;min&quot; (or &quot;-1&quot;) selects minimum
+speed as announced by the drive.<br>
+Speed can be given in media dependent numbers or as a
+desired throughput per second in MMC compliant kB (= 1000)
+or MB (= 1000 kB). Media x-speed factor can be set
+explicity by &quot;c&quot; for CD, &quot;d&quot; for DVD,
+&quot;b&quot; for BD, &quot;x&quot; is optional.<br>
+Example speeds:<br>
+&nbsp;&nbsp;706k = 706kB/s = 4c = 4xCD<br>
+&nbsp;&nbsp;5540k = 5540kB/s = 4d = 4xDVD<br>
+If there is no hint about the speed unit attached, then the
+medium in the -indev will decide. Default unit is CD =
+176.4k.<br>
+MMC drives usually activate their own idea of speed and take
+the speed value given by the burn program only as upper
+limit for their own decision.<br>
+Depending on the drive, the reported read speeds can be
+deceivingly low. Often it is possible to achieve higher read
+speeds by bold values like &quot;20xDVD&quot; or
+&quot;16xBD&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3238,7 +3280,8 @@ get a weight between 1 and 2 exp 28 = 268,435,456, depending
 on their block address. This shall keep them roughly in the
 same order if the write method of modifying is applied.<br>
 Data files which are added by other commands get an initial
-weight of 0.<br>
+weight of 0. Boot image files have a default weight of
+2.<br>
 E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
 file.<b><br>
@@ -3768,24 +3811,30 @@ BD-R means more reserve space.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Put out a list of speed values as reported by the output
-drive with the loaded medium. This does not necessarily mean
-that the medium is writable or that these speeds are
-actually achievable. Especially the lists reported with
-empty drive or with ROM media obviously advertise speeds for
-other media.<br>
+<p>Put out a list of speed values as reported by the drives
+with the loaded media. The list tells read speeds of the
+input drive and of the output drive. Further it tells write
+speeds of the output drive.<br>
+The list of write speeds does not necessarily mean that the
+medium is writable or that these speeds are actually
+achievable. Especially the lists reported with empty drive
+or with ROM media obviously advertise speeds for other
+media.<br>
 It is not mandatory to use speed values out of the listed
 range. The drive is supposed to choose a safe speed that is
 as near to the desired speed as possible.<br>
 At the end of the list, &quot;Write speed L&quot; and
 &quot;Write speed H&quot; are the best guesses for lower and
-upper speed limit. &quot;Write speed l&quot; and &quot;Write
-speed h&quot; may appear only with CD and eventually
-override the list of other speed offers.<br>
+upper write speed limit. &quot;Write speed l&quot; and
+&quot;Write speed h&quot; may appear only with CD and
+eventually override the list of other speed offers.<br>
 Only if the drive reports contradicting speed information
 there will appear &quot;Write speed 0&quot;, which tells the
 outcome of speed selection by command -speed 0, if it
-deviates from &quot;Write speed H&quot;.</p>
+deviates from &quot;Write speed H&quot;.<br>
+&quot;Read speed L&quot; and &quot;Read speed H&quot; tell
+the minimum and maximum read speeds, as would be chosen by
+-read_speed &quot;min&quot; resp. &quot;max&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4497,7 +4546,7 @@ already are zisofs compressed, e.g. by program mkzftree.<br>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-speed</b> number[k|m|c|d|b]</p></td>
+<p><b>-speed</b> code|number[k|m|c|d|b]</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4505,12 +4554,18 @@ already are zisofs compressed, e.g. by program mkzftree.<br>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the burn speed. Default is 0 = maximum speed. Speed
-can be given in media dependent numbers or as a desired
-throughput per second in MMC compliant kB (= 1000) or MB (=
-1000 kB). Media x-speed factor can be set explicity by
-&quot;c&quot; for CD, &quot;d&quot; for DVD, &quot;b&quot;
-for BD, &quot;x&quot; is optional.<br>
+<p>Set the burn speed. Default is &quot;max&quot; (or
+&quot;0&quot;) = maximum speed as announced by the drive.
+Further special speed codes are:<br>
+&quot;min&quot; (or &quot;-1&quot;) selects minimum
+speed as announced by the drive.<br>
+&quot;none&quot; avoids to send a speed setting command to
+the drive before burning begins.<br>
+Speed can be given in media dependent numbers or as a
+desired throughput per second in MMC compliant kB (= 1000)
+or MB (= 1000 kB). Media x-speed factor can be set
+explicity by &quot;c&quot; for CD, &quot;d&quot; for DVD,
+&quot;b&quot; for BD, &quot;x&quot; is optional.<br>
 Example speeds:<br>
 &nbsp;&nbsp;706k = 706kB/s = 4c = 4xCD<br>
 &nbsp;&nbsp;5540k = 5540kB/s = 4d = 4xDVD<br>
@@ -9294,5 +9349,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Aug 27 12:25:25 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Oct  9 15:33:32 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
