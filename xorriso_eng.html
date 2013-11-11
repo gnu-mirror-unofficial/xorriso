@@ -675,6 +675,10 @@ cdrecord and mkisofs.</DT>
 <LI>Command -blank "as_needed" formatted blank BD-R.</LI>
 <LI>-as mkisofs option -log-file put the log file into the image</LI>
 <LI>-cut_out did not add x-permission to r-permission of directory</LI>
+<LI>Drive error reports were ignored during blanking and formatting</LI>
+<LI>Command -zisofs did not accept all options emitted by -status -zisofs</LI>
+<LI>-blank force:... failed on appendable or closed media</LI>
+<LI>Drive LG BH16NS40 stalled on inspection of unformatted DVD+RW</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -683,6 +687,8 @@ cdrecord and mkisofs.</DT>
 <DD>Enhancements towards stable version 1.3.2:
 <UL>
 <LI>New command -read_speed</LI>
+<LI>New -close mode "as_needed", new -as cdrecord option --multi_if_possible
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->

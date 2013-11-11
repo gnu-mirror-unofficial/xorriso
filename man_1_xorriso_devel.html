@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Oct  9 15:33:32 2013 -->
+<!-- CreationDate: Mon Nov 11 17:32:44 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4702,7 +4702,7 @@ means unit is kiB (= 1024) or MiB (= 1024 kiB).</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>-close</b>
-&quot;on&quot;|&quot;off&quot;</p></td>
+&quot;on&quot;|&quot;off&quot;|&quot;as_needed&quot;</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4710,12 +4710,25 @@ means unit is kiB (= 1024) or MiB (= 1024 kiB).</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>If &quot;on&quot; then mark the written medium as not
-appendable any more (if possible at all with the given type
-of target media).<br>
-This is the contrary of cdrecord, wodim, cdrskin command
--multi, and is one aspect of growisofs option
--dvd-compat.</p>
+<p>If -close is set to &quot;on&quot; then mark the
+written medium as not appendable any more. This will have no
+effect on overwritable media types. Setting &quot;on&quot;
+is the contrary of cdrecord option -multi, and is one
+aspect of growisofs option -dvd-compat.<br>
+If set to &quot;off&quot; then keep the medium writable for
+an appended session.<br>
+If set to &quot;as_needed&quot; then use &quot;on&quot; only
+if &quot;off&quot; is predicted to fail with the given
+medium and its state.<br>
+Not all drives correctly recognize fast-blanked
+DVD-RW which need &quot;on&quot;. If there is well
+founded suspicion that a burn run failed due to -close
+&quot;off&quot;, then -close &quot;as_needed&quot;
+causes a re-try with &quot;on&quot;.<br>
+Note that emulation command -as &quot;cdrecord&quot;
+temporarily overrides the current setting of -close by
+its own default -close &quot;on&quot; if its option
+-multi is missing.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -9349,5 +9362,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Oct  9 15:33:32 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Nov 11 17:32:44 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

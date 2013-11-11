@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Oct  9 15:33:32 2013 -->
+<!-- CreationDate: Mon Nov 11 17:32:45 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -668,9 +668,11 @@ blanked, which causes loss of its content.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>This option cannot be applied to DVD-R DL and
-DVD-RW which were blanked by type
-deformat_quickest.<br>
+<p>This option cannot be applied to DVD-R DL or to
+DVD-RW which were blanked by mode
+&quot;deformat_quickest&quot;. Option
+--multi_if_possible may automatically recognize
+and handle this situation.<br>
 In order to have all filesystem content accessible, the
 eventual ISO-9660 filesystem of a follow-up
 session needs to be prepared in a special way by the
@@ -1140,6 +1142,30 @@ appendable rather than as blank. I.e. options -msinfo
 and -toc will work. -toc will always show a
 single session with its size increasing with every added ISO
 9660 image.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>--multi_if_possible</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Apply option -multi if the medium is suitable. Not
+suitable are DVD-R DL and DVD-RW, which were
+blanked with mode &quot;deformat_quickest&quot;.<br>
+Not all drives correctly recognize such fast-blanked
+DVD-RW which need &quot;on&quot;. If there is well
+founded suspicion that a burn run failed due to
+-multi, then this causes a re-try without
+-multi.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -1647,5 +1673,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Wed Oct  9 15:33:32 CEST 2013 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Mon Nov 11 17:32:45 CET 2013 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>

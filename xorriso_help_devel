@@ -384,7 +384,7 @@ Write-to-media commands:
                  Give up any unejected drive afterwards.
   -write_type "auto"|"tao"|"sao/dao"
                  Set write type for CD-R[W], DVD-R[W], DVD+R, BD-R.
-  -close "on"|"off"
+  -close "on"|"off"|"as_needed"
                  If "on" then mark the written medium as not appendable.
   -padding number["k"|"m"]|"included"|"appended"
                  Append extra bytes to image stream. (Default is 300k)

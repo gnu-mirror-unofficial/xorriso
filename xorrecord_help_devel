@@ -19,6 +19,7 @@ Options:
 	-toc		retrieve and print TOC/PMA data
 	-atip		retrieve media state, print "Is *erasable"
 	-multi		generate a TOC that allows multi session
+	--multi_if_possible	apply -multi if the medium supports it
 	-waiti		wait until input is available before opening SCSI
 	-tao		Write disk in TAO mode.
 	-dao		Write disk in SAO mode.
