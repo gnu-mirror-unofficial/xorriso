@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Nov 11 17:32:44 2013 -->
+<!-- CreationDate: Sun Nov 17 17:57:30 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1011,13 +1011,14 @@ Example speeds:<br>
 If there is no hint about the speed unit attached, then the
 medium in the -indev will decide. Default unit is CD =
 176.4k.<br>
-MMC drives usually activate their own idea of speed and take
-the speed value given by the burn program only as upper
-limit for their own decision.<br>
 Depending on the drive, the reported read speeds can be
-deceivingly low. Often it is possible to achieve higher read
-speeds by bold values like &quot;20xDVD&quot; or
-&quot;16xBD&quot;.</p>
+deceivingly low or high. Therefore &quot;min&quot; cannot
+become higher than 1x speed of the involved medium type.
+Read speed &quot;max&quot; cannot become lower than 52xCD,
+24xDVD, or 20xBD, depending on the medium type.<br>
+MMC drives usually activate their own idea of speed and take
+the speed value given by the burn program only as hint for
+their own decision.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3833,8 +3834,12 @@ there will appear &quot;Write speed 0&quot;, which tells the
 outcome of speed selection by command -speed 0, if it
 deviates from &quot;Write speed H&quot;.<br>
 &quot;Read speed L&quot; and &quot;Read speed H&quot; tell
-the minimum and maximum read speeds, as would be chosen by
--read_speed &quot;min&quot; resp. &quot;max&quot;.</p>
+the minimum and maximum read speeds, as reported by the
+drive. They would be chosen by -read_speed
+&quot;min&quot; resp. &quot;max&quot; if they undercut resp.
+surpass the built-in limits. These are &quot;1x&quot;
+resp. &quot;52xCD&quot;, &quot;24xDVD&quot;,
+&quot;20xBD&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -9362,5 +9367,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Nov 11 17:32:44 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Nov 17 17:57:30 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
