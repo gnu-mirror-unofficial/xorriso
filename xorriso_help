@@ -29,6 +29,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  those lists empty. Defaulty entry in "risky" is "/dev".
   -grow_blindly "off"|predicted_nwa
                  Switch between modifying and blind growing.
+  -read_speed number["k/s"|"m/s"|"[x]CD"|"[x]DVD"|"[x]BD"]
+                 Set the read speed. Default is "none" = do not set speed
+                 before reading.
   -load "session"|"track"|"lba"|"sbsector"|"volid"|"auto" id
                  Load a particular (outdated) ISO image from a -dev or
                  -indev which hosts more than one session.
@@ -381,14 +384,14 @@ Write-to-media commands:
                  Give up any unejected drive afterwards.
   -write_type "auto"|"tao"|"sao/dao"
                  Set write type for CD-R[W], DVD-R[W], DVD+R, BD-R.
-  -close "on"|"off"
+  -close "on"|"off"|"as_needed"
                  If "on" then mark the written medium as not appendable.
   -padding number["k"|"m"]|"included"|"appended"
                  Append extra bytes to image stream. (Default is 300k)
   -dummy "on"|"off"
                  If "on" simulate burning. Refuse if medium cannot simulate.
   -speed number["k/s"|"m/s"|"[x]CD"|"[x]DVD"|"[x]BD"]
-                 Set the burn speed. Default is 0 = maximum speed.
+                 Set the burn speed. Default is "max" = maximum speed.
   -stream_recording "on"|"off"
                  Try to circumvent slow checkread on DVD-RAM, BD-RE, BD-R.
   -dvd_obs "default"|"32k"|"64k"

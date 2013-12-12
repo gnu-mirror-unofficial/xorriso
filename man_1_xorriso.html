@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Aug  5 11:30:51 2013 -->
+<!-- CreationDate: Thu Dec 12 12:44:00 2013 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -390,15 +390,19 @@ desired. -C $msc1,$msc2 is equivalent to:<br>
 <p>Input drive, i.e. source of an existing or empty ISO
 image, can be any random access readable libburn drive:
 optical media with readable data, blank optical media,
-regular files, block devices.</p>
-<!-- INDENTATION -->
-<p>Output drive, i.e. target for writing, can be any libburn
+regular files, block devices.<br>
+Output drive, i.e. target for writing, can be any libburn
 drive. Some drive types do not support the method of growing
 but only the methods of modifying and blind growing. They
-all are suitable for newly created images.<br>
-All drive file objects have to offer rw-permission to
-the user of <b>xorriso</b>. Even those which will not be
-useable for reading an ISO image.</p>
+all are suitable for newly created images.</p>
+<!-- INDENTATION -->
+<p>All drive file objects have to offer rw-permission
+to the user of <b>xorriso</b>. Even those which will not be
+useable for reading an ISO image.<br>
+With any type of drive object, the data are considered to be
+organized in blocks of 2 KiB. Access happens in terms of
+Logical Block Address (<b>LBA</b>) which gives the number of
+a particular data block.</p>
 <!-- INDENTATION -->
 <p>MMC compliant (i.e. optical) drives on GNU/Linux usually
 get addressed by the path of their block device or of their
@@ -976,6 +980,49 @@ loading:</b></p></td>
 before loading an image by acquiring an input drive. In rare
 cases it is desirable to activate them only after image
 loading.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-read_speed</b> code|number[k|m|c|d|b]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the speed for reading. Default is &quot;none&quot;,
+which avoids to send a speed setting command to the drive
+before reading begins.<br>
+Further special speed codes are:<br>
+&quot;max&quot; (or &quot;0&quot;) selects maximum speed as
+announced by the drive.<br>
+&quot;min&quot; (or &quot;-1&quot;) selects minimum
+speed as announced by the drive.<br>
+Speed can be given in media dependent numbers or as a
+desired throughput per second in MMC compliant kB (= 1000)
+or MB (= 1000 kB). Media x-speed factor can be set
+explicity by &quot;c&quot; for CD, &quot;d&quot; for DVD,
+&quot;b&quot; for BD, &quot;x&quot; is optional.<br>
+Example speeds:<br>
+&nbsp;&nbsp;706k = 706kB/s = 4c = 4xCD<br>
+&nbsp;&nbsp;5540k = 5540kB/s = 4d = 4xDVD<br>
+If there is no hint about the speed unit attached, then the
+medium in the -indev will decide. Default unit is CD =
+176.4k.<br>
+Depending on the drive, the reported read speeds can be
+deceivingly low or high. Therefore &quot;min&quot; cannot
+become higher than 1x speed of the involved medium type.
+Read speed &quot;max&quot; cannot become lower than 52xCD,
+24xDVD, or 20xBD, depending on the medium type.<br>
+MMC drives usually activate their own idea of speed and take
+the speed value given by the burn program only as hint for
+their own decision.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2843,9 +2890,16 @@ bytes and quotes must be represented as \XYZ by their octal
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Alter the date entries of a file in the ISO image. type
-is one of &quot;a&quot;, &quot;m&quot;, &quot;b&quot; for
-access time, modification time, both times.<br>
+<p>Alter the date entries of files in the ISO image. type
+may be one of the following:<br>
+&quot;a&quot; sets access time, updates ctime.<br>
+&quot;m&quot; sets modification time, updates ctime.<br>
+&quot;b&quot; sets access time and modification time,
+updates ctime.<br>
+&quot;a-c&quot;, &quot;m-c&quot;, and
+&quot;b-c&quot; set the times without updating
+ctime.<br>
+&quot;c&quot; sets the ctime.<br>
 timestring may be in the following formats (see also section
 <A HREF="#EXAMPLES">EXAMPLES</A>):<br>
 As expected by program date: MMDDhhmm[[CC]YY][.ss]]<br>
@@ -2872,7 +2926,10 @@ These are normally given as GMT. The suffix &quot;LOC&quot;
 causes local timezone conversion. E.g. 2013010720574700,
 2013010720574700LOC. The last two digits cc (centiseconds)
 will be ignored, but must be present in order to make the
-format recognizable.</p>
+format recognizable.<br>
+Example:<br>
+-alter_date m-c 2013.11.27.103951 /file1 /file2
+--</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3238,7 +3295,8 @@ get a weight between 1 and 2 exp 28 = 268,435,456, depending
 on their block address. This shall keep them roughly in the
 same order if the write method of modifying is applied.<br>
 Data files which are added by other commands get an initial
-weight of 0.<br>
+weight of 0. Boot image files have a default weight of
+2.<br>
 E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
 file.<b><br>
@@ -3768,24 +3826,34 @@ BD-R means more reserve space.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Put out a list of speed values as reported by the output
-drive with the loaded medium. This does not necessarily mean
-that the medium is writable or that these speeds are
-actually achievable. Especially the lists reported with
-empty drive or with ROM media obviously advertise speeds for
-other media.<br>
+<p>Put out a list of speed values as reported by the drives
+with the loaded media. The list tells read speeds of the
+input drive and of the output drive. Further it tells write
+speeds of the output drive.<br>
+The list of write speeds does not necessarily mean that the
+medium is writable or that these speeds are actually
+achievable. Especially the lists reported with empty drive
+or with ROM media obviously advertise speeds for other
+media.<br>
 It is not mandatory to use speed values out of the listed
 range. The drive is supposed to choose a safe speed that is
 as near to the desired speed as possible.<br>
 At the end of the list, &quot;Write speed L&quot; and
 &quot;Write speed H&quot; are the best guesses for lower and
-upper speed limit. &quot;Write speed l&quot; and &quot;Write
-speed h&quot; may appear only with CD and eventually
-override the list of other speed offers.<br>
+upper write speed limit. &quot;Write speed l&quot; and
+&quot;Write speed h&quot; may appear only with CD and
+eventually override the list of other speed offers.<br>
 Only if the drive reports contradicting speed information
 there will appear &quot;Write speed 0&quot;, which tells the
 outcome of speed selection by command -speed 0, if it
-deviates from &quot;Write speed H&quot;.</p>
+deviates from &quot;Write speed H&quot;.<br>
+&quot;Read speed L&quot; and &quot;Read speed H&quot; tell
+the minimum and maximum read speeds, as reported by the
+drive. They would be chosen by -read_speed
+&quot;min&quot; resp. &quot;max&quot; if they undercut resp.
+surpass the built-in limits. These are &quot;1x&quot;
+resp. &quot;52xCD&quot;, &quot;24xDVD&quot;,
+&quot;20xBD&quot;.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4497,7 +4565,7 @@ already are zisofs compressed, e.g. by program mkzftree.<br>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-speed</b> number[k|m|c|d|b]</p></td>
+<p><b>-speed</b> code|number[k|m|c|d|b]</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4505,12 +4573,18 @@ already are zisofs compressed, e.g. by program mkzftree.<br>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the burn speed. Default is 0 = maximum speed. Speed
-can be given in media dependent numbers or as a desired
-throughput per second in MMC compliant kB (= 1000) or MB (=
-1000 kB). Media x-speed factor can be set explicity by
-&quot;c&quot; for CD, &quot;d&quot; for DVD, &quot;b&quot;
-for BD, &quot;x&quot; is optional.<br>
+<p>Set the burn speed. Default is &quot;max&quot; (or
+&quot;0&quot;) = maximum speed as announced by the drive.
+Further special speed codes are:<br>
+&quot;min&quot; (or &quot;-1&quot;) selects minimum
+speed as announced by the drive.<br>
+&quot;none&quot; avoids to send a speed setting command to
+the drive before burning begins.<br>
+Speed can be given in media dependent numbers or as a
+desired throughput per second in MMC compliant kB (= 1000)
+or MB (= 1000 kB). Media x-speed factor can be set
+explicity by &quot;c&quot; for CD, &quot;d&quot; for DVD,
+&quot;b&quot; for BD, &quot;x&quot; is optional.<br>
 Example speeds:<br>
 &nbsp;&nbsp;706k = 706kB/s = 4c = 4xCD<br>
 &nbsp;&nbsp;5540k = 5540kB/s = 4d = 4xDVD<br>
@@ -4647,7 +4721,7 @@ means unit is kiB (= 1024) or MiB (= 1024 kiB).</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>-close</b>
-&quot;on&quot;|&quot;off&quot;</p></td>
+&quot;on&quot;|&quot;off&quot;|&quot;as_needed&quot;</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4655,12 +4729,25 @@ means unit is kiB (= 1024) or MiB (= 1024 kiB).</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>If &quot;on&quot; then mark the written medium as not
-appendable any more (if possible at all with the given type
-of target media).<br>
-This is the contrary of cdrecord, wodim, cdrskin command
--multi, and is one aspect of growisofs option
--dvd-compat.</p>
+<p>If -close is set to &quot;on&quot; then mark the
+written medium as not appendable any more. This will have no
+effect on overwritable media types. Setting &quot;on&quot;
+is the contrary of cdrecord option -multi, and is one
+aspect of growisofs option -dvd-compat.<br>
+If set to &quot;off&quot; then keep the medium writable for
+an appended session.<br>
+If set to &quot;as_needed&quot; then use &quot;on&quot; only
+if &quot;off&quot; is predicted to fail with the given
+medium and its state.<br>
+Not all drives correctly recognize fast-blanked
+DVD-RW which need &quot;on&quot;. If there is well
+founded suspicion that a burn run failed due to -close
+&quot;off&quot;, then -close &quot;as_needed&quot;
+causes a re-try with &quot;on&quot;.<br>
+Note that emulation command -as &quot;cdrecord&quot;
+temporarily overrides the current setting of -close by
+its own default -close &quot;on&quot; if its option
+-multi is missing.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -8601,19 +8688,21 @@ UTF-8</b></p></td>
 <td width="89%">
 <p>This example assumes that the existing ISO image was
 written with character set ISO-8859-1 but that
-the readers expected UTF-8. Now a new session with the
-same files gets added with converted file names. In order to
-avoid any weaknesses of the local character set, this
-command pretends that it uses already the final target set
-UTF-8. Therefore strange file names may appear in
+the readers expected UTF-8. Now a new session gets
+added with converted file names. Command
+-changes_pending &quot;yes&quot; enables writing
+despite the lack of any manipulation command.<br>
+In order to avoid any weaknesses of the local character set,
+this command pretends that it uses already the final target
+set UTF-8. Therefore strange file names may appear in
 messages, which will be made terminal-safe by command
 -backslash_codes.<br>
 $ xorriso -in_charset ISO-8859-1
 -local_charset UTF-8 \<br>
 -out_charset UTF-8 -backslash_codes on
 -dev /dev/sr0 \<br>
--alter_date m +0 / -- -commit
--eject all</p>
+-changes_pending yes -commit -eject
+all</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -9294,5 +9383,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Aug  5 11:30:51 CEST 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Dec 12 12:44:00 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
