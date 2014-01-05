@@ -1,10 +1,5 @@
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 50: ls: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 82: rm: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 96: rm: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 97: mv: command not found
-/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 98: rm: command not found
 
-usage: /u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/.libs/lt-xorriso [settings|actions]
+usage: xorriso [settings|actions]
 
 This program creates, loads, manipulates and writes ISO 9660 filesystem
 images with Rock Ridge extensions. Write targets can be drives with optical
@@ -302,7 +297,7 @@ pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                    -type b|c|d|p|f|l|s|e, -pending_data, -hidden,
                    -lba_range start count, -damaged, -has_acl, -has_xattr,
                    -has_aaip, -has_filter, -has_md5, -has_any_xattr,
-                   -has_hfs_crtp, -has_hfs_bless,
+                   -has_hfs_crtp, -has_hfs_bless, -bad_outname,
                    -prune, -decision yes|no, -true, -false
                  Operators: -not, -or, -and, -sub, (, -subend, ),
                    -if, -then, -elseif, -else, -endif
@@ -312,7 +307,8 @@ pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                    getfacl, setfacl, getfattr, setfattr, get_any_xattr,
                    list_extattr, get_md5, check_md5, make_md5,
                    set_hfs_crtp, get_hfs_crtp, set_hfs_bless, get_hfs_bless,
-                   set_filter, show_stream, mkisofs_r, hide, find.
+                   set_filter, show_stream, mkisofs_r, hide, print_outname,
+                   estimate_size, find
                  params are their parameters except iso_rr_path.
   -mkdir iso_rr_path [...]
                  Create empty directories if they do not exist yet.
