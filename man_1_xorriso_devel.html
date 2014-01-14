@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Jan  9 22:55:58 2014 -->
+<!-- CreationDate: Tue Jan 14 10:20:26 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -537,9 +537,9 @@ MBR, GPT and APM are combinable. APM occupies the first 8
 bytes of MBR boot code. All three do not hamper El Torito
 booting from CDROM.<br>
 There is support for further facilities: MIPS Big Endian
-(SGI), MIPS Little Endian (DEC), SUN SPARC. Those are
-mutually not combinable and also not combinable with MBR,
-GPT, or APM.</p>
+(SGI), MIPS Little Endian (DEC), SUN SPARC, HP-PA.
+Those are mutually not combinable and also not combinable
+with MBR, GPT, or APM.</p>
 <!-- INDENTATION -->
 <p><b>ACL</b> are an advanced way of controlling access
 permissions to file objects. Neither ISO 9660 nor Rock Ridge
@@ -4878,7 +4878,8 @@ There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
 PC-BIOS MBR for hard-disk-like devices,
 MIPS Volume Header for old SGI computers, DEC Boot Block for
-old DECstation, SUN Disk Label for SPARC machines.<br>
+old DECstation, SUN Disk Label for SPARC machines,
+HP-PA boot sector for HP PA-RISC machines.<br>
 The boot firmware EFI may use programs which are located in
 a FAT filesystem and announced by an MBR partition table
 entry.</p>
@@ -5151,10 +5152,20 @@ Label. Both numbers are counted in bytes. The address is
 written as 64 bit big-endian number to byte 0x228. The
 size is written as 32 bit big-endian number to byte
 0x230.<b><br>
-mips_discard</b> and <b>sparc_discard</b> revoke any boot
-file declarations made by mips_path= or mipsel_path=. They
-also disable production of SUN Disk Label. This removes the
-ban on production of other boot blocks.<b><br>
+hppa_cmdline=</b>text sets the PALO command line for
+HP-PA. Up to 127 characters are permitted.<b><br>
+hppa_bootloader=</b>iso_rr_path designates the given path as
+HP-PA bootloader file.<b><br>
+hppa_kernel_32=</b>iso_rr_path designates the given path as
+HP-PA 32 bit kernel file.<b><br>
+hppa_kernel_64=</b>iso_rr_path designates the given path as
+HP-PA 64 bit kernel file.<b><br>
+hppa_ramdisk=</b>iso_rr_path designates the given path as
+HP-PA RAM disk file.<b><br>
+mips_discard</b>, <b>sparc_discard</b>, and
+<b>hppa_discard</b> revoke any boot file declarations made
+for mips or mipsel, resp. sparc, resp. hppa. This removes
+the ban on production of other boot blocks.<b><br>
 hfsplus_serial=</b>hexstring sets a string of 16 digits
 &quot;0&quot; to &quot;9&quot; and letters &quot;a&quot; to
 &quot;f&quot;, which will be used as unique serial number of
@@ -9406,7 +9417,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2007 - 2013 Thomas Schmitt<br>
+<p>Copyright (c) 2007 - 2014 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -9433,5 +9444,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jan  9 22:55:58 CET 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Jan 14 10:20:26 CET 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

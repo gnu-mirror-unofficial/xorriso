@@ -667,6 +667,8 @@ cdrecord and mkisofs.</DT>
 <DD>Bug fixes towards xorriso-1.3.4:
 <UL>
 <LI>Division by zero if HFS+ was combined with TOC emulation for overwritable media.</LI>
+<LI>-list_speeds did not work any more with old CD drives.
+Regression introduced by release 1.3.4</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -676,6 +678,8 @@ cdrecord and mkisofs.</DT>
 <UL>
 <LI>New -compliance rule joliet_utf16, new -as mkisofs option -joliet-utf16</LI>
 <LI>New -find test -bad_outname, new -find action print_outname</LI>
+<LI>New -boot_image settings hppa_cmdline=, hppa_bootloader=, hppa_kernel_32=, hppa_kernel_64=, hppa_ramdisk=</LI>
+<LI>New -as mkisofs options -hppa-cmdline, -hppa-bootloader, -hppa-kernel-32, -hppa-kernel-64, -hppa-ramdisk</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->

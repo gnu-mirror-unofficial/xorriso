@@ -120,6 +120,11 @@ Options:
   -mipsel-boot FILE           Set mipsel boot image name (relative to image root)
   -B FILES, -sparc-boot FILES Set sparc boot image names
   -sparc-label label text     Set sparc boot disk label
+  -hppa-cmdline CMDLINE       Set hppa boot command line
+  -hppa-kernel-32 FILE        Set hppa 32-bit image name (relative to image root)
+  -hppa-kernel-64 FILE        Set hppa 64-bit image name (relative to image root)
+  -hppa-bootloader FILE       Set hppa boot loader file name (relative to image root)
+  -hppa-ramdisk FILE          Set hppa ramdisk file name (relative to image root)
   --grub2-sparc-core FILE     Set path of core file for disk label patching
   -efi-boot-part DISKFILE|--efi-boot-image
                               Set data source for EFI System Partition

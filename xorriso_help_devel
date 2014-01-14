@@ -140,6 +140,8 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"efi_boot_part="|"efi_boot_part=--efi-boot-image"
               |"mips_path="|"mipsel_path="|"mips_discard"
               |"sparc_label="|"grub2_sparc_core="|"sparc_discard"
+              |"hppa_cmdline="|"hppa_bootloader="|"hppa_kernel_32"
+              |"hppa_kernel_64="|"hppa_ramdisk="
               |"hfsplus_serial="|"hfsplus_block_size="
               |"apm_block_size="|"show_status"
                  Whether to discard or keep an exiting El Torito boot image.
