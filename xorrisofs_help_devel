@@ -125,6 +125,7 @@ Options:
   -hppa-kernel-64 FILE        Set hppa 64-bit image name (relative to image root)
   -hppa-bootloader FILE       Set hppa boot loader file name (relative to image root)
   -hppa-ramdisk FILE          Set hppa ramdisk file name (relative to image root)
+  -hppa-hdrversion NUMBER     Set hppa PALO header version to 4 or 5
   --grub2-sparc-core FILE     Set path of core file for disk label patching
   -efi-boot-part DISKFILE|--efi-boot-image
                               Set data source for EFI System Partition

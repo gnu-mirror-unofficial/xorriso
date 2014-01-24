@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Jan 14 10:20:26 2014 -->
+<!-- CreationDate: Fri Jan 24 10:06:51 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3349,10 +3349,12 @@ written as 32 bit big-endian number to byte 0x230.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the PALO command line for HP-PA. Up to 127
-characters are permitted.<br>
-Note that if one of the -hppa options is given, then
-the other four must be given with valid parameters, too.</p>
+<p>Set the PALO command line for HP-PA. Up to 1023
+characters are permitted by default. With
+-hppa-hdrversion 4 the limit is 127.<br>
+Note that the first five -hppa options are mandatory,
+if any of the -hppa options is given. Only option
+-hppa-hdrversion is allowed to be missing.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3425,6 +3427,25 @@ file.</p>
 <td width="77%">
 <p>Designate the given path as HP-PA RAM disk
 file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-hdrversion</b> number</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Choose between PALO header version 5 (default) and
+version 4. For the appropriate value see in PALO source
+code: PALOHDRVERSION.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4615,5 +4636,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Jan 14 10:20:26 CET 2014 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri Jan 24 10:06:51 CET 2014 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

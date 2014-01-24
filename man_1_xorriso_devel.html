@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Jan 14 10:20:26 2014 -->
+<!-- CreationDate: Fri Jan 24 10:06:50 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -5153,7 +5153,11 @@ written as 64 bit big-endian number to byte 0x228. The
 size is written as 32 bit big-endian number to byte
 0x230.<b><br>
 hppa_cmdline=</b>text sets the PALO command line for
-HP-PA. Up to 127 characters are permitted.<b><br>
+HP-PA. Up to 1023 characters are permitted by default.
+With hppa_hdrversion=4 the limit is 127.<br>
+Note that the first five hppa_ bootspecs are mandatory, if
+any of the hppa_ bootspecs is used. Only hppa_hdrversion= is
+allowed to be missing.<b><br>
 hppa_bootloader=</b>iso_rr_path designates the given path as
 HP-PA bootloader file.<b><br>
 hppa_kernel_32=</b>iso_rr_path designates the given path as
@@ -5162,6 +5166,9 @@ hppa_kernel_64=</b>iso_rr_path designates the given path as
 HP-PA 64 bit kernel file.<b><br>
 hppa_ramdisk=</b>iso_rr_path designates the given path as
 HP-PA RAM disk file.<b><br>
+hppa_hdrversion=</b>number chooses between PALO header
+version 5 (default) and version 4. For the appropriate value
+see in PALO source code: PALOHDRVERSION.<b><br>
 mips_discard</b>, <b>sparc_discard</b>, and
 <b>hppa_discard</b> revoke any boot file declarations made
 for mips or mipsel, resp. sparc, resp. hppa. This removes
@@ -6805,7 +6812,7 @@ event=ALL<br>
 abort_file=/var/opt/xorriso/do_abort_check_media<br>
 sector_map=&rsquo;&rsquo; map_with_volid=off patch_lba0=off
 report=blocks<br>
-bad_limit=valid slow_limit=1.0 chunk_size=0s
+bad_limit=invalid slow_limit=1.0 chunk_size=0s
 async_chunks=0<br>
 Option &quot;reset=now&quot; restores these startup
 defaults.<br>
@@ -6869,7 +6876,11 @@ scans on the same medium, even with intermediate eject, in
 order to collect readable blocks whenever the drive is lucky
 enough to produce them. The stored file contains a human
 readable TOC of tracks and their start block addresses,
-followed by binary bitmap data.<b><br>
+followed by binary bitmap data.<br>
+By default, untested blocks are not considered bad, but
+rather as intentionally unread. If you expect time_limit= or
+item_limit= to abort the run, then consider to use
+bad_limit=&quot;untested&quot;.<b><br>
 map_with_volid=&quot;on&quot;</b> examines tracks whether
 they are ISO images and prints their volume IDs into the
 human readable TOC of sector_map=.<b><br>
@@ -9444,5 +9455,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Jan 14 10:20:26 CET 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jan 24 10:06:50 CET 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
