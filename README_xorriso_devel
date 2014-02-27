@@ -22,7 +22,8 @@ incorporates the libraries of libburnia-project.org .
 
 Currently it is fully supported on GNU/Linux with kernels >= 2.4,
 on FreeBSD with ATAPI/CAM support enabled in the kernel, see atapicam(4),
-and on OpenSolaris (tested with kernel 5.11).
+on OpenSolaris (tested with kernel 5.11),
+on NetBSD (tested with 6.1.2 and 6.1.3).
 On other X/Open compliant systems there will only be POSIX i/o with disk
 file objects, but no direct MMC operation on CD/DVD/BD drives.
 
@@ -102,7 +103,7 @@ Other deliberate dependency reduction options of ./configure are:
                        this also avoids the use of libjte and option -jigdo.
 
 xorriso brings own system adapters which allow burning optical media on
-GNU/Linux, FreeBSD, Solaris.
+GNU/Linux, FreeBSD, Solaris, NetBSD.
 Alternatively it can use libcdio-0.83 or later for sending commands to
 optical drives:
     --enable-libcdio
@@ -189,7 +190,7 @@ A list of rw-accessible drives can be obtained by
 CD devices which offer not enough permission are invisible to normal users.
 The superuser should be able to see any usable drive and then set the
 permissions as needed.
-On Linux and FreeBSD, rw-permissions are needed.
+On Linux, FreeBSD, and NetBSD, rw-permissions are needed.
 On Solaris, the privilege "sys_devices" and r-permission are needed.
 
 The output of  xorriso -devices  might look like
@@ -203,6 +204,7 @@ This is equivalent to the traditional setup chmod a+x,u+s cdrecord.
 
 On FreeBSD, device permissions are to be set in /etc/devfs.rules.
 On Solaris, pfexec privileges may be restricted to "basic,sys_devices".
+On NetBSD, rw-permission may be granted by chmod a+rw /dev/rcd?d.
 See below "System Dependent Drive Permission Examples".
 
 I strongly discourage to run xorriso with setuid root or via sudo !
@@ -372,8 +374,8 @@ GNU xorriso has less runtime dependencies and can be moved more freely.
                   System Dependent Drive Permission Examples
 
 Accessing the optical drives requires privileges which usually are granted
-only to the superuser. GNU/Linux, FreeBSD and Solaris offer quite different
-approaches for avoiding the need for unrestricted privileges.
+only to the superuser. GNU/Linux, FreeBSD, Solaris, and NetBSD offer quite
+different approaches for avoiding the need for unrestricted privileges.
 
 First check whether some friendly system setting already allows you to
 access the drives as normal user:
@@ -383,9 +385,9 @@ Those drives of which you see address and type strings are already usable.
 If there remain drives invisible which the superuser can see by the same
 command, then the following examples might help:
 
----------------------
-On all three systems:
----------------------
+---------------
+On all systems:
+---------------
 Add the authorized users of CD drives to group "floppy" in /etc/group.
 If missing: create this group.
 Changes to /etc/group often only affect new login sessions. So log out and in
@@ -445,6 +447,12 @@ Then allow the group r-access to the drives
 The last two commands have to be executed after each boot. I do not know
 the relevant device configuration files yet.
 
+----------
+On NetBSD: 
+----------
+Allow rw-access to the drives
+  chgrp floppy /dev/rcd[01]d
+  chmod g+rw   /dev/rcd[01]d
 
 ------------------------------------------------------------------------------
 
@@ -479,7 +487,7 @@ By Mario Danic           <mario.danic@gmail.com>,  libburn, libisofs
    Vreixo Formoso        <metalpain2002@yahoo.es>, libisofs, libisoburn
    Thomas Schmitt        <scdbackup@gmx.net>,      libburn, libisofs,
                                                    libisoburn, xorriso
-Copyright (C) 2006-2013 Mario Danic, Vreixo Formoso, Thomas Schmitt.
+Copyright (C) 2006-2014 Mario Danic, Vreixo Formoso, Thomas Schmitt.
 
 libburnia-project.org is inspired by and in libburn still containing parts
 of old
@@ -495,7 +503,7 @@ Copyright (C) 2000-2007 Free Software Foundation, Inc.
 ------------------------------------------------------------------------------
 
 This text itself is
-Copyright (c) 2007 - 2013 Thomas Schmitt <scdbackup@gmx.net>
+Copyright (c) 2007 - 2014 Thomas Schmitt <scdbackup@gmx.net>
 and is freely distributable.
 It shall only be modified in sync with the technical properties of xorriso.
 If you make use of the license to derive modified versions of xorriso
