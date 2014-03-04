@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Dec 12 12:44:00 2013 -->
+<!-- CreationDate: Tue Mar  4 12:07:57 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -1755,6 +1755,27 @@ as is prescribed by the specification. Allow Joliet paths
 longer than the prescribed limit of 240 characters.<br>
 Oversized names get truncated. Without this option,
 oversized paths get excluded from the Joliet tree.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-joliet-utf16</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Encode Joliet file names in UTF-16BE rather than
+UCS-2. The difference is with characters which are not
+present in UCS-2 and get encoded in UTF-16 by 2
+words of 16 bit each. Both words then stem from a reserved
+subset of UCS-2.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4476,7 +4497,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2011 - 2013 Thomas Schmitt<br>
+<p>Copyright (c) 2011 - 2014 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -4502,5 +4523,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Dec 12 12:44:00 CET 2013 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Mar  4 12:07:57 CET 2014 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

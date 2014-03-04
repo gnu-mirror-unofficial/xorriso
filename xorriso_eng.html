@@ -2,7 +2,7 @@
 
 <HEAD>
 <META NAME="description" CONTENT="GNU xorriso, creates, loads, manipulates and writes ISO 9660 filesystem images with Rock Ridge extensions">
-<META NAME="keywords" CONTENT="xorriso, libburn, libburnia, burn, CD, DVD, BD, ISO, ISO 9660, RockRidge, Rock Ridge, GNU/Linux, Linux, FreeBSD, Solaris, recording, burning, CD-R, CD-RW, DVD-R, DVD-RW, DVD+RW, DVD+R, DVD+R DL, BD-RE, BD-R, scdbackup">
+<META NAME="keywords" CONTENT="xorriso, libburn, libburnia, burn, CD, DVD, BD, ISO, ISO 9660, RockRidge, Rock Ridge, GNU/Linux, Linux, FreeBSD, Solaris, NetBSD, recording, burning, CD-R, CD-RW, DVD-R, DVD-RW, DVD+RW, DVD+R, DVD+R DL, BD-RE, BD-R, scdbackup">
 <META NAME="robots" CONTENT="follow">
 <TITLE>GNU xorriso - GNU Project - Free Software Foundation</TITLE>
 <LINK rev="made" href="mailto:webmasters@gnu.org">
@@ -16,7 +16,7 @@
 <H1>GNU xorriso</H1>
 
 <H2>ISO 9660 Rock Ridge Filesystem Manipulator<BR>
-for GNU/Linux, FreeBSD, Solaris</H2>
+for GNU/Linux, FreeBSD, Solaris, NetBSD</H2>
 </P>
 </CENTER>
 
@@ -44,7 +44,7 @@ About any CD, DVD, or BD recorder produced in the recent ten years.
 supports recorders which are compliant to standards MMC-1 for CD and
 MMC-5 for DVD or BD.
 <BR>
-GNU/Linux, FreeBSD, and Solaris allow to access drives connected
+GNU/Linux, FreeBSD, Solaris, NetBSD allow to access drives connected
 via SCSI, PATA (aka IDE, ATA), USB, or SATA.
 <BR>
 xorriso also operates on ISO images in data files or block devices.
@@ -64,6 +64,8 @@ Images or add-on sessions may be written to about any kind of file object.
 <DD>libiconv has to be installed.</DD>
 <DT>or Solaris, libc, libpthread :</DT>
 <DD>Tested on kernel 5.11, hopefully suitable for older ones too.</DD>
+<DT>or NetBSD, libc, libpthread :</DT>
+<DD>Tested on 6.1.2 and 6.1.3, hopefully suitable for older ones too.</DD>
 <DT>or some other X/Open system, libc, libpthread :</DT>
 <DD>
 There will be no direct operation of optical drives, but only POSIX i/o
@@ -91,7 +93,8 @@ but rather not with CD, DVD-R, DVD+R, BD-R.
 </P>
 
 <P>
-This program has been tested on GNU/Linux, FreeBSD, and Solaris systems.<BR>
+This program has been tested on GNU/Linux, FreeBSD, Solaris, NetBSD systems.
+<BR>
 For ports to other usable systems <A HREF="#contact">contact us</A>.
 </P>
 
@@ -199,7 +202,7 @@ libburnia SVN: frontend/xorriso-tcltk
 You will probably have to give it x-permission after download. Some browsers
 insist in adding &quot;.htm&quot; to the file name.
 <BR>
-Further you need xorriso >= 1.3.4, Tcl, Tk >= 8.4,
+Further you need xorriso >= 1.3.6, Tcl, Tk >= 8.4,
 Tcl/Tk package &quot;BWidget&quot;.
 </P>
 
@@ -218,7 +221,7 @@ Tcl/Tk package &quot;BWidget&quot;.
 </DT>
 <DT>
 Ordinary users should then get granted access to the /dev files
-as listed by option --devices. GNU/Linux and FreeBSD demand rw-permission.
+as listed by option --devices. GNU/Linux, FreeBSD, NetBSD demand rw-permission.
 On Solaris it is r-permission and privileges "basic,sys_devices".
 </DT>
 <DT>&nbsp;</DT>
@@ -505,21 +508,21 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.3.4.tar.gz">xorriso-1.3.4.tar.gz</A>
-(2375 KB).
+<DD><A HREF="xorriso-1.3.6.tar.gz">xorriso-1.3.6.tar.gz</A>
+(2410 KB).
 </DD>
-<DD>(Released 12 Dec 2013)</DD>
-<DD><A HREF="xorriso-1.3.4.tar.gz.sig">xorriso-1.3.4.tar.gz.sig</A></DD>
+<DD>(Released 04 Mar 2014)</DD>
+<DD><A HREF="xorriso-1.3.6.tar.gz.sig">xorriso-1.3.6.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.3.4.tar.gz.sig xorriso-1.3.4.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.3.6.tar.gz.sig xorriso-1.3.6.tar.gz</KBD>
 <BR>
 after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.3.4.tar.gz
+as xorriso/xorriso-1.3.6.tar.gz
 </DD>
 </DL>
 </DD>
@@ -556,26 +559,13 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards previous stable version xorriso-1.3.2:
+Bug fixes towards previous stable version xorriso-1.3.4:
 <UL>
-<LI>
-Command -blank "as_needed" formatted blank BD-R.
-</LI>
-<LI>
--as mkisofs option -log-file put the log file into the image
-</LI>
-<LI>
--cut_out did not add x-permission to r-permission of directory
-</LI>
-<LI>
-Command -zisofs did not accept all options emitted by -status -zisofs
-</LI>
-<LI>
-blank force:... failed on appendable or closed media
-</LI>
-<LI>
-Drive LG BH16NS40 stalled on inspection of unformatted DVD+RW
-</LI>
+<LI>Division by zero if HFS+ was combined with TOC emulation for overwritable media.</LI>
+<LI>-list_speeds did not work any more with old CD drives.
+Regression introduced by release 1.3.4</LI>
+<LI>-check_media marked untested sectors in sector map as valid</LI>
+<LI>Paths with symbolic links preceding ".." were not interpreted properly</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -594,23 +584,11 @@ Bug fixes in xorriso-1.1.0.pl01 towards xorriso-1.1.0:
 -->
 
 <P>
-Enhancements towards previous stable version xorriso-1.3.2:
+Enhancements towards previous stable version xorriso-1.3.4:
 <UL>
-<LI>
-Default sort weight of El Torito boot images is now 2
-</LI>
-<LI>
-Encoding HFS+ names in UTF-16 rather than UCS-2
-</LI>
-<LI>
-New command -read_speed
-</LI>
-<LI>
-New -close mode "as_needed", new -as cdrecord option --multi_if_possible
-</LI>
-<LI>
-New -alter_date types: a-c , m-c , b-c , c
-</LI>
+<LI>New -compliance rule joliet_utf16, new -as mkisofs option -joliet-utf16</LI>
+<LI>New -find test -bad_outname, new -find action print_outname</LI>
+<LI>New capability to operate optical drives and media on NetBSD</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -633,16 +611,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-1.3.4</DT>
+<DT>libburn-1.3.6</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.3.4</DT>
+<DT>libisofs-1.3.6</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
-<DT>libisoburn-1.3.4</DT>
+<DT>libisoburn-1.3.6</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -663,25 +641,18 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.3.5 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.3.4:
+<DT><H3>Development snapshot, version 1.3.7 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.3.6:
 <UL>
-<LI>Division by zero if HFS+ was combined with TOC emulation for overwritable media.</LI>
-<LI>-list_speeds did not work any more with old CD drives.
-Regression introduced by release 1.3.4</LI>
-<LI>-check_media marked untested sectors in sector map as valid</LI>
-<LI>Paths with symbolic links preceding ".." were not interpreted properly</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.3.4:
+<DD>Enhancements towards stable version 1.3.6:
 <UL>
-<LI>New -compliance rule joliet_utf16, new -as mkisofs option -joliet-utf16</LI>
-<LI>New -find test -bad_outname, new -find action print_outname</LI>
-<LI>New -boot_image settings hppa_cmdline=, hppa_bootloader=, hppa_hdrversion= hppa_kernel_32=, hppa_kernel_64=, hppa_ramdisk=</LI>
-<LI>New -as mkisofs options -hppa-cmdline, -hppa-bootloader, -hppa-hdrversion, -hppa-kernel-32, -hppa-kernel-64, -hppa-ramdisk</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -691,13 +662,13 @@ Regression introduced by release 1.3.4</LI>
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.3.5</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.3.5 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.3.5 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.3.5 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.3.5)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.3.5)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.3.5)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.3.7</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.3.7 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.3.7 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.3.7 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.3.7)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.3.7)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.3.7)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -707,8 +678,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.3.5.tar.gz">xorriso-1.3.5.tar.gz</A>
-(2375 KB).
+<A HREF="xorriso-1.3.7.tar.gz">xorriso-1.3.7.tar.gz</A>
+(2410 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

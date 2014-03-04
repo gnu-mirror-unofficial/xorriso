@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Dec 12 12:44:00 2013 -->
+<!-- CreationDate: Tue Mar  4 12:07:56 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -412,6 +412,8 @@ generic character device. E.g.<br>
 -dev /dev/sg2<br>
 On FreeBSD the device files have names like<br>
 -dev /dev/cd0<br>
+On NetBSD:<br>
+-dev /dev/rcd0d<br>
 On OpenSolaris:<br>
 -dev /dev/rdsk/c4t0d0s2<br>
 Get a list of accessible drives by command<br>
@@ -1618,8 +1620,8 @@ the ISO image. If no Rock Ridge information is recorded in
 the loaded ISO image, then you will see ISO 9660 names which
 are of limited length and character set. If no Rock Ridge
 information shall be stored in an emerging ISO image, then
-their names will get mapped to such restricted ISO 9660
-names.</p>
+their names will get mapped to such restricted ISO 9660 (aka
+ECMA-119) names.</p>
 <!-- INDENTATION -->
 <p>Note that in the ISO image you are as powerful as the
 superuser. Access permissions of the existing files in the
@@ -3087,6 +3089,24 @@ tree, in &quot;hfsplus&quot; tree, in all trees
 (&quot;off&quot;).<br>
 Those which are hidden in some tree match -not
 -hidden &quot;off&quot;.<b><br>
+-bad_outname</b> namespace : Matches files with names
+which change when converted forth and back between the local
+character set and one of the namespaces
+&quot;rockridge&quot;, &quot;joliet&quot;,
+&quot;ecma119&quot;, &quot;hfsplus&quot;.<br>
+All applicable -compliance rules are taken into
+respect. Rule &quot;omit_version&quot; is always enabled,
+because else namespaces &quot;joliet&quot; and
+&quot;ecma119&quot; would cause changes with every
+non-directory name. Consider to also enable rules
+&quot;no_force_dots&quot; resp.
+&quot;no_j_force_dots&quot;.<br>
+The namespaces use different character sets and apply
+further restrictions to name length, permissible characters,
+and mandatory name components. &quot;rockridge&quot; uses
+the character set defined by -out_charset,
+&quot;joliet&quot; uses UCS-2BE, &quot;ecma119&quot;
+uses ASCII, &quot;hfsplus&quot; uses UTF-16BE.<b><br>
 -prune</b> : If this test is reached and the tested
 file is a directory then -find will not dive into that
 directory. This test itself does always match.<b><br>
@@ -3307,6 +3327,21 @@ E.g.: joliet:hfsplus<br>
 E.g.:<br>
 -find / -disk_name *_secret -exec hide
 on<b><br>
+print_outname</b> prints in the first line the filename as
+registered by the program model, and in the second line the
+filename after conversion forth and back between local
+character set and one of the namespaces
+&quot;rockridge&quot;, &quot;joliet&quot;,
+&quot;ecma119&quot;, or &quot;hfsplus&quot;. The third
+output line is &quot;--&quot; .<br>
+The name conversion does not take into respect the
+possibility of name collisions in the target namespace. Such
+collisions are most likely in &quot;joliet&quot; and
+&quot;ecma119&quot;, where they get resolved by automatic
+file name changes.<br>
+E.g.:<br>
+-find / -bad_outname joliet -exec
+print_outname joliet<b><br>
 estimate_size</b> prints a lower and an upper estimation of
 the number of blocks which the found files together will
 occupy in the emerging ISO image. This does not account for
@@ -4112,6 +4147,11 @@ length limit.<br>
 103 characters rather than 64.<br>
 &quot;joliet_long_paths&quot; allows Joliet paths longer
 than 240 characters.<br>
+&quot;joliet_utf16&quot; encodes Joliet names in
+UTF-16BE rather than UCS-2. The difference is
+with characters which are not present in UCS-2 and get
+encoded in UTF-16 by 2 words of 16 bit each. Both
+words then stem from a reserved subset of UCS-2.<br>
 &quot;always_gmt&quot; stores timestamps in GMT
 representation with timezone 0.<br>
 &quot;rec_mtime&quot; records with non-RockRidge
@@ -5114,9 +5154,8 @@ written as 64 bit big-endian number to byte 0x228. The
 size is written as 32 bit big-endian number to byte
 0x230.<b><br>
 mips_discard</b> and <b>sparc_discard</b> revoke any boot
-file declarations made by mips_path= or mipsel_path=. They
-also disable production of SUN Disk Label. This removes the
-ban on production of other boot blocks.<b><br>
+file declarations made for mips or mipsel resp. sparc. This
+removes the ban on production of other boot blocks.<b><br>
 hfsplus_serial=</b>hexstring sets a string of 16 digits
 &quot;0&quot; to &quot;9&quot; and letters &quot;a&quot; to
 &quot;f&quot;, which will be used as unique serial number of
@@ -5318,29 +5357,41 @@ different peculiar national characters on differently
 nationalized terminals. The meanings of byte codes are
 defined in <b>character sets</b> which have names. Shell
 command iconv -l lists them.<br>
-Character sets should not matter as long as only english
-alphanumeric characters are used for file names or as long
-as all writers and readers of the media use the same
-character set. Outside these constraints it may be necessary
-to let <b>xorriso</b> convert byte codes.<br>
-There is an input conversion from input character set to the
-local character set which applies when an ISO image gets
-loaded. A conversion from local character set to the output
-character set is performed when an image tree gets written.
+The file names on hard disk are assumed to be encoded by the
+<b>local character set</b> which is also used for the
+communication with the user. Byte codes 32 to 126 of the
+local character set must match the US-ASCII characters
+of the same code. ISO-8859 and UTF-8 fulfill
+this demand.<br>
+By default, <b>xorriso</b> uses the character set as told by
+shell command &quot;locale&quot; with argument
+&quot;charmap&quot;. This may be influenced by environment
+variables LC_ALL, LC_CTYPE, or LANG and should match the
+expectations of the terminal. In some situations it may be
+necessary to set it by command -local_charset.<br>
+Local character sets should not matter as long as only
+english alphanumeric characters are used for file names or
+as long as all writers and readers of the media use the same
+local character set. Outside these constraints it may be
+necessary to let <b>xorriso</b> convert byte codes from and
+to other character sets.<br>
+The Rock Ridge file names in ISO filesystems are assumed to
+be encoded by the <b>input character set</b>. The Rock Ridge
+file names which get written with ISO filesystems will be
+encoded by the <b>output character set</b>.<br>
 The sets can be defined independently by commands
 -in_charset and -out_charset. Normally one will
-have both identical, if ever.<br>
-If conversions are desired then <b>xorriso</b> needs to know
-the name of the local character set. <b>xorriso</b> can
-inquire the same info as shell command &quot;locale&quot;
-with argument &quot;charmap&quot;. This may be influenced by
-environment variables LC_ALL, LC_CTYPE, or LANG and should
-match the expectations of the terminal.<br>
+have both identical, if ever. Other than the local character
+set, these two character sets may deviate from
+US-ASCII.<br>
+The output character sets for Joliet and HFS+ are not
+influenced by these commands. Joliet uses output character
+set UCS-2 or UTF-16. HFS+ uses UTF-16.<br>
 The default output charset is the local character set of the
 terminal where <b>xorriso</b> runs. So by default no
 conversion happens between local filesystem names and
-emerging names in the image. The situation stays ambigous
-and the reader has to riddle what character set was
+emerging Rock Ridge names in the image. The situation stays
+ambigous and the reader has to riddle what character set was
 used.<br>
 By command -auto_charset it is possible to attribute
 the output charset name to the image. This makes the
@@ -6744,7 +6795,7 @@ event=ALL<br>
 abort_file=/var/opt/xorriso/do_abort_check_media<br>
 sector_map=&rsquo;&rsquo; map_with_volid=off patch_lba0=off
 report=blocks<br>
-bad_limit=valid slow_limit=1.0 chunk_size=0s
+bad_limit=invalid slow_limit=1.0 chunk_size=0s
 async_chunks=0<br>
 Option &quot;reset=now&quot; restores these startup
 defaults.<br>
@@ -6808,7 +6859,11 @@ scans on the same medium, even with intermediate eject, in
 order to collect readable blocks whenever the drive is lucky
 enough to produce them. The stored file contains a human
 readable TOC of tracks and their start block addresses,
-followed by binary bitmap data.<b><br>
+followed by binary bitmap data.<br>
+By default, untested blocks are not considered bad, but
+rather as intentionally unread. If you expect time_limit= or
+item_limit= to abort the run, then consider to use
+bad_limit=&quot;untested&quot;.<b><br>
 map_with_volid=&quot;on&quot;</b> examines tracks whether
 they are ISO images and prints their volume IDs into the
 human readable TOC of sector_map=.<b><br>
@@ -8474,10 +8529,10 @@ Try to retrieve blocks from a damaged medium</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>On Linux or FreeBSD consider to give rw-permissions
-to those users or groups which shall be able to use the
-drives with <b>xorriso</b>. On Solaris use pfexec. Consider
-to restrict privileges of <b>xorriso</b> to
+<p>On Linux, FreeBSD or NetBSD consider to give
+rw-permissions to those users or groups which shall be
+able to use the drives with <b>xorriso</b>. On Solaris use
+pfexec. Consider to restrict privileges of <b>xorriso</b> to
 &quot;base,sys_devices&quot; and to give r-permission
 to user or group.<br>
 $ xorriso -device_links<br>
@@ -9356,7 +9411,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2007 - 2013 Thomas Schmitt<br>
+<p>Copyright (c) 2007 - 2014 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -9383,5 +9438,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Dec 12 12:44:00 CET 2013 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Mar  4 12:07:56 CET 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
