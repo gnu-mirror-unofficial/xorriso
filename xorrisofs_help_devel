@@ -1,4 +1,9 @@
-xorriso 1.3.5 : RockRidge filesystem manipulator, libburnia project.
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 50: ls: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 82: rm: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 96: rm: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 97: mv: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 98: rm: command not found
+xorriso 1.3.6 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -120,12 +125,6 @@ Options:
   -mipsel-boot FILE           Set mipsel boot image name (relative to image root)
   -B FILES, -sparc-boot FILES Set sparc boot image names
   -sparc-label label text     Set sparc boot disk label
-  -hppa-cmdline CMDLINE       Set hppa boot command line
-  -hppa-kernel-32 FILE        Set hppa 32-bit image name (relative to image root)
-  -hppa-kernel-64 FILE        Set hppa 64-bit image name (relative to image root)
-  -hppa-bootloader FILE       Set hppa boot loader file name (relative to image root)
-  -hppa-ramdisk FILE          Set hppa ramdisk file name (relative to image root)
-  -hppa-hdrversion NUMBER     Set hppa PALO header version to 4 or 5
   --grub2-sparc-core FILE     Set path of core file for disk label patching
   -efi-boot-part DISKFILE|--efi-boot-image
                               Set data source for EFI System Partition
