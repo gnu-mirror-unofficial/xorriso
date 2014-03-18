@@ -508,21 +508,21 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.3.6.tar.gz">xorriso-1.3.6.tar.gz</A>
+<DD><A HREF="xorriso-1.3.6.pl01.tar.gz">xorriso-1.3.6.pl01.tar.gz</A>
 (2410 KB).
 </DD>
-<DD>(Released 04 Mar 2014)</DD>
-<DD><A HREF="xorriso-1.3.6.tar.gz.sig">xorriso-1.3.6.tar.gz.sig</A></DD>
+<DD>(Released 14 Mar 2014)</DD>
+<DD><A HREF="xorriso-1.3.6.pl01.tar.gz.sig">xorriso-1.3.6.pl01.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.3.6.tar.gz.sig xorriso-1.3.6.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.3.6.pl01.tar.gz.sig xorriso-1.3.6.pl01.tar.gz</KBD>
 <BR>
 after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.3.6.tar.gz
+as xorriso/xorriso-1.3.6.pl01.tar.gz
 </DD>
 </DL>
 </DD>
@@ -572,15 +572,16 @@ Regression introduced by release 1.3.4</LI>
 </UL>
 </P>
 
-<!--
 <P>
-Bug fixes in xorriso-1.1.0.pl01 towards xorriso-1.1.0:
+Bug fixes in xorriso-1.3.6.pl01 towards xorriso-1.3.6:
 <UL>
-<LI>
-
-</LI>
+<LI>Command -status produced FAILURE event if no drive was acquired.
+    Regression introduced by release 1.3.6</LI>
+<LI>Compilation warning for unsupported systems mutated into an error</LI>
+<LI>CD TAO with add-on sessions could cause a buffer overrun</LI>
 </UL>
 </P>
+<!--
 -->
 
 <P>
@@ -646,6 +647,8 @@ cdrecord and mkisofs.</DT>
 <UL>
 <LI>Command -status produced FAILURE event if no drive was acquired.
     Regression introduced by release 1.3.6</LI>
+<LI>Compilation warning for unsupported systems mutated into an error</LI>
+<LI>CD TAO with add-on sessions could cause a buffer overrun</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
