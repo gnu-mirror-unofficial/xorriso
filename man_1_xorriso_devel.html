@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Mar  6 17:47:46 2014 -->
+<!-- CreationDate: Wed Apr  9 09:54:40 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -539,9 +539,9 @@ MBR, GPT and APM are combinable. APM occupies the first 8
 bytes of MBR boot code. All three do not hamper El Torito
 booting from CDROM.<br>
 There is support for further facilities: MIPS Big Endian
-(SGI), MIPS Little Endian (DEC), SUN SPARC. Those are
-mutually not combinable and also not combinable with MBR,
-GPT, or APM.</p>
+(SGI), MIPS Little Endian (DEC), SUN SPARC, HP-PA.
+Those are mutually not combinable and also not combinable
+with MBR, GPT, or APM.</p>
 <!-- INDENTATION -->
 <p><b>ACL</b> are an advanced way of controlling access
 permissions to file objects. Neither ISO 9660 nor Rock Ridge
@@ -4697,7 +4697,7 @@ time options.</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>-stdio_sync</b>
-&quot;on&quot;|&quot;off&quot;|number</p></td>
+&quot;on&quot;|&quot;off&quot;|&quot;end&quot;|number</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4709,7 +4709,9 @@ time options.</p>
 stdio: pseudo drives. This forcing keeps the memory from
 being clogged with lots of pending data for slow devices.
 Default &quot;on&quot; is the same as &quot;16m&quot;.
-Forced output can be disabled by &quot;off&quot;.</p>
+Forced output can be disabled by &quot;off&quot;, or be
+delayed by &quot;end&quot; until all data are produced. If a
+number is chosen, then it must be at least 64k.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4880,7 +4882,8 @@ There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
 PC-BIOS MBR for hard-disk-like devices,
 MIPS Volume Header for old SGI computers, DEC Boot Block for
-old DECstation, SUN Disk Label for SPARC machines.<br>
+old DECstation, SUN Disk Label for SPARC machines,
+HP-PA boot sector for HP PA-RISC machines.<br>
 The boot firmware EFI may use programs which are located in
 a FAT filesystem and announced by an MBR partition table
 entry.</p>
@@ -5041,7 +5044,10 @@ system_area= with additional patching for modern GRUB MBRs.
 The content start address of the first boot image is
 converted to a count of 512 byte blocks, and an offset of 4
 is added. The result is written as 64 bit
-little-endian number to byte address 0x1b0.<b><br>
+little-endian number to byte address 0x1b0.<br>
+This feature can be revoked either by grub2_mbr= with empty
+disk path, or by submitting a disk_path via
+system_area=.<b><br>
 partition_table=on</b> causes a simple partition table to be
 written into bytes 446 to 511 of the System Area.<br>
 With type &quot;isolinux&quot; it shows a partition that
@@ -5069,11 +5075,11 @@ Special &quot;system_area=/dev/zero&quot; causes 32k of
 NUL-bytes. Use this to discard an MBR which was loaded
 with the ISO image.<b><br>
 chrp_boot_part=on</b> causes a single partition in MBR which
-covers the whole ISO image and has type 0x41. This is not
+covers the whole ISO image and has type 0x96. This is not
 compatible with any other feature that produces MBR
 partition entries. It makes GPT unrecognizable.<b><br>
 prep_boot_part=</b> inserts the content of a data file into
-the image and marks it by an MBR partition of type 0x96. The
+the image and marks it by an MBR partition of type 0x41. The
 parts of the ISO image before and after this partition will
 be covered by further MBR partitions. The data file is
 supposed to contain ELF executable code.<b><br>
@@ -5153,6 +5159,23 @@ Label. Both numbers are counted in bytes. The address is
 written as 64 bit big-endian number to byte 0x228. The
 size is written as 32 bit big-endian number to byte
 0x230.<b><br>
+hppa_cmdline=</b>text sets the PALO command line for
+HP-PA. Up to 1023 characters are permitted by default.
+With hppa_hdrversion=4 the limit is 127.<br>
+Note that the first five hppa_ bootspecs are mandatory, if
+any of the hppa_ bootspecs is used. Only hppa_hdrversion= is
+allowed to be missing.<b><br>
+hppa_bootloader=</b>iso_rr_path designates the given path as
+HP-PA bootloader file.<b><br>
+hppa_kernel_32=</b>iso_rr_path designates the given path as
+HP-PA 32 bit kernel file.<b><br>
+hppa_kernel_64=</b>iso_rr_path designates the given path as
+HP-PA 64 bit kernel file.<b><br>
+hppa_ramdisk=</b>iso_rr_path designates the given path as
+HP-PA RAM disk file.<b><br>
+hppa_hdrversion=</b>number chooses between PALO header
+version 5 (default) and version 4. For the appropriate value
+see in PALO source code: PALOHDRVERSION.<b><br>
 mips_discard</b> and <b>sparc_discard</b> revoke any boot
 file declarations made for mips or mipsel resp. sparc. This
 removes the ban on production of other boot blocks.<b><br>
@@ -7358,8 +7381,10 @@ files which are present in the ISO image when the command
 -as ends. If you use several -as mkisofs
 commands in the same run, then consider to put such options
 into the last -as command.<br>
--pacifier gets set to &quot;mkisofs&quot; if files are
-added to the image.<br>
+If files are added to the image, then -pacifier gets
+set to &quot;mkisofs&quot; and -stdio_sync is
+defaulted to &quot;off&quot; if no such setting was made
+yet.<br>
 -graft-points is equivalent to -pathspecs
 on. Note that pathspecs without &quot;=&quot; are
 interpreted differently than with <b>xorriso</b> command
@@ -9438,5 +9463,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Mar  6 17:47:46 CET 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Apr  9 09:54:40 CEST 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

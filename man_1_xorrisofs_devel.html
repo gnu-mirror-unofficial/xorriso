@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Mar  6 17:47:46 2014 -->
+<!-- CreationDate: Wed Apr  9 09:54:41 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -787,7 +787,7 @@ by disk_path &quot;-&quot;.</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>--stdio_sync</b>
-&quot;on&quot;|&quot;off&quot;|number</p></td>
+&quot;on&quot;|&quot;off&quot;|&quot;end&quot;|number</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -797,9 +797,13 @@ by disk_path &quot;-&quot;.</p>
 <td width="77%">
 <p>Set the number of bytes after which to force output to
 disk in order to keep the memory from being clogged with
-lots of pending data for slow devices. Default
-&quot;on&quot; is the same as &quot;16m&quot;. Forced output
-can be disabled by &quot;off&quot;.<br>
+lots of pending data for slow devices. &quot;on&quot; is the
+same as &quot;16m&quot;. Forced output can be disabled by
+&quot;off&quot;, or be delayed by &quot;end&quot; until all
+data are produced. If a number is chosen, then it must be at
+least 64k.<br>
+The default with xorriso mkisofs emulation is
+--stdio_sync &quot;off&quot;.<br>
 xorriso uses an inner fifo buffer with default size 4 MiB.
 So forcing the operating system i/o cache to disk does not
 necessarily block the simultaneous production of more image
@@ -1457,12 +1461,12 @@ discouraged to disable it by this option.</p>
 <table width="100%" border=0 rules="none" frame="void"
        cols="4" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="13%"></td>
+<td width="11%"></td>
 <td width="2%">
 
 <p><b>-D</b></p>
 </td>
-<td width="5%"></td>
+<td width="7%"></td>
 <td width="77%">
 
 <p>The standard ECMA-119 demands that no path in the
@@ -2799,9 +2803,9 @@ MBR, GPT and APM are combinable. APM occupies the first 8
 bytes of MBR boot code. All three do not hamper El Torito
 booting from CDROM.<b><br>
 xorrisofs</b> supports further boot facilities: MIPS Big
-Endian (SGI), MIPS Little Endian (DEC), SUN SPARC. Those are
-mutually not combinable and also not combinable with MBR,
-GPT, or APM.</p>
+Endian (SGI), MIPS Little Endian (DEC), SUN SPARC,
+HP-PA. Those are mutually not combinable and also not
+combinable with MBR, GPT, or APM.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3178,7 +3182,7 @@ partition.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Mark the block range of the whole emerging ISO image as
-MBR partition of type 0x41. This is not compatible with any
+MBR partition of type 0x96. This is not compatible with any
 other feature that produces MBR partition entries. It makes
 GPT unrecognizable.<br>
 CHRP is used in conjunction with HFS. It is not yet tested
@@ -3201,7 +3205,7 @@ would boot on any CHRP capable machine.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Copy a file from disk into the emerging ISO image and
-mark it by a MBR partition entry of type 0x96. PReP boot
+mark it by a MBR partition entry of type 0x41. PReP boot
 firmware is supposed to read the content of the partition as
 single ELF executable file. This option is compatible with
 other MBR partitions and with GPT.</p>
@@ -3333,6 +3337,119 @@ in the image to be written after the SUN Disk Label. Both
 numbers are counted in bytes. The address is written as 64
 bit big-endian number to byte 0x228. The size is
 written as 32 bit big-endian number to byte 0x230.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-cmdline</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the PALO command line for HP-PA. Up to 1023
+characters are permitted by default. With
+-hppa-hdrversion 4 the limit is 127.<br>
+Note that the first five -hppa options are mandatory,
+if any of the -hppa options is given. Only option
+-hppa-hdrversion is allowed to be missing.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-bootloader</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Designate the given path as HP-PA bootloader
+file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-kernel-32</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Designate the given path as HP-PA 32 bit kernel
+file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-kernel-64</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Designate the given path as HP-PA 64 bit kernel
+file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-ramdisk</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Designate the given path as HP-PA RAM disk
+file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-hdrversion</b> number</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Choose between PALO header version 5 (default) and
+version 4. For the appropriate value see in PALO source
+code: PALOHDRVERSION.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4523,5 +4640,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Mar  6 17:47:46 CET 2014 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Wed Apr  9 09:54:41 CEST 2014 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

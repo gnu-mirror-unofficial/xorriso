@@ -140,6 +140,8 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"efi_boot_part="|"efi_boot_part=--efi-boot-image"
               |"mips_path="|"mipsel_path="|"mips_discard"
               |"sparc_label="|"grub2_sparc_core="|"sparc_discard"
+              |"hppa_cmdline="|"hppa_bootloader="|"hppa_kernel_32="
+              |"hppa_kernel_64="|"hppa_ramdisk="|"hppa_hdrversion="
               |"hfsplus_serial="|"hfsplus_block_size="
               |"apm_block_size="|"show_status"
                  Whether to discard or keep an exiting El Torito boot image.
@@ -154,8 +156,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  efi_boot_part= is for booting EFI systems from USB stick.
                  mips_path= adds Big Endian MIPS boot files. mipsel_path=
                  sets one Little Endian MIPS boot file. sparc_label=
-                 activates SUN Disk Label. All three are mutually exclusive
-                 and exclusive to MBR production.
+                 activates SUN Disk Label. hppa_* is for HP PA-RISC via PALO.
+                 All four are mutually exclusive and exclusive to production
+                 of MBR and to booting via EFI from USB stick.
   -append_partition partition_number type_code disk_path
                  Append a prepared filesystem image after the end of the
                  ISO image. Caution: Will be overwritten by multi-session.
@@ -397,7 +400,7 @@ Write-to-media commands:
                  Try to circumvent slow checkread on DVD-RAM, BD-RE, BD-R.
   -dvd_obs "default"|"32k"|"64k"
                  Set number of bytes per DVD/BD write operation.
-  -stdio_sync "on"|"off"|number
+  -stdio_sync "on"|"off"|"end"|number
                  Set number of bytes after which to force output to stdio
                  pseudo drives. "on" is the same as 16m.
   -fs number["k"|"m"]
