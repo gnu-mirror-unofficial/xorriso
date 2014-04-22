@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Apr  9 17:31:08 2014 -->
+<!-- CreationDate: Tue Apr 22 11:32:28 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2273,22 +2273,26 @@ resp. -not_leaf.</p>
 <td width="77%">
 <p>Enable or disable resolution of symbolic links and
 mountpoints under disk_paths. This applies to actions
--add, -du*x, -ls*x, -findx, and to
--disk_pattern expansion.<br>
-There are two kinds of follow decisison to be made:<br>
-&quot;link&quot; is the hop from a symbolic link to its
-target file object. If enabled then symbolic links are
-handled as their target file objects, else symbolic links
-are handled as themselves.<br>
-&quot;mount&quot; is the hop from one filesystem to another
+-add, -du*x, -ls*x, -findx,
+-concat, and to -disk_pattern expansion.<br>
+There are three kinds of follow decisison to be made:<b><br>
+link</b> is the hop from a symbolic link to its target file
+object for the purpose of reading. I.e. not for command
+-concat. If enabled then symbolic links are handled as
+their target file objects, else symbolic links are handled
+as themselves.<b><br>
+mount</b> is the hop from one filesystem to another
 subordinate filesystem. If enabled then mountpoint
 directories are handled as any other directory, else
 mountpoints are handled as empty directories if they are
-encountered in directory tree traversals.<br>
-Less general than above occasions:<br>
-&quot;pattern&quot; is mount and link hopping, but only
-during -disk_pattern expansion.<br>
-&quot;param&quot; is link hopping for parameter words (after
+encountered in directory tree traversals.<b><br>
+concat</b> is the hop from a symbolic link to its target
+file object for the purpose of writing. I.e. for command
+-concat. This is a security risk !<br>
+Less general than above occasions:<b><br>
+pattern</b> is mount and link hopping, but only during
+-disk_pattern expansion.<b><br>
+param</b> is link hopping for parameter words (after
 eventual pattern expansion). If enabled then -ls*x
 will show the link targets rather than the links themselves.
 -du*x, -findx, and -add will process the
@@ -2297,20 +2301,20 @@ tree below the targets (unless &quot;link&quot; is
 enabled).<br>
 Occasions can be combined in a colon separated list. All
 occasions mentioned in the list will then lead to a positive
-follow decision.<br>
-&quot;off&quot; prevents any positive follow decision. Use
-it if no other occasion applies.<br>
-Shortcuts:<br>
-&quot;default&quot; is equivalent to
-&quot;pattern:mount:limit=100&quot;.<br>
-&quot;on&quot; always decides positive. Equivalent to
-&quot;link:mount&quot;.</p>
+follow decision.<b><br>
+off</b> prevents any positive follow decision. Use it if no
+other occasion applies.<br>
+Shortcuts:<b><br>
+default</b> is equivalent to
+&quot;pattern:mount:limit=100&quot;.<b><br>
+on</b> always decides positive. Equivalent to
+&quot;link:mount:concat&quot;.</p>
 <!-- INDENTATION -->
-<p>Not an occasion but an optional setting is:<br>
-&quot;limit=&quot;&lt;number&gt; which sets the maximum
-number of link hops. A link hop consists of a sequence of
-symbolic links and a final target of different type.
-Nevertheless those hops can loop. Example:<br>
+<p>Not an occasion but an optional setting is:<b><br>
+limit=</b>&lt;number&gt; which sets the maximum number of
+link hops. A link hop consists of a sequence of symbolic
+links and a final target of different type. Nevertheless
+those hops can loop. Example:<br>
 $ ln -s .. uploop<br>
 Link hopping has a built-in loop detection which stops
 hopping at the first repetition of a link target. Then the
@@ -3110,6 +3114,19 @@ uses ASCII, &quot;hfsplus&quot; uses UTF-16BE.<b><br>
 -prune</b> : If this test is reached and the tested
 file is a directory then -find will not dive into that
 directory. This test itself does always match.<b><br>
+-use_pattern</b> &quot;on&quot;|&quot;off&quot; : This
+pseudo test controls the interpretation of wildcards with
+tests -name, -wholename, and -disk_name.
+Default is &quot;on&quot;. If interpretation is disabled by
+&quot;off&quot;, then the parameters of -name,
+-wholename, and -disk_name have to match
+literally rather than as search pattern. This test itself
+does always match.<b><br>
+-or_use_pattern</b> &quot;on&quot;|&quot;off&quot; :
+Like -use_pattern, but automatically appending the
+test by -or rather than by -and. Further the
+test itself does never match. So a subsequent test -or
+will cause its other operand to be performed.<b><br>
 -decision</b> &quot;yes&quot;|&quot;no&quot; : If this
 test is reached then the evaluation ends immediately and
 action is performed if the decision is &quot;yes&quot; or
@@ -3470,13 +3487,14 @@ the ISO image.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Irrevocably ban commands -external_filter and
--unregister_filter, but not -set_filter. Use
-this to prevent external filtering in general or when all
-intended filters are registered. External filters may also
-be banned totally at compile time of <b>xorriso</b>. By
-default they are banned if <b>xorriso</b> runs under setuid
-permission.</p>
+<p>Irrevocably ban commands -concat &quot;pipe&quot;,
+-external_filter, and -unregister_filter, but
+not -set_filter. Use this to prevent external
+filtering in general or when all intended filters are
+registered and -concat mode &quot;pipe&quot; shall be
+disallowed. External filters may also be banned totally at
+compile time of <b>xorriso</b>. By default they are banned
+if <b>xorriso</b> runs under setuid permission.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6129,6 +6147,37 @@ particular timestamps.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>-report_system_area</b>
+&quot;plain&quot;|&quot;help&quot;|&quot;gpt_crc_of:&quot;disk_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>With parameter &quot;plain&quot; print a report about the
+information found in the System Area of the loaded ISO
+image. The report consists of zero to many lines with a
+header text, a colon, and information text.<br>
+With parameter &quot;help&quot; print a text which explains
+the meaning of the lines. You probably will have to look for
+more documentation which explains the technical properties
+of the mentioned boot facilities.<br>
+With parameter &quot;gpt_crc_of:&quot;disk_path read up to
+32 KiB from the disk file with the path given after the
+colon. Compute the GPT compliant CRC number and print it to
+the result channel. The number is shown like
+&quot;0x690fd979&quot;. The special disk_path
+&quot;-&quot; causes reading from standard input.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p>&nbsp;<BR><A NAME="Navigate"></A><b>Navigation in ISO image and disk
 filesystem:</b><BR>&nbsp;<BR></p></td>
 </table>
@@ -6846,8 +6895,13 @@ min_lba=limit</b> omits all blocks with addresses lower than
 limit.<b><br>
 max_lba=limit</b> switches to what=disc and omits all blocks
 above limit.<b><br>
-retry=&quot;on&quot;</b> forces read retries with single
-blocks when the normal read chunk produces a read error. By
+chunk_size=size</b> sets the number of bytes to be read in
+one low-level read operation. This gets rounded down
+to full blocks of 2048 bytes. 0 means automatic size.<b><br>
+retry=&quot;on&quot;</b> forces read retries with minimal
+senseful chunk size when the normal read chunk produces a
+read error. This size is 1s with CD and stdio files, 16s
+with DVD (1 ECC Block), and 32s with BD (1 Cluster). By
 default, retries are only enabled with CD media.
 &quot;retry=off&quot; forbits retries for all media
 types.<b><br>
@@ -6912,13 +6966,18 @@ be considered as damage. Choose one of &quot;good&quot;,
 &quot;partial&quot;, &quot;valid&quot;,
 &quot;untested&quot;, &quot;invalid&quot;,
 &quot;tao_end&quot;, &quot;off_track&quot;,
-&quot;md5_mismatch&quot;, &quot;unreadable&quot;.<b><br>
+&quot;md5_mismatch&quot;, &quot;unreadable&quot;.<br>
+&quot;valid&quot; and &quot;invalid&quot; are qualities
+imported from a sector_map file. &quot;tao_end&quot; and
+&quot;off_track&quot; are intentionally not readable, but
+not bad either. &quot;partial&quot; are blocks retrieved
+from a partially readable chunk. They are supposed to be ok
+but stem from a suspicious neighborhood.<br>
+&quot;md5_match&quot; and &quot;md5_mismatch&quot; regions
+overlap with regions of other quality.<b><br>
 slow_limit=threshold</b> sets the time threshold for a
 single read chunk to be considered slow. This may be a
 fractional number like 0.1 or 1.5.<b><br>
-chunk_size=size</b> sets the number of bytes to be read in
-one read operation. This gets rounded down to full blocks of
-2048 bytes. 0 means automatic size.<b><br>
 async_chunks=number</b> enables asynchronous MD5 processing
 if number is 2 or larger. In this case the given number of
 read chunks is allocated as fifo buffer. On very fast MMC
@@ -7279,6 +7338,53 @@ byte_count</p></td>
 data file on disk beginning at the byte_offset. Write at
 most byte_count bytes. This is the inverse of command
 -cut_out.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-concat</b> mode [target | lim prog [args [...]]
+lim] iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Copy the data content of one or more data files of the
+ISO image into a disk file object, into a file descriptor,
+or start a program and copy the data into its standard
+input. The latter is subject to the security restrictions
+for external filters.<br>
+Modes <b>overwrite</b> and <b>append</b> write into the
+target which is given by the second parameter. This may be
+the path to a disk file object, or &quot;-&quot; which
+means standard output, or a text of the form /dev/fd/number,
+where number is an open file descriptor (e.g. standard error
+is /dev/fd/2). An existing target file is not removed before
+writing begins. If it is not able to take content data, then
+this command fails. Mode overwrite truncates regular data
+files to 0 size before writing into them. Example:<br>
+-concat append /home/me/accumulated_text /my/iso/text
+--</p>
+<!-- INDENTATION -->
+<p>Mode <b>pipe</b> expects as second parameter a delimiter
+word which shall mark the end of the program argument list.
+The third argument is the disk_path to the program. It must
+contain at least one &rsquo;/&rsquo;. $PATH is not applied.
+Further parameters up to the announced delimiter word are
+used as arguments with the program start. Example:<br>
+-iso_rr_pattern on \<br>
+-concat pipe + /usr/bin/wc +
+&quot;/my/iso/files*&quot; --</p>
+<!-- INDENTATION -->
+<p>The further parameters in all modes are the iso_rr_paths
+of data files. Their content gets concatenated in the
+copy.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -9463,5 +9569,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Apr  9 17:31:08 CEST 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Apr 22 11:32:28 CEST 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

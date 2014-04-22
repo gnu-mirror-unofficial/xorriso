@@ -142,7 +142,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"sparc_label="|"grub2_sparc_core="|"sparc_discard"
               |"hppa_cmdline="|"hppa_bootloader="|"hppa_kernel_32="
               |"hppa_kernel_64="|"hppa_ramdisk="|"hppa_hdrversion="
-              |"hfsplus_serial="|"hfsplus_block_size="
+              |"hppa_discard"|"hfsplus_serial="|"hfsplus_block_size="
               |"apm_block_size="|"show_status"
                  Whether to discard or keep an exiting El Torito boot image.
                  ISOLINUX can be made bootable by dir=/ or dir=/isolinux
@@ -193,6 +193,11 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -tell_media_space
                  Print foreseeable available space on output medium
   -pvd_info      Print various id strings of the loaded ISO image.
+  -report_system_area form
+                 Form "plain" prints information about recognized information
+                 in the System Area of the loaded ISO image: MBR, GPT, ...
+                 Form "help" prints an explanation of the output format.
+
 Commands with variable length path list [...] need the list delimiter text
 as end mark if they are followed by another command. By default this
 delimiter is "--". In dialog and with commands read from files, the line
@@ -338,7 +343,7 @@ pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                  Like -not_list but with line rules as -dialog "on".
   -not_mgt "reset"|"on"|"off"|"param_on"|"subtree_on"|"ignore_on"
                  Control effect of exclusion lists.
-  -follow "on"|"pattern:param:link:mount:limit=#"|"default"|"off"
+  -follow "on"|"pattern:param:link:concat:mount:limit=#"|"default"|"off"
                  Follow symbolic links and mount points within disk_path.
   -overwrite "on"|"nondir"|"off"
                  Allow or disallow to overwrite existing files in ISO image.
@@ -508,6 +513,13 @@ Restore commands which copy file objects from ISO image to disk filesystem:
                  Like -cp_rx but trying to restore timestamps and ownership.
   -paste_in iso_rr_path disk_path byte_offset byte_count
                  Copy ISO file content into a byte interval of a disk file.
+  -concat "append"|"overwrite" target iso_rr_path [***]
+                 Write content of iso_rr_paths into disk file target. Target
+                 may be a disk_path or "-" for writing to standard output.
+  -concat "pipe" lim prog [args [...]] lim iso_rr_path [***]
+                 Start prog with given args and write content of iso_rr_paths
+                 into its standard input. prog must at least contain one '/'.
+                 lim may be any word that is not among prog and args.
   -mount drive entity id path
                  Like -mount_cmd but actually performing that command if
                  not setuid or setgid is active.
