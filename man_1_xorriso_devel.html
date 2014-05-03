@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Apr 22 11:32:28 2014 -->
+<!-- CreationDate: Sat May  3 14:02:25 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -6147,6 +6147,28 @@ particular timestamps.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>-report_el_torito</b>
+&quot;plain&quot;|&quot;help&quot;</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>With parameter <b>plain</b> print a report about the
+information found in the El Torito boot catalog of the
+loaded ISO image.<br>
+With parameter <b>help</b> print a text which explains the
+meaning of the lines put out by &quot;plain&quot;.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>-report_system_area</b>
 &quot;plain&quot;|&quot;help&quot;|&quot;gpt_crc_of:&quot;disk_path</p></td>
 </table>
@@ -6156,18 +6178,19 @@ particular timestamps.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>With parameter &quot;plain&quot; print a report about the
+<p>With parameter <b>plain</b> print a report about the
 information found in the System Area of the loaded ISO
 image. The report consists of zero to many lines with a
 header text, a colon, and information text.<br>
-With parameter &quot;help&quot; print a text which explains
-the meaning of the lines. You probably will have to look for
-more documentation which explains the technical properties
-of the mentioned boot facilities.<br>
-With parameter &quot;gpt_crc_of:&quot;disk_path read up to
-32 KiB from the disk file with the path given after the
-colon. Compute the GPT compliant CRC number and print it to
-the result channel. The number is shown like
+With parameter <b>help</b> print a text which explains the
+meaning of the lines put out by &quot;plain&quot;. You
+probably will have to look for more documentation which
+explains the technical details of the mentioned boot
+facilities.<br>
+With parameter <b>gpt_crc_of:</b>disk_path read up to 32 KiB
+from the disk file with the path given after the colon.
+Compute the GPT compliant CRC number and print it to the
+result channel. The number is shown like
 &quot;0x690fd979&quot;. The special disk_path
 &quot;-&quot; causes reading from standard input.</p>
 </td>
@@ -9569,5 +9592,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Apr 22 11:32:28 CEST 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat May  3 14:02:25 CEST 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

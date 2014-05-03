@@ -193,10 +193,16 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -tell_media_space
                  Print foreseeable available space on output medium
   -pvd_info      Print various id strings of the loaded ISO image.
-  -report_system_area form
-                 Form "plain" prints information about recognized information
+
+  -report_el_torito "plain"|"help"
+                 "plain" prints information about the El Torito boot catalog
+                 and boot images of the loaded ISO image.
+                 "help" prints an explanation of the output format.
+  -report_system_area "plain"|"help"|"gpt_crc_of:"disk_path
+                 "plain" prints information about recognized data
                  in the System Area of the loaded ISO image: MBR, GPT, ...
-                 Form "help" prints an explanation of the output format.
+                 "help" prints an explanation of the output format.
+                 "gpt_crc_of:" prints GPT CRC of file disk_path.
 
 Commands with variable length path list [...] need the list delimiter text
 as end mark if they are followed by another command. By default this
