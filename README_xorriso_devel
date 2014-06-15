@@ -41,7 +41,8 @@ components:
    libc, libpthread
    plus on FreeBSD: libiconv, libcam, IDE and SATA drives need atapicam
 Optional at compile time are:
-   libreadline and the readline-dev headers make dialog mode more convenient.
+   libreadline and the readline-dev headers, or libedit and its header,
+   make dialog mode more convenient.
    zlib and zlib-devel allow zisofs compression.
    on GNU/Linux: libacl and libacl-devel allow getting and setting ACLs.
 If they were present at compile time, then the optional libraries have to
@@ -90,11 +91,16 @@ The installation creates several alias links pointing to the xorriso binary:
     osirrox    starts with -osirrox image-to-disk copying already enabled
 
 
-If you want to avoid dependecy on libreadline although the libreadline
-development package is installed, then rather build xorriso by:
-    ./configure --prefix=/usr --disable-libreadline 
+By default xorriso will depend on libreadline if the library and its
+development header files are present at compile time. If not, then it will
+try to depend on libedit and its header file.
+Both conditional dependencies can be avoided by running
+    ./configure --prefix=/usr --disable-libreadline
     make clean ; make
-Never omit the "make clean" command after switching libreadline enabling.
+Never omit the "make clean" command after switching enabling of libreadline.
+If you want to explictely allow only the use of libedit, then do
+    ./configure --prefix=/usr --disable-libreadline --enable-libedit
+
 Other deliberate dependency reduction options of ./configure are:
     --disable-libacl   avoid use of ACL functions like acl_to_text()
     --disable-xattr    avoid use of xattr functions like listxattr() on Linux

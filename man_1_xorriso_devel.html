@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat May  3 14:02:25 2014 -->
+<!-- CreationDate: Sun Jun 15 20:37:48 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3229,9 +3229,12 @@ file.<b><br>
 report_lba</b> prints files which are associated to image
 data blocks. It tells the logical block address, the block
 number, the byte size, and the path of each file. There may
-be reported more than one line per file if the file is very
-large. In this case each line has a different extent number
-in column &quot;xt&quot;.<b><br>
+be reported more than one line per file if the file has more
+than one section. In this case each line has a different
+extent number in column &quot;xt&quot;.<b><br>
+report_sections</b> like report_lba but telling the byte
+sizes of the particular sections rather than the overall
+byte size of the file.<b><br>
 getfacl</b> prints access permissions in ACL text form to
 the result channel.<b><br>
 setfacl</b> attaches ACLs after removing existing ones. The
@@ -5986,7 +5989,7 @@ emit FAILURE events if the desired drive is not aquired.</p>
 <td width="77%">
 <p>Emit an appropriate command line for mounting the ISO
 session indicated by drive, entity and id. The result will
-be different on GNU/Linux and on FreeBSD.<br>
+be different on GNU/Linux and on FreeBSD or NetBSD.<br>
 drive can be &quot;indev&quot; or &quot;outdev&quot; to
 indicate already acquired drives, or it can be the path of a
 not yet acquired drive. Prefix &quot;stdio:&quot; for
@@ -9172,10 +9175,10 @@ disk. This is usually much faster than the default which
 compares both contents directly.<br>
 With <b>mount</b> option <b>-o
 &quot;sbsector=&quot;</b> on GNU/Linux resp. <b>-s</b>
-on FreeBSD it is possible to access the session trees which
-represent the older backup versions. With CD media,
-GNU/Linux mount accepts session numbers directly by its
-option &quot;session=&quot;.<br>
+on FreeBSD or NetBSD it is possible to access the session
+trees which represent the older backup versions. With CD
+media, GNU/Linux mount accepts session numbers directly by
+its option &quot;session=&quot;.<br>
 Multi-session media and most overwriteable media
 written by <b>xorriso</b> can tell the sbsectors of their
 sessions by <b>xorriso</b> command -toc. Used after
@@ -9592,5 +9595,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat May  3 14:02:25 CEST 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jun 15 20:37:48 CEST 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
