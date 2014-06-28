@@ -1,43 +1,8 @@
-xorriso 1.3.7 : RockRidge filesystem manipulator, libburnia project.
-
-Usage: xorriso -as cdrecord [options|source_addresses]
-Note: This is not cdrecord. See xorriso -help, xorriso -version, man xorrecord
-Options:
-	-version	print version information and exit emulation
-	--devices	print list of available MMC drives and exit emulation
-	dev=target	pseudo-SCSI target to use as CD-Recorder
-	-v		increment verbose level by one
-	-V		increment SCSI command transport verbose level by one
-	-checkdrive	check if a driver for the drive is present
-	-inq		do an inquiry for the drive
-	speed=#		set speed of drive
-	blank=type	blank a CD-RW disc (see blank=help)
-	fs=#		Set fifo size to # (0 to disable, default is 4 MB)
-	-eject		eject the disk after doing the work
-	-dummy		do everything with laser turned off
-	-msinfo		retrieve multi-session info for mkisofs >= 1.10
-	-toc		retrieve and print TOC/PMA data
-	-atip		retrieve media state, print "Is *erasable"
-	-multi		generate a TOC that allows multi session
-	--multi_if_possible	apply -multi if the medium supports it
-	-waiti		wait until input is available before opening SCSI
-	-tao		Write disk in TAO mode.
-	-dao		Write disk in SAO mode.
-	-sao		Write disk in SAO mode.
-	tsize=#		announces exact size of source data
-	padsize=#	Amount of padding
-	-data		Subsequent tracks are CD-ROM data mode 1 (default)
-	-isosize	Use iso9660 file system size for next data track
-	-pad		padsize=30k
-	-nopad		Do not pad
-	--grow_overwriteable_iso	emulate multi-session on DVD+RW, BD-RE
-	write_start_address=#		write to byte address on DVD+RW, BD-RE
-	stream_recording=on|number	try to get full speed on DVD-RAM, BD
-	dvd_obs=default|32k|64k		bytes per DVD/BD write operation
-	stdio_sync=on|off|end|number	whether to fsync output to "stdio:"
-	--no_rc		Do not execute xorriso startup files
-	-help		print this text to stderr and exit emulation
-Actually this is the integrated ISO RockRidge filesystem manipulator xorriso
-lending its libburn capabilities to a very limited cdrecord emulation. Only
-a single data track can be burnt to blank, appendable or overwriteable media.
-A much more elaborate cdrecord emulator is cdrskin from the same project.
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 50: ls: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 82: rm: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 96: rm: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 97: mv: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 98: rm: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: error: `/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/.libs/lt-xorriso' does not exist
+This script is just a wrapper for lt-xorriso.
+See the libtool documentation for more information.
