@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-http://www.gnu.org/software/xorriso/xorriso-1.3.6.pl01.tar.gz
+http://www.gnu.org/software/xorriso/xorriso-1.3.8.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -41,16 +41,17 @@ components:
    libc, libpthread
    plus on FreeBSD: libiconv, libcam, IDE and SATA drives need atapicam
 Optional at compile time are:
-   libreadline and the readline-dev headers make dialog mode more convenient.
+   libreadline and the readline-dev headers, or libedit and its header,
+   make dialog mode more convenient.
    zlib and zlib-devel allow zisofs compression.
    on GNU/Linux: libacl and libacl-devel allow getting and setting ACLs.
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.3.6.pl01.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.3.8.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.3.6.pl01.tar.gz
-    cd xorriso-1.3.6
+    tar xzf xorriso-1.3.8.tar.gz
+    cd xorriso-1.3.8
 
 Within that directory execute:
 
@@ -90,11 +91,16 @@ The installation creates several alias links pointing to the xorriso binary:
     osirrox    starts with -osirrox image-to-disk copying already enabled
 
 
-If you want to avoid dependecy on libreadline although the libreadline
-development package is installed, then rather build xorriso by:
-    ./configure --prefix=/usr --disable-libreadline 
+By default xorriso will depend on libreadline if the library and its
+development header files are present at compile time. If not, then it will
+try to depend on libedit and its header file.
+Both conditional dependencies can be avoided by running
+    ./configure --prefix=/usr --disable-libreadline
     make clean ; make
-Never omit the "make clean" command after switching libreadline enabling.
+Never omit the "make clean" command after switching enabling of libreadline.
+If you want to explictely allow only the use of libedit, then do
+    ./configure --prefix=/usr --disable-libreadline --enable-libedit
+
 Other deliberate dependency reduction options of ./configure are:
     --disable-libacl   avoid use of ACL functions like acl_to_text()
     --disable-xattr    avoid use of xattr functions like listxattr() on Linux
@@ -361,9 +367,9 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-1.3.6 :
-- libburn.so.4  , version libburn-1.3.6 or higher
-- libisofs.so.6 , version libisofs-1.3.6 or higher
+Dynamic library and compile time header requirements for libisoburn-1.3.8 :
+- libburn.so.4  , version libburn-1.3.8 or higher
+- libisofs.so.6 , version libisofs-1.3.8 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
