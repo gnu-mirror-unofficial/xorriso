@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Aug 20 12:00:53 2014 -->
+<!-- CreationDate: Thu Nov 20 12:56:57 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -3339,7 +3339,9 @@ weight of 0. Boot image files have a default weight of
 2.<br>
 E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
-file.<b><br>
+file. <b>show_stream_id</b> is like show_stream, but also
+prints between stream type and first &quot;:&quot; in square
+brackets libisofs id numbers: [fs_id,dev_id,ino_id].<b><br>
 hide</b> brings the file into one of the hide states
 &quot;on&quot;, &quot;iso_rr&quot;, &quot;joliet&quot;,
 &quot;hfsplus&quot;, &quot;off&quot;. They may be combined.
@@ -4901,13 +4903,12 @@ existing sessions, unless one can assume overwriteable
 media.<br>
 There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
-PC-BIOS MBR for hard-disk-like devices,
-MIPS Volume Header for old SGI computers, DEC Boot Block for
-old DECstation, SUN Disk Label for SPARC machines,
-HP-PA boot sector for HP PA-RISC machines.<br>
-The boot firmware EFI may use programs which are located in
-a FAT filesystem and announced by an MBR partition table
-entry.</p>
+PC-BIOS MBR or EFI GPT for hard-disk-like
+devices, APM partition entries for Macs which expect HFS+
+boot images, MIPS Volume Header for old SGI computers, DEC
+Boot Block for old DECstation, SUN Disk Label for SPARC
+machines, HP-PA boot sector for HP PA-RISC
+machines.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4927,22 +4928,36 @@ entry.</p>
 <td width="77%">
 
 <p>&quot;discard&quot;|&quot;keep&quot;|&quot;patch&quot;|&quot;show_status&quot;|bootspec|&quot;next&quot;<br>
-Define the handling of a set of El Torito boot images which
-has been read from an existing ISO image or define how to
-make a prepared boot image file set bootable. Such file sets
-get produced by ISOLINUX or GRUB.<br>
-Each -boot_image command has two parameters: type and
-setting. More than one -boot_image command may be used
-to define the handling of one or more boot images. Sequence
-matters.<br>
+Define the equipment of the emerging filesystem with boot
+entry points.<br>
+With systems which boot via BIOS or EFI this is a set of El
+Torito boot images, possibly MBR boot code, and possibly
+partition tables of type MBR, GPT, or APM. Such file sets
+get produced by boot loader systems like ISOLINUX or
+GRUB.</p>
+<!-- INDENTATION -->
+<p>Each -boot_image command has two parameters: type
+and setting. More than one -boot_image command may be
+used to define the handling of one or more boot images.
+Sequence matters.<br>
 Types <b>isolinux</b> and <b>grub</b> care for known
 peculiarities. Type <b>any</b> makes no assumptions about
 the origin of the boot images.</p>
 <!-- INDENTATION -->
-<p>El Torito boot images of any type can be newly inserted,
-or discarded, or patched, or kept unaltered. Whether to
-patch or to keep depends on whether the boot images contain
-boot info tables.<br>
+<p>When loading an ISO filesystem, system area and El Torito
+boot images get loaded, too. The default behavior is not to
+write loaded El Torito boot images and to write the loaded
+system area content without alterations.<b><br>
+discard</b> gives up the El Torito boot catalog and its boot
+images. regardless whether loaded from an ISO filesystem or
+defined by commands. Any BIOS or EFI related boot options
+get revoked. Nevertheless, loaded system area data stay
+valid. If desired, they have to be erased by<br>
+-boot_image any system_area=/dev/zero<b><br>
+keep</b> keeps or copies El Torito boot images unaltered and
+writes a new catalog.<b><br>
+patch</b> applies patching to existing El Torito boot images
+if they seem to bear a boot info table.<br>
 A boot info table needs to be patched when the boot image
 gets newly introduced into the ISO image or if an existing
 image gets relocated. This is automatically done if type
@@ -4965,21 +4980,21 @@ show_status</b> will print what is known about the loaded
 boot images and their designated fate.</p>
 <!-- INDENTATION -->
 <p>A <b>bootspec</b> is a word of the form name=value. It is
-used to describe the parameters of a boot image by an El
-Torito record or a MBR. The names &quot;dir&quot;,
-&quot;bin_path&quot;, &quot;efi_path&quot; lead to El Torito
-bootable images. Name &quot;system_area&quot; activates a
-given file as MBR.<br>
+used to describe the parameters of a boot feature. The names
+&quot;dir&quot;, &quot;bin_path&quot;, &quot;efi_path&quot;
+lead to El Torito bootable images. Name
+&quot;system_area&quot; activates a given file as MBR or
+other disk header.<br>
 On all media types this is possible within the first
 session. In further sessions an existing boot image can get
 replaced by a new one, but depending on the media type this
 may have few effect at boot time. See above.<br>
-The boot image and its supporting files have to be added to
-the ISO image by normal means (image loading, -map,
--add, ...). In case of ISOLINUX the files should
-reside either in ISO image directory /isolinux or in
-/boot/isolinux . In that case it suffices to use as bootspec
-the text &quot;dir=/isolinux&quot; or
+El Torito boot images have to be added to the ISO image by
+normal means (image loading, -map, -add, ...).
+In case of ISOLINUX the files should reside either in ISO
+image directory /isolinux or in /boot/isolinux . In that
+case it suffices to use as bootspec the text
+&quot;<b>dir=/isolinux</b>&quot; or
 &quot;dir=/boot/isolinux&quot;. E.g.:<br>
 -boot_image isolinux dir=/boot/isolinux<br>
 which bundles these individual settings:<br>
@@ -4999,11 +5014,13 @@ necessary that it appears in the directory tree at all. One
 may hide it in all trees by <b>cat_hidden=on</b>. Other
 possible values are &quot;iso_rr&quot;, &quot;joliet&quot;,
 &quot;hfsplus&quot;, and the default &quot;off&quot;.<b><br>
-bin_path=</b> depicts a boot image file, a binary program
-which is to be started by the hardware boot facility (e.g.
-the BIOS) at boot time.<b><br>
-efi_path=</b> depicts a boot image file that is ready for
-EFI booting. Its load_size is determined automatically, no
+bin_path=</b> depicts an El Torito boot image file, a binary
+program which is to be started by the hardware boot facility
+(e.g. the BIOS) at boot time.<b><br>
+efi_path=</b> depicts an El Torito boot image file that is
+ready for EFI booting. This is normally a FAT filesystem
+image not larger than 65535 blocks of 512 bytes (= 32 MiB
+- 512). Its load_size is determined automatically, no
 boot info table gets written, no boot medium gets emulated,
 platform_id is 0xef.<b><br>
 emul_type=</b> can be one of &quot;no_emulation&quot;,
@@ -5025,10 +5042,11 @@ little-endian number. It is the 2KB block address of
 the boot image content, multiplied by 4, and then
 incremented by 5. &quot;grub2_boot_info=off&quot; disables
 this patching.<b><br>
-platform_id=</b> defines by two hex digits the Platform ID
-of the boot image. &quot;00&quot; is 80x86 PC-BIOS,
-&quot;01&quot; is PowerPC, &quot;02&quot; is Mac,
-&quot;ef&quot; is EFI.<b><br>
+platform_id=</b> defines by a hexadecimal or decimal number
+the Platform ID of the boot image. &quot;0x00&quot; is 80x86
+PC-BIOS, &quot;0x01&quot; is PowerPC, &quot;0x02&quot;
+is Mac, &quot;0xef&quot; is EFI (decimal
+&quot;239&quot;).<b><br>
 id_string=</b>text|56_hexdigits defines the ID string of the
 boot catalog section where the boot image will be listed. If
 the value consists of 56 characters
@@ -5045,21 +5063,33 @@ next</b> ends the definition of a boot image and starts a
 new one. Any following -bootimage bootspecs will
 affect the new image. The first &quot;next&quot; discards
 loaded boot images and their catalog.<b><br>
-discard</b> gives up an existing boot catalog and its boot
-images.<b><br>
-keep</b> keeps or copies boot images unaltered and writes a
-new catalog.<b><br>
-patch</b> applies patching to existing boot images if they
-seem to bear a boot info table.<b><br>
 system_area=</b>disk_path copies at most 32768 bytes from
 the given disk file to the very start of the ISO image. This
 System Area is reserved for system dependent boot software,
 e.g. an MBR which can be used to boot from USB stick or hard
 disk.<br>
-Other than a El Torito boot image, the file disk_path needs
-not to be added to the ISO image.<br>
--boot_image isolinux system_area= implies
-&quot;partition_table=on&quot;.<b><br>
+Other than an El Torito boot image, the file disk_path needs
+not to be added to the ISO image.<b><br>
+-boot_image isolinux system_area=</b> implies
+&quot;partition_table=on&quot;. In this case, the disk path
+should lead to one of the SYSLINUX files isohdp[fp]x*.bin or
+to a file which was derived from one of those files. E.g. to
+the first 512 bytes from an ISOLINUX isohybrid ISO
+image.<br>
+In this case, El Torito boot images (dir=, bin_path=,
+efi_path=) may be augmented by <b>isolinux
+partition_entry=gpt_basdat</b> or <b>isolinux
+partition_entry=gpt_hfsplus</b>, and by <b>isolinux
+partition_entry=apm_hfsplus</b>. The boot image will then be
+mentioned in GPT as Basic Data or GPT HFS+ partition, and in
+APM as HFS+ partition. The first three GPT partitions will
+also be marked by MBR partitions.<br>
+In multi-session situations the existing System Area
+is preserved by default. In in this case, the special
+disk_path &quot;.&quot; prevents reading of a disk file but
+nevertheless causes adjustments in the loaded system area
+data. Such adjustments may get ordered by -boot_image
+commands.<b><br>
 grub2_mbr=</b>disk_path works like &quot;any&quot;
 system_area= with additional patching for modern GRUB MBRs.
 The content start address of the first boot image is
@@ -5083,15 +5113,13 @@ boot image.<br>
 Bootspecs chrp_boot_part=, prep_boot_part=, and
 efi_boot_part= overwrite this entry in the MBR partition
 table.<br>
-In follow-up sessions the existing System Area is
-preserved by default. If types &quot;isolinux&quot; or
-&quot;grub&quot; are set to &quot;patch&quot;, then
-&quot;partition_table=on&quot; is activated without new boot
-image. In this case the existing System Area gets checked
-whether it bears addresses and sizes as if it had been
-processed by &quot;partition_table=on&quot;. If so, then
-those parameters get updated when the new System Area is
-written.<br>
+If types &quot;isolinux&quot; or &quot;grub&quot; are set to
+&quot;patch&quot;, then &quot;partition_table=on&quot; is
+activated without new boot image. In this case the existing
+System Area gets checked whether it bears addresses and
+sizes as if it had been processed by
+&quot;partition_table=on&quot;. If so, then those parameters
+get updated when the new System Area is written.<br>
 Special &quot;system_area=/dev/zero&quot; causes 32k of
 NUL-bytes. Use this to discard an MBR which was loaded
 with the ISO image.<b><br>
@@ -5197,9 +5225,10 @@ HP-PA RAM disk file.<b><br>
 hppa_hdrversion=</b>number chooses between PALO header
 version 5 (default) and version 4. For the appropriate value
 see in PALO source code: PALOHDRVERSION.<b><br>
-mips_discard</b> and <b>sparc_discard</b> revoke any boot
-file declarations made for mips or mipsel resp. sparc. This
-removes the ban on production of other boot blocks.<b><br>
+mips_discard</b>, <b>sparc_discard</b>, and
+<b>hppa_discard</b> revoke any boot file declarations made
+for mips, mipsel, sparc resp. hppa. This removes the ban on
+production of other boot blocks.<b><br>
 hfsplus_serial=</b>hexstring sets a string of 16 digits
 &quot;0&quot; to &quot;9&quot; and letters &quot;a&quot; to
 &quot;f&quot;, which will be used as unique serial number of
@@ -9595,5 +9624,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Aug 20 12:00:53 CEST 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Nov 20 12:56:58 CET 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Aug 20 12:00:54 2014 -->
+<!-- CreationDate: Thu Nov 20 12:56:58 2014 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -2580,9 +2580,12 @@ CD.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the number of 512-byte blocks for boot images
-which emulate a floppy or a hard disk. A safe default for
-non-emulating boot images is 4.</p>
+<p>Set the number of 512-byte blocks to be loaded at
+boot time from the boot image in the current catalog entry.
+Non-emulating BIOS bootimages usually need a load size
+of 4. EFI boot images usually get set the number of blocks
+occupied by the boot image file.<br>
+El Torito cannot represent load sizes higher than 65535.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2826,7 +2829,11 @@ combinable with MBR, GPT, or APM.</p>
 very start of the ISO image.<br>
 Other than a El Torito boot image, the file disk_path needs
 not to be added to the ISO image. It will not show up as
-file in the directory trees.</p>
+file in the directory trees.<br>
+In multi-session situations, the special disk_path
+&quot;.&quot; prevents reading of a disk file but
+nevertheless causes the adjustments in the existing MBR,
+which were ordered by other options.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2908,7 +2915,9 @@ isohdp[fp]x*.bin . The MBR gets patched according to
 isohybrid needs. The first partition describes the range of
 the ISO image. Its start is at block 0 by default, but may
 be set to 64 disk blocks by option -partition_offset
-16.</p>
+16.<br>
+For the meaning of special disk_path &quot;.&quot; see
+option -G.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3185,9 +3194,27 @@ partition.</p>
 MBR partition of type 0x96. This is not compatible with any
 other feature that produces MBR partition entries. It makes
 GPT unrecognizable.<br>
-CHRP is used in conjunction with HFS. It is not yet tested
-whether HFS+ filesystems produced with option -hfsplus
-would boot on any CHRP capable machine.</p>
+CHRP is often used in conjunction with HFS. It is not yet
+tested whether HFS+ filesystems produced with option
+-hfsplus would boot on any CHRP capable machine which
+does not boot pure ISO 9660 as well.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-chrp-boot</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Alias of -chrp-boot-part.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4640,5 +4667,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Wed Aug 20 12:00:54 CEST 2014 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Nov 20 12:56:58 CET 2014 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
