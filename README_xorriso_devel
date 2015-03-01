@@ -39,6 +39,7 @@ Prerequisites:
 The tarball contains everything that is needed except the following system
 components:
    libc, libpthread
+   plus on Solaris: libvolmgt
    plus on FreeBSD: libiconv, libcam, IDE and SATA drives need atapicam
 Optional at compile time are:
    libreadline and the readline-dev headers, or libedit and its header,

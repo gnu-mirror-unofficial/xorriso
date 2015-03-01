@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Sat Dec  6 19:35:26 2014 -->
+<!-- CreationDate: Sun Mar  1 17:34:55 2015 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4906,8 +4906,9 @@ record but rather start at the first bytes of the image:
 PC-BIOS MBR or EFI GPT for hard-disk-like
 devices, APM partition entries for Macs which expect HFS+
 boot images, MIPS Volume Header for old SGI computers, DEC
-Boot Block for old DECstation, SUN Disk Label for SPARC
+Boot Block for old MIPS DECstation, SUN Disk Label for SPARC
 machines, HP-PA boot sector for HP PA-RISC
+machines, DEC Alpha SRM boot sector for old DEC Alpha
 machines.</p>
 </td>
 </table>
@@ -5123,6 +5124,13 @@ get updated when the new System Area is written.<br>
 Special &quot;system_area=/dev/zero&quot; causes 32k of
 NUL-bytes. Use this to discard an MBR which was loaded
 with the ISO image.<b><br>
+appended_part_as=gpt</b> marks partitions from
+-append_partition in GPT rather than in MBR. In this
+case the MBR shows a single partition of type 0xee which
+covers the whole output data.<b><br>
+appended_part_as=mbr</b> is the default. Appended partitions
+get marked in GPT only if GPT is produced because of other
+settings.<b><br>
 chrp_boot_part=on</b> causes a single partition in MBR which
 covers the whole ISO image and has type 0x96. This is not
 compatible with any other feature that produces MBR
@@ -5225,10 +5233,15 @@ HP-PA RAM disk file.<b><br>
 hppa_hdrversion=</b>number chooses between PALO header
 version 5 (default) and version 4. For the appropriate value
 see in PALO source code: PALOHDRVERSION.<b><br>
-mips_discard</b>, <b>sparc_discard</b>, and
-<b>hppa_discard</b> revoke any boot file declarations made
-for mips, mipsel, sparc resp. hppa. This removes the ban on
-production of other boot blocks.<b><br>
+alpha_boot=</b>iso_rr_path declares a data file in the image
+to be the DEC Alpha SRM Secondary Bootloader and causes
+production of a boot sector which points to it. This is
+mutually exclusive with production of other boot blocks like
+MBR.<b><br>
+mips_discard</b>, <b>sparc_discard</b>, <b>hppa_discard</b>,
+<b>alpha_discard</b> revoke any boot file declarations made
+for mips, mipsel, sparc, hppa, resp. alpha. This removes the
+ban on production of other boot blocks.<b><br>
 hfsplus_serial=</b>hexstring sets a string of 16 digits
 &quot;0&quot; to &quot;9&quot; and letters &quot;a&quot; to
 &quot;f&quot;, which will be used as unique serial number of
@@ -5280,6 +5293,8 @@ The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
 0xff. Not all those numbers will yield usable results. For a
 list of codes search the Internet for &quot;Partition
 Types&quot; or run fdisk command &quot;L&quot;.<br>
+If some other command causes the production of GPT, then the
+appended partitions will be mentioned there too.<br>
 The disk_path must provide the necessary data bytes at
 commit time. An empty disk_path disables this feature for
 the given partition number.<br>
@@ -6192,7 +6207,22 @@ particular timestamps.</p>
 information found in the El Torito boot catalog of the
 loaded ISO image.<br>
 With parameter <b>help</b> print a text which explains the
-meaning of the lines put out by &quot;plain&quot;.</p>
+meaning of the lines put out by &quot;plain&quot;.<br>
+Parameter <b>cmd</b> tries to print the <b>xorriso</b>
+commands which are necessary to produce the found El Torito
+equipment and System Area. The intended use case is
+modification of the filesystem by having -indev and
+-outdev pointing to different images or drives. The
+result might be insufficient, if the found equipment cannot
+be produced by xorriso.<br>
+Parameter <b>as_mkisofs</b> tries to print the <b>xorriso
+-as mkisofs</b> options, which are necessary to
+produce the found equipment. The intended use case is to use
+the mounted filesystem as input tree together with the
+printed options. In some cases (e.g.
+-isohybrid-mbr) it might be necessary to extract
+data from ISO to hard disk in order to use the hard disk
+files as arguments of -as mkisofs options.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6219,6 +6249,8 @@ meaning of the lines put out by &quot;plain&quot;. You
 probably will have to look for more documentation which
 explains the technical details of the mentioned boot
 facilities.<br>
+Parameters <b>cmd</b> and <b>as_mkisofs</b> work like with
+command -report_el_torito. See above.<br>
 With parameter <b>gpt_crc_of:</b>disk_path read up to 32 KiB
 from the disk file with the path given after the colon.
 Compute the GPT compliant CRC number and print it to the
@@ -9624,5 +9656,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Dec  6 19:35:27 CET 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Mar  1 17:34:55 CET 2015 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

@@ -126,6 +126,7 @@ Options:
   -hppa-bootloader FILE       Set hppa boot loader file name (relative to image root)
   -hppa-ramdisk FILE          Set hppa ramdisk file name (relative to image root)
   -hppa-hdrversion NUMBER     Set hppa PALO header version to 4 or 5
+  -alpha-boot FILE            Set alpha boot image name (relative to image root)
   --grub2-sparc-core FILE     Set path of core file for disk label patching
   -efi-boot-part DISKFILE|--efi-boot-image
                               Set data source for EFI System Partition
@@ -134,6 +135,7 @@ Options:
   -prep-boot-part DISKFILE    Set data source for MBR partition type 0x41
   -append_partition NUMBER TYPE FILE
                               Append FILE after image. TYPE is hex: 0x..
+  -appended_part_as_gpt       mark appended partitions in GPT instead of MBR.
   --modification-date=YYYYMMDDhhmmsscc
                               Override date of creation and modification
   -isohybrid-mbr FILE         Set SYSLINUX mbr/isohdp[fp]x*.bin for isohybrid

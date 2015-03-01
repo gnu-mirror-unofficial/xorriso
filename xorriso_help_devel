@@ -134,15 +134,19 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"discard"|"keep"|"patch"|"dir="|"bin_path="
               |"cat_path="|"cat_hidden=on|iso_rr|joliet|off"
               |"load_size="|"boot_info_table="
-              |"grub2_boot_info="|"grub2_mbr="
+              |"grub2_boot_info="|"grub2_mbr="|"partition_offset="
+              |"partition_hd_cyl="|"partition_sec_hd="
+              |"partition_cyl_align="
               |"system_area="|"partition_table=on|off"
+              |"partition_entry="|"appended_part_as="
               |"chrp_boot_part=on|off="|"prep_boot_part="
               |"efi_boot_part="|"efi_boot_part=--efi-boot-image"
               |"mips_path="|"mipsel_path="|"mips_discard"
               |"sparc_label="|"grub2_sparc_core="|"sparc_discard"
               |"hppa_cmdline="|"hppa_bootloader="|"hppa_kernel_32="
               |"hppa_kernel_64="|"hppa_ramdisk="|"hppa_hdrversion="
-              |"hppa_discard"|"hfsplus_serial="|"hfsplus_block_size="
+              |"hppa_discard"|"alpha_boot="|"alpha_discard"
+              |"hfsplus_serial="|"hfsplus_block_size="
               |"apm_block_size="|"show_status"
                  Whether to discard or keep an exiting El Torito boot image.
                  ISOLINUX can be made bootable by dir=/ or dir=/isolinux
@@ -157,7 +161,8 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  mips_path= adds Big Endian MIPS boot files. mipsel_path=
                  sets one Little Endian MIPS boot file. sparc_label=
                  activates SUN Disk Label. hppa_* is for HP PA-RISC via PALO.
-                 All four are mutually exclusive and exclusive to production
+                 alpha_boot= is for DEC Alpha SRM. MIPS, SUN, HP, and Alpha
+                 are mutually exclusive and exclusive to production
                  of MBR and to booting via EFI from USB stick.
   -append_partition partition_number type_code disk_path
                  Append a prepared filesystem image after the end of the
