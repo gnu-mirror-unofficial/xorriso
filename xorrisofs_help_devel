@@ -135,6 +135,9 @@ Options:
   -prep-boot-part DISKFILE    Set data source for MBR partition type 0x41
   -append_partition NUMBER TYPE FILE
                               Append FILE after image. TYPE is hex: 0x..
+  -append_partition_intvl NUMBER TYPE INTERVAL_READER_STRING
+                              Append interval after image. String example:
+                                local_fs:509952d-512000d::/my/image.iso
   -appended_part_as_gpt       mark appended partitions in GPT instead of MBR.
   --modification-date=YYYYMMDDhhmmsscc
                               Override date of creation and modification
