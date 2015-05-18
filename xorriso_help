@@ -134,12 +134,18 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"discard"|"keep"|"patch"|"dir="|"bin_path="
               |"cat_path="|"cat_hidden=on|iso_rr|joliet|off"
               |"load_size="|"boot_info_table="
-              |"grub2_boot_info="|"grub2_mbr="
+              |"grub2_boot_info="|"grub2_mbr="|"partition_offset="
+              |"partition_hd_cyl="|"partition_sec_hd="
+              |"partition_cyl_align="
               |"system_area="|"partition_table=on|off"
+              |"partition_entry="|"appended_part_as="
               |"chrp_boot_part=on|off="|"prep_boot_part="
               |"efi_boot_part="|"efi_boot_part=--efi-boot-image"
               |"mips_path="|"mipsel_path="|"mips_discard"
               |"sparc_label="|"grub2_sparc_core="|"sparc_discard"
+              |"hppa_cmdline="|"hppa_bootloader="|"hppa_kernel_32="
+              |"hppa_kernel_64="|"hppa_ramdisk="|"hppa_hdrversion="
+              |"hppa_discard"|"alpha_boot="|"alpha_discard"
               |"hfsplus_serial="|"hfsplus_block_size="
               |"apm_block_size="|"show_status"
                  Whether to discard or keep an exiting El Torito boot image.
@@ -154,8 +160,10 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  efi_boot_part= is for booting EFI systems from USB stick.
                  mips_path= adds Big Endian MIPS boot files. mipsel_path=
                  sets one Little Endian MIPS boot file. sparc_label=
-                 activates SUN Disk Label. All three are mutually exclusive
-                 and exclusive to MBR production.
+                 activates SUN Disk Label. hppa_* is for HP PA-RISC via PALO.
+                 alpha_boot= is for DEC Alpha SRM. MIPS, SUN, HP, and Alpha
+                 are mutually exclusive and exclusive to production
+                 of MBR and to booting via EFI from USB stick.
   -append_partition partition_number type_code disk_path
                  Append a prepared filesystem image after the end of the
                  ISO image. Caution: Will be overwritten by multi-session.
@@ -190,6 +198,17 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -tell_media_space
                  Print foreseeable available space on output medium
   -pvd_info      Print various id strings of the loaded ISO image.
+
+  -report_el_torito "plain"|"help"
+                 "plain" prints information about the El Torito boot catalog
+                 and boot images of the loaded ISO image.
+                 "help" prints an explanation of the output format.
+  -report_system_area "plain"|"help"|"gpt_crc_of:"disk_path
+                 "plain" prints information about recognized data
+                 in the System Area of the loaded ISO image: MBR, GPT, ...
+                 "help" prints an explanation of the output format.
+                 "gpt_crc_of:" prints GPT CRC of file disk_path.
+
 Commands with variable length path list [...] need the list delimiter text
 as end mark if they are followed by another command. By default this
 delimiter is "--". In dialog and with commands read from files, the line
@@ -303,12 +322,13 @@ pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                    -if, -then, -elseif, -else, -endif
                  Action may be one of: echo, chown, chown_r, chgrp, chgrp_r
                    chmod, chmod_r, alter_date, alter_date_r, lsdl, compare,
-                   rm, rm_r, compare, update, report_damage, report_lba,
+                   rm, rm_r, compare, update, report_damage,
+                   report_lba, report_sections,
                    getfacl, setfacl, getfattr, setfattr, get_any_xattr,
                    list_extattr, get_md5, check_md5, make_md5,
                    set_hfs_crtp, get_hfs_crtp, set_hfs_bless, get_hfs_bless,
-                   set_filter, show_stream, mkisofs_r, hide, print_outname,
-                   estimate_size, find
+                   set_filter, show_stream, show_stream_id, mkisofs_r,
+                   hide, print_outname, estimate_size, find
                  params are their parameters except iso_rr_path.
   -mkdir iso_rr_path [...]
                  Create empty directories if they do not exist yet.
@@ -335,7 +355,7 @@ pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                  Like -not_list but with line rules as -dialog "on".
   -not_mgt "reset"|"on"|"off"|"param_on"|"subtree_on"|"ignore_on"
                  Control effect of exclusion lists.
-  -follow "on"|"pattern:param:link:mount:limit=#"|"default"|"off"
+  -follow "on"|"pattern:param:link:concat:mount:limit=#"|"default"|"off"
                  Follow symbolic links and mount points within disk_path.
   -overwrite "on"|"nondir"|"off"
                  Allow or disallow to overwrite existing files in ISO image.
@@ -397,7 +417,7 @@ Write-to-media commands:
                  Try to circumvent slow checkread on DVD-RAM, BD-RE, BD-R.
   -dvd_obs "default"|"32k"|"64k"
                  Set number of bytes per DVD/BD write operation.
-  -stdio_sync "on"|"off"|number
+  -stdio_sync "on"|"off"|"end"|number
                  Set number of bytes after which to force output to stdio
                  pseudo drives. "on" is the same as 16m.
   -fs number["k"|"m"]
@@ -505,6 +525,13 @@ Restore commands which copy file objects from ISO image to disk filesystem:
                  Like -cp_rx but trying to restore timestamps and ownership.
   -paste_in iso_rr_path disk_path byte_offset byte_count
                  Copy ISO file content into a byte interval of a disk file.
+  -concat "append"|"overwrite" target iso_rr_path [***]
+                 Write content of iso_rr_paths into disk file target. Target
+                 may be a disk_path or "-" for writing to standard output.
+  -concat "pipe" lim prog [args [...]] lim iso_rr_path [***]
+                 Start prog with given args and write content of iso_rr_paths
+                 into its standard input. prog must at least contain one '/'.
+                 lim may be any word that is not among prog and args.
   -mount drive entity id path
                  Like -mount_cmd but actually performing that command if
                  not setuid or setgid is active.

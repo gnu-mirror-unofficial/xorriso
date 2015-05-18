@@ -200,7 +200,7 @@ libburnia SVN: frontend/xorriso-tcltk
 You will probably have to give it x-permission after download. Some browsers
 insist in adding &quot;.htm&quot; to the file name.
 <BR>
-Further you need xorriso >= 1.3.8, Tcl, Tk >= 8.4,
+Further you need xorriso >= 1.4.0, Tcl, Tk >= 8.4,
 Tcl/Tk package &quot;BWidget&quot;.
 </P>
 
@@ -506,21 +506,21 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.3.8.tar.gz">xorriso-1.3.8.tar.gz</A>
-(2450 KB).
+<DD><A HREF="xorriso-1.4.0.tar.gz">xorriso-1.4.0.tar.gz</A>
+(2500 KB).
 </DD>
-<DD>(Released 28 Jun 2014)</DD>
-<DD><A HREF="xorriso-1.3.8.tar.gz.sig">xorriso-1.3.8.tar.gz.sig</A></DD>
+<DD>(Released 17 May 2015)</DD>
+<DD><A HREF="xorriso-1.4.0.tar.gz.sig">xorriso-1.4.0.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.3.8.tar.gz.sig xorriso-1.3.8.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.4.0.tar.gz.sig xorriso-1.4.0.tar.gz</KBD>
 <BR>
 after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.3.8.tar.gz
+as xorriso/xorriso-1.4.0.tar.gz
 </DD>
 </DL>
 </DD>
@@ -557,23 +557,38 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards previous stable version xorriso-1.3.6.pl01:
+Bug fixes towards previous stable version xorriso-1.3.8:
 <UL>
 <LI>
--boot_image grub2_mbr=  prevented -boot_image partition_table=on
+dev or -indev of medium with non-ISO data caused SIGSEGV by NULL
 </LI>
 <LI>
-A final fsync(2) was performed with stdio drives,
-even if -stdio_sync was set to "off".
+A SIGSEGV could happen when loading a faulty ISO filesystem.
+Debian bug 774152. Thanks to Jakub Wilk.
 </LI>
 <LI>
--boot_image grub grub2_mbr= did not work (but -as mkisofs --grub2-mbr did work)
+Rock Ridge Continuation Area could be produced crossing a block
+boundary. This is heavily disliked by the Linux kernel and spoils
+the representation of directories which contain many symbolic links.
 </LI>
 <LI>
-Wrong stack usage caused SIGBUS on sparc when compiled by gcc -O2
+The header indicator of the last El Torito catalog section header
+was set to 0x90 rather than 0x91 if more than one boot image is in
+that section.
 </LI>
 <LI>
--blank force:all on DVD+RW had no effect
+Only 128 bytes of an emerging GPT header block were zeroized.
+</LI>
+<LI>
+-report_system_area did not show GPT partitions of size 0.
+</LI>
+<LI>
+A zero sized GPT partition was marked after the last appended
+GPT partition.
+</LI>
+<LI>
+GPT production did not yield proper results with appended sessions
+resp. with TOC emulation enabled.
 </LI>
 <!--
 <LI>- none -</LI>
@@ -582,16 +597,21 @@ Wrong stack usage caused SIGBUS on sparc when compiled by gcc -O2
 </P>
 
 <P>
-Enhancements towards previous stable version xorriso-1.3.6.pl01:
+Enhancements towards previous stable version xorriso-1.3.8:
 <UL>
-<LI>New bootspecs hppa_*, new -as mkisofs options -hppa-* for HP-PA via PALO
+<LI>
+New -report_system_area formats "cmd" and "as_mkisofs"
 </LI>
-<LI>New -find pseudo tests -use_pattern , -or_use_pattern</LI>
-<LI>New -find action report_sections</LI>
-<LI>New command -concat</LI>
-<LI>New commands -report_system_area and -report_el_torito</LI>
-<LI>Enabled use of libedit as alternative to libreadline</LI>
-<LI>Enabled recording and restoring of extattr on NetBSD</LI>
+<LI>
+New -find action "show_stream_id"
+</LI>
+<LI>
+Optional libisofs interval reader with -append_partition and System Area
+>/LI>
+<LI>
+New -boot_image bootspec "appended_part_as=",
+new -as mkisofs option -appended_part_as_gpt
+</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -614,16 +634,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-1.3.8</DT>
+<DT>libburn-1.4.0</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.3.8</DT>
+<DT>libisofs-1.4.0</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
-<DT>libisoburn-1.3.8</DT>
+<DT>libisoburn-1.4.0</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -644,16 +664,16 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.3.9 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.3.8:
+<DT><H3>Development snapshot, version 1.4.1 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.4.0:
 <UL>
-<LI>-dev or -indev of medium with non-ISO data caused SIGSEGV by NULL</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.3.8:
+<DD>Enhancements towards stable version 1.4.0:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
@@ -665,13 +685,13 @@ cdrecord and mkisofs.</DT>
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.3.9</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.3.9 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.3.9 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.3.9 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.3.9)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.3.9)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.3.9)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.4.1</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.4.1 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.4.1 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.4.1 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.4.1)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.4.1)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.4.1)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -681,8 +701,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.3.9.tar.gz">xorriso-1.3.9.tar.gz</A>
-(2450 KB).
+<A HREF="xorriso-1.4.1.tar.gz">xorriso-1.4.1.tar.gz</A>
+(2500 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of

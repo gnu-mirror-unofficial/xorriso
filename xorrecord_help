@@ -1,4 +1,4 @@
-GNU xorriso 1.3.6.pl01 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.4.0 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as cdrecord [options|source_addresses]
 Note: This is not cdrecord. See xorriso -help, xorriso -version, man xorrecord
@@ -34,7 +34,7 @@ Options:
 	write_start_address=#		write to byte address on DVD+RW, BD-RE
 	stream_recording=on|number	try to get full speed on DVD-RAM, BD
 	dvd_obs=default|32k|64k		bytes per DVD/BD write operation
-	stdio_sync=on|off|number	whether to fsync output to "stdio:"
+	stdio_sync=on|off|end|number	whether to fsync output to "stdio:"
 	--no_rc		Do not execute xorriso startup files
 	-help		print this text to stderr and exit emulation
 Actually this is the integrated ISO RockRidge filesystem manipulator xorriso

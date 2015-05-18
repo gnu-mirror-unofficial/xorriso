@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Mar  4 12:07:56 2014 -->
+<!-- CreationDate: Sun May 17 17:36:14 2015 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -539,9 +539,9 @@ MBR, GPT and APM are combinable. APM occupies the first 8
 bytes of MBR boot code. All three do not hamper El Torito
 booting from CDROM.<br>
 There is support for further facilities: MIPS Big Endian
-(SGI), MIPS Little Endian (DEC), SUN SPARC. Those are
-mutually not combinable and also not combinable with MBR,
-GPT, or APM.</p>
+(SGI), MIPS Little Endian (DEC), SUN SPARC, HP-PA.
+Those are mutually not combinable and also not combinable
+with MBR, GPT, or APM.</p>
 <!-- INDENTATION -->
 <p><b>ACL</b> are an advanced way of controlling access
 permissions to file objects. Neither ISO 9660 nor Rock Ridge
@@ -2273,22 +2273,26 @@ resp. -not_leaf.</p>
 <td width="77%">
 <p>Enable or disable resolution of symbolic links and
 mountpoints under disk_paths. This applies to actions
--add, -du*x, -ls*x, -findx, and to
--disk_pattern expansion.<br>
-There are two kinds of follow decisison to be made:<br>
-&quot;link&quot; is the hop from a symbolic link to its
-target file object. If enabled then symbolic links are
-handled as their target file objects, else symbolic links
-are handled as themselves.<br>
-&quot;mount&quot; is the hop from one filesystem to another
+-add, -du*x, -ls*x, -findx,
+-concat, and to -disk_pattern expansion.<br>
+There are three kinds of follow decisison to be made:<b><br>
+link</b> is the hop from a symbolic link to its target file
+object for the purpose of reading. I.e. not for command
+-concat. If enabled then symbolic links are handled as
+their target file objects, else symbolic links are handled
+as themselves.<b><br>
+mount</b> is the hop from one filesystem to another
 subordinate filesystem. If enabled then mountpoint
 directories are handled as any other directory, else
 mountpoints are handled as empty directories if they are
-encountered in directory tree traversals.<br>
-Less general than above occasions:<br>
-&quot;pattern&quot; is mount and link hopping, but only
-during -disk_pattern expansion.<br>
-&quot;param&quot; is link hopping for parameter words (after
+encountered in directory tree traversals.<b><br>
+concat</b> is the hop from a symbolic link to its target
+file object for the purpose of writing. I.e. for command
+-concat. This is a security risk !<br>
+Less general than above occasions:<b><br>
+pattern</b> is mount and link hopping, but only during
+-disk_pattern expansion.<b><br>
+param</b> is link hopping for parameter words (after
 eventual pattern expansion). If enabled then -ls*x
 will show the link targets rather than the links themselves.
 -du*x, -findx, and -add will process the
@@ -2297,20 +2301,20 @@ tree below the targets (unless &quot;link&quot; is
 enabled).<br>
 Occasions can be combined in a colon separated list. All
 occasions mentioned in the list will then lead to a positive
-follow decision.<br>
-&quot;off&quot; prevents any positive follow decision. Use
-it if no other occasion applies.<br>
-Shortcuts:<br>
-&quot;default&quot; is equivalent to
-&quot;pattern:mount:limit=100&quot;.<br>
-&quot;on&quot; always decides positive. Equivalent to
-&quot;link:mount&quot;.</p>
+follow decision.<b><br>
+off</b> prevents any positive follow decision. Use it if no
+other occasion applies.<br>
+Shortcuts:<b><br>
+default</b> is equivalent to
+&quot;pattern:mount:limit=100&quot;.<b><br>
+on</b> always decides positive. Equivalent to
+&quot;link:mount:concat&quot;.</p>
 <!-- INDENTATION -->
-<p>Not an occasion but an optional setting is:<br>
-&quot;limit=&quot;&lt;number&gt; which sets the maximum
-number of link hops. A link hop consists of a sequence of
-symbolic links and a final target of different type.
-Nevertheless those hops can loop. Example:<br>
+<p>Not an occasion but an optional setting is:<b><br>
+limit=</b>&lt;number&gt; which sets the maximum number of
+link hops. A link hop consists of a sequence of symbolic
+links and a final target of different type. Nevertheless
+those hops can loop. Example:<br>
 $ ln -s .. uploop<br>
 Link hopping has a built-in loop detection which stops
 hopping at the first repetition of a link target. Then the
@@ -3110,6 +3114,19 @@ uses ASCII, &quot;hfsplus&quot; uses UTF-16BE.<b><br>
 -prune</b> : If this test is reached and the tested
 file is a directory then -find will not dive into that
 directory. This test itself does always match.<b><br>
+-use_pattern</b> &quot;on&quot;|&quot;off&quot; : This
+pseudo test controls the interpretation of wildcards with
+tests -name, -wholename, and -disk_name.
+Default is &quot;on&quot;. If interpretation is disabled by
+&quot;off&quot;, then the parameters of -name,
+-wholename, and -disk_name have to match
+literally rather than as search pattern. This test itself
+does always match.<b><br>
+-or_use_pattern</b> &quot;on&quot;|&quot;off&quot; :
+Like -use_pattern, but automatically appending the
+test by -or rather than by -and. Further the
+test itself does never match. So a subsequent test -or
+will cause its other operand to be performed.<b><br>
 -decision</b> &quot;yes&quot;|&quot;no&quot; : If this
 test is reached then the evaluation ends immediately and
 action is performed if the decision is &quot;yes&quot; or
@@ -3212,9 +3229,12 @@ file.<b><br>
 report_lba</b> prints files which are associated to image
 data blocks. It tells the logical block address, the block
 number, the byte size, and the path of each file. There may
-be reported more than one line per file if the file is very
-large. In this case each line has a different extent number
-in column &quot;xt&quot;.<b><br>
+be reported more than one line per file if the file has more
+than one section. In this case each line has a different
+extent number in column &quot;xt&quot;.<b><br>
+report_sections</b> like report_lba but telling the byte
+sizes of the particular sections rather than the overall
+byte size of the file.<b><br>
 getfacl</b> prints access permissions in ACL text form to
 the result channel.<b><br>
 setfacl</b> attaches ACLs after removing existing ones. The
@@ -3319,7 +3339,9 @@ weight of 0. Boot image files have a default weight of
 2.<br>
 E.g.: -exec sort_weight 3 --<b><br>
 show_stream</b> shows the content stream chain of a data
-file.<b><br>
+file. <b>show_stream_id</b> is like show_stream, but also
+prints between stream type and first &quot;:&quot; in square
+brackets libisofs id numbers: [fs_id,dev_id,ino_id].<b><br>
 hide</b> brings the file into one of the hide states
 &quot;on&quot;, &quot;iso_rr&quot;, &quot;joliet&quot;,
 &quot;hfsplus&quot;, &quot;off&quot;. They may be combined.
@@ -3470,13 +3492,14 @@ the ISO image.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Irrevocably ban commands -external_filter and
--unregister_filter, but not -set_filter. Use
-this to prevent external filtering in general or when all
-intended filters are registered. External filters may also
-be banned totally at compile time of <b>xorriso</b>. By
-default they are banned if <b>xorriso</b> runs under setuid
-permission.</p>
+<p>Irrevocably ban commands -concat &quot;pipe&quot;,
+-external_filter, and -unregister_filter, but
+not -set_filter. Use this to prevent external
+filtering in general or when all intended filters are
+registered and -concat mode &quot;pipe&quot; shall be
+disallowed. External filters may also be banned totally at
+compile time of <b>xorriso</b>. By default they are banned
+if <b>xorriso</b> runs under setuid permission.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4697,7 +4720,7 @@ time options.</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>-stdio_sync</b>
-&quot;on&quot;|&quot;off&quot;|number</p></td>
+&quot;on&quot;|&quot;off&quot;|&quot;end&quot;|number</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -4709,7 +4732,9 @@ time options.</p>
 stdio: pseudo drives. This forcing keeps the memory from
 being clogged with lots of pending data for slow devices.
 Default &quot;on&quot; is the same as &quot;16m&quot;.
-Forced output can be disabled by &quot;off&quot;.</p>
+Forced output can be disabled by &quot;off&quot;, or be
+delayed by &quot;end&quot; until all data are produced. If a
+number is chosen, then it must be at least 64k.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4878,12 +4903,63 @@ existing sessions, unless one can assume overwriteable
 media.<br>
 There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
-PC-BIOS MBR for hard-disk-like devices,
-MIPS Volume Header for old SGI computers, DEC Boot Block for
-old DECstation, SUN Disk Label for SPARC machines.<br>
-The boot firmware EFI may use programs which are located in
-a FAT filesystem and announced by an MBR partition table
-entry.</p>
+PC-BIOS MBR or EFI GPT for hard-disk-like
+devices, APM partition entries for Macs which expect HFS+
+boot images, MIPS Volume Header for old SGI computers, DEC
+Boot Block for old MIPS DECstation, SUN Disk Label for SPARC
+machines, HP-PA boot sector for HP PA-RISC
+machines, DEC Alpha SRM boot sector for old DEC Alpha
+machines.</p>
+<!-- INDENTATION -->
+<p>Several of the following commands expect disk paths as
+input but also accept description strings for the libisofs
+interval reader, which is able to cut out data from disk
+files or -indev and to zeroize parts of the content:
+command -append_partition, boot specs system_area=,
+grub2_mbr=, prep_boot_part=, efi_boot_part=.<br>
+The description string consists of the following components,
+separated by colon &rsquo;:&rsquo;<br>
+
+&quot;--interval:&quot;Flags&quot;:&quot;Interval&quot;:&quot;Zeroizers&quot;:&quot;Source<br>
+The component &quot;--interval&quot; states that
+this is not a plain disk path but rather an interval reader
+description string. The component Flags modifies the further
+interpretation:<br>
+&quot;local_fs&quot; demands to read from a file depicted by
+the path in Source.<br>
+&quot;imported_iso&quot; demands to read from the
+-indev. This works only if -outdev is not the
+same as -indev. The Source component is ignored.<br>
+The component Interval consists of two byte address numbers
+separated by a &quot;-&quot; character. E.g.
+&quot;0-429&quot; means to read bytes 0 to 429.<br>
+The component Zeroizers consists of zero or more comma
+separated strings. They define which part of the read data
+to zeroize. Byte number 0 means the byte read from the
+Interval start address. Each string may be one of:<br>
+&quot;zero_mbrpt&quot; demands to zeroize the MBR partition
+table if bytes 510 and 511 bear the MBR signature 0x55
+0xaa.<br>
+&quot;zero_gpt&quot; demands to check for a GPT header in
+bytes 512 to 1023, to zeroize it and its partition table
+blocks.<br>
+&quot;zero_apm&quot; demands to check for an APM block 0 and
+to zeroize its partition table blocks.<br>
+Start_byte&quot;-&quot;End_byte demands to zeroize the
+read-in bytes beginning with number Start_byte and
+ending after End_byte.<br>
+The component Source is the file path with flag
+&quot;local_fs&quot;, and ignored with flag
+&quot;imported_iso&quot;.<br>
+Byte numbers may be scaled by a suffix out of {k,m,g,t,s,d}
+meaning multiplication by {1024, 1024k, 1024m, 1024g, 2048,
+512}. A scaled value end number depicts the last byte of the
+scaled range.<br>
+E.g. &quot;0d-0d&quot; is &quot;0-511&quot;.<br>
+Examples:<br>
+
+&quot;local_fs:0-32767:zero_mbrpt,zero_gpt,440-443:/tmp/template.iso&quot;<br>
+&quot;imported_iso:45056d-47103d::&quot;</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4903,22 +4979,36 @@ entry.</p>
 <td width="77%">
 
 <p>&quot;discard&quot;|&quot;keep&quot;|&quot;patch&quot;|&quot;show_status&quot;|bootspec|&quot;next&quot;<br>
-Define the handling of a set of El Torito boot images which
-has been read from an existing ISO image or define how to
-make a prepared boot image file set bootable. Such file sets
-get produced by ISOLINUX or GRUB.<br>
-Each -boot_image command has two parameters: type and
-setting. More than one -boot_image command may be used
-to define the handling of one or more boot images. Sequence
-matters.<br>
+Define the equipment of the emerging filesystem with boot
+entry points.<br>
+With systems which boot via BIOS or EFI this is a set of El
+Torito boot images, possibly MBR boot code, and possibly
+partition tables of type MBR, GPT, or APM. Such file sets
+get produced by boot loader systems like ISOLINUX or
+GRUB.</p>
+<!-- INDENTATION -->
+<p>Each -boot_image command has two parameters: type
+and setting. More than one -boot_image command may be
+used to define the handling of one or more boot images.
+Sequence matters.<br>
 Types <b>isolinux</b> and <b>grub</b> care for known
 peculiarities. Type <b>any</b> makes no assumptions about
 the origin of the boot images.</p>
 <!-- INDENTATION -->
-<p>El Torito boot images of any type can be newly inserted,
-or discarded, or patched, or kept unaltered. Whether to
-patch or to keep depends on whether the boot images contain
-boot info tables.<br>
+<p>When loading an ISO filesystem, system area and El Torito
+boot images get loaded, too. The default behavior is not to
+write loaded El Torito boot images and to write the loaded
+system area content without alterations.<b><br>
+discard</b> gives up the El Torito boot catalog and its boot
+images. regardless whether loaded from an ISO filesystem or
+defined by commands. Any BIOS or EFI related boot options
+get revoked. Nevertheless, loaded system area data stay
+valid. If desired, they have to be erased by<br>
+-boot_image any system_area=/dev/zero<b><br>
+keep</b> keeps or copies El Torito boot images unaltered and
+writes a new catalog.<b><br>
+patch</b> applies patching to existing El Torito boot images
+if they seem to bear a boot info table.<br>
 A boot info table needs to be patched when the boot image
 gets newly introduced into the ISO image or if an existing
 image gets relocated. This is automatically done if type
@@ -4941,21 +5031,21 @@ show_status</b> will print what is known about the loaded
 boot images and their designated fate.</p>
 <!-- INDENTATION -->
 <p>A <b>bootspec</b> is a word of the form name=value. It is
-used to describe the parameters of a boot image by an El
-Torito record or a MBR. The names &quot;dir&quot;,
-&quot;bin_path&quot;, &quot;efi_path&quot; lead to El Torito
-bootable images. Name &quot;system_area&quot; activates a
-given file as MBR.<br>
+used to describe the parameters of a boot feature. The names
+&quot;dir&quot;, &quot;bin_path&quot;, &quot;efi_path&quot;
+lead to El Torito bootable images. Name
+&quot;system_area&quot; activates a given file as MBR or
+other disk header.<br>
 On all media types this is possible within the first
 session. In further sessions an existing boot image can get
 replaced by a new one, but depending on the media type this
 may have few effect at boot time. See above.<br>
-The boot image and its supporting files have to be added to
-the ISO image by normal means (image loading, -map,
--add, ...). In case of ISOLINUX the files should
-reside either in ISO image directory /isolinux or in
-/boot/isolinux . In that case it suffices to use as bootspec
-the text &quot;dir=/isolinux&quot; or
+El Torito boot images have to be added to the ISO image by
+normal means (image loading, -map, -add, ...).
+In case of ISOLINUX the files should reside either in ISO
+image directory /isolinux or in /boot/isolinux . In that
+case it suffices to use as bootspec the text
+&quot;<b>dir=/isolinux</b>&quot; or
 &quot;dir=/boot/isolinux&quot;. E.g.:<br>
 -boot_image isolinux dir=/boot/isolinux<br>
 which bundles these individual settings:<br>
@@ -4975,11 +5065,13 @@ necessary that it appears in the directory tree at all. One
 may hide it in all trees by <b>cat_hidden=on</b>. Other
 possible values are &quot;iso_rr&quot;, &quot;joliet&quot;,
 &quot;hfsplus&quot;, and the default &quot;off&quot;.<b><br>
-bin_path=</b> depicts a boot image file, a binary program
-which is to be started by the hardware boot facility (e.g.
-the BIOS) at boot time.<b><br>
-efi_path=</b> depicts a boot image file that is ready for
-EFI booting. Its load_size is determined automatically, no
+bin_path=</b> depicts an El Torito boot image file, a binary
+program which is to be started by the hardware boot facility
+(e.g. the BIOS) at boot time.<b><br>
+efi_path=</b> depicts an El Torito boot image file that is
+ready for EFI booting. This is normally a FAT filesystem
+image not larger than 65535 blocks of 512 bytes (= 32 MiB
+- 512). Its load_size is determined automatically, no
 boot info table gets written, no boot medium gets emulated,
 platform_id is 0xef.<b><br>
 emul_type=</b> can be one of &quot;no_emulation&quot;,
@@ -5001,10 +5093,11 @@ little-endian number. It is the 2KB block address of
 the boot image content, multiplied by 4, and then
 incremented by 5. &quot;grub2_boot_info=off&quot; disables
 this patching.<b><br>
-platform_id=</b> defines by two hex digits the Platform ID
-of the boot image. &quot;00&quot; is 80x86 PC-BIOS,
-&quot;01&quot; is PowerPC, &quot;02&quot; is Mac,
-&quot;ef&quot; is EFI.<b><br>
+platform_id=</b> defines by a hexadecimal or decimal number
+the Platform ID of the boot image. &quot;0x00&quot; is 80x86
+PC-BIOS, &quot;0x01&quot; is PowerPC, &quot;0x02&quot;
+is Mac, &quot;0xef&quot; is EFI (decimal
+&quot;239&quot;).<b><br>
 id_string=</b>text|56_hexdigits defines the ID string of the
 boot catalog section where the boot image will be listed. If
 the value consists of 56 characters
@@ -5021,27 +5114,42 @@ next</b> ends the definition of a boot image and starts a
 new one. Any following -bootimage bootspecs will
 affect the new image. The first &quot;next&quot; discards
 loaded boot images and their catalog.<b><br>
-discard</b> gives up an existing boot catalog and its boot
-images.<b><br>
-keep</b> keeps or copies boot images unaltered and writes a
-new catalog.<b><br>
-patch</b> applies patching to existing boot images if they
-seem to bear a boot info table.<b><br>
 system_area=</b>disk_path copies at most 32768 bytes from
 the given disk file to the very start of the ISO image. This
 System Area is reserved for system dependent boot software,
 e.g. an MBR which can be used to boot from USB stick or hard
 disk.<br>
-Other than a El Torito boot image, the file disk_path needs
-not to be added to the ISO image.<br>
--boot_image isolinux system_area= implies
-&quot;partition_table=on&quot;.<b><br>
+Other than an El Torito boot image, the file disk_path needs
+not to be added to the ISO image.<b><br>
+-boot_image isolinux system_area=</b> implies
+&quot;partition_table=on&quot;. In this case, the disk path
+should lead to one of the SYSLINUX files isohdp[fp]x*.bin or
+to a file which was derived from one of those files. E.g. to
+the first 512 bytes from an ISOLINUX isohybrid ISO
+image.<br>
+In this case, El Torito boot images (dir=, bin_path=,
+efi_path=) may be augmented by <b>isolinux
+partition_entry=gpt_basdat</b> or <b>isolinux
+partition_entry=gpt_hfsplus</b>, and by <b>isolinux
+partition_entry=apm_hfsplus</b>. The boot image will then be
+mentioned in GPT as Basic Data or GPT HFS+ partition, and in
+APM as HFS+ partition. The first three GPT partitions will
+also be marked by MBR partitions.<br>
+In multi-session situations the existing System Area
+is preserved by default. In in this case, the special
+disk_path &quot;.&quot; prevents reading of a disk file but
+nevertheless causes adjustments in the loaded system area
+data. Such adjustments may get ordered by -boot_image
+commands.<b><br>
 grub2_mbr=</b>disk_path works like &quot;any&quot;
 system_area= with additional patching for modern GRUB MBRs.
 The content start address of the first boot image is
 converted to a count of 512 byte blocks, and an offset of 4
 is added. The result is written as 64 bit
-little-endian number to byte address 0x1b0.<b><br>
+little-endian number to byte address 0x1b0.<br>
+This feature can be revoked either by grub2_mbr= with empty
+disk path, or by submitting a disk_path via
+system_area=.<b><br>
 partition_table=on</b> causes a simple partition table to be
 written into bytes 446 to 511 of the System Area.<br>
 With type &quot;isolinux&quot; it shows a partition that
@@ -5056,29 +5164,34 @@ boot image.<br>
 Bootspecs chrp_boot_part=, prep_boot_part=, and
 efi_boot_part= overwrite this entry in the MBR partition
 table.<br>
-In follow-up sessions the existing System Area is
-preserved by default. If types &quot;isolinux&quot; or
-&quot;grub&quot; are set to &quot;patch&quot;, then
-&quot;partition_table=on&quot; is activated without new boot
-image. In this case the existing System Area gets checked
-whether it bears addresses and sizes as if it had been
-processed by &quot;partition_table=on&quot;. If so, then
-those parameters get updated when the new System Area is
-written.<br>
+If types &quot;isolinux&quot; or &quot;grub&quot; are set to
+&quot;patch&quot;, then &quot;partition_table=on&quot; is
+activated without new boot image. In this case the existing
+System Area gets checked whether it bears addresses and
+sizes as if it had been processed by
+&quot;partition_table=on&quot;. If so, then those parameters
+get updated when the new System Area is written.<br>
 Special &quot;system_area=/dev/zero&quot; causes 32k of
 NUL-bytes. Use this to discard an MBR which was loaded
 with the ISO image.<b><br>
+appended_part_as=gpt</b> marks partitions from
+-append_partition in GPT rather than in MBR. In this
+case the MBR shows a single partition of type 0xee which
+covers the whole output data.<b><br>
+appended_part_as=mbr</b> is the default. Appended partitions
+get marked in GPT only if GPT is produced because of other
+settings.<b><br>
 chrp_boot_part=on</b> causes a single partition in MBR which
-covers the whole ISO image and has type 0x41. This is not
+covers the whole ISO image and has type 0x96. This is not
 compatible with any other feature that produces MBR
 partition entries. It makes GPT unrecognizable.<b><br>
-prep_boot_part=</b> inserts the content of a data file into
-the image and marks it by an MBR partition of type 0x96. The
-parts of the ISO image before and after this partition will
-be covered by further MBR partitions. The data file is
-supposed to contain ELF executable code.<b><br>
-efi_boot_part=</b> inserts the content of a data file into
-the image and marks it by a GPT partition. If not
+prep_boot_part=</b>disk_path inserts the content of a data
+file into the image and marks it by an MBR partition of type
+0x41. The parts of the ISO image before and after this
+partition will be covered by further MBR partitions. The
+data file is supposed to contain ELF executable code.<b><br>
+efi_boot_part=</b>disk_path inserts the content of a data
+file into the image and marks it by a GPT partition. If not
 chrp_boot_part=on, then the first partition in MBR will have
 type 0xee to announce the presence of GPT. The data file is
 supposed to contain a FAT filesystem.<br>
@@ -5108,17 +5221,20 @@ head for the partition table. 0 chooses a default value.
 Maximum is 63.<br>
 The product partition_sec_hd * partition_hd_cyl * 512 is the
 cylinder size. It should be divisible by 2048 in order to
-allow exact alignment. If it is too small to describe the
-image size by at most 1024 cylinders, then appropriate
-values of partition_hd_cyl are chosen with partition_sec_hd
-32 or 63. If the image is larger than 8,422,686,720 bytes,
-then the cylinder size constraints cannot be
-fulfilled.<b><br>
+allow exact alignment. With appended partitions and
+&quot;appended_part_as=gpt&quot; there is no limit for the
+number of cylinders. Else there may be at most 1024 of them.
+If the cylinder size is too small to stay below the limit,
+then appropriate values of partition_hd_cyl are chosen with
+partition_sec_hd 32 or 63. If the image is larger than
+8,422,686,720 bytes, then the cylinder size constraints
+cannot be fulfilled for MBR.<b><br>
 partition_cyl_align=</b>mode controls image size alignment
 to an integer number of cylinders. It is prescribed by
 isohybrid specs and it seems to please program fdisk.
 Cylinder size must be divisible by 2048. Images larger than
-8,323,596,288 bytes cannot be aligned.<br>
+8,323,596,288 bytes cannot be aligned in MBR partition
+table.<br>
 Mode &quot;auto&quot; is default. Alignment by padding
 happens only with &quot;isolinux&quot;
 &quot;partition_table=on&quot;.<br>
@@ -5153,9 +5269,32 @@ Label. Both numbers are counted in bytes. The address is
 written as 64 bit big-endian number to byte 0x228. The
 size is written as 32 bit big-endian number to byte
 0x230.<b><br>
-mips_discard</b> and <b>sparc_discard</b> revoke any boot
-file declarations made for mips or mipsel resp. sparc. This
-removes the ban on production of other boot blocks.<b><br>
+hppa_cmdline=</b>text sets the PALO command line for
+HP-PA. Up to 1023 characters are permitted by default.
+With hppa_hdrversion=4 the limit is 127.<br>
+Note that the first five hppa_ bootspecs are mandatory, if
+any of the hppa_ bootspecs is used. Only hppa_hdrversion= is
+allowed to be missing.<b><br>
+hppa_bootloader=</b>iso_rr_path designates the given path as
+HP-PA bootloader file.<b><br>
+hppa_kernel_32=</b>iso_rr_path designates the given path as
+HP-PA 32 bit kernel file.<b><br>
+hppa_kernel_64=</b>iso_rr_path designates the given path as
+HP-PA 64 bit kernel file.<b><br>
+hppa_ramdisk=</b>iso_rr_path designates the given path as
+HP-PA RAM disk file.<b><br>
+hppa_hdrversion=</b>number chooses between PALO header
+version 5 (default) and version 4. For the appropriate value
+see in PALO source code: PALOHDRVERSION.<b><br>
+alpha_boot=</b>iso_rr_path declares a data file in the image
+to be the DEC Alpha SRM Secondary Bootstrap Loader and
+causes production of a boot sector which points to it. This
+is mutually exclusive with production of other boot blocks
+like MBR.<b><br>
+mips_discard</b>, <b>sparc_discard</b>, <b>hppa_discard</b>,
+<b>alpha_discard</b> revoke any boot file declarations made
+for mips, mipsel, sparc, hppa, resp. alpha. This removes the
+ban on production of other boot blocks.<b><br>
 hfsplus_serial=</b>hexstring sets a string of 16 digits
 &quot;0&quot; to &quot;9&quot; and letters &quot;a&quot; to
 &quot;f&quot;, which will be used as unique serial number of
@@ -5207,6 +5346,8 @@ The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
 0xff. Not all those numbers will yield usable results. For a
 list of codes search the Internet for &quot;Partition
 Types&quot; or run fdisk command &quot;L&quot;.<br>
+If some other command causes the production of GPT, then the
+appended partitions will be mentioned there too.<br>
 The disk_path must provide the necessary data bytes at
 commit time. An empty disk_path disables this feature for
 the given partition number.<br>
@@ -5945,7 +6086,7 @@ emit FAILURE events if the desired drive is not aquired.</p>
 <td width="77%">
 <p>Emit an appropriate command line for mounting the ISO
 session indicated by drive, entity and id. The result will
-be different on GNU/Linux and on FreeBSD.<br>
+be different on GNU/Linux and on FreeBSD or NetBSD.<br>
 drive can be &quot;indev&quot; or &quot;outdev&quot; to
 indicate already acquired drives, or it can be the path of a
 not yet acquired drive. Prefix &quot;stdio:&quot; for
@@ -6098,6 +6239,78 @@ propagated from loaded image to newly written image. The
 ones for new images may be set by command
 -volume_date. See there for the meaning of the
 particular timestamps.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-report_el_torito</b> mode</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>With mode <b>plain</b> print a report about the
+information found in the El Torito boot catalog of the
+loaded ISO image.<br>
+With mode <b>help</b> print a text which explains the
+meaning of the lines put out by &quot;plain&quot;.<br>
+Mode <b>cmd</b> tries to print the <b>xorriso</b> commands
+which are necessary to produce the found boot equipment:
+disk identifiers, El Torito boot images, and System Area.
+Disk identifiers are strings which the booting operating
+system might use to find the ISO filesystem from where it
+comes. Currently known is the use of volume id and
+modification date.<br>
+The intended use case is modification of the filesystem by
+having -indev and -outdev pointing to different
+images or drives. The result might be insufficient, if the
+found equipment cannot be produced by xorriso. Various SORRY
+events may arise in this case, but it is not guaranteed that
+xorriso recognizes all its insufficiencies.<br>
+Mode <b>as_mkisofs</b> tries to print the <b>xorriso
+-as mkisofs</b> options, which are necessary to
+produce the found equipment. The intended use case is to use
+the mounted filesystem as input tree together with the
+printed options.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-report_system_area</b> mode</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>With mode <b>plain</b> print a report about the
+information found in the System Area of the loaded ISO
+image. The report consists of zero to many lines with a
+header text, a colon, and information text.<br>
+With mode <b>help</b> print a text which explains the
+meaning of the lines put out by &quot;plain&quot;. You
+probably will have to look for more documentation which
+explains the technical details of the mentioned boot
+facilities.<br>
+Modes <b>cmd</b> and <b>as_mkisofs</b> work like with
+command -report_el_torito. See above.<br>
+With mode <b>gpt_crc_of:</b>disk_path read up to 32 KiB from
+the disk file with the path given after the colon. Compute
+the GPT compliant CRC number and print it to the result
+channel. The number is shown like &quot;0x690fd979&quot;.
+The special disk_path &quot;-&quot; causes reading
+from standard input.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6823,8 +7036,13 @@ min_lba=limit</b> omits all blocks with addresses lower than
 limit.<b><br>
 max_lba=limit</b> switches to what=disc and omits all blocks
 above limit.<b><br>
-retry=&quot;on&quot;</b> forces read retries with single
-blocks when the normal read chunk produces a read error. By
+chunk_size=size</b> sets the number of bytes to be read in
+one low-level read operation. This gets rounded down
+to full blocks of 2048 bytes. 0 means automatic size.<b><br>
+retry=&quot;on&quot;</b> forces read retries with minimal
+senseful chunk size when the normal read chunk produces a
+read error. This size is 1s with CD and stdio files, 16s
+with DVD (1 ECC Block), and 32s with BD (1 Cluster). By
 default, retries are only enabled with CD media.
 &quot;retry=off&quot; forbits retries for all media
 types.<b><br>
@@ -6889,13 +7107,18 @@ be considered as damage. Choose one of &quot;good&quot;,
 &quot;partial&quot;, &quot;valid&quot;,
 &quot;untested&quot;, &quot;invalid&quot;,
 &quot;tao_end&quot;, &quot;off_track&quot;,
-&quot;md5_mismatch&quot;, &quot;unreadable&quot;.<b><br>
+&quot;md5_mismatch&quot;, &quot;unreadable&quot;.<br>
+&quot;valid&quot; and &quot;invalid&quot; are qualities
+imported from a sector_map file. &quot;tao_end&quot; and
+&quot;off_track&quot; are intentionally not readable, but
+not bad either. &quot;partial&quot; are blocks retrieved
+from a partially readable chunk. They are supposed to be ok
+but stem from a suspicious neighborhood.<br>
+&quot;md5_match&quot; and &quot;md5_mismatch&quot; regions
+overlap with regions of other quality.<b><br>
 slow_limit=threshold</b> sets the time threshold for a
 single read chunk to be considered slow. This may be a
 fractional number like 0.1 or 1.5.<b><br>
-chunk_size=size</b> sets the number of bytes to be read in
-one read operation. This gets rounded down to full blocks of
-2048 bytes. 0 means automatic size.<b><br>
 async_chunks=number</b> enables asynchronous MD5 processing
 if number is 2 or larger. In this case the given number of
 read chunks is allocated as fifo buffer. On very fast MMC
@@ -7264,6 +7487,53 @@ most byte_count bytes. This is the inverse of command
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
+<p><b>-concat</b> mode [target | lim prog [args [...]]
+lim] iso_rr_path [***]</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Copy the data content of one or more data files of the
+ISO image into a disk file object, into a file descriptor,
+or start a program and copy the data into its standard
+input. The latter is subject to the security restrictions
+for external filters.<br>
+Modes <b>overwrite</b> and <b>append</b> write into the
+target which is given by the second parameter. This may be
+the path to a disk file object, or &quot;-&quot; which
+means standard output, or a text of the form /dev/fd/number,
+where number is an open file descriptor (e.g. standard error
+is /dev/fd/2). An existing target file is not removed before
+writing begins. If it is not able to take content data, then
+this command fails. Mode overwrite truncates regular data
+files to 0 size before writing into them. Example:<br>
+-concat append /home/me/accumulated_text /my/iso/text
+--</p>
+<!-- INDENTATION -->
+<p>Mode <b>pipe</b> expects as second parameter a delimiter
+word which shall mark the end of the program argument list.
+The third argument is the disk_path to the program. It must
+contain at least one &rsquo;/&rsquo;. $PATH is not applied.
+Further parameters up to the announced delimiter word are
+used as arguments with the program start. Example:<br>
+-iso_rr_pattern on \<br>
+-concat pipe + /usr/bin/wc +
+&quot;/my/iso/files*&quot; --</p>
+<!-- INDENTATION -->
+<p>The further parameters in all modes are the iso_rr_paths
+of data files. Their content gets concatenated in the
+copy.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
 <p><b>-mount</b> drive entity id path</p></td>
 </table>
 <!-- INDENTATION -->
@@ -7358,8 +7628,10 @@ files which are present in the ISO image when the command
 -as ends. If you use several -as mkisofs
 commands in the same run, then consider to put such options
 into the last -as command.<br>
--pacifier gets set to &quot;mkisofs&quot; if files are
-added to the image.<br>
+If files are added to the image, then -pacifier gets
+set to &quot;mkisofs&quot; and -stdio_sync is
+defaulted to &quot;off&quot; if no such setting was made
+yet.<br>
 -graft-points is equivalent to -pathspecs
 on. Note that pathspecs without &quot;=&quot; are
 interpreted differently than with <b>xorriso</b> command
@@ -9018,10 +9290,10 @@ disk. This is usually much faster than the default which
 compares both contents directly.<br>
 With <b>mount</b> option <b>-o
 &quot;sbsector=&quot;</b> on GNU/Linux resp. <b>-s</b>
-on FreeBSD it is possible to access the session trees which
-represent the older backup versions. With CD media,
-GNU/Linux mount accepts session numbers directly by its
-option &quot;session=&quot;.<br>
+on FreeBSD or NetBSD it is possible to access the session
+trees which represent the older backup versions. With CD
+media, GNU/Linux mount accepts session numbers directly by
+its option &quot;session=&quot;.<br>
 Multi-session media and most overwriteable media
 written by <b>xorriso</b> can tell the sbsectors of their
 sessions by <b>xorriso</b> command -toc. Used after
@@ -9411,7 +9683,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2007 - 2014 Thomas Schmitt<br>
+<p>Copyright (c) 2007 - 2015 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -9438,5 +9710,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Mar  4 12:07:56 CET 2014 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun May 17 17:36:14 CEST 2015 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

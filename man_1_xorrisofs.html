@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Tue Mar  4 12:07:57 2014 -->
+<!-- CreationDate: Sun May 17 17:36:15 2015 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -787,7 +787,7 @@ by disk_path &quot;-&quot;.</p>
 <td width="10%"></td>
 <td width="89%">
 <p><b>--stdio_sync</b>
-&quot;on&quot;|&quot;off&quot;|number</p></td>
+&quot;on&quot;|&quot;off&quot;|&quot;end&quot;|number</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -797,9 +797,13 @@ by disk_path &quot;-&quot;.</p>
 <td width="77%">
 <p>Set the number of bytes after which to force output to
 disk in order to keep the memory from being clogged with
-lots of pending data for slow devices. Default
-&quot;on&quot; is the same as &quot;16m&quot;. Forced output
-can be disabled by &quot;off&quot;.<br>
+lots of pending data for slow devices. &quot;on&quot; is the
+same as &quot;16m&quot;. Forced output can be disabled by
+&quot;off&quot;, or be delayed by &quot;end&quot; until all
+data are produced. If a number is chosen, then it must be at
+least 64k.<br>
+The default with xorriso mkisofs emulation is
+--stdio_sync &quot;off&quot;.<br>
 xorriso uses an inner fifo buffer with default size 4 MiB.
 So forcing the operating system i/o cache to disk does not
 necessarily block the simultaneous production of more image
@@ -1457,12 +1461,12 @@ discouraged to disable it by this option.</p>
 <table width="100%" border=0 rules="none" frame="void"
        cols="4" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="13%"></td>
+<td width="11%"></td>
 <td width="2%">
 
 <p><b>-D</b></p>
 </td>
-<td width="5%"></td>
+<td width="7%"></td>
 <td width="77%">
 
 <p>The standard ECMA-119 demands that no path in the
@@ -2576,9 +2580,12 @@ CD.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the number of 512-byte blocks for boot images
-which emulate a floppy or a hard disk. A safe default for
-non-emulating boot images is 4.</p>
+<p>Set the number of 512-byte blocks to be loaded at
+boot time from the boot image in the current catalog entry.
+Non-emulating BIOS bootimages usually need a load size
+of 4. EFI boot images usually get set the number of blocks
+occupied by the boot image file.<br>
+El Torito cannot represent load sizes higher than 65535.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2799,9 +2806,63 @@ MBR, GPT and APM are combinable. APM occupies the first 8
 bytes of MBR boot code. All three do not hamper El Torito
 booting from CDROM.<b><br>
 xorrisofs</b> supports further boot facilities: MIPS Big
-Endian (SGI), MIPS Little Endian (DEC), SUN SPARC. Those are
-mutually not combinable and also not combinable with MBR,
-GPT, or APM.</p>
+Endian (SGI), MIPS Little Endian (DEC), SUN SPARC,
+HP-PA, DEC Alpha. Those are mutually not combinable
+and also not combinable with MBR, GPT, or APM.</p>
+<!-- INDENTATION -->
+<p>Several of the following options expect disk paths as
+input but also accept description strings for the libisofs
+interval reader, which is able to cut out data from disk
+files or -indev and to zeroize parts of the content:
+-G, -generic-boot,
+--embedded-boot,
+--grub2-mbr, -isohybrid-mbr,
+-efi-boot-part,
+-prep-boot-part, -B,
+-sparc-boot, -append_partition.<br>
+The description string consists of the following components,
+separated by colon &rsquo;:&rsquo;<br>
+
+&quot;--interval:&quot;Flags&quot;:&quot;Interval&quot;:&quot;Zeroizers&quot;:&quot;Source<br>
+The component &quot;--interval&quot; states that
+this is not a plain disk path but rather a interval reader
+description string.<br>
+The component Flags modifies the further interpretation:<br>
+&quot;local_fs&quot; demands to read from a file depicted by
+the path in Source.<br>
+&quot;imported_iso&quot; demands to read from the
+-indev. This works only if -outdev is not the
+same as -indev. The Source component is ignored.<br>
+The component Interval consists of two byte address numbers
+separated by a &quot;-&quot; character. E.g.
+&quot;0-429&quot; means to read bytes 0 to 429.<br>
+The component Zeroizers consists of zero or more comma
+separated strings. They define which part of the read data
+to zeroize. Byte number 0 means the byte read from the
+Interval start address. Each string may be one of:<br>
+&quot;zero_mbrpt&quot; demands to zeroize the MBR partition
+table if bytes 510 and 511 bear the MBR signature 0x55
+0xaa.<br>
+&quot;zero_gpt&quot; demands to check for a GPT header in
+bytes 512 to 1023, to zeroize it and its partition table
+blocks.<br>
+&quot;zero_apm&quot; demands to check for an APM block 0 and
+to zeroize its partition table blocks.<br>
+Start_byte&quot;-&quot;End_byte demands to zeroize the
+read-in bytes beginning with number Start_byte and
+ending after End_byte.<br>
+The component Source is the file path with flag
+&quot;local_fs&quot;, and ignored with flag
+&quot;imported_iso&quot;.<br>
+Byte numbers may be scaled by a suffix out of {k,m,g,t,s,d}
+meaning multiplication by {1024, 1024k, 1024m, 1024g, 2048,
+512}. A scaled value end number depicts the last byte of the
+scaled range.<br>
+E.g. &quot;0d-0d&quot; is &quot;0-511&quot;.<br>
+Examples:<br>
+
+&quot;local_fs:0-32767:zero_mbrpt,zero_gpt,440-443:/tmp/template.iso&quot;<br>
+&quot;imported_iso:45056d-47103d::&quot;</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2822,7 +2883,11 @@ GPT, or APM.</p>
 very start of the ISO image.<br>
 Other than a El Torito boot image, the file disk_path needs
 not to be added to the ISO image. It will not show up as
-file in the directory trees.</p>
+file in the directory trees.<br>
+In multi-session situations, the special disk_path
+&quot;.&quot; prevents reading of a disk file but
+nevertheless causes the adjustments in the existing MBR,
+which were ordered by other options.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2904,7 +2969,9 @@ isohdp[fp]x*.bin . The MBR gets patched according to
 isohybrid needs. The first partition describes the range of
 the ISO image. Its start is at block 0 by default, but may
 be set to 64 disk blocks by option -partition_offset
-16.</p>
+16.<br>
+For the meaning of special disk_path &quot;.&quot; see
+option -G.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -2928,7 +2995,7 @@ has the same impact on the system area as
 -efi-boot-part. It cannot be combined with
 -efi-boot-part or -hfsplus.<br>
 The first three boot images which are marked by GPT will
-also show up as partition entries of type 0xfe in MBR. The
+also show up as partition entries of type 0xef in MBR. The
 MBR partition for PC-BIOS gets type 0x00 rather than
 0x17 in this case. Often the further MBR entries are the
 ones which actually get used by EFI.</p>
@@ -3040,8 +3107,9 @@ here is only in effect if a new ISO image gets written.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the number of heads per cylinder for the partition
-table. 0 chooses a default value. Maximum is 255.</p>
+<p>Set the number of heads per cylinder for the MBR
+partition table. 0 chooses a default value. Maximum is
+255.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3058,17 +3126,20 @@ table. 0 chooses a default value. Maximum is 255.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>Set the number of sectors per head for the partition
+<p>Set the number of sectors per head for the MBR partition
 table. 0 chooses a default value. Maximum is 63.<br>
 The product partition_sec_hd * partition_hd_cyl * 512 is the
 cylinder size. It should be divisible by 2048 in order to
-allow exact alignment. If it is too small to describe the
-image size by at most 1024 cylinders, then appropriate
-values of partition_hd_cyl are chosen with partition_sec_hd
-32 or 63. If the image is larger than 8,422,686,720 bytes,
-then the cylinder size constraints cannot be fulfilled. They
-seem not overly important anyway. Flat block addresses in
-partition tables are good for 1 TiB.</p>
+allow exact alignment. With appended partitions and
+-appended_part_as_gpt there is no limit for the number
+of cylinders. Else there may be at most 1024 of them. If the
+cylinder size is too small to stay below the limit, then
+appropriate values of partition_hd_cyl are chosen with
+partition_sec_hd 32 or 63. If the image is larger than
+8,422,686,720 bytes, then the cylinder size constraints
+cannot be fulfilled for MBR. They seem not overly important
+anyway. Flat block addresses in partition tables are good
+for 1 TiB.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3089,7 +3160,7 @@ partition tables are good for 1 TiB.</p>
 cylinders. It is prescribed by isohybrid specs and it seems
 to please program fdisk. Cylinder size must be divisible by
 2048. Images larger than 8,323,596,288 bytes cannot be
-aligned.<br>
+aligned in MBR partition table.<br>
 Mode &quot;auto&quot; is default. Alignment by padding
 happens only if option -isohybrid-mbr is
 given.<br>
@@ -3126,13 +3197,39 @@ Beware of subsequent multi-session runs. The appended
 partition will get overwritten.<br>
 partition_number may be 1 to 4. Number 1 will put the whole
 ISO image into the unclaimed space before partition 1. So
-together with most xorriso MBR features, number 2 would be
-the most natural choice.<br>
+together with most xorriso MBR or GPT features, number 2
+would be the most natural choice.<br>
 The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
 &quot;Linux&quot;, or a hexadecimal number between 0x00 and
 0xff. Not all those numbers will yield usable results. For a
 list of codes search the Internet for &quot;Partition
-Types&quot; or run fdisk command &quot;L&quot;.</p>
+Types&quot; or run fdisk command &quot;L&quot;. This code
+matters only with MBR, not with GPT.<br>
+If some other command causes the production of GPT, then the
+appended partitions will be mentioned there too, even if not
+-appended_part_as_gpt is given.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-appended_part_as_gpt</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Marks partitions from -append_partition in GPT
+rather than in MBR. In this case the MBR shows a single
+partition of type 0xee which covers the whole output
+data.<br>
+By default, appended partitions get marked in GPT only if
+GPT is produced because of other options.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3178,12 +3275,30 @@ partition.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Mark the block range of the whole emerging ISO image as
-MBR partition of type 0x41. This is not compatible with any
+MBR partition of type 0x96. This is not compatible with any
 other feature that produces MBR partition entries. It makes
 GPT unrecognizable.<br>
-CHRP is used in conjunction with HFS. It is not yet tested
-whether HFS+ filesystems produced with option -hfsplus
-would boot on any CHRP capable machine.</p>
+CHRP is often used in conjunction with HFS. It is not yet
+tested whether HFS+ filesystems produced with option
+-hfsplus would boot on any CHRP capable machine which
+does not boot pure ISO 9660 as well.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-chrp-boot</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Alias of -chrp-boot-part.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -3201,7 +3316,7 @@ would boot on any CHRP capable machine.</p>
 <td width="21%"></td>
 <td width="77%">
 <p>Copy a file from disk into the emerging ISO image and
-mark it by a MBR partition entry of type 0x96. PReP boot
+mark it by a MBR partition entry of type 0x41. PReP boot
 firmware is supposed to read the content of the partition as
 single ELF executable file. This option is compatible with
 other MBR partitions and with GPT.</p>
@@ -3333,6 +3448,139 @@ in the image to be written after the SUN Disk Label. Both
 numbers are counted in bytes. The address is written as 64
 bit big-endian number to byte 0x228. The size is
 written as 32 bit big-endian number to byte 0x230.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-cmdline</b> text</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set the PALO command line for HP-PA. Up to 1023
+characters are permitted by default. With
+-hppa-hdrversion 4 the limit is 127.<br>
+Note that the first five -hppa options are mandatory,
+if any of the -hppa options is given. Only option
+-hppa-hdrversion is allowed to be missing.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-bootloader</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Designate the given path as HP-PA bootloader
+file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-kernel-32</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Designate the given path as HP-PA 32 bit kernel
+file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-kernel-64</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Designate the given path as HP-PA 64 bit kernel
+file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-ramdisk</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Designate the given path as HP-PA RAM disk
+file.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-hppa-hdrversion</b> number</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Choose between PALO header version 5 (default) and
+version 4. For the appropriate value see in PALO source
+code: PALOHDRVERSION.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>-alpha-boot</b> iso_rr_path</p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Declare a data file in the image to be the DEC Alpha SRM
+Secondary Bootstrap Loader and cause production of a boot
+sector which points to it. This is mutually exclusive with
+production of other boot blocks like MBR.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -4111,10 +4359,10 @@ against the current file content on hard disk.</p>
 <!-- INDENTATION -->
 <p>With <b>mount</b> option <b>-o
 &quot;sbsector=&quot;</b> on GNU/Linux resp. <b>-s</b>
-on FreeBSD it is possible to access the session trees which
-represent the older backup versions. With CD media,
-GNU/Linux mount accepts session numbers directly by its
-option &quot;session=&quot;.<br>
+on FreeBSD or NetBSD it is possible to access the session
+trees which represent the older backup versions. With CD
+media, GNU/Linux mount accepts session numbers directly by
+its option &quot;session=&quot;.<br>
 Multi-session media and most overwriteable media
 written by xorriso can tell the sbsectors of their sessions
 by xorriso option -toc:<br>
@@ -4497,7 +4745,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2011 - 2014 Thomas Schmitt<br>
+<p>Copyright (c) 2011 - 2015 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -4523,5 +4771,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Mar  4 12:07:57 CET 2014 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sun May 17 17:36:15 CEST 2015 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
