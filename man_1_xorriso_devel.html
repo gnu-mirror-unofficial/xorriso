@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Mon Mar  9 21:00:50 2015 -->
+<!-- CreationDate: Sun May 17 22:55:37 2015 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, via man -H, via xorriso/convert_man_to_html.sh">
@@ -4910,6 +4910,56 @@ Boot Block for old MIPS DECstation, SUN Disk Label for SPARC
 machines, HP-PA boot sector for HP PA-RISC
 machines, DEC Alpha SRM boot sector for old DEC Alpha
 machines.</p>
+<!-- INDENTATION -->
+<p>Several of the following commands expect disk paths as
+input but also accept description strings for the libisofs
+interval reader, which is able to cut out data from disk
+files or -indev and to zeroize parts of the content:
+command -append_partition, boot specs system_area=,
+grub2_mbr=, prep_boot_part=, efi_boot_part=.<br>
+The description string consists of the following components,
+separated by colon &rsquo;:&rsquo;<br>
+
+&quot;--interval:&quot;Flags&quot;:&quot;Interval&quot;:&quot;Zeroizers&quot;:&quot;Source<br>
+The component &quot;--interval&quot; states that
+this is not a plain disk path but rather an interval reader
+description string. The component Flags modifies the further
+interpretation:<br>
+&quot;local_fs&quot; demands to read from a file depicted by
+the path in Source.<br>
+&quot;imported_iso&quot; demands to read from the
+-indev. This works only if -outdev is not the
+same as -indev. The Source component is ignored.<br>
+The component Interval consists of two byte address numbers
+separated by a &quot;-&quot; character. E.g.
+&quot;0-429&quot; means to read bytes 0 to 429.<br>
+The component Zeroizers consists of zero or more comma
+separated strings. They define which part of the read data
+to zeroize. Byte number 0 means the byte read from the
+Interval start address. Each string may be one of:<br>
+&quot;zero_mbrpt&quot; demands to zeroize the MBR partition
+table if bytes 510 and 511 bear the MBR signature 0x55
+0xaa.<br>
+&quot;zero_gpt&quot; demands to check for a GPT header in
+bytes 512 to 1023, to zeroize it and its partition table
+blocks.<br>
+&quot;zero_apm&quot; demands to check for an APM block 0 and
+to zeroize its partition table blocks.<br>
+Start_byte&quot;-&quot;End_byte demands to zeroize the
+read-in bytes beginning with number Start_byte and
+ending after End_byte.<br>
+The component Source is the file path with flag
+&quot;local_fs&quot;, and ignored with flag
+&quot;imported_iso&quot;.<br>
+Byte numbers may be scaled by a suffix out of {k,m,g,t,s,d}
+meaning multiplication by {1024, 1024k, 1024m, 1024g, 2048,
+512}. A scaled value end number depicts the last byte of the
+scaled range.<br>
+E.g. &quot;0d-0d&quot; is &quot;0-511&quot;.<br>
+Examples:<br>
+
+&quot;local_fs:0-32767:zero_mbrpt,zero_gpt,440-443:/tmp/template.iso&quot;<br>
+&quot;imported_iso:45056d-47103d::&quot;</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -5135,13 +5185,13 @@ chrp_boot_part=on</b> causes a single partition in MBR which
 covers the whole ISO image and has type 0x96. This is not
 compatible with any other feature that produces MBR
 partition entries. It makes GPT unrecognizable.<b><br>
-prep_boot_part=</b> inserts the content of a data file into
-the image and marks it by an MBR partition of type 0x41. The
-parts of the ISO image before and after this partition will
-be covered by further MBR partitions. The data file is
-supposed to contain ELF executable code.<b><br>
-efi_boot_part=</b> inserts the content of a data file into
-the image and marks it by a GPT partition. If not
+prep_boot_part=</b>disk_path inserts the content of a data
+file into the image and marks it by an MBR partition of type
+0x41. The parts of the ISO image before and after this
+partition will be covered by further MBR partitions. The
+data file is supposed to contain ELF executable code.<b><br>
+efi_boot_part=</b>disk_path inserts the content of a data
+file into the image and marks it by a GPT partition. If not
 chrp_boot_part=on, then the first partition in MBR will have
 type 0xee to announce the presence of GPT. The data file is
 supposed to contain a FAT filesystem.<br>
@@ -5171,17 +5221,20 @@ head for the partition table. 0 chooses a default value.
 Maximum is 63.<br>
 The product partition_sec_hd * partition_hd_cyl * 512 is the
 cylinder size. It should be divisible by 2048 in order to
-allow exact alignment. If it is too small to describe the
-image size by at most 1024 cylinders, then appropriate
-values of partition_hd_cyl are chosen with partition_sec_hd
-32 or 63. If the image is larger than 8,422,686,720 bytes,
-then the cylinder size constraints cannot be
-fulfilled.<b><br>
+allow exact alignment. With appended partitions and
+&quot;appended_part_as=gpt&quot; there is no limit for the
+number of cylinders. Else there may be at most 1024 of them.
+If the cylinder size is too small to stay below the limit,
+then appropriate values of partition_hd_cyl are chosen with
+partition_sec_hd 32 or 63. If the image is larger than
+8,422,686,720 bytes, then the cylinder size constraints
+cannot be fulfilled for MBR.<b><br>
 partition_cyl_align=</b>mode controls image size alignment
 to an integer number of cylinders. It is prescribed by
 isohybrid specs and it seems to please program fdisk.
 Cylinder size must be divisible by 2048. Images larger than
-8,323,596,288 bytes cannot be aligned.<br>
+8,323,596,288 bytes cannot be aligned in MBR partition
+table.<br>
 Mode &quot;auto&quot; is default. Alignment by padding
 happens only with &quot;isolinux&quot;
 &quot;partition_table=on&quot;.<br>
@@ -5234,10 +5287,10 @@ hppa_hdrversion=</b>number chooses between PALO header
 version 5 (default) and version 4. For the appropriate value
 see in PALO source code: PALOHDRVERSION.<b><br>
 alpha_boot=</b>iso_rr_path declares a data file in the image
-to be the DEC Alpha SRM Secondary Bootloader and causes
-production of a boot sector which points to it. This is
-mutually exclusive with production of other boot blocks like
-MBR.<b><br>
+to be the DEC Alpha SRM Secondary Bootstrap Loader and
+causes production of a boot sector which points to it. This
+is mutually exclusive with production of other boot blocks
+like MBR.<b><br>
 mips_discard</b>, <b>sparc_discard</b>, <b>hppa_discard</b>,
 <b>alpha_discard</b> revoke any boot file declarations made
 for mips, mipsel, sparc, hppa, resp. alpha. This removes the
@@ -6194,8 +6247,7 @@ particular timestamps.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-report_el_torito</b>
-&quot;plain&quot;|&quot;help&quot;</p></td>
+<p><b>-report_el_torito</b> mode</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -6203,26 +6255,29 @@ particular timestamps.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>With parameter <b>plain</b> print a report about the
+<p>With mode <b>plain</b> print a report about the
 information found in the El Torito boot catalog of the
 loaded ISO image.<br>
-With parameter <b>help</b> print a text which explains the
+With mode <b>help</b> print a text which explains the
 meaning of the lines put out by &quot;plain&quot;.<br>
-Parameter <b>cmd</b> tries to print the <b>xorriso</b>
-commands which are necessary to produce the found El Torito
-equipment and System Area. The intended use case is
-modification of the filesystem by having -indev and
--outdev pointing to different images or drives. The
-result might be insufficient, if the found equipment cannot
-be produced by xorriso.<br>
-Parameter <b>as_mkisofs</b> tries to print the <b>xorriso
+Mode <b>cmd</b> tries to print the <b>xorriso</b> commands
+which are necessary to produce the found boot equipment:
+disk identifiers, El Torito boot images, and System Area.
+Disk identifiers are strings which the booting operating
+system might use to find the ISO filesystem from where it
+comes. Currently known is the use of volume id and
+modification date.<br>
+The intended use case is modification of the filesystem by
+having -indev and -outdev pointing to different
+images or drives. The result might be insufficient, if the
+found equipment cannot be produced by xorriso. Various SORRY
+events may arise in this case, but it is not guaranteed that
+xorriso recognizes all its insufficiencies.<br>
+Mode <b>as_mkisofs</b> tries to print the <b>xorriso
 -as mkisofs</b> options, which are necessary to
 produce the found equipment. The intended use case is to use
 the mounted filesystem as input tree together with the
-printed options. In some cases (e.g.
--isohybrid-mbr) it might be necessary to extract
-data from ISO to hard disk in order to use the hard disk
-files as arguments of -as mkisofs options.</p>
+printed options.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -6231,8 +6286,7 @@ files as arguments of -as mkisofs options.</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-report_system_area</b>
-&quot;plain&quot;|&quot;help&quot;|&quot;gpt_crc_of:&quot;disk_path</p></td>
+<p><b>-report_system_area</b> mode</p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -6240,23 +6294,23 @@ files as arguments of -as mkisofs options.</p>
 <tr valign="top" align="left">
 <td width="21%"></td>
 <td width="77%">
-<p>With parameter <b>plain</b> print a report about the
+<p>With mode <b>plain</b> print a report about the
 information found in the System Area of the loaded ISO
 image. The report consists of zero to many lines with a
 header text, a colon, and information text.<br>
-With parameter <b>help</b> print a text which explains the
+With mode <b>help</b> print a text which explains the
 meaning of the lines put out by &quot;plain&quot;. You
 probably will have to look for more documentation which
 explains the technical details of the mentioned boot
 facilities.<br>
-Parameters <b>cmd</b> and <b>as_mkisofs</b> work like with
+Modes <b>cmd</b> and <b>as_mkisofs</b> work like with
 command -report_el_torito. See above.<br>
-With parameter <b>gpt_crc_of:</b>disk_path read up to 32 KiB
-from the disk file with the path given after the colon.
-Compute the GPT compliant CRC number and print it to the
-result channel. The number is shown like
-&quot;0x690fd979&quot;. The special disk_path
-&quot;-&quot; causes reading from standard input.</p>
+With mode <b>gpt_crc_of:</b>disk_path read up to 32 KiB from
+the disk file with the path given after the colon. Compute
+the GPT compliant CRC number and print it to the result
+channel. The number is shown like &quot;0x690fd979&quot;.
+The special disk_path &quot;-&quot; causes reading
+from standard input.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -9629,7 +9683,7 @@ for libburnia-project.org</p>
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>Copyright (c) 2007 - 2014 Thomas Schmitt<br>
+<p>Copyright (c) 2007 - 2015 Thomas Schmitt<br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -9656,5 +9710,5 @@ for ten years.</p>
 </td>
 </table>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Mar  9 21:00:50 CET 2015 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun May 17 22:55:37 CEST 2015 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
