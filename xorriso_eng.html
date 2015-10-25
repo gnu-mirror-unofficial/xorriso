@@ -560,7 +560,7 @@ describes the cdrecord emulation</DD>
 Bug fixes towards previous stable version xorriso-1.3.8:
 <UL>
 <LI>
-dev or -indev of medium with non-ISO data caused SIGSEGV by NULL
+-dev or -indev of medium with non-ISO data caused SIGSEGV by NULL
 </LI>
 <LI>
 A SIGSEGV could happen when loading a faulty ISO filesystem.
@@ -667,7 +667,8 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.4.1 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.4.0:
 <UL>
-<LI>- none yet -</LI>
+<LI>-backslash_codes "on" did not work outside quotes and with showing "\r"
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -675,7 +676,24 @@ cdrecord and mkisofs.</DT>
 </DD>
 <DD>Enhancements towards stable version 1.4.0:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+New command -modesty_on_drive,
+new -as cdrecord -immed, minbuf=, modesty_on_drive=</LI>
+<LI>
+New command -ecma119_map
+</LI>
+<LI>
+New command -read_fs
+</LI>
+<LI>
+New -boot_image action "replay"
+</LI>
+<LI>
+New command -file_name_limit, -as mkisofs -file_name_limit
+</LI>
+<LI>
+New -find test -name_limit_blocker
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -702,7 +720,7 @@ installation see README)
 </DD>
 <DD>
 <A HREF="xorriso-1.4.1.tar.gz">xorriso-1.4.1.tar.gz</A>
-(2500 KB).
+(2650 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of
@@ -727,7 +745,7 @@ versions for dynamic linking. Only release versions are safe for that.
 </KBD></DD>
 <DD>Install: <KBD><B>cd libisoburn ; ./bootstrap ; ./configure --prefix /usr ; make ; make install</B>
 </KBD></DD>
-<DT>Build of SVN versions needs of at least version 1.7 installed.
+<DT>Build of SVN versions needs autotools of at least version 1.7 installed.
 But after the run of <KBD>./bootstrap</KBD>, only
 vanilla tools like make and gcc are needed.
 </DT>

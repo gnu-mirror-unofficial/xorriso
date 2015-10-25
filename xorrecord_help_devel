@@ -30,6 +30,9 @@ Options:
 	-isosize	Use iso9660 file system size for next data track
 	-pad		padsize=30k
 	-nopad		Do not pad
+	minbuf=		Keep drive buffer hungry
+	modesty_on_drive=	Like minbuf=, but with more parameters
+	-immed		Equivalent to minbuf=75
 	--grow_overwriteable_iso	emulate multi-session on DVD+RW, BD-RE
 	write_start_address=#		write to byte address on DVD+RW, BD-RE
 	stream_recording=on|number	try to get full speed on DVD-RAM, BD

@@ -105,7 +105,7 @@ If you want to explictely allow only the use of libedit, then do
 Other deliberate dependency reduction options of ./configure are:
     --disable-libacl   avoid use of ACL functions like acl_to_text()
     --disable-xattr    avoid use of xattr functions like listxattr() on Linux
-                       resp. extattr_list_file() on FreeBSD
+                       or extattr_list_file() on FreeBSD
     --disable-zlib     avoid use of zlib functions like compress2() 
                        this also avoids the use of libjte and option -jigdo.
 
