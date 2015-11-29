@@ -33,16 +33,18 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Set the read speed. Default is "none" = do not set speed
                  before reading.
   -load "session"|"track"|"lba"|"sbsector"|"volid"|"auto" id
-                 Load a particular (outdated) ISO image from a -dev or
+                 Load a particular (outdated) ISO session from a -dev or
                  -indev which hosts more than one session.
   -displacement [-]block_address
                  When loading ISO tree or reading data files compensate a
                  displacement versus the start address for which the image
                  was prepared.
+  -read_fs "any"|"norock"|"nojoliet"|"ecma119"
+                 Specify which kind of filesystem tree to load if present.
   -rom_toc_scan "on"|"force"|"off"[:"emul_on"|"emul_off"]
                 [:"emul_wide"|"emul_narrow"]
                  Enable scanning for ISO sessions on read-only drives/media
-                 resp. on overwriteable media with emulated TOC.
+                 and on overwriteable media with emulated TOC.
   -calm_drive "in"|"out"|"all"|"on"|"off"
                  Reduce drive noise until it gets actually used again.
   -assert_volid pattern severity
@@ -58,21 +60,24 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -local_charset name
                  Override system assumption of the local character set name.
   -hardlinks mode[:mode ...]
-                 Enable resp. disable recording and restoring of hard links.
+                 Enable or disable recording and restoring of hard links.
                  Modes are "on", "off", "perform_update",
                  "without_update", "discard_extract",
                  "cheap_sorted_extract", "normal_extract"
   -acl "on"|"off"
-                 Enable resp. disable reading and writing of ACLs.
+                 Enable or disable reading and writing of ACLs.
   -xattr "on"|"off"
-                 Enable resp. disable reading and writing of xattr.
+                 Enable or disable reading and writing of xattr.
+  -md5 "on"|"all"|"off"
+                 Enable or disable processing of MD5 checksums.
   -for_backup
                  Shortcut for: -hardlinks on -acl on -xattr on -md5 on
+  -ecma119_map "unmapped"|"stripped"|"uppercase"|"lowercase"
+                 Choose conversion of file names if neither Rock Ridge
+                 nor Joliet is present in the loaded ISO session.
   -disk_dev_ino "on"|"ino_only"|"off"
-                 Enable resp. disable recording of disk file dev_t and ino_t
+                 Enable or disable recording of disk file dev_t and ino_t
                  and their use in file comparison.
-  -md5 "on"|"all"|"off"
-                 Enable resp. disable processing of MD5 checksums.
   -scdbackup_tag list_path record_name
                  Enable production of scdbackup tag with -md5 on
   -ban_stdio_write
@@ -82,7 +87,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -data_cache_size number_of_tiles blocks_per_tile
                  Adjust size and granularity of the data read cache.
   -blank ["force:"]"fast"|"all"|"deformat"|"deformat_quickest"
-                 Blank medium resp. invalidate ISO image on medium.
+                 Blank medium or invalidate ISO image on medium.
                  Prefix "force:" overrides medium evaluation.
   -close_damaged "as_needed"|"force"
                  Close track and session of damaged medium.
@@ -131,7 +136,8 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  to which deep subtrees will get relocated if -compliance
                  is set to "deep_paths_off".
   -boot_image "any"|"isolinux"|"grub"
-              |"discard"|"keep"|"patch"|"dir="|"bin_path="
+              |"discard"|"keep"|"patch"|"replay"
+              |"dir="|"bin_path="
               |"cat_path="|"cat_hidden=on|iso_rr|joliet|off"
               |"load_size="|"boot_info_table="
               |"grub2_boot_info="|"grub2_mbr="|"partition_offset="
@@ -148,7 +154,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"hppa_discard"|"alpha_boot="|"alpha_discard"
               |"hfsplus_serial="|"hfsplus_block_size="
               |"apm_block_size="|"show_status"
-                 Whether to discard or keep an exiting El Torito boot image.
+                 Whether to discard or keep an exiting El Torito boot image,
+                 or to freshly set up boot equipment. "replay" performs
+                 the commands proposed by -report_system_area "cmd".
                  ISOLINUX can be made bootable by dir=/ or dir=/isolinux
                  or dir=/boot/isolinux. Others, like GRUB, by bin_path=...
                  and cat_path=...
@@ -192,22 +200,27 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -list_speeds   Show media specific list of write speed descriptors.
 
   -list_profiles "in"|"out"|"all"
-                 Show list of media types supported by indev resp. outdev.
+                 Show list of media types supported by indev and/or outdev.
   -print_size    Print the foreseeable consumption by next -commit.
 
   -tell_media_space
                  Print foreseeable available space on output medium
   -pvd_info      Print various id strings of the loaded ISO image.
 
-  -report_el_torito "plain"|"help"
+  -report_el_torito "plain"|"help"|"cmd"|"as_mkisofs"
                  "plain" prints information about the El Torito boot catalog
                  and boot images of the loaded ISO image.
                  "help" prints an explanation of the output format.
+                 "cmd" and "as_mkisofs" propose commands to reproduce
+                 the boot equipment reported by -report_el_torito "plain"
+                 and -report_system_area "plain"
   -report_system_area "plain"|"help"|"gpt_crc_of:"disk_path
+                      |"cmd"|"as_mkisofs"
                  "plain" prints information about recognized data
-                 in the System Area of the loaded ISO image: MBR, GPT, ...
                  "help" prints an explanation of the output format.
+                 in the System Area of the loaded ISO image: MBR, GPT, ...
                  "gpt_crc_of:" prints GPT CRC of file disk_path.
+                 For "cmd" and "as_mkisofs" see -report_el_torito.
 
 Commands with variable length path list [...] need the list delimiter text
 as end mark if they are followed by another command. By default this
@@ -225,16 +238,20 @@ disk_path is a path to an object in the local filesystem tree.
 iso_rr_path is the Rock Ridge name of a file object in the ISO image.
 pathspec is either a disk_path or (if allowed) a pair: iso_rr_path=disk_path
 Commands marked by [***] have variable length parameter lists and perform
-pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
+pattern expansion if enabled by -iso_rr_pattern or -disk_pattern.
 
   -pathspecs "on"|"off"  Allow or disallow pathspecs of form 
                  iso_rr_path=disk_path . Only "off" allows eventual
                  -disk_pattern expansion.
+  -file_name_limit number
+                 Set truncation size for file names [64 ... 255].
+  -file_size_limit value [...]
+                 Set limit for file content size. One or more numbers to add.
   -add pathspec [...] | disk_path [***]
                  Insert the given files or directory trees from
                  filesystem into the ISO image. Much like mkisofs.
   -add_plainly "none"|"unknown"|"dashed"|"any"
-                 Whether to add lonely arguments as pathspec resp. disk_path.
+                 Whether to add lonely arguments as pathspec or disk_path.
   -path_list disk_path
                  Like -add but read the pathspecs from file disk_path.
   -quoted_path_list disk_path
@@ -317,6 +334,7 @@ pattern expansion if enabled by -iso_rr_pattern resp. -disk_pattern.
                    -lba_range start count, -damaged, -has_acl, -has_xattr,
                    -has_aaip, -has_filter, -has_md5, -has_any_xattr,
                    -has_hfs_crtp, -has_hfs_bless, -bad_outname,
+                   -name_limit_blocker
                    -prune, -decision yes|no, -true, -false
                  Operators: -not, -or, -and, -sub, (, -subend, ),
                    -if, -then, -elseif, -else, -endif
@@ -415,6 +433,11 @@ Write-to-media commands:
                  Set the burn speed. Default is "max" = maximum speed.
   -stream_recording "on"|"off"
                  Try to circumvent slow checkread on DVD-RAM, BD-RE, BD-R.
+  -modesty_on_drive ["on"|"off"|min_percent_number]
+                    [:"min_percent="number][:"max_percent="number]
+                    [:"min_usec="number][:"max_usec"=number]
+                    [:"timeout_sec="number]
+                 Keep drive buffer hungry to ease concurrent burn run.
   -dvd_obs "default"|"32k"|"64k"
                  Set number of bytes per DVD/BD write operation.
   -stdio_sync "on"|"off"|"end"|number
@@ -423,8 +446,7 @@ Write-to-media commands:
   -fs number["k"|"m"]
                  Set the size of the fifo buffer. (Default is 4m)
   -eject "in"|"out"|"all"
-                 Immediately eject the medium in -indev, resp. -outdev,
-                 resp. both.
+                 Immediately eject the medium in -indev, -outdev, or both.
 
 Navigation commands:
 
@@ -471,9 +493,9 @@ Navigation commands:
                  local filesystem which match one of the shell parser
                  patterns.
   -dus pattern [***]  like -du but summing up subdirectories without
-                 listing them explicitely.
+                 listing them explicitly.
   -dusx pattern [***]  like -dux but summing up subdirectories without
-                 listing them explicitely.
+                 listing them explicitly.
 
   -findx disk_path [-name pattern] [-type t] [-exec action [params]]
                  Like -find but operating on local filesystem. Most -exec
@@ -658,7 +680,7 @@ General commands:
   -print_mark text
               Print a text to mark channel.
   -prompt text
-              Wait for Enter key resp. for a line of input at stdin.
+              Wait for Enter key or for a line of input at stdin.
   -sleep number
               Do nothing during the given number of seconds.
   -errfile_log mode path|channel

@@ -1,4 +1,4 @@
-GNU xorriso 1.4.0 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.4.2 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -61,6 +61,7 @@ Options:
   -R, -rock                   Generate Rock Ridge directory information
   -r, -rational-rock          Generate rationalized Rock Ridge directory information
   --norock                    Disable Rock Ridge. (Strongly discouraged !)
+  -file_name_limit LEN        Set truncation limit for Rock Ridge names
   --hardlinks                 Record eventual hard link relations of files
   --acl                       Record eventual ACLs of files
   --xattr                     Record eventual user space xattr of files
