@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-http://www.gnu.org/software/xorriso/xorriso-1.4.1.tar.gz
+http://www.gnu.org/software/xorriso/xorriso-1.4.3.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -49,10 +49,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.4.1.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.4.3.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.4.1.tar.gz
-    cd xorriso-1.4.1
+    tar xzf xorriso-1.4.3.tar.gz
+    cd xorriso-1.4.3
 
 Within that directory execute:
 
@@ -182,8 +182,18 @@ In particular it connects to xorriso via two pipes, sends commands, waits
 for all replies of a command, picks info out of the xorriso message sieve, 
 and parses reply message lines into words.
 
-The bash script frontend/sh_on_named_pipes.sh forks a xorriso process and
-operates it via two named pipes which it creates.
+The bash script frontend/sh_on_named_pipes.sh forks a xorriso process 
+connected to two pipes. It then runs a dialog loop, sends commands to xorriso,
+and displays the replies.
+
+The sh script frontend/xorriso_broker.sh is intended to execute xorriso
+commands on a permanently running xorriso process.
+It gets an id_string by which it looks for named pipes with a running xorriso 
+process. If no such pipe is found, then it starts a xorriso connected to 
+newly created pipes.
+After this is done, the optionally given xorriso arguments are written into
+the stdin pipe from where xorriso will read and execute them. The script will
+end but the xorriso process will go on and wait for more commands.
 
 
                        Drives and Disk File Objects 
@@ -368,9 +378,9 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-1.4.0 :
-- libburn.so.4  , version libburn-1.4.0 or higher
-- libisofs.so.6 , version libisofs-1.4.0 or higher
+Dynamic library and compile time header requirements for libisoburn-1.4.2 :
+- libburn.so.4  , version libburn-1.4.2 or higher
+- libisofs.so.6 , version libisofs-1.4.2 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
