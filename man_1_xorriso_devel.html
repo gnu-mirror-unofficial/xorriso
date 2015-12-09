@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Nov 29 09:43:25 2015 -->
+<!-- CreationDate: Wed Dec  9 17:40:38 2015 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1288,16 +1288,24 @@ Default is &quot;ls&quot;.</p>
 
 <p style="margin-left:22%;">Insert the given files or
 directory trees from filesystem into the ISO image. <br>
-If -pathspecs is set to &quot;on&quot; then pattern
-expansion is always disabled and character &rsquo;=&rsquo;
-has a special meaning. It separates the ISO image path from
-the disk path: <br>
+If -pathspecs is set to &quot;on&quot; or
+&quot;as_mkisofs&quot; then pattern expansion is always
+disabled and character &rsquo;=&rsquo; has a special
+meaning. It separates the ISO image path from the disk path:
+<br>
 iso_rr_path=disk_path <br>
-The separator &rsquo;=&rsquo; can be escaped by
-&rsquo;\&rsquo;. If iso_rr_path does not begin with
-&rsquo;/&rsquo; then -cd is prepended. If disk_path
-does not begin with &rsquo;/&rsquo; then -cdx is
-prepended. <br>
+Character &rsquo;=&rsquo; in the iso_rr_path must be escaped
+by &rsquo;\&rsquo; (i.e. as &quot;\=&quot;). <br>
+With -pathspecs &quot;on&quot;, the character
+&rsquo;\&rsquo; must not be escaped. The character
+&rsquo;=&rsquo; in the disk_path must not be escaped. <br>
+With -pathspecs &quot;as_mkisofs&quot;, all characters
+&rsquo;\&rsquo; must be escaped in both, iso_rr_path and
+disk_path. The character &rsquo;=&rsquo; may or may not be
+escaped in the disk_path. <br>
+If iso_rr_path does not begin with &rsquo;/&rsquo; then
+-cd is prepended. If disk_path does not begin with
+&rsquo;/&rsquo; then -cdx is prepended. <br>
 If no &rsquo;=&rsquo; is given then the word is used as
 both, iso_rr_path and disk path. If in this case the word
 does not begin with &rsquo;/&rsquo; then -cdx is
@@ -1648,17 +1656,27 @@ at the risk of truncating an intentional sequence of link
 hops.</p>
 
 <p style="margin-left:11%;"><b>-pathspecs</b>
-&quot;on&quot;|&quot;off&quot;</p>
+&quot;on&quot;|&quot;off&quot;|&quot;as_mkisofs&quot;</p>
 
 <p style="margin-left:22%;">Control parameter
 interpretation with <b>xorriso</b> actions -add and
 -path_list. <br>
-&quot;on&quot; enables pathspecs of the form
-<b>target=source</b> like with program mkisofs
--graft-points. It also disables
+Mode &quot;as_mkisofs&quot; enables pathspecs of the form
+<b><br> iso_rr_path=disk_path</b> <br>
+like with program mkisofs -graft-points. <br>
+All characters &rsquo;\&rsquo; must be escaped in both,
+iso_rr_path and disk_path. The character &rsquo;=&rsquo;
+must be escaped in the iso_rr_path and may or may not be
+escaped in the disk_path. This mode temporarily disables
 -disk_pattern expansion for command -add. <br>
-&quot;off&quot; disables pathspecs of the form target=source
-and re-enables -disk_pattern expansion.</p>
+Mode &quot;on&quot; does nearly the same. But
+&rsquo;=&rsquo; must only be escaped in the iso_rr_path and
+&rsquo;\&rsquo; must not be escaped at all. This has the
+disadvantage that one cannot express an iso_rr_path which
+ends by &rsquo;\&rsquo;. <br>
+Mode &quot;off&quot; disables pathspecs of the form
+target=source and re-enables -disk_pattern
+expansion.</p>
 
 <p style="margin-left:11%;"><b>-overwrite</b>
 &quot;on&quot;|&quot;nondir&quot;|&quot;off&quot;</p>
@@ -3194,8 +3212,9 @@ will slowly be increased to what parameter
 Parameters, which are not mentioned with a
 -modesty_on_drive command, stay unchanged. Default is:
 <br>
--modesty_on_drive
-off:min_percent=90:max_percent=95:timeout_sec=120:min_usec=5000:max_usec=25000</p>
+-modesty_on_drive off:min_percent=90:max_percent=95:
+<br>
+timeout_sec=120:min_usec=5000:max_usec=25000</p>
 
 <p style="margin-left:11%;"><b>-stdio_sync</b>
 &quot;on&quot;|&quot;off&quot;|&quot;end&quot;|number</p>
@@ -6299,5 +6318,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Nov 29 09:43:25 CET 2015 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Dec  9 17:40:38 CET 2015 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
