@@ -659,6 +659,16 @@ cdrecord and mkisofs.</DT>
 <UL>
 <LI>-as mkisofs did not unescape "\=" in the source part of pathspecs</LI>
 <LI>-pathspecs "on" did not properly handle "\\="</LI>
+<LI>-boot_image "any" "system_area=/dev/zero" did not zeroize loaded data</LI>
+<LI>HFS+ production could cause MBR partition of type 0xEE without GPT</LI>
+<LI>HFS+ directories could announce more children than they actually have</LI>
+<LI>The HFS+ filesystem was not marked by in GPT of GRUB2 hybrid layout</LI>
+<LI>When reading an ISO filesystem, the presence of --protective-msdos-label
+was not recognized if a partition is appended</LI>
+<LI>
+xorrisofs option --protective-msdos-label did not work if no system partition
+data were given by option -G or alike.
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
