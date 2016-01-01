@@ -142,7 +142,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"load_size="|"boot_info_table="
               |"grub2_boot_info="|"grub2_mbr="|"partition_offset="
               |"partition_hd_cyl="|"partition_sec_hd="
-              |"partition_cyl_align="
+              |"partition_cyl_align="|"mbr_force_bootable="
               |"system_area="|"partition_table=on|off"
               |"partition_entry="|"appended_part_as="
               |"chrp_boot_part=on|off="|"prep_boot_part="

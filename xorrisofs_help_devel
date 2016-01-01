@@ -113,6 +113,7 @@ Options:
   -G FILE, -generic-boot FILE Set generic boot image name
   --embedded-boot FILE        Alias of -G
   --protective-msdos-label    Patch System Area by partition table
+  --mbr-force-bootable        Enforce existence of bootable flag in MBR
   -partition_offset LBA       Make image mountable by first partition, too
   -partition_sec_hd NUMBER    Define number of sectors per head
   -partition_hd_cyl NUMBER    Define number of heads per cylinder

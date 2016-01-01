@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Dec 27 16:28:55 2015 -->
+<!-- CreationDate: Fri Jan  1 20:24:55 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1598,6 +1598,20 @@ simple PC-DOS partition table where partition 1 claims
 the range of the ISO image but leaves the first block
 unclaimed.</p>
 
+
+<p style="margin-left:11%;"><b>--mbr-force-bootable</b></p>
+
+<p style="margin-left:22%;">Enforce an MBR partition with
+&quot;bootable/active&quot; flag if options like
+--protective-msdos-label or
+--grub2-mbr are given. These options
+normally cause the flag to be set if there is an MBR
+partition of type other than 0xee or 0xef. If no such
+partition exists, then no bootflag is set, unless
+--mbr-force-bootable forces creation
+of a dummy partition of type 0x00 which covers only the
+first block of the ISO image.</p>
+
 <p style="margin-left:11%;"><b>-partition_offset</b>
 2kb_block_adr</p>
 
@@ -2599,5 +2613,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sun Dec 27 16:28:55 CET 2015 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri Jan  1 20:24:55 CET 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

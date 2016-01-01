@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Dec 27 16:28:54 2015 -->
+<!-- CreationDate: Fri Jan  1 20:24:55 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -3639,7 +3639,15 @@ Mode &quot;on&quot; causes alignment by padding with
 partitions from -append_partition to an aligned size.
 <br>
 Mode &quot;off&quot; disables alignment for any type.
-<b><br> mips_path=</b>iso_rr_path declares a data file in the image
+<b><br> mbr_force_bootable=</b>mode enforces an MBR partition with
+&quot;bootable/active&quot; flag if options like
+partition_table= or grub2_mbr= indicate production of a
+bootable MBR. These options normally cause the flag to be
+set if there is an MBR partition of type other than 0xee or
+0xef. If no such partition exists, then no bootflag is set,
+unless mbr_force_bootable= forces creation of a dummy
+partition of type 0x00 which covers only the first block of
+the ISO image. <b><br> mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
 with production of other boot blocks like MBR. It will
@@ -6318,5 +6326,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Dec 27 16:28:54 CET 2015 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jan  1 20:24:55 CET 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
