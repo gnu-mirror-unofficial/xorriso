@@ -666,8 +666,12 @@ cdrecord and mkisofs.</DT>
 <LI>When reading an ISO filesystem, the presence of --protective-msdos-label
 was not recognized if a partition is appended</LI>
 <LI>
-xorrisofs option --protective-msdos-label did not work if no system partition
-data were given by option -G or alike.
+xorrisofs option --protective-msdos-label did not work if no system area
+data were given by option -G or alike
+</LI>
+<LI>
+-modesty_on_drive properties timeout_sec, min_usec, max_usec
+read wrong numbers from the parameter text
 </LI>
 <!-- 
 <LI>- none yet -</LI>
@@ -677,6 +681,12 @@ data were given by option -G or alike.
 <DD>Enhancements towards stable version 1.4.2:
 <UL>
 <LI>New -pathspecs mode "as_mkisofs"</LI>
+<LI>
+New -boot_image bootspec appended_part_as=apm, part_like_isohybrid=on
+</LI>
+<LI>
+New -as mkisofs options -appended_part_as_apm, -part_like_isohybrid
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Fri Jan  1 20:24:55 2016 -->
+<!-- CreationDate: Tue Mar  1 15:38:06 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -776,7 +776,7 @@ speed as announced by the drive. <br>
 Speed can be given in media dependent numbers or as a
 desired throughput per second in MMC compliant kB (= 1000)
 or MB (= 1000 kB). Media x-speed factor can be set
-explicity by &quot;c&quot; for CD, &quot;d&quot; for DVD,
+explicitly by &quot;c&quot; for CD, &quot;d&quot; for DVD,
 &quot;b&quot; for BD, &quot;x&quot; is optional. <br>
 Example speeds: <br>
 &nbsp;&nbsp;706k = 706kB/s = 4c = 4xCD <br>
@@ -813,7 +813,7 @@ a line &quot;ISO ...&quot;, column &quot;sbsector&quot;.
 <br>
 &quot;volid&quot; with a search pattern for a text as of a
 line &quot;ISO ...&quot;, column &quot;Volume Id&quot;. <br>
-Adressing a non-existing entity or one which does not
+Addressing a non-existing entity or one which does not
 represent an ISO image will either abandon -indev or
 at least lead to a blank image. <br>
 If an input drive is set at the moment when -load is
@@ -2568,7 +2568,7 @@ is set to &quot;on&quot;. <br>
 The progress reports issued by some drives while blanking
 are quite unrealistic. Do not conclude success or failure
 from the reported percentages. Blanking was successful if no
-SORRY event or worse occured. <br>
+SORRY event or worse occurred. <br>
 Mode may be prepended by &quot;force:&quot; in order to
 override the evaluation of the medium state by libburn. E.g.
 &quot;force:fast&quot;. Blanking will nevertheless only
@@ -2629,7 +2629,7 @@ flawless media. <br>
 The progress reports issued by some drives while formatting
 are quite unrealistic. Do not conclude success or failure
 from the reported percentages. Formatting was successful if
-no SORRY event or worse occured. Be patient with apparently
+no SORRY event or worse occurred. Be patient with apparently
 frozen progress.</p>
 
 <p style="margin-left:11%;"><b>-list_formats</b></p>
@@ -3126,7 +3126,7 @@ the drive before burning begins. <br>
 Speed can be given in media dependent numbers or as a
 desired throughput per second in MMC compliant kB (= 1000)
 or MB (= 1000 kB). Media x-speed factor can be set
-explicity by &quot;c&quot; for CD, &quot;d&quot; for DVD,
+explicitly by &quot;c&quot; for CD, &quot;d&quot; for DVD,
 &quot;b&quot; for BD, &quot;x&quot; is optional. <br>
 Example speeds: <br>
 &nbsp;&nbsp;706k = 706kB/s = 4c = 4xCD <br>
@@ -3190,12 +3190,12 @@ their buffer to be filled to the top before they go to full
 speed. <br>
 Parameters &quot;off&quot; or &quot;0&quot; disable this
 feature. <br>
-The threshhold for beginning to wait is given by parameter
+The threshold for beginning to wait is given by parameter
 &quot;max_percent=&quot;. Parameter &quot;min_percent=&quot;
-defines the threshhold for resuming transmission.
-Percentages are permissible in the range of 25 to 100.
-Numbers in this range without a prepended name are
-interpreted as &quot;on:min_percent=&quot;. <br>
+defines the threshold for resuming transmission. Percentages
+are permissible in the range of 25 to 100. Numbers in this
+range without a prepended name are interpreted as
+&quot;on:min_percent=&quot;. <br>
 E.g.: -modesty_on_drive 75 <br>
 The optimal values depend on the buffer behavior of the
 drive. <br>
@@ -3545,7 +3545,13 @@ is preserved by default. In in this case, the special
 disk_path &quot;.&quot; prevents reading of a disk file but
 nevertheless causes adjustments in the loaded system area
 data. Such adjustments may get ordered by -boot_image
-commands. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
+commands. <b><br> -boot_image any part_like_isohybrid=on</b> enables
+-boot_image isolinux partition_entry= even if no
+-boot_image isolinux system_area= is given. No MBR
+partition of type 0xee emerges, even if GPT gets produced.
+Gaps between GPT and APM partitions will not be filled by
+more partitions. Appended partitions get mentioned in APM if
+other APM partitions emerge. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
 system_area= with additional patching for modern GRUB MBRs.
 The content start address of the first boot image is
 converted to a count of 512 byte blocks, and an offset of 4
@@ -3581,7 +3587,14 @@ with the ISO image. <b><br> appended_part_as=gpt</b> marks partitions from
 case the MBR shows a single partition of type 0xee which
 covers the whole output data. <b><br> appended_part_as=mbr</b> is the default. Appended partitions
 get marked in GPT only if GPT is produced because of other
-settings. <b><br> chrp_boot_part=on</b> causes a single partition in MBR which
+settings. If given explicitely, this clears setting
+&quot;gpt&quot; and &quot;apm&quot;. Nevertheless
+&quot;apm&quot; may be added to &quot;mbr&quot;. <b><br> appended_part_as=apm</b> marks partitions from
+-append_partition in APM additionally to
+&quot;mbr&quot; or &quot;gpt&quot;. <br>
+By default, appended partitions get marked in APM only if
+APM is produced because of other options together with
+part_like_isohybrid=&quot;on&quot;. <b><br> chrp_boot_part=on</b> causes a single partition in MBR which
 covers the whole ISO image and has type 0x96. This is not
 compatible with any other feature that produces MBR
 partition entries. It makes GPT unrecognizable. <b><br> prep_boot_part=</b>disk_path inserts the content of a data
@@ -6304,7 +6317,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2015 Thomas Schmitt <br>
+2007 - 2016 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6326,5 +6339,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jan  1 20:24:55 CET 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Mar  1 15:38:06 CET 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

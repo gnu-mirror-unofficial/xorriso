@@ -110,6 +110,7 @@ Options:
   -isohybrid-gpt-basdat       Mark El Torito boot image as Basic Data in GPT
   -isohybrid-gpt-hfsplus      Mark El Torito boot image as HFS+ in GPT
   -isohybrid-apm-hfsplus      Mark El Torito boot image as HFS+ in APM
+  -part_like_isohybrid        Mark in MBR, GPT, APM without -isohybrid-mbr
   -G FILE, -generic-boot FILE Set generic boot image name
   --embedded-boot FILE        Alias of -G
   --protective-msdos-label    Patch System Area by partition table
@@ -138,6 +139,7 @@ Options:
   -append_partition NUMBER TYPE FILE
                               Append FILE after image. TYPE is hex: 0x..
   -appended_part_as_gpt       mark appended partitions in GPT instead of MBR.
+  -appended_part_as_apm       mark appended partitions in APM.
   --modification-date=YYYYMMDDhhmmsscc
                               Override date of creation and modification
   -isohybrid-mbr FILE         Set SYSLINUX mbr/isohdp[fp]x*.bin for isohybrid

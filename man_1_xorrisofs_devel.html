@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Fri Jan  1 20:24:55 2016 -->
+<!-- CreationDate: Tue Mar  1 15:38:06 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -124,7 +124,7 @@ of disk_path. Directories get merged with the
 /-directory of the ISO image. Files of other types get
 copied into the /-directory. <br>
 If -graft-points is present then each pathspec
-gets split at the first occurence of the =-character.
+gets split at the first occurrence of the =-character.
 The part before the = is taken as <b>target</b>, i.e. the
 iso_rr_path for the file object in the ISO image. The part
 after the first = is taken as <b>source</b>, i.e. the
@@ -819,7 +819,7 @@ image shall have more than 8 name components or 255
 characters. Therefore it would be necessary to move deeper
 directory trees to a higher directory. Rock Ridge offers an
 opportunity to let these relocated directories appear at
-their orginal deep position, but this feature might not be
+their original deep position, but this feature might not be
 implemented properly by operating systems which mount the
 image.</p> </td></tr>
 </table>
@@ -1591,6 +1591,19 @@ does nothing. It will get overwritten by 32 bytes of APM
 header mock-up.</p>
 
 
+<p style="margin-left:11%;"><b>-part_like_isohybrid</b></p>
+
+<p style="margin-left:22%;">Control whether
+-isohybrid-gpt-basdat,
+-isohybrid-gpt-hfsplus, and
+-isohybrid-apm-hfsplus apply even if not
+-isohybrid-mbr is present. No MBR partition of
+type 0xee emerges, even if GPT gets produced. Gaps between
+GPT and APM partitions will not be filled by more
+partitions. Appended partitions get mentioned in APM if
+other APM partitions emerge.</p>
+
+
 <p style="margin-left:11%;"><b>--protective-msdos-label</b></p>
 
 <p style="margin-left:22%;">Patch the System Area by a
@@ -1709,6 +1722,15 @@ case the MBR shows a single partition of type 0xee which
 covers the whole output data. <br>
 By default, appended partitions get marked in GPT only if
 GPT is produced because of other options.</p>
+
+
+<p style="margin-left:11%;"><b>-appended_part_as_apm</b></p>
+
+<p style="margin-left:22%;">Marks partitions from
+-append_partition in Apple Partition Map, too. <br>
+By default, appended partitions get marked in APM only if
+APM is produced because of other options and
+-part_like_isohybrid is enabled.</p>
 
 <p style="margin-left:11%;"><b>-efi-boot-part</b>
 disk_path</p>
@@ -2592,7 +2614,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2011 - 2015 Thomas Schmitt <br>
+2011 - 2016 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -2613,5 +2635,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri Jan  1 20:24:55 CET 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Mar  1 15:38:06 CET 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
