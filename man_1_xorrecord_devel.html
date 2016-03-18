@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Tue Mar  1 15:38:06 2016 -->
+<!-- CreationDate: Fri Mar 18 16:56:42 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -793,6 +793,27 @@ interpretation of startup files. See section FILES
 below.</p>
 
 
+<p style="margin-left:11%;"><b>drive_scsi_dev_family=sr|sdc|sg|default</b></p>
+
+<p style="margin-left:22%;">GNU/Linux specific: <br>
+By default, cdrskin tries to map Linux drive addresses to
+/dev/sr* before they get opened for operating the drive.
+This coordinates well with other use cases of optical
+drives, like mount(8). But since year 2010 all /dev/sr*
+share a global lock which allows only one drive to process
+an SCSI command while all others have to wait for its
+completion. This yields awful throughput if more than one
+drive is writing or reading simultaneously. <br>
+The global lock is not applied to device files /dev/sg* and
+also not with the system calls read(2), write(2). But
+ioctl(SG_IO) is affected, which is needed to perform the
+SCSI commands for optical burning. <br>
+So for simultaneous burn runs on modern GNU/Linux it is
+advisable to use drive_scsi_dev_family=&quot;sg&quot;. The
+drive addresses may then well be given as /dev/sr* but will
+nevertheless get used as /dev/sg*.</p>
+
+
 <p style="margin-left:11%;"><b>--grow_overwriteable_iso</b></p>
 
 <p style="margin-left:22%;">Enable emulation of
@@ -873,8 +894,10 @@ controller and thus help with achieving better input
 bandwidth if disk and burner are not on independent
 controllers (like hda and hdb). It may also help with
 simultaneous burns on different burners with Linux kernels
-like 3.16. On the other hand it increases the risk of buffer
-underflow and thus reduced write speed. <br>
+like 3.16, if one has reason not to fix the problem by
+drive_scsi_dev_family=&quot;sg&quot;. On the other hand it
+increases the risk of buffer underflow and thus reduced
+write speed. <br>
 Some burners are not suitable because they report buffer
 fill with granularity too coarse in size or time, or expect
 their buffer to be filled to the top before they go to full
@@ -1136,5 +1159,5 @@ founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Tue Mar  1 15:38:06 CET 2016 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Fri Mar 18 16:56:42 CET 2016 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>

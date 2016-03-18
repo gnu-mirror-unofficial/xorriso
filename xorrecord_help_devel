@@ -6,6 +6,7 @@ Options:
 	-version	print version information and exit emulation
 	--devices	print list of available MMC drives and exit emulation
 	dev=target	pseudo-SCSI target to use as CD-Recorder
+	drive_scsi_dev_family=sr|scd|sg		select Linux device type
 	-v		increment verbose level by one
 	-V		increment SCSI command transport verbose level by one
 	-checkdrive	check if a driver for the drive is present
