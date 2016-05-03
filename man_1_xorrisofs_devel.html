@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Fri Mar 18 16:56:42 2016 -->
+<!-- CreationDate: Tue May  3 12:37:52 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -765,12 +765,19 @@ discouraged to disable them by option
 <td width="78%">
 
 
-<p>Set Rock Ridge user and group id of all files in the ISO
-image to 0. Grant r-permissions to all. Deny all
-w-permissions. If any x-permission is set, grant
-x-permission to all. Remove s-bit and
+<p>Enable Rock Ridge and set user and group id of all files
+in the ISO image to 0. Grant r-permissions to all.
+Deny all w-permissions. If any x-permission is
+set, grant x-permission to all. Remove s-bit and
 t-bit.</p> </td></tr>
 </table>
+
+<p style="margin-left:22%;">These attribute changes stay
+delayed until mkisofs emulation ends. Within the same
+-as mkisofs emulation command they can be revoked by a
+subsequent option --norock. For compatibility
+reasons, option -R does not revoke the changes ordered
+by -r.</p>
 
 
 <p style="margin-left:11%;"><b>-rational-rock</b></p>
@@ -784,7 +791,9 @@ production of Rock Ridge extensions for the ISO 9660 file
 objects. The multi-session capabilities of
 <b>xorrisofs</b> depend much on the naming fidelity of Rock
 Ridge. So it is strongly discouraged to disable it by this
-option.</p>
+option, except for the special use case to revoke the effect
+of -r by : <br>
+--norock -R</p>
 
 <p style="margin-left:11%;"><b>-file_name_limit</b>
 number</p>
@@ -2635,5 +2644,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri Mar 18 16:56:42 CET 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue May  3 12:37:52 CEST 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
