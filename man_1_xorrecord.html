@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Nov 28 15:41:33 2015 -->
+<!-- CreationDate: Fri Jul  1 15:25:34 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -298,9 +298,9 @@ the program with non-zero exit value.</p>
 
 <p style="margin-left:11%; margin-top: 1em">A burn run
 requires exactly one track source address argument, which
-tells from where to read the data wich shall be put into the
-upcomming session. The medium state must be either blank or
-appendable. <br>
+tells from where to read the data which shall be put into
+the upcomming session. The medium state must be either blank
+or appendable. <br>
 Track source may be &quot;-&quot; for standard input
 or the address of a readable file of any type except
 directories. Nearly all media types accept a track source
@@ -605,7 +605,7 @@ support for other track formats anyway.</p></td></tr>
 CD, or Incremental for DVD-R. Normally the program
 will choose the write type according to the given medium
 state, option -multi, and track source. Demanding it
-explicitely prevents the start of a write run, if it is not
+explicitly prevents the start of a write run, if it is not
 appropriate to the situation.</p></td></tr>
 <tr valign="top" align="left">
 <td width="11%"></td>
@@ -659,9 +659,9 @@ performance.</p>
 0 = maximum speed. Speed can be given in media type
 dependent x-speed numbers or as a desired throughput
 per second in MMC compliant kB (= 1000) or MB (= 1000 kB).
-Media x-speed factor can be set explicity by appending
-&quot;c&quot; for CD, &quot;d&quot; for DVD, &quot;b&quot;
-for BD. &quot;x&quot; is optional. <br>
+Media x-speed factor can be set explicitly by
+appending &quot;c&quot; for CD, &quot;d&quot; for DVD,
+&quot;b&quot; for BD. &quot;x&quot; is optional. <br>
 Example speeds: <br>
 706k = 706kB/s = 4c = 4xCD <br>
 5540k = 5540kB/s = 4d = 4xDVD <br>
@@ -793,6 +793,27 @@ interpretation of startup files. See section FILES
 below.</p>
 
 
+<p style="margin-left:11%;"><b>drive_scsi_dev_family=sr|sdc|sg|default</b></p>
+
+<p style="margin-left:22%;">GNU/Linux specific: <br>
+By default, cdrskin tries to map Linux drive addresses to
+/dev/sr* before they get opened for operating the drive.
+This coordinates well with other use cases of optical
+drives, like mount(8). But since year 2010 all /dev/sr*
+share a global lock which allows only one drive to process
+an SCSI command while all others have to wait for its
+completion. This yields awful throughput if more than one
+drive is writing or reading simultaneously. <br>
+The global lock is not applied to device files /dev/sg* and
+also not with the system calls read(2), write(2). But
+ioctl(SG_IO) is affected, which is needed to perform the
+SCSI commands for optical burning. <br>
+So for simultaneous burn runs on modern GNU/Linux it is
+advisable to use drive_scsi_dev_family=&quot;sg&quot;. The
+drive addresses may then well be given as /dev/sr* but will
+nevertheless get used as /dev/sg*.</p>
+
+
 <p style="margin-left:11%;"><b>--grow_overwriteable_iso</b></p>
 
 <p style="margin-left:22%;">Enable emulation of
@@ -873,20 +894,22 @@ controller and thus help with achieving better input
 bandwidth if disk and burner are not on independent
 controllers (like hda and hdb). It may also help with
 simultaneous burns on different burners with Linux kernels
-like 3.16. On the other hand it increases the risk of buffer
-underflow and thus reduced write speed. <br>
+like 3.16, if one has reason not to fix the problem by
+drive_scsi_dev_family=&quot;sg&quot;. On the other hand it
+increases the risk of buffer underflow and thus reduced
+write speed. <br>
 Some burners are not suitable because they report buffer
 fill with granularity too coarse in size or time, or expect
 their buffer to be filled to the top before they go to full
 speed. <br>
 Parameters &quot;off&quot; or &quot;0&quot; disable this
 feature. <br>
-The threshhold for beginning to wait is given by parameter
+The threshold for beginning to wait is given by parameter
 &quot;max_percent=&quot;. Parameter &quot;min_percent=&quot;
-defines the threshhold for resuming transmission.
-Percentages are permissible in the range of 25 to 100.
-Numbers in this range without a prepended name are
-interpreted as &quot;on:min_percent=&quot;. <br>
+defines the threshold for resuming transmission. Percentages
+are permissible in the range of 25 to 100. Numbers in this
+range without a prepended name are interpreted as
+&quot;on:min_percent=&quot;. <br>
 E.g.: modesty_on_drive=75 <br>
 The optimal values depend on the buffer behavior of the
 drive. <br>
@@ -902,8 +925,8 @@ will slowly be increased to what parameter
 &quot;max_usec=&quot; defines. <br>
 Parameters, which are not mentioned with a modesty_on_drive=
 option, stay unchanged. Default is: <br>
-
-modesty_on_drive=off:min_percent=90:max_percent=95:timeout_sec=120:min_usec=5000:max_usec=25000</p>
+modesty_on_drive=off:min_percent=90:max_percent=95: <br>
+timeout_sec=120:min_usec=5000:max_usec=25000</p>
 
 
 <p style="margin-left:11%;"><b>write_start_address=value</b></p>
@@ -1115,7 +1138,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2011 - 2015 Thomas Schmitt <br>
+2011 - 2016 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -1136,5 +1159,5 @@ founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Sat Nov 28 15:41:33 CET 2015 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Fri Jul  1 15:25:34 CEST 2016 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>

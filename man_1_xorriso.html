@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Nov 28 15:41:32 2015 -->
+<!-- CreationDate: Fri Jul  1 15:25:33 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -338,6 +338,13 @@ device. E.g. <br>
 -dev /dev/sr0 <br>
 -dev /dev/hdc <br>
 -dev /dev/sg2 <br>
+By default xorriso will try to map the given address to
+/dev/hd* and /dev/sr*. The command -scsi_dev_family
+can redirect the mapping from sr to scd or sg. The latter
+does not suffer from the concurrency problems which plague
+/dev/sr of Linux kernels since version 3. But it does not
+yield the same addresses which are used by mount(8) or by
+open(2) for read(2). <br>
 On FreeBSD the device files have names like <br>
 -dev /dev/cd0 <br>
 On NetBSD: <br>
@@ -738,6 +745,29 @@ An empty address string &quot;&quot; gives up the current
 output drive without acquiring a new one. No writing is
 possible without an output drive.</p>
 
+<p style="margin-left:11%;"><b>-scsi_dev_family</b>
+&quot;default&quot;|&quot;sr&quot;|&quot;scd&quot;|&quot;sg&quot;</p>
+
+<p style="margin-left:22%;">GNU/Linux specific: <br>
+By default, xorriso tries to map Linux drive addresses to
+/dev/sr* before they get opened for operating the drive.
+This coordinates well with other use cases of optical
+drives, like mount(8). But since year 2010 all /dev/sr*
+share a global lock which allows only one drive to process
+an SCSI command while all others have to wait for its
+completion. This yields awful throughput if more than one
+drive is writing or reading simultaneously. The global lock
+is not applied to device files /dev/sg* and also not if the
+xorriso drive address is prepended by &quot;stdio:&quot;.
+<br>
+So for simultaneous burn runs on modern GNU/Linux it is
+advisable to perform -scsi_dev_family &quot;sg&quot;
+before any -dev, -indev, or -outdev. The
+drive addresses may then well be given as /dev/sr* but will
+nevertheless get used as the matching /dev/sg*. <br>
+If you decide so, consider to put the command into a global
+startup file like /etc/opt/xorriso/rc.</p>
+
 <p style="margin-left:11%;"><b>-grow_blindly</b>
 &quot;off&quot;|predicted_nwa</p>
 
@@ -776,7 +806,7 @@ speed as announced by the drive. <br>
 Speed can be given in media dependent numbers or as a
 desired throughput per second in MMC compliant kB (= 1000)
 or MB (= 1000 kB). Media x-speed factor can be set
-explicity by &quot;c&quot; for CD, &quot;d&quot; for DVD,
+explicitly by &quot;c&quot; for CD, &quot;d&quot; for DVD,
 &quot;b&quot; for BD, &quot;x&quot; is optional. <br>
 Example speeds: <br>
 &nbsp;&nbsp;706k = 706kB/s = 4c = 4xCD <br>
@@ -813,7 +843,7 @@ a line &quot;ISO ...&quot;, column &quot;sbsector&quot;.
 <br>
 &quot;volid&quot; with a search pattern for a text as of a
 line &quot;ISO ...&quot;, column &quot;Volume Id&quot;. <br>
-Adressing a non-existing entity or one which does not
+Addressing a non-existing entity or one which does not
 represent an ISO image will either abandon -indev or
 at least lead to a blank image. <br>
 If an input drive is set at the moment when -load is
@@ -1288,16 +1318,24 @@ Default is &quot;ls&quot;.</p>
 
 <p style="margin-left:22%;">Insert the given files or
 directory trees from filesystem into the ISO image. <br>
-If -pathspecs is set to &quot;on&quot; then pattern
-expansion is always disabled and character &rsquo;=&rsquo;
-has a special meaning. It separates the ISO image path from
-the disk path: <br>
+If -pathspecs is set to &quot;on&quot; or
+&quot;as_mkisofs&quot; then pattern expansion is always
+disabled and character &rsquo;=&rsquo; has a special
+meaning. It separates the ISO image path from the disk path:
+<br>
 iso_rr_path=disk_path <br>
-The separator &rsquo;=&rsquo; can be escaped by
-&rsquo;\&rsquo;. If iso_rr_path does not begin with
-&rsquo;/&rsquo; then -cd is prepended. If disk_path
-does not begin with &rsquo;/&rsquo; then -cdx is
-prepended. <br>
+Character &rsquo;=&rsquo; in the iso_rr_path must be escaped
+by &rsquo;\&rsquo; (i.e. as &quot;\=&quot;). <br>
+With -pathspecs &quot;on&quot;, the character
+&rsquo;\&rsquo; must not be escaped. The character
+&rsquo;=&rsquo; in the disk_path must not be escaped. <br>
+With -pathspecs &quot;as_mkisofs&quot;, all characters
+&rsquo;\&rsquo; must be escaped in both, iso_rr_path and
+disk_path. The character &rsquo;=&rsquo; may or may not be
+escaped in the disk_path. <br>
+If iso_rr_path does not begin with &rsquo;/&rsquo; then
+-cd is prepended. If disk_path does not begin with
+&rsquo;/&rsquo; then -cdx is prepended. <br>
 If no &rsquo;=&rsquo; is given then the word is used as
 both, iso_rr_path and disk path. If in this case the word
 does not begin with &rsquo;/&rsquo; then -cdx is
@@ -1648,17 +1686,27 @@ at the risk of truncating an intentional sequence of link
 hops.</p>
 
 <p style="margin-left:11%;"><b>-pathspecs</b>
-&quot;on&quot;|&quot;off&quot;</p>
+&quot;on&quot;|&quot;off&quot;|&quot;as_mkisofs&quot;</p>
 
 <p style="margin-left:22%;">Control parameter
 interpretation with <b>xorriso</b> actions -add and
 -path_list. <br>
-&quot;on&quot; enables pathspecs of the form
-<b>target=source</b> like with program mkisofs
--graft-points. It also disables
+Mode &quot;as_mkisofs&quot; enables pathspecs of the form
+<b><br> iso_rr_path=disk_path</b> <br>
+like with program mkisofs -graft-points. <br>
+All characters &rsquo;\&rsquo; must be escaped in both,
+iso_rr_path and disk_path. The character &rsquo;=&rsquo;
+must be escaped in the iso_rr_path and may or may not be
+escaped in the disk_path. This mode temporarily disables
 -disk_pattern expansion for command -add. <br>
-&quot;off&quot; disables pathspecs of the form target=source
-and re-enables -disk_pattern expansion.</p>
+Mode &quot;on&quot; does nearly the same. But
+&rsquo;=&rsquo; must only be escaped in the iso_rr_path and
+&rsquo;\&rsquo; must not be escaped at all. This has the
+disadvantage that one cannot express an iso_rr_path which
+ends by &rsquo;\&rsquo;. <br>
+Mode &quot;off&quot; disables pathspecs of the form
+target=source and re-enables -disk_pattern
+expansion.</p>
 
 <p style="margin-left:11%;"><b>-overwrite</b>
 &quot;on&quot;|&quot;nondir&quot;|&quot;off&quot;</p>
@@ -2550,7 +2598,7 @@ is set to &quot;on&quot;. <br>
 The progress reports issued by some drives while blanking
 are quite unrealistic. Do not conclude success or failure
 from the reported percentages. Blanking was successful if no
-SORRY event or worse occured. <br>
+SORRY event or worse occurred. <br>
 Mode may be prepended by &quot;force:&quot; in order to
 override the evaluation of the medium state by libburn. E.g.
 &quot;force:fast&quot;. Blanking will nevertheless only
@@ -2611,7 +2659,7 @@ flawless media. <br>
 The progress reports issued by some drives while formatting
 are quite unrealistic. Do not conclude success or failure
 from the reported percentages. Formatting was successful if
-no SORRY event or worse occured. Be patient with apparently
+no SORRY event or worse occurred. Be patient with apparently
 frozen progress.</p>
 
 <p style="margin-left:11%;"><b>-list_formats</b></p>
@@ -3108,7 +3156,7 @@ the drive before burning begins. <br>
 Speed can be given in media dependent numbers or as a
 desired throughput per second in MMC compliant kB (= 1000)
 or MB (= 1000 kB). Media x-speed factor can be set
-explicity by &quot;c&quot; for CD, &quot;d&quot; for DVD,
+explicitly by &quot;c&quot; for CD, &quot;d&quot; for DVD,
 &quot;b&quot; for BD, &quot;x&quot; is optional. <br>
 Example speeds: <br>
 &nbsp;&nbsp;706k = 706kB/s = 4c = 4xCD <br>
@@ -3163,21 +3211,23 @@ This can ease the load on operating system and drive
 controller and thus help with achieving better input
 bandwidth if disk and burner are not on independent
 controllers (like hda and hdb). It may also help with
-simultaneous burns on different burners with Linux kernels
-like 3.16. On the other hand it increases the risk of buffer
-underflow and thus reduced write speed. <br>
+throughput problems of simultaneous burns on different
+burners with Linux kernels like 3.16, if one has reason not
+to fix the problem by -scsi_dev_family &quot;sg&quot;.
+On the other hand it increases the risk of buffer underflow
+and thus reduced write speed. <br>
 Some burners are not suitable because they report buffer
 fill with granularity too coarse in size or time, or expect
 their buffer to be filled to the top before they go to full
 speed. <br>
 Parameters &quot;off&quot; or &quot;0&quot; disable this
 feature. <br>
-The threshhold for beginning to wait is given by parameter
+The threshold for beginning to wait is given by parameter
 &quot;max_percent=&quot;. Parameter &quot;min_percent=&quot;
-defines the threshhold for resuming transmission.
-Percentages are permissible in the range of 25 to 100.
-Numbers in this range without a prepended name are
-interpreted as &quot;on:min_percent=&quot;. <br>
+defines the threshold for resuming transmission. Percentages
+are permissible in the range of 25 to 100. Numbers in this
+range without a prepended name are interpreted as
+&quot;on:min_percent=&quot;. <br>
 E.g.: -modesty_on_drive 75 <br>
 The optimal values depend on the buffer behavior of the
 drive. <br>
@@ -3194,8 +3244,9 @@ will slowly be increased to what parameter
 Parameters, which are not mentioned with a
 -modesty_on_drive command, stay unchanged. Default is:
 <br>
--modesty_on_drive
-off:min_percent=90:max_percent=95:timeout_sec=120:min_usec=5000:max_usec=25000</p>
+-modesty_on_drive off:min_percent=90:max_percent=95:
+<br>
+timeout_sec=120:min_usec=5000:max_usec=25000</p>
 
 <p style="margin-left:11%;"><b>-stdio_sync</b>
 &quot;on&quot;|&quot;off&quot;|&quot;end&quot;|number</p>
@@ -3526,7 +3577,13 @@ is preserved by default. In in this case, the special
 disk_path &quot;.&quot; prevents reading of a disk file but
 nevertheless causes adjustments in the loaded system area
 data. Such adjustments may get ordered by -boot_image
-commands. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
+commands. <b><br> -boot_image any part_like_isohybrid=on</b> enables
+-boot_image isolinux partition_entry= even if no
+-boot_image isolinux system_area= is given. No MBR
+partition of type 0xee emerges, even if GPT gets produced.
+Gaps between GPT and APM partitions will not be filled by
+more partitions. Appended partitions get mentioned in APM if
+other APM partitions emerge. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
 system_area= with additional patching for modern GRUB MBRs.
 The content start address of the first boot image is
 converted to a count of 512 byte blocks, and an offset of 4
@@ -3562,7 +3619,14 @@ with the ISO image. <b><br> appended_part_as=gpt</b> marks partitions from
 case the MBR shows a single partition of type 0xee which
 covers the whole output data. <b><br> appended_part_as=mbr</b> is the default. Appended partitions
 get marked in GPT only if GPT is produced because of other
-settings. <b><br> chrp_boot_part=on</b> causes a single partition in MBR which
+settings. If given explicitely, this clears setting
+&quot;gpt&quot; and &quot;apm&quot;. Nevertheless
+&quot;apm&quot; may be added to &quot;mbr&quot;. <b><br> appended_part_as=apm</b> marks partitions from
+-append_partition in APM additionally to
+&quot;mbr&quot; or &quot;gpt&quot;. <br>
+By default, appended partitions get marked in APM only if
+APM is produced because of other options together with
+part_like_isohybrid=&quot;on&quot;. <b><br> chrp_boot_part=on</b> causes a single partition in MBR which
 covers the whole ISO image and has type 0x96. This is not
 compatible with any other feature that produces MBR
 partition entries. It makes GPT unrecognizable. <b><br> prep_boot_part=</b>disk_path inserts the content of a data
@@ -3620,7 +3684,15 @@ Mode &quot;on&quot; causes alignment by padding with
 partitions from -append_partition to an aligned size.
 <br>
 Mode &quot;off&quot; disables alignment for any type.
-<b><br> mips_path=</b>iso_rr_path declares a data file in the image
+<b><br> mbr_force_bootable=</b>mode enforces an MBR partition with
+&quot;bootable/active&quot; flag if options like
+partition_table= or grub2_mbr= indicate production of a
+bootable MBR. These options normally cause the flag to be
+set if there is an MBR partition of type other than 0xee or
+0xef. If no such partition exists, then no bootflag is set,
+unless mbr_force_bootable= forces creation of a dummy
+partition of type 0x00 which covers only the first block of
+the ISO image. <b><br> mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
 with production of other boot blocks like MBR. It will
@@ -6277,7 +6349,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2015 Thomas Schmitt <br>
+2007 - 2016 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6299,5 +6371,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Nov 28 15:41:32 CET 2015 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jul  1 15:25:33 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

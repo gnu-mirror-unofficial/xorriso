@@ -200,7 +200,7 @@ libburnia SVN: frontend/xorriso-tcltk
 You will probably have to give it x-permission after download. Some browsers
 insist in adding &quot;.htm&quot; to the file name.
 <BR>
-Further you need xorriso >= 1.4.2, Tcl, Tk >= 8.4,
+Further you need xorriso >= 1.4.4, Tcl, Tk >= 8.4,
 Tcl/Tk package &quot;BWidget&quot;.
 </P>
 
@@ -506,21 +506,21 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.4.2.tar.gz">xorriso-1.4.2.tar.gz</A>
-(2650 KB).
+<DD><A HREF="xorriso-1.4.4.tar.gz">xorriso-1.4.4.tar.gz</A>
+(2570 KB).
 </DD>
-<DD>(Released 28 Nov 2015)</DD>
-<DD><A HREF="xorriso-1.4.2.tar.gz.sig">xorriso-1.4.2.tar.gz.sig</A></DD>
+<DD>(Released 01 Jul 2016)</DD>
+<DD><A HREF="xorriso-1.4.4.tar.gz.sig">xorriso-1.4.4.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.4.2.tar.gz.sig xorriso-1.4.2.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.4.4.tar.gz.sig xorriso-1.4.4.tar.gz</KBD>
 <BR>
 after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.4.2.tar.gz
+as xorriso/xorriso-1.4.4.tar.gz
 </DD>
 </DL>
 </DD>
@@ -557,22 +557,23 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards previous stable version xorriso-1.4.0:
+Bug fixes towards previous stable version xorriso-1.4.2:
 <UL>
+<LI>-as mkisofs did not unescape "\=" in the source part of pathspecs</LI>
+<LI>-pathspecs "on" did not properly handle "\\="</LI>
+<LI>-boot_image "any" "system_area=/dev/zero" did not zeroize loaded data</LI>
+<LI>HFS+ production could cause MBR partition of type 0xEE without GPT</LI>
+<LI>HFS+ directories could announce more children than they actually have</LI>
+<LI>The HFS+ filesystem was not marked by in GPT of GRUB2 hybrid layout</LI>
+<LI>When reading an ISO filesystem, the presence of --protective-msdos-label
+was not recognized if a partition is appended</LI>
 <LI>
--backslash_codes "on" did not work outside quotes and with showing "\r"
+xorrisofs option --protective-msdos-label did not work if no system area
+data were given by option -G or alike
 </LI>
 <LI>
-zisofs compression caused SIGSEGV (by reading) with files larger than 524160 KiB
-</LI>
-<LI>
-Names read from Joliet tree where stripped of trailing ";1"
-</LI>
-<LI>
-Media summary session count of blank and closed media was short by 1
-</LI>
-<LI>
-Endless loop if transport error occurs while waiting for drive becomming ready
+-modesty_on_drive properties timeout_sec, min_usec, max_usec
+read wrong numbers from the parameter text
 </LI>
 <!--
 <LI>- none -</LI>
@@ -581,26 +582,23 @@ Endless loop if transport error occurs while waiting for drive becomming ready
 </P>
 
 <P>
-Enhancements towards previous stable version xorriso-1.4.0:
+Enhancements towards previous stable version xorriso-1.4.2:
 <UL>
+<LI>New -pathspecs mode "as_mkisofs"</LI>
 <LI>
-New command -modesty_on_drive,
-new -as cdrecord options -immed, minbuf=, modesty_on_drive=
+New -boot_image bootspec appended_part_as=apm, part_like_isohybrid=on
 </LI>
 <LI>
-New command -ecma119_map
+New -as mkisofs options -appended_part_as_apm, -part_like_isohybrid
 </LI>
 <LI>
-New command -read_fs
+New command -scsi_dev_family, new -as cdrecord option drive_scsi_dev_family=
 </LI>
 <LI>
-New -boot_image action "replay"
+Letting -as mkisofs --norock revoke the special effect of -r
 </LI>
 <LI>
-New command -file_name_limit, -as mkisofs -file_name_limit
-</LI>
-<LI>
-New -find test -name_limit_blocker.
+Letting -blank on overwritable media invalidate UDF extended descriptors
 </LI>
 <!--
 <LI>- none -</LI>
@@ -624,16 +622,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-1.4.2</DT>
+<DT>libburn-1.4.4</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.4.2</DT>
+<DT>libisofs-1.4.4</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
-<DT>libisoburn-1.4.2</DT>
+<DT>libisoburn-1.4.4</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -654,48 +652,18 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.4.3 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.4.2:
+<DT><H3>Development snapshot, version 1.4.5 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.4.4:
 <UL>
-<LI>-as mkisofs did not unescape "\=" in the source part of pathspecs</LI>
-<LI>-pathspecs "on" did not properly handle "\\="</LI>
-<LI>-boot_image "any" "system_area=/dev/zero" did not zeroize loaded data</LI>
-<LI>HFS+ production could cause MBR partition of type 0xEE without GPT</LI>
-<LI>HFS+ directories could announce more children than they actually have</LI>
-<LI>The HFS+ filesystem was not marked by in GPT of GRUB2 hybrid layout</LI>
-<LI>When reading an ISO filesystem, the presence of --protective-msdos-label
-was not recognized if a partition is appended</LI>
-<LI>
-xorrisofs option --protective-msdos-label did not work if no system area
-data were given by option -G or alike
-</LI>
-<LI>
--modesty_on_drive properties timeout_sec, min_usec, max_usec
-read wrong numbers from the parameter text
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.4.2:
+<DD>Enhancements towards stable version 1.4.4:
 <UL>
-<LI>New -pathspecs mode "as_mkisofs"</LI>
-<LI>
-New -boot_image bootspec appended_part_as=apm, part_like_isohybrid=on
-</LI>
-<LI>
-New -as mkisofs options -appended_part_as_apm, -part_like_isohybrid
-</LI>
-<LI>
-New command -scsi_dev_family, new -as cdrecord option drive_scsi_dev_family=
-</LI>
-<LI>
-Letting -as mkisofs --norock revoke the special effect of -r
-</LI>
-<LI>
-Letting -blank on overwritable media invalidate UDF extended descriptors
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -705,13 +673,13 @@ Letting -blank on overwritable media invalidate UDF extended descriptors
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.4.3</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.4.3 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.4.3 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.4.3 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.4.3)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.4.3)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.4.3)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.4.5</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.4.5 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.4.5 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.4.5 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.4.5)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.4.5)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.4.5)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -721,8 +689,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.4.3.tar.gz">xorriso-1.4.3.tar.gz</A>
-(2650 KB).
+<A HREF="xorriso-1.4.5.tar.gz">xorriso-1.4.5.tar.gz</A>
+(2570 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of
@@ -816,7 +784,7 @@ scdbackup, multi volume CD/DVD/BD backup</A></DD>
 <BR>
 Legal statement: This website does not serve any commercial purpose.
 <BR><BR>
-Copyright &copy; 2008 - 2015 Thomas Schmitt.
+Copyright &copy; 2008 - 2016 Thomas Schmitt.
 <BR>
 This text is freely distributable. It shall only be modified in sync with
 the factual properties of xorriso and its public storage locations.

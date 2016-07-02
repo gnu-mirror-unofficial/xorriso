@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-http://www.gnu.org/software/xorriso/xorriso-1.4.2.tar.gz
+http://www.gnu.org/software/xorriso/xorriso-1.4.4.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -49,10 +49,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.4.2.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.4.4.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.4.2.tar.gz
-    cd xorriso-1.4.2
+    tar xzf xorriso-1.4.4.tar.gz
+    cd xorriso-1.4.4
 
 Within that directory execute:
 
@@ -504,7 +504,7 @@ By Mario Danic           <mario.danic@gmail.com>,  libburn, libisofs
    Vreixo Formoso        <metalpain2002@yahoo.es>, libisofs, libisoburn
    Thomas Schmitt        <scdbackup@gmx.net>,      libburn, libisofs,
                                                    libisoburn, xorriso
-Copyright (C) 2006-2015 Mario Danic, Vreixo Formoso, Thomas Schmitt.
+Copyright (C) 2006-2016 Mario Danic, Vreixo Formoso, Thomas Schmitt.
 
 libburnia-project.org is inspired by and in libburn still containing parts
 of old
@@ -520,7 +520,7 @@ Copyright (C) 2000-2007 Free Software Foundation, Inc.
 ------------------------------------------------------------------------------
 
 This text itself is
-Copyright (c) 2007 - 2015 Thomas Schmitt <scdbackup@gmx.net>
+Copyright (c) 2007 - 2016 Thomas Schmitt <scdbackup@gmx.net>
 and is freely distributable.
 It shall only be modified in sync with the technical properties of xorriso.
 If you make use of the license to derive modified versions of xorriso

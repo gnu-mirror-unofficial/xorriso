@@ -1,4 +1,4 @@
-GNU xorriso 1.4.2 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.4.4 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -110,9 +110,11 @@ Options:
   -isohybrid-gpt-basdat       Mark El Torito boot image as Basic Data in GPT
   -isohybrid-gpt-hfsplus      Mark El Torito boot image as HFS+ in GPT
   -isohybrid-apm-hfsplus      Mark El Torito boot image as HFS+ in APM
+  -part_like_isohybrid        Mark in MBR, GPT, APM without -isohybrid-mbr
   -G FILE, -generic-boot FILE Set generic boot image name
   --embedded-boot FILE        Alias of -G
   --protective-msdos-label    Patch System Area by partition table
+  --mbr-force-bootable        Enforce existence of bootable flag in MBR
   -partition_offset LBA       Make image mountable by first partition, too
   -partition_sec_hd NUMBER    Define number of sectors per head
   -partition_hd_cyl NUMBER    Define number of heads per cylinder
@@ -137,6 +139,7 @@ Options:
   -append_partition NUMBER TYPE FILE
                               Append FILE after image. TYPE is hex: 0x..
   -appended_part_as_gpt       mark appended partitions in GPT instead of MBR.
+  -appended_part_as_apm       mark appended partitions in APM.
   --modification-date=YYYYMMDDhhmmsscc
                               Override date of creation and modification
   -isohybrid-mbr FILE         Set SYSLINUX mbr/isohdp[fp]x*.bin for isohybrid
