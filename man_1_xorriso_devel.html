@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Jul  2 16:53:31 2016 -->
+<!-- CreationDate: Thu Jul 21 13:18:08 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -2713,14 +2713,14 @@ surpass the built-in limits. These are &quot;1x&quot;,
 <p style="margin-left:11%;"><b>-close_damaged</b>
 &quot;as_needed&quot;|&quot;force&quot;</p>
 
-<p style="margin-left:22%;">Try to close the upcomming
-track and session if the drive reported the medium as
-damaged. This may apply to CD-R, CD-RW,
-DVD-R, DVD-RW, DVD+R, DVD+R DL, or BD-R
-media. It is indicated by warning messages when the drive
-gets acquired, and by a remark &quot;but next track is
-damaged&quot; with the line &quot;Media status :&quot; of
-command -toc. <br>
+<p style="margin-left:22%;">Try to close the upcoming track
+and session if the drive reported the medium as damaged.
+This may apply to CD-R, CD-RW, DVD-R,
+DVD-RW, DVD+R, DVD+R DL, or BD-R media. It is
+indicated by warning messages when the drive gets acquired,
+and by a remark &quot;but next track is damaged&quot; with
+the line &quot;Media status :&quot; of command -toc.
+<br>
 The setting of command -close determines whether the
 medium stays appendable. <br>
 Mode &quot;as_needed&quot; gracefully refuses on media which
@@ -3619,7 +3619,7 @@ with the ISO image. <b><br> appended_part_as=gpt</b> marks partitions from
 case the MBR shows a single partition of type 0xee which
 covers the whole output data. <b><br> appended_part_as=mbr</b> is the default. Appended partitions
 get marked in GPT only if GPT is produced because of other
-settings. If given explicitely, this clears setting
+settings. If given explicitly, this clears setting
 &quot;gpt&quot; and &quot;apm&quot;. Nevertheless
 &quot;apm&quot; may be added to &quot;mbr&quot;. <b><br> appended_part_as=apm</b> marks partitions from
 -append_partition in APM additionally to
@@ -3905,11 +3905,11 @@ The default output charset is the local character set of the
 terminal where <b>xorriso</b> runs. So by default no
 conversion happens between local filesystem names and
 emerging Rock Ridge names in the image. The situation stays
-ambigous and the reader has to riddle what character set was
-used. <br>
+ambiguous and the reader has to riddle what character set
+was used. <br>
 By command -auto_charset it is possible to attribute
 the output charset name to the image. This makes the
-situation unambigous. But if your terminal character set
+situation unambiguous. But if your terminal character set
 does not match the character set of the local file names,
 then this attribute can become plainly wrong and cause
 problems at read time. To prevent this it is necessary to
@@ -4675,8 +4675,8 @@ they are valid. But at some degree of read problems the
 correction will fail and the drive is supposed to indicate
 error. <b><br> xorriso</b> can scan a medium for readable data blocks,
 classify them according to their read speed, save them to a
-file, and keep track of successfuly saved blocks for further
-tries on the same medium. <br>
+file, and keep track of successfully saved blocks for
+further tries on the same medium. <br>
 By command -md5 checksums may get recorded with data
 files and whole sessions. These checksums are reachable only
 via indev and a loaded image. They work independently of the
@@ -5450,7 +5450,7 @@ with commands <br>
 <br>
 -du -dus -dux -dusx -findx
 -find <br>
-This will make ambigous the representation of file names
+This will make ambiguous the representation of file names
 which contain newline characters. On the other hand it
 should facilitate integration of xorriso into shell scripts
 which already use the corresponding shell commands.</p>
@@ -5675,7 +5675,7 @@ line tells the return value of Xorriso_sieve_get_result().
 The next line tells the number of strings. Each string
 begins by a line that tells the number of lines of the
 string. Then follow these lines. They are to be concatenated
-with a newline character inbetween each of them. Finally the
+with a newline character between each of them. Finally the
 number of still available recorded results of the given name
 is put out. <b><br> clear_sieve</b> <br>
 Dispose all recorded strings and continue watching program
@@ -5694,8 +5694,8 @@ to Xorriso_parse_line(). The number of input lines minus one
 tells xorriso how many newline characters are part of the
 input text. <br>
 The announced number of text lines will be read from dialog
-input, concatenated with a newline character inbetween each
-of them, and submitted to Xorriso_parse_line() as parameter
+input, concatenated with a newline character between each of
+them, and submitted to Xorriso_parse_line() as parameter
 line. Note that newlines outside of quotation marks are
 interpreted as separators if the separators parameter is
 empty. <br>
@@ -5705,7 +5705,7 @@ line tells the return value of Xorriso_parse_line(). The
 next line tells the number of strings. Each string begins by
 a line that tells the number of lines of the string. Then
 follow these lines. They are to be concatenated with a
-newline character inbetween each of them. <br>
+newline character between each of them. <br>
 If -backslash_codes &quot;encode_output&quot; is
 enabled, then the strings undergo encoding as if they were
 enclosed in quotes. Escpecially each string will be put out
@@ -5722,9 +5722,9 @@ number_of_input_texts should not be extremely high. On the
 other hand, large transactions of command, input texts, and
 results are desirable if connection latency is an issue.
 <b><br> parse_silently</b> <br>
-Like &quot;parse&quot; but not issueing a prompting message.
+Like &quot;parse&quot; but not issuing a prompting message.
 Confusing to humans. <b><br> parse_bulk_silently</b> <br>
-Like &quot;parse_bulk&quot; but not issueing a prompting
+Like &quot;parse_bulk&quot; but not issuing a prompting
 message. Confusing to humans. <b><br> compare_sev</b> <br>
 The parameter_text should contain two comma separated
 severity texts as issued by this program. Like
@@ -6371,5 +6371,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Jul  2 16:53:31 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jul 21 13:18:08 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
