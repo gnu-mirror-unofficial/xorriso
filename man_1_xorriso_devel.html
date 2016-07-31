@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Thu Jul 21 13:18:08 2016 -->
+<!-- CreationDate: Sun Jul 31 09:46:39 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -3248,6 +3248,24 @@ Parameters, which are not mentioned with a
 <br>
 timeout_sec=120:min_usec=5000:max_usec=25000</p>
 
+<p style="margin-left:11%;"><b>-use_immed_bit</b>
+&quot;on&quot;|&quot;off&quot;|&quot;default&quot;</p>
+
+<p style="margin-left:22%;">Control whether several long
+lasting SCSI commands shall be executed with the Immed bit,
+which makes the commands end early while the drive operation
+is still going on. xorriso then inquires progress indication
+until the drive reports to be ready again. If this feature
+is turned off, then blanking and formatting will show no
+progress indication. <br>
+It may depend on the operating system whether
+-use_immed_bit is set to &quot;off&quot; by default.
+Command -status will tell by appending &quot;/on&quot;
+or &quot;/off&quot; if a drive has already been acquired and
+-use_immed_bit is currently set to
+&quot;default&quot;. Command -use_immed_bit tolerates
+and ignores such appended text.</p>
+
 <p style="margin-left:11%;"><b>-stdio_sync</b>
 &quot;on&quot;|&quot;off&quot;|&quot;end&quot;|number</p>
 
@@ -6371,5 +6389,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jul 21 13:18:08 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jul 31 09:46:39 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

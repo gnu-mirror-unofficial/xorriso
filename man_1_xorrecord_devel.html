@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Thu Jul 21 13:18:09 2016 -->
+<!-- CreationDate: Sun Jul 31 09:46:39 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -695,7 +695,10 @@ modesty_on_drive=&lt;percentage&gt;</p>
 </td></tr>
 </table>
 
-<p style="margin-left:22%;">modesty_on_drive=75</p>
+<p style="margin-left:22%;">modesty_on_drive=75 <br>
+In cdrecord, this also controls use of the Immed bit. But
+xorriso uses Immed where possible and appropriate, unless it
+is disabled by option use_immed_bit=off .</p>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -929,6 +932,20 @@ modesty_on_drive=off:min_percent=90:max_percent=95: <br>
 timeout_sec=120:min_usec=5000:max_usec=25000</p>
 
 
+<p style="margin-left:11%;"><b>use_immed_bit=&quot;on&quot;|&quot;off&quot;|&quot;default&quot;</b></p>
+
+<p style="margin-left:22%;">Control whether several long
+lasting SCSI commands shall be executed with the Immed bit,
+which makes the commands end early while the drive operation
+is still going on. xorriso then inquires progress indication
+until the drive reports to be ready again. If this feature
+is turned off, then blanking and formatting will show no
+progress indication. <br>
+It may depend on the operating system whether
+-use_immed_bit is set to &quot;off&quot; by
+default.</p>
+
+
 <p style="margin-left:11%;"><b>write_start_address=value</b></p>
 
 <p style="margin-left:22%;">Set the block address on
@@ -1159,5 +1176,5 @@ founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Thu Jul 21 13:18:09 CEST 2016 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Sun Jul 31 09:46:39 CEST 2016 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>
