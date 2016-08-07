@@ -543,8 +543,6 @@ describes the cdrecord emulation</DD>
 <DL><DT>Contact:</DT>
 <DD>GNU xorriso support mailing list,
 <A HREF="mailto:bug-xorriso@gnu.org">bug-xorriso@gnu.org</A></DD>
-<DD>libburnia development mailing list,
-<A HREF="mailto:libburn-hackers@pykix.org">libburn-hackers@pykix.org</A></DD>
 <DD>Thomas Schmitt, <A HREF="mailto:scdbackup@gmx.net">scdbackup@gmx.net</A></DD>
 </DL>
 <DL><DT>License:</DT>
@@ -655,7 +653,13 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.4.5 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.4.4:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+SAO CD could be perceived 2 blocks too short. Regression in libburn-1.4.4
+</LI>
+<LI>
+The default setting of -compliance did not apply "rec_mtime" to
+Joliet and ISO:1999. mkisofs emulation was not affected by this bug.
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -664,6 +668,9 @@ cdrecord and mkisofs.</DT>
 <DD>Enhancements towards stable version 1.4.4:
 <UL>
 <LI>New command -use_immed_bit, new -as cdrecord option use_immed_bit=</LI>
+<LI>
+New -as mkisofs option --set_all_file_dates
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -795,8 +802,6 @@ then you are entitled to modify this text under that same license.
 <DD>Thomas Schmitt, <A HREF="mailto:scdbackup@gmx.net">scdbackup@gmx.net</A></DD>
 <DD>GNU xorriso support mailing list,
 <A HREF="mailto:bug-xorriso@gnu.org">bug-xorriso@gnu.org</A></DD>
-<DD>libburnia development mailing list,
-<A HREF="mailto:libburn-hackers@pykix.org">libburn-hackers@pykix.org</A></DD>
 </DL>
 </FONT>
 </BODY>

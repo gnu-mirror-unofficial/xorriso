@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Jul 31 09:46:39 2016 -->
+<!-- CreationDate: Sun Aug  7 21:39:07 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -795,6 +795,26 @@ option, except for the special use case to revoke the effect
 of -r by: <br>
 --norock -R</p>
 
+<p style="margin-left:11%;"><b>--set_all_file_dates</b>
+timestring</p>
+
+<p style="margin-left:22%;">Set mtime, atime, and ctime of
+all files and directories to the given time. <br>
+Valid timestring formats are: &rsquo;Nov 8 14:51:13 CET
+2007&rsquo;, 110814512007.13, 2007110814511300. See also
+--modification-date= and man xorriso,
+Examples of input timestrings. <br>
+This action stays delayed until mkisofs emulation ends. Up
+to then it can be revoked by
+--set_all_file_dates with empty timestring. In
+any case files which get into the ISO after mkisofs
+emulation ended will not be affected, unless another mkisofs
+emulation applies --set_all_file_date again.
+<br>
+The timestamps of the El Torito boot catalog file get
+refreshed when the ISO is produced. They can be influenced
+by --modification-date=.</p>
+
 <p style="margin-left:11%;"><b>-file_name_limit</b>
 number</p>
 
@@ -948,12 +968,14 @@ disk_path record_name</p>
 
 <p style="margin-left:22%;">Append a scdbackup checksum
 record to the image. This works only if the parameter
-next_writeable_address of option -C is 0. If disk_path
-is not an empty string, then append a scdbackup checksum
-record to the end of this file. record_name is a word that
-gets part of tag and record. <br>
+next_writeable_address of option -C is 0 and
+--md5 is enabled. If disk_path is not an empty
+string, then append a scdbackup checksum record to the end
+of this file. record_name is a word that gets part of tag
+and record. <br>
 Program scdbackup_verify will recognize and verify tag and
-file record.</p>
+file record. <br>
+An empty record_name disables this feature.</p>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -1249,7 +1271,9 @@ search --fs-uuid --set
 YYYY-MM-DD-hh-mm-ss-cc
 <br>
 E.g. 2010040711405800 is 7 Apr 2010 11:40:58 (+0
-centiseconds).</p>
+centiseconds). <br>
+Among the influenced timestamps are: isohybrid MBR id, El
+Torito boot catalog file, HFS+ superblock.</p>
 
 <p style="margin-left:11%;"><b>--application_use</b>
 character|0xXY|disk_path</p>
@@ -2644,5 +2668,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sun Jul 31 09:46:39 CEST 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sun Aug  7 21:39:07 CEST 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

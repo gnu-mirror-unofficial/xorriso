@@ -142,6 +142,7 @@ Options:
   -appended_part_as_apm       mark appended partitions in APM.
   --modification-date=YYYYMMDDhhmmsscc
                               Override date of creation and modification
+  --set_all_file_dates TIME   Override mtime, atime, ctime in all files
   -isohybrid-mbr FILE         Set SYSLINUX mbr/isohdp[fp]x*.bin for isohybrid
   --grub2-mbr FILE            Set GRUB2 MBR for boot image address patching
   --sort-weight NUMBER FILE   Set LBA weight number to file or file tree

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Jul 31 09:46:39 2016 -->
+<!-- CreationDate: Sun Aug  7 21:39:07 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -2025,7 +2025,11 @@ will be ignored, but must be present in order to make the
 format recognizable. <br>
 Example: <br>
 -alter_date m-c 2013.11.27.103951 /file1 /file2
---</p>
+-- <br>
+This command does not persistently apply to the boot
+catalog, which gets fresh timestamps at -commit time.
+Command -volume_date &quot;uuid&quot; can set this
+time value.</p>
 
 <p style="margin-left:11%;"><b>-alter_date_r</b> type
 timestring iso_rr_path [***]</p>
@@ -3040,7 +3044,14 @@ computations. The timestrings &quot;default&quot; or
 &quot;overridden&quot; cause default settings: &quot;c&quot;
 and &quot;m&quot; will show the current time of image
 creation. &quot;x&quot; and &quot;f&quot; will be marked as
-insignificant. &quot;uuid&quot; will be deactivated.</p>
+insignificant. &quot;uuid&quot; will be deactivated. <br>
+At -commit time, some timestamps get set to the
+maximum value of effectively written volume creation and
+modification time: El Torito boot catalog, HFS+ superblock,
+ECMA-119 file modification time if -compliance
+&quot;no_rec_mtime&quot;. The isohybrid MBR id is computed
+from &quot;uuid&quot; if given, else from the effective
+volume modification date.</p>
 
 <p style="margin-left:11%;"><b>-copyright_file</b>
 text</p>
@@ -3525,16 +3536,20 @@ bin_path=/boot/isolinux/isolinux.bin <br>
 -boot_image isolinux load_size=2048 <br>
 -boot_image any boot_info_table=on <br>
 An El Torito boot catalog file gets inserted into the ISO
-image with address <b>cat_path=</b> at -commit time.
-It is subject to normal -overwrite and -reassure
-processing if there is already a file with the same name.
-The catalog lists the boot images and is read by the boot
-facility to choose one of the boot images. But it is not
-necessary that it appears in the directory tree at all. One
-may hide it in all trees by <b>cat_hidden=on</b>. Other
-possible values are &quot;iso_rr&quot;, &quot;joliet&quot;,
-&quot;hfsplus&quot;, and the default &quot;off&quot;.
-<b><br> bin_path=</b> depicts an El Torito boot image file, a binary
+image with address <b>cat_path=</b> with the first
+-boot_image &quot;any&quot; &quot;next&quot; or at
+-commit time. It is subject to normal -overwrite
+and -reassure processing if there is already a file
+with the same name. The catalog lists the boot images and is
+read by the boot facility to choose one of the boot images.
+But it is not necessary that it appears in the directory
+tree at all. One may hide it in all trees by
+<b>cat_hidden=on</b>. Other possible values are
+&quot;iso_rr&quot;, &quot;joliet&quot;, &quot;hfsplus&quot;,
+and the default &quot;off&quot;. The timestamps of the boot
+catalog file are refreshed at commit time. Command
+-volume_date &quot;uuid&quot; can be used to set their
+value. <b><br> bin_path=</b> depicts an El Torito boot image file, a binary
 program which is to be started by the hardware boot facility
 (e.g. the BIOS) at boot time. <b><br> efi_path=</b> depicts an El Torito boot image file that is
 ready for EFI booting. This is normally a FAT filesystem
@@ -5338,7 +5353,8 @@ device. <br>
 If list_path is not empty then the record will also be
 appended to the data file given by this path. <br>
 Program scdbackup_verify will recognize and verify tag and
-file record.</p>
+file record. <br>
+An empty record_name disables this feature.</p>
 
 <p style="margin-left:11%;">&nbsp;<BR><A NAME="Scripting"></A><b>Scripting, dialog and program control features:</b><BR>&nbsp;<BR></p>
 
@@ -6389,5 +6405,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jul 31 09:46:39 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Aug  7 21:39:07 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
