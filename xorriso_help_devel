@@ -147,7 +147,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"partition_cyl_align="|"mbr_force_bootable="
               |"system_area="|"partition_table=on|off"
               |"partition_entry="|"appended_part_as="
-              |"part_like_isohybrid="
+              |"part_like_isohybrid="|"gpt_disk_guid="
               |"chrp_boot_part=on|off="|"prep_boot_part="
               |"efi_boot_part="|"efi_boot_part=--efi-boot-image"
               |"mips_path="|"mipsel_path="|"mips_discard"
