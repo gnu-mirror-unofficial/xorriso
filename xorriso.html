@@ -669,13 +669,19 @@ Joliet and ISO:1999. mkisofs emulation was not affected by this bug.
 <UL>
 <LI>New command -use_immed_bit, new -as cdrecord option use_immed_bit=</LI>
 <LI>
+New -volume_date mode "all_file_dates"
+</LI>
+<LI>
 New -as mkisofs option --set_all_file_dates
 </LI>
 <LI>
 New bootspec "gpt_disk_guid=", new -as mkisofs option --gpt_disk_guid
 </LI>
 <LI>
-New -report_system_area mode "make_guid"
+New -report_system_area modes  "gpt_disk_guid", "make_guid"
+</LI>
+<LI>
+New environment variable SOURCE_DATE_EPOCH
 </LI>
 <!-- 
 <LI>- none yet -</LI>
