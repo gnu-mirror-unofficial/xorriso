@@ -515,7 +515,15 @@ files or trees to disk:
 (detached GPG signature for verification by
 <KBD>gpg --verify xorriso-1.4.4.tar.gz.sig xorriso-1.4.4.tar.gz</KBD>
 <BR>
-after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>).
+which should confirm
+<KBD>gpg: Good signature from "Thomas Schmitt &lt;scdbackup@gmx.net&gt;"</KBD>
+<BR>
+<KBD>
+Primary key fingerprint: 44BC 9FD0 D688 EB00 7C4D  D029 E9CB DFC0 ABC0 A854
+</KBD>
+<BR>
+after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>
+).
 </DD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
@@ -682,6 +690,9 @@ New -report_system_area modes  "gpt_disk_guid", "make_guid"
 </LI>
 <LI>
 New environment variable SOURCE_DATE_EPOCH
+</LI>
+<LI>
+New -find action "set_to_mtime"
 </LI>
 <!-- 
 <LI>- none yet -</LI>

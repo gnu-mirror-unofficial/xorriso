@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Tue Aug 16 15:23:41 2016 -->
+<!-- CreationDate: Sat Aug 20 12:26:13 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -805,9 +805,13 @@ Valid timestring formats are: &rsquo;Nov 8 14:51:13 CET
 2007&rsquo;, 110814512007.13, 2007110814511300. See also
 --modification-date= and man xorriso,
 Examples of input timestrings. <br>
-This action stays delayed until actual ISO production
-begins. Up to then it can be revoked by
---set_all_file_dates with empty timestring. <br>
+If the timestring is &quot;set_to_mtime&quot;, then the
+atime and ctime of each file and directory get set to the
+value found in their mtime. <br>
+These actions stay delayed until actual ISO production
+begins. Up to then they can be revoked by
+--set_all_file_dates with empty timestring or
+timestring &quot;default&quot;. <br>
 The timestamps of the El Torito boot catalog file get
 refreshed when the ISO is produced. They can be influenced
 by --modification-date=.</p>
@@ -2706,5 +2710,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue Aug 16 15:23:41 CEST 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Aug 20 12:26:13 CEST 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

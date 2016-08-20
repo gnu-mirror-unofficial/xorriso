@@ -341,9 +341,9 @@ pattern expansion if enabled by -iso_rr_pattern or -disk_pattern.
                    -prune, -decision yes|no, -true, -false
                  Operators: -not, -or, -and, -sub, (, -subend, ),
                    -if, -then, -elseif, -else, -endif
-                 Action may be one of: echo, chown, chown_r, chgrp, chgrp_r
-                   chmod, chmod_r, alter_date, alter_date_r, lsdl, compare,
-                   rm, rm_r, compare, update, report_damage,
+                 Action may be one of: echo, chown, chown_r, chgrp, chgrp_r,
+                   chmod, chmod_r, alter_date, alter_date_r, set_to_mtime,
+                   lsdl, compare, rm, rm_r, compare, update, report_damage,
                    report_lba, report_sections,
                    getfacl, setfacl, getfattr, setfattr, get_any_xattr,
                    list_extattr, get_md5, check_md5, make_md5,

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Tue Aug 16 15:23:41 2016 -->
+<!-- CreationDate: Sat Aug 20 12:26:13 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -2213,7 +2213,8 @@ a-w,a+r -- <b><br> alter_date</b> and <b>alter_date_r</b> change the
 timestamps. They get a type character and a timestring as
 parameters. <br>
 E.g.: -exec alter_date &quot;m&quot; &quot;Dec 30
-19:34:12 2007&quot; -- <b><br> lsdl</b> prints file information like shell command ls
+19:34:12 2007&quot; -- <b><br> set_to_mtime</b> sets the ctime and atime to the value found
+in mtime. <b><br> lsdl</b> prints file information like shell command ls
 -dl. <b><br> compare</b> performs command -compare with the found
 file address as iso_rr_path and the corresponding file
 address below its parameter disk_path_start. For this the
@@ -3030,10 +3031,14 @@ expires. <br>
 &quot;f&quot; time since when the volume is effectively
 valid. <br>
 &quot;all_file_dates&quot; sets mtime, atime, and ctime of
-all files and directories to the given time. This action
-stays delayed until actual ISO production begins. Up to then
-it can be revoked by &quot;all_file_dates&quot; with empty
-timestring. <br>
+all files and directories to the given time. If the
+timestring is &quot;set_to_mtime&quot;, then the atime and
+ctime of each file and directory get set to the value found
+in their mtime. <br>
+These actions stay delayed until actual ISO production
+begins. Up to then they can be revoked by
+&quot;all_file_dates&quot; with empty timestring or
+timestring &quot;default&quot;. <br>
 The timestamps of the El Torito boot catalog file get
 refreshed when the ISO is produced. They can be influenced
 by &quot;uuid&quot;. <br>
@@ -6456,5 +6461,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Aug 16 15:23:41 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Aug 20 12:26:13 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
