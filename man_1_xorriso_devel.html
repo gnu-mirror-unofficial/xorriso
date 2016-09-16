@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Aug 20 12:26:13 2016 -->
+<!-- CreationDate: Fri Sep 16 22:04:00 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -3395,6 +3395,15 @@ follow-up session gets written. But one should not
 rely on the capability to influence the bootability of the
 existing sessions, unless one can assume overwriteable
 media. <br>
+Normally the boot images are data files inside the ISO
+filesystem. By special path
+&quot;--interval:appended_partition_NNN:all::&quot;
+it is possible to refer to an appended partition. The number
+NNN gives the partition number as used with the
+corresponding option -append_partition. E.g.: <br>
+-append_partition 2 0xef /tmp/efi.img <br>
+-e --interval:appended_partition_2:all::
+<br>
 There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
 PC-BIOS MBR or EFI GPT for hard-disk-like
@@ -3426,6 +3435,11 @@ the path in Source. <br>
 &quot;imported_iso&quot; demands to read from the
 -indev. This works only if -outdev is not the
 same as -indev. The Source component is ignored. <br>
+&quot;appended_partition_NNN&quot; with a decimal number NNN
+works only for -boot_image bootspecs which announce El
+Torito boot image paths: bin_path=, efi_path=. The number
+gives the partition number as used with the corresponding
+option -append_partition. <br>
 The component Interval consists of two byte address numbers
 separated by a &quot;-&quot; character. E.g.
 &quot;0-429&quot; means to read bytes 0 to 429. <br>
@@ -6353,11 +6367,12 @@ reproducible-builds.org. It is supposed to be either
 undefined or to contain a decimal number which tells the
 seconds since january 1st 1970. If it contains a number,
 then it is used as time value to set the default of
--volume date &quot;uuid&quot;, -volume_date
-&quot;all_file_dates&quot;, and it sets -boot_image
+-volume date &quot;uuid&quot;, sets -boot_image
 &quot;any&quot; &quot;gpt_disk_guid=&quot; to
-&quot;volume_date_uuid&quot;. Startup files and program
-options can override the effect of SOURCE_DATE_EPOCH.</p>
+&quot;volume_date_uuid&quot;, and -volume_date
+&quot;all_file_dates&quot; to &quot;set_to_mtime&quot;, <br>
+Startup files and program options can override the effect of
+SOURCE_DATE_EPOCH.</p>
 
 <h2>SEE ALSO
 <a name="SEE ALSO"></a>
@@ -6461,5 +6476,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Aug 20 12:26:13 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Sep 16 22:04:00 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
