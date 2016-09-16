@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Fri Jul  1 15:25:33 2016 -->
+<!-- CreationDate: Fri Sep 16 15:51:34 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,6 +26,7 @@
 <a href="#OPTIONS">OPTIONS</a><br>
 <a href="#EXAMPLES">EXAMPLES</a><br>
 <a href="#FILES">FILES</a><br>
+<a href="#ENVIRONMENT">ENVIRONMENT</a><br>
 <a href="#SEE ALSO">SEE ALSO</a><br>
 <a href="#BUGS">BUGS</a><br>
 <a href="#AUTHOR">AUTHOR</a><br>
@@ -2025,7 +2026,11 @@ will be ignored, but must be present in order to make the
 format recognizable. <br>
 Example: <br>
 -alter_date m-c 2013.11.27.103951 /file1 /file2
---</p>
+-- <br>
+This command does not persistently apply to the boot
+catalog, which gets fresh timestamps at -commit time.
+Command -volume_date &quot;uuid&quot; can set this
+time value.</p>
 
 <p style="margin-left:11%;"><b>-alter_date_r</b> type
 timestring iso_rr_path [***]</p>
@@ -2208,7 +2213,8 @@ a-w,a+r -- <b><br> alter_date</b> and <b>alter_date_r</b> change the
 timestamps. They get a type character and a timestring as
 parameters. <br>
 E.g.: -exec alter_date &quot;m&quot; &quot;Dec 30
-19:34:12 2007&quot; -- <b><br> lsdl</b> prints file information like shell command ls
+19:34:12 2007&quot; -- <b><br> set_to_mtime</b> sets the ctime and atime to the value found
+in mtime. <b><br> lsdl</b> prints file information like shell command ls
 -dl. <b><br> compare</b> performs command -compare with the found
 file address as iso_rr_path and the corresponding file
 address below its parameter disk_path_start. For this the
@@ -2713,14 +2719,14 @@ surpass the built-in limits. These are &quot;1x&quot;,
 <p style="margin-left:11%;"><b>-close_damaged</b>
 &quot;as_needed&quot;|&quot;force&quot;</p>
 
-<p style="margin-left:22%;">Try to close the upcomming
-track and session if the drive reported the medium as
-damaged. This may apply to CD-R, CD-RW,
-DVD-R, DVD-RW, DVD+R, DVD+R DL, or BD-R
-media. It is indicated by warning messages when the drive
-gets acquired, and by a remark &quot;but next track is
-damaged&quot; with the line &quot;Media status :&quot; of
-command -toc. <br>
+<p style="margin-left:22%;">Try to close the upcoming track
+and session if the drive reported the medium as damaged.
+This may apply to CD-R, CD-RW, DVD-R,
+DVD-RW, DVD+R, DVD+R DL, or BD-R media. It is
+indicated by warning messages when the drive gets acquired,
+and by a remark &quot;but next track is damaged&quot; with
+the line &quot;Media status :&quot; of command -toc.
+<br>
 The setting of command -close determines whether the
 medium stays appendable. <br>
 Mode &quot;as_needed&quot; gracefully refuses on media which
@@ -3024,11 +3030,24 @@ are: <br>
 expires. <br>
 &quot;f&quot; time since when the volume is effectively
 valid. <br>
+&quot;all_file_dates&quot; sets mtime, atime, and ctime of
+all files and directories to the given time. If the
+timestring is &quot;set_to_mtime&quot;, then the atime and
+ctime of each file and directory get set to the value found
+in their mtime. <br>
+These actions stay delayed until actual ISO production
+begins. Up to then they can be revoked by
+&quot;all_file_dates&quot; with empty timestring or
+timestring &quot;default&quot;. <br>
+The timestamps of the El Torito boot catalog file get
+refreshed when the ISO is produced. They can be influenced
+by &quot;uuid&quot;. <br>
 &quot;uuid&quot; sets a timestring that overrides
-&quot;c&quot; and &quot;m&quot; times literally. It must
-consist of 16 decimal digits which form YYYYMMDDhhmmsscc,
-with YYYY between 1970 and 2999. Time zone is GMT. It is
-supposed to match this GRUB line: <br>
+&quot;c&quot; and &quot;m&quot; times literally and sets the
+time of the El Torito boot catalog. It must consist of 16
+decimal digits which form YYYYMMDDhhmmsscc, with YYYY
+between 1970 and 2999. Time zone is GMT. It is supposed to
+match this GRUB line: <br>
 search --fs-uuid --set
 YYYY-MM-DD-hh-mm-ss-cc
 <br>
@@ -3040,7 +3059,14 @@ computations. The timestrings &quot;default&quot; or
 &quot;overridden&quot; cause default settings: &quot;c&quot;
 and &quot;m&quot; will show the current time of image
 creation. &quot;x&quot; and &quot;f&quot; will be marked as
-insignificant. &quot;uuid&quot; will be deactivated.</p>
+insignificant. &quot;uuid&quot; will be deactivated. <br>
+At -commit time, some timestamps get set to the
+maximum value of effectively written volume creation and
+modification time: El Torito boot catalog, HFS+ superblock,
+ECMA-119 file modification time if -compliance
+&quot;no_rec_mtime&quot;. The isohybrid MBR id is computed
+from &quot;uuid&quot; if given, else from the effective
+volume modification date.</p>
 
 <p style="margin-left:11%;"><b>-copyright_file</b>
 text</p>
@@ -3248,6 +3274,24 @@ Parameters, which are not mentioned with a
 <br>
 timeout_sec=120:min_usec=5000:max_usec=25000</p>
 
+<p style="margin-left:11%;"><b>-use_immed_bit</b>
+&quot;on&quot;|&quot;off&quot;|&quot;default&quot;</p>
+
+<p style="margin-left:22%;">Control whether several long
+lasting SCSI commands shall be executed with the Immed bit,
+which makes the commands end early while the drive operation
+is still going on. xorriso then inquires progress indication
+until the drive reports to be ready again. If this feature
+is turned off, then blanking and formatting will show no
+progress indication. <br>
+It may depend on the operating system whether
+-use_immed_bit is set to &quot;off&quot; by default.
+Command -status will tell by appending &quot;/on&quot;
+or &quot;/off&quot; if a drive has already been acquired and
+-use_immed_bit is currently set to
+&quot;default&quot;. Command -use_immed_bit tolerates
+and ignores such appended text.</p>
+
 <p style="margin-left:11%;"><b>-stdio_sync</b>
 &quot;on&quot;|&quot;off&quot;|&quot;end&quot;|number</p>
 
@@ -3351,6 +3395,15 @@ follow-up session gets written. But one should not
 rely on the capability to influence the bootability of the
 existing sessions, unless one can assume overwriteable
 media. <br>
+Normally the boot images are data files inside the ISO
+filesystem. By special path
+&quot;--interval:appended_partition_NNN:all::&quot;
+it is possible to refer to an appended partition. The number
+NNN gives the partition number as used with the
+corresponding option -append_partition. E.g.: <br>
+-append_partition 2 0xef /tmp/efi.img <br>
+-e --interval:appended_partition_2:all::
+<br>
 There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
 PC-BIOS MBR or EFI GPT for hard-disk-like
@@ -3382,6 +3435,11 @@ the path in Source. <br>
 &quot;imported_iso&quot; demands to read from the
 -indev. This works only if -outdev is not the
 same as -indev. The Source component is ignored. <br>
+&quot;appended_partition_NNN&quot; with a decimal number NNN
+works only for -boot_image bootspecs which announce El
+Torito boot image paths: bin_path=, efi_path=. The number
+gives the partition number as used with the corresponding
+option -append_partition. <br>
 The component Interval consists of two byte address numbers
 separated by a &quot;-&quot; character. E.g.
 &quot;0-429&quot; means to read bytes 0 to 429. <br>
@@ -3507,16 +3565,20 @@ bin_path=/boot/isolinux/isolinux.bin <br>
 -boot_image isolinux load_size=2048 <br>
 -boot_image any boot_info_table=on <br>
 An El Torito boot catalog file gets inserted into the ISO
-image with address <b>cat_path=</b> at -commit time.
-It is subject to normal -overwrite and -reassure
-processing if there is already a file with the same name.
-The catalog lists the boot images and is read by the boot
-facility to choose one of the boot images. But it is not
-necessary that it appears in the directory tree at all. One
-may hide it in all trees by <b>cat_hidden=on</b>. Other
-possible values are &quot;iso_rr&quot;, &quot;joliet&quot;,
-&quot;hfsplus&quot;, and the default &quot;off&quot;.
-<b><br> bin_path=</b> depicts an El Torito boot image file, a binary
+image with address <b>cat_path=</b> with the first
+-boot_image &quot;any&quot; &quot;next&quot; or at
+-commit time. It is subject to normal -overwrite
+and -reassure processing if there is already a file
+with the same name. The catalog lists the boot images and is
+read by the boot facility to choose one of the boot images.
+But it is not necessary that it appears in the directory
+tree at all. One may hide it in all trees by
+<b>cat_hidden=on</b>. Other possible values are
+&quot;iso_rr&quot;, &quot;joliet&quot;, &quot;hfsplus&quot;,
+and the default &quot;off&quot;. The timestamps of the boot
+catalog file are refreshed at commit time. Command
+-volume_date &quot;uuid&quot; can be used to set their
+value. <b><br> bin_path=</b> depicts an El Torito boot image file, a binary
 program which is to be started by the hardware boot facility
 (e.g. the BIOS) at boot time. <b><br> efi_path=</b> depicts an El Torito boot image file that is
 ready for EFI booting. This is normally a FAT filesystem
@@ -3577,7 +3639,23 @@ is preserved by default. In in this case, the special
 disk_path &quot;.&quot; prevents reading of a disk file but
 nevertheless causes adjustments in the loaded system area
 data. Such adjustments may get ordered by -boot_image
-commands. <b><br> -boot_image any part_like_isohybrid=on</b> enables
+commands. <b><br> -boot_image any gpt_disk_guid=</b>value controls
+whether an emerging GPT shall get a randomly generated disk
+GUID or whether the GUID is supplied by the user. Value
+&quot;random&quot; is default. Value
+&quot;volume_date_uuid&quot; produces a low quality GUID
+from the value set by -volume_date &quot;uuid&quot;.
+<br>
+A string of 32 hex digits, or a RFC 4122 compliant GUID
+string may be used to set the disk GUID directly. UEFI
+prescribes the first three components of a RFC 4122 GUID
+string to be byte-swapped in the binary
+representation: <br>
+E.g.
+gpt_disk_guid=2303cd2a-73c7-424a-a298-25632da7f446
+equals gpt_disk_guid=2acd0323c7734a42a29825632da7f446 <br>
+The partition GUIDs get generated by minimally varying the
+disk GUID. <b><br> -boot_image any part_like_isohybrid=on</b> enables
 -boot_image isolinux partition_entry= even if no
 -boot_image isolinux system_area= is given. No MBR
 partition of type 0xee emerges, even if GPT gets produced.
@@ -3619,7 +3697,7 @@ with the ISO image. <b><br> appended_part_as=gpt</b> marks partitions from
 case the MBR shows a single partition of type 0xee which
 covers the whole output data. <b><br> appended_part_as=mbr</b> is the default. Appended partitions
 get marked in GPT only if GPT is produced because of other
-settings. If given explicitely, this clears setting
+settings. If given explicitly, this clears setting
 &quot;gpt&quot; and &quot;apm&quot;. Nevertheless
 &quot;apm&quot; may be added to &quot;mbr&quot;. <b><br> appended_part_as=apm</b> marks partitions from
 -append_partition in APM additionally to
@@ -3905,11 +3983,11 @@ The default output charset is the local character set of the
 terminal where <b>xorriso</b> runs. So by default no
 conversion happens between local filesystem names and
 emerging Rock Ridge names in the image. The situation stays
-ambigous and the reader has to riddle what character set was
-used. <br>
+ambiguous and the reader has to riddle what character set
+was used. <br>
 By command -auto_charset it is possible to attribute
 the output charset name to the image. This makes the
-situation unambigous. But if your terminal character set
+situation unambiguous. But if your terminal character set
 does not match the character set of the local file names,
 then this attribute can become plainly wrong and cause
 problems at read time. To prevent this it is necessary to
@@ -4377,12 +4455,18 @@ explains the technical details of the mentioned boot
 facilities. <br>
 Modes <b>cmd</b> and <b>as_mkisofs</b> work like with
 command -report_el_torito. See above. <br>
+With mode <b>gpt_disk_guid</b> print the GPT disk GUID of
+the loaded ISO in RFC 4122 text format to result channel. It
+is not considered an error if no GPT is present. In this
+case nothing is printed to result channel. <br>
 With mode <b>gpt_crc_of:</b>disk_path read up to 32 KiB from
 the disk file with the path given after the colon. Compute
 the GPT compliant CRC number and print it to the result
 channel. The number is shown like &quot;0x690fd979&quot;.
 The special disk_path &quot;-&quot; causes reading
-from standard input.</p>
+from standard input. <br>
+With mode <b>make_guid</b> print a pseudo-random GUID
+in RFC 4122 text format to result channel.</p>
 
 <p style="margin-left:11%;">&nbsp;<BR><A NAME="Navigate"></A><b>Navigation in ISO image and disk filesystem:</b><BR>&nbsp;<BR><b>-cd</b></b> iso_rr_path</p>
 
@@ -4675,8 +4759,8 @@ they are valid. But at some degree of read problems the
 correction will fail and the drive is supposed to indicate
 error. <b><br> xorriso</b> can scan a medium for readable data blocks,
 classify them according to their read speed, save them to a
-file, and keep track of successfuly saved blocks for further
-tries on the same medium. <br>
+file, and keep track of successfully saved blocks for
+further tries on the same medium. <br>
 By command -md5 checksums may get recorded with data
 files and whole sessions. These checksums are reachable only
 via indev and a loaded image. They work independently of the
@@ -5320,7 +5404,8 @@ device. <br>
 If list_path is not empty then the record will also be
 appended to the data file given by this path. <br>
 Program scdbackup_verify will recognize and verify tag and
-file record.</p>
+file record. <br>
+An empty record_name disables this feature.</p>
 
 <p style="margin-left:11%;">&nbsp;<BR><A NAME="Scripting"></A><b>Scripting, dialog and program control features:</b><BR>&nbsp;<BR></p>
 
@@ -5450,7 +5535,7 @@ with commands <br>
 <br>
 -du -dus -dux -dusx -findx
 -find <br>
-This will make ambigous the representation of file names
+This will make ambiguous the representation of file names
 which contain newline characters. On the other hand it
 should facilitate integration of xorriso into shell scripts
 which already use the corresponding shell commands.</p>
@@ -5675,7 +5760,7 @@ line tells the return value of Xorriso_sieve_get_result().
 The next line tells the number of strings. Each string
 begins by a line that tells the number of lines of the
 string. Then follow these lines. They are to be concatenated
-with a newline character inbetween each of them. Finally the
+with a newline character between each of them. Finally the
 number of still available recorded results of the given name
 is put out. <b><br> clear_sieve</b> <br>
 Dispose all recorded strings and continue watching program
@@ -5694,8 +5779,8 @@ to Xorriso_parse_line(). The number of input lines minus one
 tells xorriso how many newline characters are part of the
 input text. <br>
 The announced number of text lines will be read from dialog
-input, concatenated with a newline character inbetween each
-of them, and submitted to Xorriso_parse_line() as parameter
+input, concatenated with a newline character between each of
+them, and submitted to Xorriso_parse_line() as parameter
 line. Note that newlines outside of quotation marks are
 interpreted as separators if the separators parameter is
 empty. <br>
@@ -5705,7 +5790,7 @@ line tells the return value of Xorriso_parse_line(). The
 next line tells the number of strings. Each string begins by
 a line that tells the number of lines of the string. Then
 follow these lines. They are to be concatenated with a
-newline character inbetween each of them. <br>
+newline character between each of them. <br>
 If -backslash_codes &quot;encode_output&quot; is
 enabled, then the strings undergo encoding as if they were
 enclosed in quotes. Escpecially each string will be put out
@@ -5722,9 +5807,9 @@ number_of_input_texts should not be extremely high. On the
 other hand, large transactions of command, input texts, and
 results are desirable if connection latency is an issue.
 <b><br> parse_silently</b> <br>
-Like &quot;parse&quot; but not issueing a prompting message.
+Like &quot;parse&quot; but not issuing a prompting message.
 Confusing to humans. <b><br> parse_bulk_silently</b> <br>
-Like &quot;parse_bulk&quot; but not issueing a prompting
+Like &quot;parse_bulk&quot; but not issuing a prompting
 message. Confusing to humans. <b><br> compare_sev</b> <br>
 The parameter_text should contain two comma separated
 severity texts as issued by this program. Like
@@ -6269,6 +6354,26 @@ The default setting of -check_media abort_file= is:
 <br>
 /var/opt/xorriso/do_abort_check_media</p>
 
+<h2>ENVIRONMENT
+<a name="ENVIRONMENT"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The following
+environment variables influence the program behavior: <br>
+HOME is used to find xorriso and mkisofs startup files. <br>
+SOURCE_DATE_EPOCH belongs to the specs of
+reproducible-builds.org. It is supposed to be either
+undefined or to contain a decimal number which tells the
+seconds since january 1st 1970. If it contains a number,
+then it is used as time value to set the default of
+-volume date &quot;uuid&quot;, sets -boot_image
+&quot;any&quot; &quot;gpt_disk_guid=&quot; to
+&quot;volume_date_uuid&quot;, and -volume_date
+&quot;all_file_dates&quot; to &quot;set_to_mtime&quot;, <br>
+Startup files and program options can override the effect of
+SOURCE_DATE_EPOCH.</p>
+
 <h2>SEE ALSO
 <a name="SEE ALSO"></a>
 </h2>
@@ -6371,5 +6476,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Jul  1 15:25:33 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Sep 16 15:51:34 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

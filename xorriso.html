@@ -44,7 +44,7 @@ About any CD, DVD, or BD recorder produced in the recent ten years.
 supports recorders which are compliant to standards MMC-1 for CD and
 MMC-5 for DVD or BD.
 <BR>
-GNU/Linux, FreeBSD, Solaris, NetBSD allow to access drives connected
+GNU/Linux, FreeBSD, Solaris, NetBSD provide access to drives connected
 via SCSI, PATA (aka IDE, ATA), USB, or SATA.
 <BR>
 xorriso also operates on ISO images in data files or block devices.
@@ -200,7 +200,7 @@ libburnia SVN: frontend/xorriso-tcltk
 You will probably have to give it x-permission after download. Some browsers
 insist in adding &quot;.htm&quot; to the file name.
 <BR>
-Further you need xorriso >= 1.4.4, Tcl, Tk >= 8.4,
+Further you need xorriso >= 1.4.6, Tcl, Tk >= 8.4,
 Tcl/Tk package &quot;BWidget&quot;.
 </P>
 
@@ -506,14 +506,14 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.4.4.tar.gz">xorriso-1.4.4.tar.gz</A>
+<DD><A HREF="xorriso-1.4.6.tar.gz">xorriso-1.4.6.tar.gz</A>
 (2570 KB).
 </DD>
-<DD>(Released 01 Jul 2016)</DD>
-<DD><A HREF="xorriso-1.4.4.tar.gz.sig">xorriso-1.4.4.tar.gz.sig</A></DD>
+<DD>(Released 16 Sep 2016)</DD>
+<DD><A HREF="xorriso-1.4.6.tar.gz.sig">xorriso-1.4.6.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.4.4.tar.gz.sig xorriso-1.4.4.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.4.6.tar.gz.sig xorriso-1.4.6.tar.gz</KBD>
 <BR>
 which should confirm
 <KBD>gpg: Good signature from "Thomas Schmitt &lt;scdbackup@gmx.net&gt;"</KBD>
@@ -528,7 +528,7 @@ after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.4.4.tar.gz
+as xorriso/xorriso-1.4.6.tar.gz
 </DD>
 </DL>
 </DD>
@@ -563,23 +563,21 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards previous stable version xorriso-1.4.2:
+Bug fixes towards previous stable version xorriso-1.4.4:
 <UL>
-<LI>-as mkisofs did not unescape "\=" in the source part of pathspecs</LI>
-<LI>-pathspecs "on" did not properly handle "\\="</LI>
-<LI>-boot_image "any" "system_area=/dev/zero" did not zeroize loaded data</LI>
-<LI>HFS+ production could cause MBR partition of type 0xEE without GPT</LI>
-<LI>HFS+ directories could announce more children than they actually have</LI>
-<LI>The HFS+ filesystem was not marked by in GPT of GRUB2 hybrid layout</LI>
-<LI>When reading an ISO filesystem, the presence of --protective-msdos-label
-was not recognized if a partition is appended</LI>
 <LI>
-xorrisofs option --protective-msdos-label did not work if no system area
-data were given by option -G or alike
+SAO CD could be perceived 2 blocks too short. Regression in libburn-1.4.4
 </LI>
 <LI>
--modesty_on_drive properties timeout_sec, min_usec, max_usec
-read wrong numbers from the parameter text
+The default setting of -compliance did not apply "rec_mtime" to
+Joliet and ISO:1999. mkisofs emulation was not affected by this bug.
+</LI>
+<LI>
+SIGSEGV by NULL when a data file was larger than ISO level allows.
+</LI>
+<LI>
+-file_size_limit did not increase ISO level if necessary.
+Thanks Mattias Schlenker.
 </LI>
 <!--
 <LI>- none -</LI>
@@ -588,23 +586,26 @@ read wrong numbers from the parameter text
 </P>
 
 <P>
-Enhancements towards previous stable version xorriso-1.4.2:
+Enhancements towards previous stable version xorriso-1.4.4:
 <UL>
-<LI>New -pathspecs mode "as_mkisofs"</LI>
+<LI>New command -use_immed_bit, new -as cdrecord option use_immed_bit=</LI>
 <LI>
-New -boot_image bootspec appended_part_as=apm, part_like_isohybrid=on
+New -volume_date mode "all_file_dates"
 </LI>
 <LI>
-New -as mkisofs options -appended_part_as_apm, -part_like_isohybrid
+New -as mkisofs option --set_all_file_dates
 </LI>
 <LI>
-New command -scsi_dev_family, new -as cdrecord option drive_scsi_dev_family=
+New bootspec "gpt_disk_guid=", new -as mkisofs option --gpt_disk_guid
 </LI>
 <LI>
-Letting -as mkisofs --norock revoke the special effect of -r
+New -report_system_area modes  "gpt_disk_guid", "make_guid"
 </LI>
 <LI>
-Letting -blank on overwritable media invalidate UDF extended descriptors
+New environment variable SOURCE_DATE_EPOCH
+</LI>
+<LI>
+New -find action "set_to_mtime"
 </LI>
 <!--
 <LI>- none -</LI>
@@ -628,16 +629,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-1.4.4</DT>
+<DT>libburn-1.4.6</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.4.4</DT>
+<DT>libisofs-1.4.6</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
-<DT>libisoburn-1.4.4</DT>
+<DT>libisoburn-1.4.6</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -658,42 +659,18 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.4.5 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.4.4:
+<DT><H3>Development snapshot, version 1.4.7 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.4.6:
 <UL>
-<LI>
-SAO CD could be perceived 2 blocks too short. Regression in libburn-1.4.4
-</LI>
-<LI>
-The default setting of -compliance did not apply "rec_mtime" to
-Joliet and ISO:1999. mkisofs emulation was not affected by this bug.
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.4.4:
+<DD>Enhancements towards stable version 1.4.6:
 <UL>
-<LI>New command -use_immed_bit, new -as cdrecord option use_immed_bit=</LI>
-<LI>
-New -volume_date mode "all_file_dates"
-</LI>
-<LI>
-New -as mkisofs option --set_all_file_dates
-</LI>
-<LI>
-New bootspec "gpt_disk_guid=", new -as mkisofs option --gpt_disk_guid
-</LI>
-<LI>
-New -report_system_area modes  "gpt_disk_guid", "make_guid"
-</LI>
-<LI>
-New environment variable SOURCE_DATE_EPOCH
-</LI>
-<LI>
-New -find action "set_to_mtime"
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -703,13 +680,13 @@ New -find action "set_to_mtime"
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.4.5</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.4.5 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.4.5 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.4.5 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.4.5)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.4.5)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.4.5)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.4.7</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.4.7 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.4.7 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.4.7 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.4.7)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.4.7)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.4.7)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -719,7 +696,7 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.4.5.tar.gz">xorriso-1.4.5.tar.gz</A>
+<A HREF="xorriso-1.4.7.tar.gz">xorriso-1.4.7.tar.gz</A>
 (2570 KB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained

@@ -147,7 +147,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
               |"partition_cyl_align="|"mbr_force_bootable="
               |"system_area="|"partition_table=on|off"
               |"partition_entry="|"appended_part_as="
-              |"part_like_isohybrid="
+              |"part_like_isohybrid="|"gpt_disk_guid="
               |"chrp_boot_part=on|off="|"prep_boot_part="
               |"efi_boot_part="|"efi_boot_part=--efi-boot-image"
               |"mips_path="|"mipsel_path="|"mips_discard"
@@ -341,9 +341,9 @@ pattern expansion if enabled by -iso_rr_pattern or -disk_pattern.
                    -prune, -decision yes|no, -true, -false
                  Operators: -not, -or, -and, -sub, (, -subend, ),
                    -if, -then, -elseif, -else, -endif
-                 Action may be one of: echo, chown, chown_r, chgrp, chgrp_r
-                   chmod, chmod_r, alter_date, alter_date_r, lsdl, compare,
-                   rm, rm_r, compare, update, report_damage,
+                 Action may be one of: echo, chown, chown_r, chgrp, chgrp_r,
+                   chmod, chmod_r, alter_date, alter_date_r, set_to_mtime,
+                   lsdl, compare, rm, rm_r, compare, update, report_damage,
                    report_lba, report_sections,
                    getfacl, setfacl, getfattr, setfattr, get_any_xattr,
                    list_extattr, get_md5, check_md5, make_md5,
@@ -443,6 +443,9 @@ Write-to-media commands:
                  Keep drive buffer hungry to ease concurrent burn run.
   -dvd_obs "default"|"32k"|"64k"
                  Set number of bytes per DVD/BD write operation.
+  -use_immed_bit "on"|"off"|"default"
+                 Control whether long running SCSI commands shall run
+                 asynchronously with progress messages.
   -stdio_sync "on"|"off"|"end"|number
                  Set number of bytes after which to force output to stdio
                  pseudo drives. "on" is the same as 16m.
