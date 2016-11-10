@@ -1,4 +1,4 @@
-xorriso 1.4.5 : RockRidge filesystem manipulator, libburnia project.
+xorriso 1.4.7 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as cdrecord [options|source_addresses]
 Note: This is not cdrecord. See xorriso -help, xorriso -version, man xorrecord

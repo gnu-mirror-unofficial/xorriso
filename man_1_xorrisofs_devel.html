@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Fri Sep 16 22:04:00 2016 -->
+<!-- CreationDate: Thu Nov 10 14:47:59 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1309,7 +1309,7 @@ binary program files stored in the ISO image. The content of
 the boot image files is not in the scope of El Torito. <br>
 xorriso composes the boot catalog according to the boot
 image files given and structured by options -b,
--e, -el-torito-alt-boot, and
+-e, -eltorito-alt-boot, and
 --efi-boot. Often it contains only one
 entry. <br>
 Normally the boot images are data files inside the ISO
@@ -1380,14 +1380,19 @@ used for achieving EFI-bootability of the GRUB2 rescue
 CD.</p>
 
 <p style="margin-left:11%;"><b>-boot-load-size</b>
-number</p>
+number|&quot;full&quot;</p>
 
 <p style="margin-left:22%;">Set the number of
 512-byte blocks to be loaded at boot time from the
-boot image in the current catalog entry. Non-emulating
-BIOS bootimages usually need a load size of 4. EFI boot
-images usually get set the number of blocks occupied by the
-boot image file. <br>
+boot image in the current catalog entry. <br>
+Non-emulating BIOS bootimages usually need a load size
+of 4. Nevertheless the default setting of mkisofs is to use
+the full size of the boot image rounded up to a multiple of
+4 512-byte blocks. This default may be explicitely
+enforced by the word &quot;full&quot; instead of a number.
+<br>
+EFI boot images usually get set the number of blocks
+occupied by the boot image file. <br>
 El Torito cannot represent load sizes higher than 65535.</p>
 
 
@@ -2727,5 +2732,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Fri Sep 16 22:04:00 CEST 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Nov 10 14:47:59 CET 2016 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
