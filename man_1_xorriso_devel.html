@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Thu Nov 10 14:47:59 2016 -->
+<!-- CreationDate: Mon Dec 19 20:59:15 2016 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1445,6 +1445,30 @@ each of the disk_path parameters. iso_rr_path will be
 composed from disk_path by replacing disk_prefix by
 iso_rr_prefix.</p>
 
+<p style="margin-left:11%;"><b>-update_li</b>
+iso_rr_prefix disk_prefix iso_rr_path [***]</p>
+
+<p style="margin-left:22%;">Perform -update_r with
+each of the iso_rr_path parameters. disk_path will be
+composed from iso_rr_path by replacing iso_rr_prefix by
+disk_prefix.</p>
+
+<p style="margin-left:11%;"><b>-update_lxi</b>
+disk_prefix iso_rr_prefix disk_path [***]</p>
+
+<p style="margin-left:22%;">Perform -update_r with
+each of the disk_path parameters and with iso_rr_paths in
+the ISO filesystem which are derived from the disk_path
+parameters after exchanging disk_prefix by iso_rr_prefix.
+So, other than -update_l, this detects missing matches
+of disk_path and deletes the corresponding iso_rr_path. <br>
+Note that relative disk_paths and disk_path patterns are
+interpreted as sub paths of the current disk working
+directory -cdx. The corresponding iso_rr_paths are
+derived by exchanging disk_prefix by iso_rr_prefix before
+pattern expansion happens. The current -cdi directory
+has no influence.</p>
+
 <p style="margin-left:11%;"><b>-cut_out</b> disk_path
 byte_offset byte_count iso_rr_path</p>
 
@@ -2099,7 +2123,12 @@ type: &quot;block&quot;, &quot;char&quot;, &quot;dir&quot;,
 &quot;Xotic&quot; which matches what is not matched by the
 other types. <br>
 Only the first letter is interpreted. E.g.: -find /
--type d <b><br> -damaged</b> : Matches files which use data blocks
+-type d <b><br> -maxdepth</b> number : Matches only files which are at
+most at the given depth level relative to the iso_rr_path
+where -find starts. That path itself is at depth 0,
+its directory children are at 1, their directory children at
+2, and so on. <b><br> -mindepth</b> number : Matches only files which are at
+least at the given depth level. <b><br> -damaged</b> : Matches files which use data blocks
 marked as damaged by a previous run of -check_media.
 The damage info vanishes when a new ISO image gets loaded.
 <br>
@@ -3590,8 +3619,10 @@ platform_id is 0xef. <b><br> emul_type=</b> can be one of &quot;no_emulation&quo
 boot medium emulation code of a boot image. The default
 &quot;no_emulation&quot; is suitable for ISOLINUX, GRUB,
 FreeBSD cdboot. <b><br> load_size=</b> is a value which depends on the boot image.
-Default 2048 should be overridden only if a better value is
-known. <b><br> boot_info_table=on</b> causes address patching to bytes 8 to
+Default is 2048 which matches the expectations of most boot
+images. The special value &quot;full&quot; means the full
+size of the boot image file rounded up to a multiple of 2048
+bytes. Maximum is 33,552,384 bytes. <b><br> boot_info_table=on</b> causes address patching to bytes 8 to
 63 of the boot image which is given by &quot;any&quot;
 &quot;bin_path=&quot;. &quot;boot_info_table=off&quot;
 disables this patching. <b><br> grub2_boot_info=on</b> causes address patching to byte 2548
@@ -6476,5 +6507,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Nov 10 14:47:59 CET 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Dec 19 20:59:15 CET 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

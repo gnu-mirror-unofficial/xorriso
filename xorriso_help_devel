@@ -273,6 +273,11 @@ pattern expansion if enabled by -iso_rr_pattern or -disk_pattern.
                  Like -update but affecting all files below directories.
   -update_l disk_prefix iso_rr_prefix disk_path [***]
                  Performs -update_r with each disk_path.
+  -update_li iso_rr_prefix disk_prefix iso_rr_path [***]
+                 Performs -update_r with each iso_rr_path.
+  -update_lxi disk_prefix iso_rr_prefix disk_or_iso_rr_path [***]
+                 Performs -update_r with each disk_path or corresponding
+                 iso_rr_path after exchange of disk_prefix by iso_rr_prefix.
   -cut_out disk_path byte_offset byte_count iso_rr_path
                  Map a byte interval of a regular disk file into a regular
                  file in the ISO image.
@@ -337,7 +342,7 @@ pattern expansion if enabled by -iso_rr_pattern or -disk_pattern.
                    -lba_range start count, -damaged, -has_acl, -has_xattr,
                    -has_aaip, -has_filter, -has_md5, -has_any_xattr,
                    -has_hfs_crtp, -has_hfs_bless, -bad_outname,
-                   -name_limit_blocker
+                   -name_limit_blocker, -maxdepth, -mindepth,
                    -prune, -decision yes|no, -true, -false
                  Operators: -not, -or, -and, -sub, (, -subend, ),
                    -if, -then, -elseif, -else, -endif
