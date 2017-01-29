@@ -662,13 +662,23 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.4.7 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.4.6:
 <UL>
-<LI>-as mkisofs -no-emul-boot without -boot-load-size defaulted to size 4,
-instead of full boot image size</LI>
-<LI>-read_fs "norock" did not prevent reading of root Rock Ridge info
+<LI>
+-as mkisofs -no-emul-boot without -boot-load-size defaulted to size 4,
+instead of full boot image size
+</LI>
+<LI>
+-read_fs "norock" did not prevent reading of root Rock Ridge info
 </LI>
 <LI>
 Mix of absolute and relative disk paths could cause SIGSEGV with 
 pattern expansion
+</LI>
+<LI>
+Protective MBR for GPT could emerge with boot flag set
+</LI>
+<LI>
+Appended partitions of size >= 4 GiB led to abort with error message
+"FATAL : ISO overwrite". Thanks to Sven Haardiek.
 </LI>
 <!-- 
 <LI>- none yet -</LI>
@@ -799,7 +809,7 @@ scdbackup, multi volume CD/DVD/BD backup</A></DD>
 <BR>
 Legal statement: This website does not serve any commercial purpose.
 <BR><BR>
-Copyright &copy; 2008 - 2016 Thomas Schmitt.
+Copyright &copy; 2008 - 2017 Thomas Schmitt.
 <BR>
 This text is freely distributable. It shall only be modified in sync with
 the factual properties of xorriso and its public storage locations.
