@@ -111,6 +111,7 @@ Options:
   -isohybrid-gpt-hfsplus      Mark El Torito boot image as HFS+ in GPT
   -isohybrid-apm-hfsplus      Mark El Torito boot image as HFS+ in APM
   -part_like_isohybrid        Mark in MBR, GPT, APM without -isohybrid-mbr
+  -iso_mbr_part_type          Set type byte of ISO partition in MBR
   --gpt_disk_guid GUID        Set GPT disk GUID or choose automatic GUID
   -G FILE, -generic-boot FILE Set generic boot image name
   --embedded-boot FILE        Alias of -G

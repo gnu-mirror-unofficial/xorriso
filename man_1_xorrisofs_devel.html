@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Jan 29 13:37:47 2017 -->
+<!-- CreationDate: Mon Feb 27 10:48:15 2017 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1657,6 +1657,19 @@ partitions. Appended partitions get mentioned in APM if
 other APM partitions emerge.</p>
 
 
+<p style="margin-left:11%;"><b>-iso_mbr_part_type</b>
+&quot;default&quot;|number</p>
+
+<p style="margin-left:22%;">Set the partition type of the
+MBR partition which represents the ISO or at least protects
+it. Number may be 0x00 to 0xff. The text &quot;default&quot;
+re-enables the default types of the various occasions
+to create an ISO MBR partition. <br>
+This is without effect if no such partition emerges by other
+settings or if the partition type is prescribed mandatorily
+like 0xee for GPT protective MBR or 0x96 for CHRP.</p>
+
+
 <p style="margin-left:11%;"><b>--protective-msdos-label</b></p>
 
 <p style="margin-left:22%;">Patch the System Area by a
@@ -2711,7 +2724,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2011 - 2016 Thomas Schmitt <br>
+2011 - 2017 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -2732,5 +2745,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sun Jan 29 13:37:47 CET 2017 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Mon Feb 27 10:48:15 CET 2017 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

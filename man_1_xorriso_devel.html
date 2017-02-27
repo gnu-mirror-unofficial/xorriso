@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Jan 29 13:37:46 2017 -->
+<!-- CreationDate: Mon Feb 27 10:48:15 2017 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1739,9 +1739,12 @@ expansion.</p>
 <p style="margin-left:22%;">Allow or disallow overwriting
 of existing files in the ISO image by files with the same
 name. <br>
-With setting &quot;off&quot;, name collisions cause FAILURE
-events. With setting &quot;nondir&quot;, only directories
-are protected by such events, other existing file types get
+With setting &quot;off&quot;, name collisions with at least
+one non-directory file cause FAILURE events.
+Collisions of two directories lead to merging of their file
+lists. <br>
+With setting &quot;nondir&quot;, only directories are
+protected by such events, other existing file types get
 treated with -rm before the new file gets added.
 Setting &quot;on&quot; enables automatic -rm_r. I.e. a
 non-directory can replace an existing directory and
@@ -3692,7 +3695,15 @@ disk GUID. <b><br> -boot_image any part_like_isohybrid=on</b> enables
 partition of type 0xee emerges, even if GPT gets produced.
 Gaps between GPT and APM partitions will not be filled by
 more partitions. Appended partitions get mentioned in APM if
-other APM partitions emerge. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
+other APM partitions emerge. <b><br> -boot_image any iso_mbr_part_type=</b>number sets the
+partition type of the MBR partition which represents the ISO
+or at least protects it. Number may be 0x00 to 0xff. The
+text &quot;default&quot; re-enables the default types
+of the various occasions to create an ISO MBR partition.
+<br>
+This is without effect if no such partition emerges by other
+settings or if the partition type is prescribed mandatorily
+like 0xee for GPT protective MBR or 0x96 for CHRP. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
 system_area= with additional patching for modern GRUB MBRs.
 The content start address of the first boot image is
 converted to a count of 512 byte blocks, and an offset of 4
@@ -6485,7 +6496,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2016 Thomas Schmitt <br>
+2007 - 2017 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6507,5 +6518,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Jan 29 13:37:46 CET 2017 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Feb 27 10:48:15 CET 2017 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

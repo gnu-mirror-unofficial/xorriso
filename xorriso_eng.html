@@ -56,7 +56,7 @@ Images or add-on sessions may be written to about any kind of file object.
 <DL>
 <DT>GNU/Linux with kernel 2.4 or higher, libc, libpthread :</DT>
 <DD>With kernel 2.4 a PATA/IDE drive has to be under ide-scsi emulation.</DD>
-<DD>With kernel 2.6 ide-scsi is not needed.</DD>
+<DD>Since kernel 2.6 ide-scsi is not needed.</DD>
 <DT>or FreeBSD, libc, libpthread, libcam, libiconv :</DT>
 <DD>PATA/IDE drives need atapicam running.</DD>
 <DD>SATA drives need atapicam running or need to be driven by ahci.</DD>
@@ -689,6 +689,7 @@ Appended partitions of size >= 4 GiB led to abort with error message
 <UL>
 <LI>New -find tests -maxdepth and -mindepth</LI>
 <LI>New commands -update_lxi and -update_li</LI>
+<LI>Properly refusing on Pseudo Overwritable formatted BD-R</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
