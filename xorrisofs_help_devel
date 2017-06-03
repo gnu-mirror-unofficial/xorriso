@@ -92,6 +92,7 @@ Options:
                               Specify the checksum types desired for the output image (in .jigdo)
   -checksum_algorithm_template alg1,alg2,...
                               Specify the checksum types desired for the output jigdo template
+  -eltorito-platform          Set El Torito platform id for the next boot entry
   -b FILE, -eltorito-boot FILE
                               Set El Torito boot image name
   -eltorito-alt-boot          Start specifying alternative El Torito boot parameters

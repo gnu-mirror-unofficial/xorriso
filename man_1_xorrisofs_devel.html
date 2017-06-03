@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Mon Feb 27 10:48:15 2017 -->
+<!-- CreationDate: Sat Jun  3 18:48:51 2017 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1379,6 +1379,21 @@ again -eltorito-alt-boot. This gesture is
 used for achieving EFI-bootability of the GRUB2 rescue
 CD.</p>
 
+
+<p style="margin-left:11%;"><b>-eltorito-platform</b>
+&quot;x86&quot;|&quot;PPC&quot;|&quot;Mac&quot;|&quot;efi&quot;|0xnn|nnn</p>
+
+<p style="margin-left:22%;">Set the Platform Id number for
+the next option -b or -eltorito-boot. The
+number may be chosen by a platform name or by a number
+between 0 and 255 (0x00 and 0xFF). &quot;x86&quot; = 0 is
+for PC-BIOS, &quot;PPC&quot; = 1 for some PowerPC
+systems, &quot;Mac&quot; = 2 for some MacIntosh systems,
+&quot;efi&quot; = 0xEF for EFI on modern PCs with x86
+compatible CPUs or others. <br>
+If the new platform id differs from the previous one,
+-eltorito-alt-boot gets performed.</p>
+
 <p style="margin-left:11%;"><b>-boot-load-size</b>
 number|&quot;full&quot;</p>
 
@@ -2745,5 +2760,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Mon Feb 27 10:48:15 CET 2017 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Jun  3 18:48:51 CEST 2017 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

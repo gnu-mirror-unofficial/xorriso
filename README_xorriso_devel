@@ -173,7 +173,7 @@ See its Tcl code for getting an idea how this gets achieved.
 
 The script is part of the tarball and gets installed by make install. If a 
 xorriso distro package does not install it, you may get it directly from
-  http://libburnia-project.org/export/head/libisoburn/trunk/frontend/xorriso-tcltk
+  https://dev.lovelyhq.com/libburnia/libisoburn/blob/master/frontend/xorriso-tcltk
 
 Further there is the C program frontend/frontend_pipes_xorriso.c which
 forks a xorriso process and shows the same communication gestures as 
@@ -504,7 +504,7 @@ By Mario Danic           <mario.danic@gmail.com>,  libburn, libisofs
    Vreixo Formoso        <metalpain2002@yahoo.es>, libisofs, libisoburn
    Thomas Schmitt        <scdbackup@gmx.net>,      libburn, libisofs,
                                                    libisoburn, xorriso
-Copyright (C) 2006-2016 Mario Danic, Vreixo Formoso, Thomas Schmitt.
+Copyright (C) 2006-2017 Mario Danic, Vreixo Formoso, Thomas Schmitt.
 
 libburnia-project.org is inspired by and in libburn still containing parts
 of old
