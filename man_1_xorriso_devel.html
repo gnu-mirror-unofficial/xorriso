@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Jun  3 18:48:51 2017 -->
+<!-- CreationDate: Thu Jun 29 23:32:22 2017 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -3810,9 +3810,13 @@ partition_table= or grub2_mbr= indicate production of a
 bootable MBR. These options normally cause the flag to be
 set if there is an MBR partition of type other than 0xee or
 0xef. If no such partition exists, then no bootflag is set,
-unless mbr_force_bootable= forces creation of a dummy
-partition of type 0x00 which covers only the first block of
-the ISO image. <b><br> mips_path=</b>iso_rr_path declares a data file in the image
+unless mbr_force_bootable=&quot;on&quot; forces creation of
+a dummy partition of type 0x00 which covers only the first
+block of the ISO image. <br>
+If no bootable MBR is indicated and a partition gets created
+by -append_partition, then
+mbr_force_bootable=&quot;on&quot; causes a bootflag like it
+would do with a bootable MBR. <b><br> mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
 with production of other boot blocks like MBR. It will
@@ -6403,7 +6407,8 @@ The default setting of -check_media abort_file= is:
 
 <p style="margin-left:11%; margin-top: 1em">The following
 environment variables influence the program behavior: <br>
-HOME is used to find xorriso and mkisofs startup files. <br>
+HOME is used to find startup files of xorriso and mkisofs.
+<br>
 SOURCE_DATE_EPOCH belongs to the specs of
 reproducible-builds.org. It is supposed to be either
 undefined or to contain a decimal number which tells the
@@ -6518,5 +6523,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Jun  3 18:48:51 CEST 2017 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jun 29 23:32:22 CEST 2017 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

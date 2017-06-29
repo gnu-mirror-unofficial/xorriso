@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Jun  3 18:48:51 2017 -->
+<!-- CreationDate: Thu Jun 29 23:32:23 2017 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1704,7 +1704,12 @@ partition of type other than 0xee or 0xef. If no such
 partition exists, then no bootflag is set, unless
 --mbr-force-bootable forces creation
 of a dummy partition of type 0x00 which covers only the
-first block of the ISO image.</p>
+first block of the ISO image. <br>
+If no bootable MBR is indicated by other options and a
+partition gets created by -append_partition, then
+--mbr-force-bootable causes a
+bootflag like it would do with e.g.
+--protective-msdos-label.</p>
 
 <p style="margin-left:11%;"><b>-partition_offset</b>
 2kb_block_adr</p>
@@ -2760,5 +2765,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Jun  3 18:48:51 CEST 2017 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Jun 29 23:32:23 CEST 2017 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
