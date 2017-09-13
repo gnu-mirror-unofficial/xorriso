@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Fri Sep 16 15:51:34 2016 -->
+<!-- CreationDate: Tue Sep 12 17:39:27 2017 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -253,7 +253,7 @@ last session are visible. Sometimes not even that. Command
 -rom_toc_scan might or might not help in such
 cases.</p>
 
-<p style="margin-left:11%; margin-top: 1em">&nbsp;<BR><A NAME="Methods"></A><b>Creating, Growing, Modifying, BlindBlind Growing:</b><BR> <br>
+<p style="margin-left:11%; margin-top: 1em">&nbsp;<BR><A NAME="Methods"></A><b>Creating, Growing, Modifying, Blind Growing:</b><BR> <br>
 A new empty ISO image gets <b>created</b> if there is no
 input drive with a valid ISO 9660 image when the first time
 an output drive is defined. This is achieved by command
@@ -1445,6 +1445,30 @@ each of the disk_path parameters. iso_rr_path will be
 composed from disk_path by replacing disk_prefix by
 iso_rr_prefix.</p>
 
+<p style="margin-left:11%;"><b>-update_li</b>
+iso_rr_prefix disk_prefix iso_rr_path [***]</p>
+
+<p style="margin-left:22%;">Perform -update_r with
+each of the iso_rr_path parameters. disk_path will be
+composed from iso_rr_path by replacing iso_rr_prefix by
+disk_prefix.</p>
+
+<p style="margin-left:11%;"><b>-update_lxi</b>
+disk_prefix iso_rr_prefix disk_path [***]</p>
+
+<p style="margin-left:22%;">Perform -update_r with
+each of the disk_path parameters and with iso_rr_paths in
+the ISO filesystem which are derived from the disk_path
+parameters after exchanging disk_prefix by iso_rr_prefix.
+So, other than -update_l, this detects missing matches
+of disk_path and deletes the corresponding iso_rr_path. <br>
+Note that relative disk_paths and disk_path patterns are
+interpreted as sub paths of the current disk working
+directory -cdx. The corresponding iso_rr_paths are
+derived by exchanging disk_prefix by iso_rr_prefix before
+pattern expansion happens. The current -cdi directory
+has no influence.</p>
+
 <p style="margin-left:11%;"><b>-cut_out</b> disk_path
 byte_offset byte_count iso_rr_path</p>
 
@@ -1715,9 +1739,12 @@ expansion.</p>
 <p style="margin-left:22%;">Allow or disallow overwriting
 of existing files in the ISO image by files with the same
 name. <br>
-With setting &quot;off&quot;, name collisions cause FAILURE
-events. With setting &quot;nondir&quot;, only directories
-are protected by such events, other existing file types get
+With setting &quot;off&quot;, name collisions with at least
+one non-directory file cause FAILURE events.
+Collisions of two directories lead to merging of their file
+lists. <br>
+With setting &quot;nondir&quot;, only directories are
+protected by such events, other existing file types get
 treated with -rm before the new file gets added.
 Setting &quot;on&quot; enables automatic -rm_r. I.e. a
 non-directory can replace an existing directory and
@@ -2099,7 +2126,12 @@ type: &quot;block&quot;, &quot;char&quot;, &quot;dir&quot;,
 &quot;Xotic&quot; which matches what is not matched by the
 other types. <br>
 Only the first letter is interpreted. E.g.: -find /
--type d <b><br> -damaged</b> : Matches files which use data blocks
+-type d <b><br> -maxdepth</b> number : Matches only files which are at
+most at the given depth level relative to the iso_rr_path
+where -find starts. That path itself is at depth 0,
+its directory children are at 1, their directory children at
+2, and so on. <b><br> -mindepth</b> number : Matches only files which are at
+least at the given depth level. <b><br> -damaged</b> : Matches files which use data blocks
 marked as damaged by a previous run of -check_media.
 The damage info vanishes when a new ISO image gets loaded.
 <br>
@@ -3590,8 +3622,10 @@ platform_id is 0xef. <b><br> emul_type=</b> can be one of &quot;no_emulation&quo
 boot medium emulation code of a boot image. The default
 &quot;no_emulation&quot; is suitable for ISOLINUX, GRUB,
 FreeBSD cdboot. <b><br> load_size=</b> is a value which depends on the boot image.
-Default 2048 should be overridden only if a better value is
-known. <b><br> boot_info_table=on</b> causes address patching to bytes 8 to
+Default is 2048 which matches the expectations of most boot
+images. The special value &quot;full&quot; means the full
+size of the boot image file rounded up to a multiple of 2048
+bytes. Maximum is 33,552,384 bytes. <b><br> boot_info_table=on</b> causes address patching to bytes 8 to
 63 of the boot image which is given by &quot;any&quot;
 &quot;bin_path=&quot;. &quot;boot_info_table=off&quot;
 disables this patching. <b><br> grub2_boot_info=on</b> causes address patching to byte 2548
@@ -3661,7 +3695,15 @@ disk GUID. <b><br> -boot_image any part_like_isohybrid=on</b> enables
 partition of type 0xee emerges, even if GPT gets produced.
 Gaps between GPT and APM partitions will not be filled by
 more partitions. Appended partitions get mentioned in APM if
-other APM partitions emerge. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
+other APM partitions emerge. <b><br> -boot_image any iso_mbr_part_type=</b>number sets the
+partition type of the MBR partition which represents the ISO
+or at least protects it. Number may be 0x00 to 0xff. The
+text &quot;default&quot; re-enables the default types
+of the various occasions to create an ISO MBR partition.
+<br>
+This is without effect if no such partition emerges by other
+settings or if the partition type is prescribed mandatorily
+like 0xee for GPT protective MBR or 0x96 for CHRP. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
 system_area= with additional patching for modern GRUB MBRs.
 The content start address of the first boot image is
 converted to a count of 512 byte blocks, and an offset of 4
@@ -3768,9 +3810,13 @@ partition_table= or grub2_mbr= indicate production of a
 bootable MBR. These options normally cause the flag to be
 set if there is an MBR partition of type other than 0xee or
 0xef. If no such partition exists, then no bootflag is set,
-unless mbr_force_bootable= forces creation of a dummy
-partition of type 0x00 which covers only the first block of
-the ISO image. <b><br> mips_path=</b>iso_rr_path declares a data file in the image
+unless mbr_force_bootable=&quot;on&quot; forces creation of
+a dummy partition of type 0x00 which covers only the first
+block of the ISO image. <br>
+If no bootable MBR is indicated and a partition gets created
+by -append_partition, then
+mbr_force_bootable=&quot;on&quot; causes a bootflag like it
+would do with a bootable MBR. <b><br> mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
 with production of other boot blocks like MBR. It will
@@ -4327,11 +4373,13 @@ drive can be &quot;indev&quot; or &quot;outdev&quot; to
 indicate already acquired drives, or it can be the path of a
 not yet acquired drive. Prefix &quot;stdio:&quot; for
 non-MMC drives is not mandatory. <br>
-entity must be either &quot;sbsector&quot; with the
-superblock sector address as id, or &quot;track&quot; with a
-track number as id, or &quot;session&quot; with a session
-number, or &quot;volid&quot; with a search pattern for the
-volume id, or &quot;auto&quot; with any text as id. <br>
+For entity and id, see also command -load. They must
+be either &quot;sbsector&quot; with the superblock sector
+address as id, or &quot;track&quot; with a track number as
+id, or &quot;session&quot; with a session number, or
+&quot;volid&quot; with a search pattern for the volume id,
+or &quot;auto&quot; with which any text as id mounts the
+first track of the last session. <br>
 path will be used as mount point and must already exist as a
 directory on disk. <br>
 The command gets printed to the result channel. See command
@@ -6361,7 +6409,8 @@ The default setting of -check_media abort_file= is:
 
 <p style="margin-left:11%; margin-top: 1em">The following
 environment variables influence the program behavior: <br>
-HOME is used to find xorriso and mkisofs startup files. <br>
+HOME is used to find startup files of xorriso and mkisofs.
+<br>
 SOURCE_DATE_EPOCH belongs to the specs of
 reproducible-builds.org. It is supposed to be either
 undefined or to contain a decimal number which tells the
@@ -6454,7 +6503,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2016 Thomas Schmitt <br>
+2007 - 2017 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6476,5 +6525,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Sep 16 15:51:34 CEST 2016 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Sep 12 17:39:27 CEST 2017 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

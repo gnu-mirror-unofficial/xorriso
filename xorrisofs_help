@@ -1,4 +1,4 @@
-GNU xorriso 1.4.6 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.4.8 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -92,6 +92,7 @@ Options:
                               Specify the checksum types desired for the output image (in .jigdo)
   -checksum_algorithm_template alg1,alg2,...
                               Specify the checksum types desired for the output jigdo template
+  -eltorito-platform          Set El Torito platform id for the next boot entry
   -b FILE, -eltorito-boot FILE
                               Set El Torito boot image name
   -eltorito-alt-boot          Start specifying alternative El Torito boot parameters
@@ -111,6 +112,7 @@ Options:
   -isohybrid-gpt-hfsplus      Mark El Torito boot image as HFS+ in GPT
   -isohybrid-apm-hfsplus      Mark El Torito boot image as HFS+ in APM
   -part_like_isohybrid        Mark in MBR, GPT, APM without -isohybrid-mbr
+  -iso_mbr_part_type          Set type byte of ISO partition in MBR
   --gpt_disk_guid GUID        Set GPT disk GUID or choose automatic GUID
   -G FILE, -generic-boot FILE Set generic boot image name
   --embedded-boot FILE        Alias of -G
