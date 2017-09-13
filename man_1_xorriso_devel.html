@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Mon Aug 14 18:13:18 2017 -->
+<!-- CreationDate: Wed Sep 13 12:01:24 2017 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -4373,11 +4373,13 @@ drive can be &quot;indev&quot; or &quot;outdev&quot; to
 indicate already acquired drives, or it can be the path of a
 not yet acquired drive. Prefix &quot;stdio:&quot; for
 non-MMC drives is not mandatory. <br>
-entity must be either &quot;sbsector&quot; with the
-superblock sector address as id, or &quot;track&quot; with a
-track number as id, or &quot;session&quot; with a session
-number, or &quot;volid&quot; with a search pattern for the
-volume id, or &quot;auto&quot; with any text as id. <br>
+For entity and id, see also command -load. They must
+be either &quot;sbsector&quot; with the superblock sector
+address as id, or &quot;track&quot; with a track number as
+id, or &quot;session&quot; with a session number, or
+&quot;volid&quot; with a search pattern for the volume id,
+or &quot;auto&quot; with which any text as id mounts the
+first track of the last session. <br>
 path will be used as mount point and must already exist as a
 directory on disk. <br>
 The command gets printed to the result channel. See command
@@ -6523,5 +6525,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Aug 14 18:13:18 CEST 2017 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Sep 13 12:01:24 CEST 2017 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
