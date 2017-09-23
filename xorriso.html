@@ -663,7 +663,10 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.4.9 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.4.8:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+Reading beyond array end for HFS+ production caused SIGSEGV with
+FreeBSD 11 CLANG -O2. Thanks ASX of GhostBSD.
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
