@@ -667,6 +667,13 @@ cdrecord and mkisofs.</DT>
 Reading beyond array end for HFS+ production caused SIGSEGV with
 FreeBSD 11 CLANG -O2. Thanks ASX of GhostBSD.
 </LI>
+<LI>
+Multi-session emulation was not recognized with non-zero partition offset
+</LI>
+<LI>
+SIGSEGV could happen if a track ended by reaching its fixed size
+while the track source still was willing to deliver bytes
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->

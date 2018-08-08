@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Fri Nov 17 15:38:14 2017 -->
+<!-- CreationDate: Wed Aug  8 17:51:04 2018 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -874,10 +874,14 @@ gets re-acquired after writing. <br>
 Examples: <br>
 If a track of a CD starts at block 123456 and gets copied to
 a disk file where it begins at block 0, then this copy can
-be loaded with -displacement -123456. <br>
+be loaded with <br>
+-displacement -123456 <br>
 If an ISO image was written onto a partition with offset of
 640000 blocks of 512 bytes, then it can be loaded from the
-base device by -displacement 160000. <br>
+base device by <br>
+-load sbsector 160000 -displacement 160000 <br>
+(If the partition start address is not divisible by 4, then
+you will have to employ a loop device instead.) <br>
 In both cases, the ISO sessions should be self contained,
 i.e. not add-on sessions to an ISO image outside their
 track or partition.</p>
@@ -3466,9 +3470,10 @@ filesystem. By special path
 &quot;--interval:appended_partition_NNN:all::&quot;
 it is possible to refer to an appended partition. The number
 NNN gives the partition number as used with the
-corresponding option -append_partition. E.g.: <br>
+corresponding command -append_partition. E.g.: <br>
 -append_partition 2 0xef /tmp/efi.img <br>
--e --interval:appended_partition_2:all::
+-boot_image any
+efi_path=--interval:appended_partition_2:all::
 <br>
 There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
@@ -6562,5 +6567,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Fri Nov 17 15:38:14 CET 2017 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Aug  8 17:51:04 CEST 2018 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
