@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Tue Sep 12 17:39:27 2017 -->
+<!-- CreationDate: Sat Sep 15 16:14:56 2018 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -449,7 +449,7 @@ The new MBR of a follow-up session can get in effect
 only on overwriteable media. <br>
 MBR is read by PC-BIOS when booting from USB stick or
 hard disk, and by PowerPC CHRP or PReP when booting. An MBR
-partiton with type 0xee indicates the presence of GPT. <br>
+partition with type 0xee indicates the presence of GPT. <br>
 Emulation -as mkisofs supports the example options out
 of the ISOLINUX wiki, the options used in GRUB script
 grub-mkrescue, and the example in the FreeBSD
@@ -492,13 +492,18 @@ works currently only on GNU/Linux and FreeBSD.</p>
 <p style="margin-left:11%; margin-top: 1em"><b>xattr</b>
 (aka EA, or extattr) are pairs of name and value which can
 be attached to file objects. AAIP is able to represent them
-and <b>xorriso</b> can record and restore pairs which have
-names out of the user namespace. I.e. those which begin with
-&quot;user.&quot;, like &quot;user.x&quot; or
-&quot;user.whatever&quot;. Name has to be a 0 terminated
-string. Value may be any array of bytes which does not
-exceed the size of 4095 bytes. xattr processing happens only
-if it is enabled by command <b>-xattr</b>. <br>
+and <b>xorriso</b> can record and restore them. <br>
+But be aware that pairs with names of non-user
+namespaces are not necessarily portable between operating
+systems and not even between filesystems. Only those which
+begin with &quot;user.&quot;, like &quot;user.x&quot; or
+&quot;user.whatever&quot;, can unconditionally be expected
+to be appropriate on other machines and disks. Processing of
+other xattr may need administrator privileges. <br>
+Name has to be a 0 terminated string. Value may be any array
+of bytes which does not exceed the size of 4095 bytes. xattr
+processing happens only if it is enabled by command
+<b>-xattr</b>. <br>
 As with ACL, currently only <b>xorriso</b> is able to
 retrieve xattr from AAIP enhanced images, to restore them to
 xattr capable file systems, or to print them. <br>
@@ -869,10 +874,14 @@ gets re-acquired after writing. <br>
 Examples: <br>
 If a track of a CD starts at block 123456 and gets copied to
 a disk file where it begins at block 0, then this copy can
-be loaded with -displacement -123456. <br>
+be loaded with <br>
+-displacement -123456 <br>
 If an ISO image was written onto a partition with offset of
 640000 blocks of 512 bytes, then it can be loaded from the
-base device by -displacement 160000. <br>
+base device by <br>
+-load sbsector 160000 -displacement 160000 <br>
+(If the partition start address is not divisible by 4, then
+you will have to employ a loop device instead.) <br>
 In both cases, the ISO sessions should be self contained,
 i.e. not add-on sessions to an ISO image outside their
 track or partition.</p>
@@ -1025,13 +1034,22 @@ disk files when extracting them from ISO images. See also
 commands -getfacl, -setfacl.</p>
 
 <p style="margin-left:11%;"><b>-xattr</b>
-&quot;on&quot;|&quot;off&quot;</p>
+&quot;on&quot;|&quot;user&quot;|&quot;any&quot;|&quot;off&quot;</p>
 
 <p style="margin-left:22%;">Enable or disable processing of
-xattr attributes in user namespace. If enabled, then
-<b>xorriso</b> will handle xattr similar to ACL. See also
-commands -getfattr, -setfattr and above
-paragraph about xattr.</p>
+xattr attributes. If enabled, then <b>xorriso</b> will
+handle xattr similar to ACL. See also commands
+-getfattr, -setfattr and above paragraph about
+xattr. <br>
+Modes &quot;on&quot; and &quot;user&quot; read and write
+only attributes from namespace &quot;user&quot;. <br>
+Mode &quot;any&quot; processes attributes of all namespaces.
+This might need adminstrator privileges, even if the owner
+of the disk file tries to read or write the attributes. <br>
+Note that xattr from namespace &quot;isofs.&quot; are never
+read from disk or restored to disk. Further it is not
+possible to set them via xorriso xattr manipulation
+commands.</p>
 
 <p style="margin-left:11%;"><b>-md5</b>
 &quot;on&quot;|&quot;all&quot;|&quot;off&quot;|&quot;load_check_off&quot;</p>
@@ -1074,9 +1092,20 @@ via -check_media.</p>
 
 <p style="margin-left:22%;">Enable all extra features which
 help to produce or to restore backups with highest fidelity
-of file properties. Currently this is a shortcut for:
--hardlinks on -acl on -xattr on -md5
-on.</p>
+of file properties. Currently this is a shortcut for: <br>
+-hardlinks on -acl on -xattr any
+-md5 on <br>
+If you restore a backup with xattr from non-user
+namespaces, then make sure that the target operating system
+and filesystem know what these attributes mean. Possibly you
+will need administrator privileges to record or restore such
+attributes. At recording time, xorriso will try to tolerate
+missing privileges and just record what is readable. But at
+restore time, missing privileges will cause failure events.
+<br>
+Command -xattr &quot;user&quot; after command
+-for_backup excludes non-user attributes from
+being recorded or restored.</p>
 
 <p style="margin-left:11%;"><b>-ecma119_map</b>
 &quot;stripped&quot;|&quot;unmapped&quot;|&quot;lowercase&quot;|&quot;uppercase&quot;</p>
@@ -1969,9 +1998,13 @@ name gets removed from the xattr list. If name is
 &quot;--remove-all&quot; then all user
 namespace xattr of the given iso_rr_paths get deleted. In
 case of deletion, value must be an empty text. <br>
-Only names from the user namespace are allowed. I.e. a name
-has to begin with &quot;user.&quot;, like &quot;user.x&quot;
-or &quot;user.whatever&quot;. <br>
+Which names are permissible depends on the setting of
+command -xattr. &quot;on&quot; or &quot;user&quot;
+restricts them to namespace &quot;user&quot;. I.e. a name
+has to look like &quot;user.x&quot; or
+&quot;user.whatever&quot;. <br>
+-xattr setting &quot;any&quot; enables names from all
+namespaces except &quot;isofs&quot;. <br>
 Values and names undergo the normal input processing of
 <b>xorriso</b>. See also command -backslash_codes.
 Other than with command -setfattr_list, the byte value
@@ -1986,12 +2019,14 @@ affecting all files below eventual directories.</p>
 <p style="margin-left:11%;"><b>-setfattr_list</b>
 disk_path</p>
 
-<p style="margin-left:22%;">Read the output of
+<p style="margin-left:22%;">Read the output format of
 -getfattr_r or shell command getfattr -Rd and
 apply it to the iso_rr_paths as given in lines beginning
-with &quot;# file:&quot;. All previously existing user space
-xattr of the given iso_rr_paths will be deleted. If
-disk_path is &quot;-&quot; then lines are read from
+with &quot;# file:&quot;. All previously existing xattr of
+the acceptable namespaces will be deleted before the new
+xattr get attached. The set of acceptable names depends on
+the setting of command -xattr. <br>
+If disk_path is &quot;-&quot; then lines are read from
 standard input. <br>
 Since -getfattr and getfattr -Rd strip leading
 &quot;/&quot; from file paths, the setting of -cd does
@@ -2002,13 +2037,12 @@ will be ignored (except &quot;# file:&quot;). Line
 changing the pending iso_rr_path. Other input lines must
 have the form <br>
 name=&quot;value&quot; <br>
-Name must be from user namespace. I.e. user.xyz where xyz
-should consist of printable characters only. The separator
-&quot;=&quot; is not allowed in names. Value may contain any
-kind of bytes. It must be in quotes. Trailing whitespace
-after the end quote will be ignored. Non-printables
-bytes and quotes must be represented as \XYZ by their octal
-8-bit code XYZ. Use code \000 for 0-bytes.</p>
+The separator &quot;=&quot; is not allowed in names. Value
+may contain any kind of bytes. It must be in quotes.
+Trailing whitespace after the end quote will be ignored.
+Non-printables bytes and quotes must be represented as
+\XYZ by their octal 8-bit code XYZ. Use code \000 for
+0-bytes.</p>
 
 <p style="margin-left:11%;"><b>-alter_date</b> type
 timestring iso_rr_path [***]</p>
@@ -2288,8 +2322,12 @@ the result channel. <b><br> setfacl</b> attaches ACLs after removing existing on
 new ACL is given in text form as defined with command
 -setfacl. <br>
 E.g.: -exec setfacl
-u:lisa:rw,u::rw,g::r,o::-,m::rw -- <b><br> getfattr</b> prints xattr name-value pairs from user
-namespace to the result channel. <b><br> get_any_xattr</b> prints xattr name-value pairs from
+u:lisa:rw,u::rw,g::r,o::-,m::rw -- <b><br> getfattr</b> prints xattr name-value pairs to the
+result channel. The choice of namespaces depends on the
+setting of command -xattr: &quot;on&quot; or
+&quot;user&quot; restricts it to the namespace
+&quot;user&quot;, &quot;any&quot; only omits namespace
+&quot;isofs&quot;. <b><br> get_any_xattr</b> prints xattr name-value pairs from
 any namespace except ACL to the result channel. This is
 mostly for debugging of namespace &quot;isofs&quot;. <b><br> list_extattr</b> mode prints a script to the result channel,
 which would use FreeBSD command setextattr to set the
@@ -3432,9 +3470,10 @@ filesystem. By special path
 &quot;--interval:appended_partition_NNN:all::&quot;
 it is possible to refer to an appended partition. The number
 NNN gives the partition number as used with the
-corresponding option -append_partition. E.g.: <br>
+corresponding command -append_partition. E.g.: <br>
 -append_partition 2 0xef /tmp/efi.img <br>
--e --interval:appended_partition_2:all::
+-boot_image any
+efi_path=--interval:appended_partition_2:all::
 <br>
 There are booting mechanisms which do not use an El Torito
 record but rather start at the first bytes of the image:
@@ -4659,13 +4698,16 @@ iso_rr_pattern [***]</p>
 
 <p style="margin-left:22%;">Print the xattr of the given
 files in the ISO image. If a file has no such xattr then
-noting is printed for it.</p>
+noting is printed for it. The choice of namespaces depends
+on the setting of command -xattr: &quot;on&quot; or
+&quot;user&quot; restricts it to namespace &quot;user&quot;,
+&quot;any&quot; only omits namespace &quot;isofs&quot;.</p>
 
 <p style="margin-left:11%;"><b>-getfattr_r</b>
 iso_rr_pattern [***]</p>
 
 <p style="margin-left:22%;">Like -gefattr but listing
-recursively the whole file trees underneath eventual
+recursively the whole file trees underneath of
 directories.</p>
 
 <p style="margin-left:11%;"><b>-du</b> iso_rr_pattern
@@ -4935,9 +4977,9 @@ number. <b><br> bad_limit=threshold</b> sets the highest quality which shall
 be considered as damage. Choose one of &quot;good&quot;,
 &quot;md5_match&quot;, &quot;slow&quot;,
 &quot;partial&quot;, &quot;valid&quot;,
-&quot;untested&quot;, &quot;invalid&quot;,
-&quot;tao_end&quot;, &quot;off_track&quot;,
-&quot;md5_mismatch&quot;, &quot;unreadable&quot;. <br>
+&quot;untested&quot;, &quot;md5_mismatch&quot;,
+&quot;invalid&quot;, &quot;tao_end&quot;,
+&quot;off_track&quot;, &quot;unreadable&quot;. <br>
 &quot;valid&quot; and &quot;invalid&quot; are qualities
 imported from a sector_map file. &quot;tao_end&quot; and
 &quot;off_track&quot; are intentionally not readable, but
@@ -4945,7 +4987,9 @@ not bad either. &quot;partial&quot; are blocks retrieved
 from a partially readable chunk. They are supposed to be ok
 but stem from a suspicious neighborhood. <br>
 &quot;md5_match&quot; and &quot;md5_mismatch&quot; regions
-overlap with regions of other quality. <b><br> slow_limit=threshold</b> sets the time threshold for a
+overlap with regions of other quality. The former is a
+strong confirmation for quality, the latter only tells that
+one or more blocks of the region must be wrong. <b><br> slow_limit=threshold</b> sets the time threshold for a
 single read chunk to be considered slow. This may be a
 fractional number like 0.1 or 1.5. <b><br> async_chunks=number</b> enables asynchronous MD5 processing
 if number is 2 or larger. In this case the given number of
@@ -6451,7 +6495,7 @@ input line facility</p>
 <p style="margin-left:11%;">Other programs which produce
 ISO 9660 images</p>
 
-<p style="margin-left:22%;"><b>mkisofs(8), genisoimage(8)</b></p>
+<p style="margin-left:22%;"><b>mkisofs(8), genisoimage(1)</b></p>
 
 <p style="margin-left:11%;">Other programs which burn
 sessions to optical media</p>
@@ -6503,7 +6547,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2017 Thomas Schmitt <br>
+2007 - 2018 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6525,5 +6569,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Sep 12 17:39:27 CEST 2017 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Sep 15 16:14:56 CEST 2018 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

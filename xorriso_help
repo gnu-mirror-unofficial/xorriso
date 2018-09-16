@@ -68,12 +68,12 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  "cheap_sorted_extract", "normal_extract"
   -acl "on"|"off"
                  Enable or disable reading and writing of ACLs.
-  -xattr "on"|"off"
+  -xattr "on"|"user"|"any"|"off"
                  Enable or disable reading and writing of xattr.
   -md5 "on"|"all"|"off"
                  Enable or disable processing of MD5 checksums.
   -for_backup
-                 Shortcut for: -hardlinks on -acl on -xattr on -md5 on
+                 Shortcut for: -hardlinks on -acl on -xattr any -md5 on
   -ecma119_map "unmapped"|"stripped"|"uppercase"|"lowercase"
                  Choose conversion of file names if neither Rock Ridge
                  nor Joliet is present in the loaded ISO session.

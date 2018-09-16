@@ -1,4 +1,4 @@
-GNU xorriso 1.4.8 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.5.0 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -41,6 +41,8 @@ Options:
                               Disable deep directory relocation (violates ISO9660)
   -hide-rr-moved              Relocate deep directories to /.rr_moved
   -rr_reloc_dir NAME          Set deep directory relocation target in root
+  -uid uid                    Make the owner of all files this uid.
+  -gid gid                    Make the group owner of all files this gid.
   -o FILE, -output FILE       Set output file name
   -m GLOBFILE, -exclude GLOBFILE
                               Exclude file name
@@ -65,6 +67,7 @@ Options:
   --hardlinks                 Record eventual hard link relations of files
   --acl                       Record eventual ACLs of files
   --xattr                     Record eventual user space xattr of files
+  --xattr-any                 Record xattr of any namespace, not only user.
   --md5                       Compute and record MD5 checksums of data files
   --scdbackup_tag PATH NAME   With --md5 record a scdbackup checksum tag
   --for_backup                Use all options which improve backup fidelity
