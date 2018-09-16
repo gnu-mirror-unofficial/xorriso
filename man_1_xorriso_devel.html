@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Wed Aug  8 17:51:04 2018 -->
+<!-- CreationDate: Sun Sep 16 17:15:28 2018 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -4977,9 +4977,9 @@ number. <b><br> bad_limit=threshold</b> sets the highest quality which shall
 be considered as damage. Choose one of &quot;good&quot;,
 &quot;md5_match&quot;, &quot;slow&quot;,
 &quot;partial&quot;, &quot;valid&quot;,
-&quot;untested&quot;, &quot;invalid&quot;,
-&quot;tao_end&quot;, &quot;off_track&quot;,
-&quot;md5_mismatch&quot;, &quot;unreadable&quot;. <br>
+&quot;untested&quot;, &quot;md5_mismatch&quot;,
+&quot;invalid&quot;, &quot;tao_end&quot;,
+&quot;off_track&quot;, &quot;unreadable&quot;. <br>
 &quot;valid&quot; and &quot;invalid&quot; are qualities
 imported from a sector_map file. &quot;tao_end&quot; and
 &quot;off_track&quot; are intentionally not readable, but
@@ -4987,7 +4987,9 @@ not bad either. &quot;partial&quot; are blocks retrieved
 from a partially readable chunk. They are supposed to be ok
 but stem from a suspicious neighborhood. <br>
 &quot;md5_match&quot; and &quot;md5_mismatch&quot; regions
-overlap with regions of other quality. <b><br> slow_limit=threshold</b> sets the time threshold for a
+overlap with regions of other quality. The former is a
+strong confirmation for quality, the latter only tells that
+one or more blocks of the region must be wrong. <b><br> slow_limit=threshold</b> sets the time threshold for a
 single read chunk to be considered slow. This may be a
 fractional number like 0.1 or 1.5. <b><br> async_chunks=number</b> enables asynchronous MD5 processing
 if number is 2 or larger. In this case the given number of
@@ -6493,7 +6495,7 @@ input line facility</p>
 <p style="margin-left:11%;">Other programs which produce
 ISO 9660 images</p>
 
-<p style="margin-left:22%;"><b>mkisofs(8), genisoimage(8)</b></p>
+<p style="margin-left:22%;"><b>mkisofs(8), genisoimage(1)</b></p>
 
 <p style="margin-left:11%;">Other programs which burn
 sessions to optical media</p>
@@ -6545,7 +6547,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2017 Thomas Schmitt <br>
+2007 - 2018 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6567,5 +6569,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Aug  8 17:51:04 CEST 2018 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Sep 16 17:15:28 CEST 2018 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

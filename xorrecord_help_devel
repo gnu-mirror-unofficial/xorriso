@@ -1,4 +1,9 @@
-xorriso 1.4.9 : RockRidge filesystem manipulator, libburnia project.
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 150: ls: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 197: rm: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 211: rm: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 212: mv: command not found
+/u/thomas/projekte/cdrskin_dir/libisoburn-develop/xorriso/xorriso: line 213: rm: command not found
+xorriso 1.5.0 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as cdrecord [options|source_addresses]
 Note: This is not cdrecord. See xorriso -help, xorriso -version, man xorrecord
