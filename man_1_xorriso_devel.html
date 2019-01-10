@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Sep 16 17:15:28 2018 -->
+<!-- CreationDate: Thu Jan 10 20:44:38 2019 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1044,7 +1044,7 @@ xattr. <br>
 Modes &quot;on&quot; and &quot;user&quot; read and write
 only attributes from namespace &quot;user&quot;. <br>
 Mode &quot;any&quot; processes attributes of all namespaces.
-This might need adminstrator privileges, even if the owner
+This might need administrator privileges, even if the owner
 of the disk file tries to read or write the attributes. <br>
 Note that xattr from namespace &quot;isofs.&quot; are never
 read from disk or restored to disk. Further it is not
@@ -4989,7 +4989,15 @@ but stem from a suspicious neighborhood. <br>
 &quot;md5_match&quot; and &quot;md5_mismatch&quot; regions
 overlap with regions of other quality. The former is a
 strong confirmation for quality, the latter only tells that
-one or more blocks of the region must be wrong. <b><br> slow_limit=threshold</b> sets the time threshold for a
+one or more blocks of the region must be wrong. <br>
+By default bad_limit is set higher than md5_mismatch, so
+that mismatches are classified as quality class
+&quot;0&quot; rather than &quot;-&quot;. This means
+that the sectors of a MD5 mismatch range are recorded in the
+sector_map as successfully read, if the drive handed them
+out at all. Set &quot;bad_limit=md5_mismatch&quot; to let
+the sector_map record the whole mismatching range as yet not
+retrieved. <b><br> slow_limit=threshold</b> sets the time threshold for a
 single read chunk to be considered slow. This may be a
 fractional number like 0.1 or 1.5. <b><br> async_chunks=number</b> enables asynchronous MD5 processing
 if number is 2 or larger. In this case the given number of
@@ -5751,7 +5759,7 @@ is the volume ID.</p>
 &quot;on&quot;|&quot;off&quot;</p>
 
 <p style="margin-left:22%;">Mode &quot;on&quot; enables
-very verbous logging of SCSI commands and drive replies.
+very verbose logging of SCSI commands and drive replies.
 Logging messages get printed to stderr, not to any of the
 <b>xorriso</b> output channels. <br>
 A special property of this command is that the first
@@ -6200,23 +6208,34 @@ The first session is written like this: <br>
 $ xorriso -as mkisofs prepared_for_iso/tree1 | \ <br>
 xorriso -as cdrecord -v dev=/dev/sr0 blank=fast
 -multi -eject - <br>
-Follow-up sessions are written like this: <br>
-$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
+Follow-up sessions are written like this (the run of
+dd is only to give demons a chance to spoil it): <br>
 $ m=$(xorriso -as cdrecord dev=/dev/sr0 -msinfo)
 <br>
+$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
 $ xorriso -as mkisofs -M /dev/sr0 -C $m
 prepared_for_iso/tree2 | \ <br>
 xorriso -as cdrecord -v dev=/dev/sr0
 -waiti -multi -eject - <br>
-Always eject the drive tray between sessions. The old
-sessions get read via /dev/sr0. Its device driver might not
-be aware of the changed content before it loads the medium
-again. In this case the previous session would not be loaded
-and the new session would contain only the newly added
-files. <br>
-For the same reason do not let <b>xorriso</b> -as
-cdrecord load the medium, but rather do this manually or by
-a program that reads from /dev/sr0. <br>
+Always eject the drive tray between sessions. <br>
+The run of xorriso -as mkisofs will read old sessions
+via the CD-ROM driver of /dev/sr0. This driver might
+not be aware of the changed content as long as the medium is
+not loaded again. In this case the previous session would
+not be properly assessed by xorriso and the new session
+would contain only the newly added files. <br>
+Some systems have not enough patience with automatic tray
+loading and some demons may interfere with a first
+CD-ROM driver read attempt from a freshly loaded
+medium. <br>
+When loading the tray manually, wait 10 seconds after the
+drive has stopped blinking. <br>
+A safe automatic way seems to be a separate run of xorriso
+for loading the tray with proper waiting, and a subsequent
+run of dd which shall offer itself to any problems caused by
+demons assessing the changed drive status. If this does not
+help, insert a run of &quot;sleep 10&quot; between xorriso
+and dd. <br>
 This example works for multi-session media only. Add
 cdrskin option --grow_overwriteable_iso to all
 -as cdrecord runs in order to enable
@@ -6253,7 +6272,7 @@ though.</p>
 
 <p style="margin-left:11%; margin-top: 1em"><b>Adjust thresholds for verbosity, exit value and program abort</b>
 <br>
-Be quite verbous, exit 32 if severity &quot;FAILURE&quot;
+Be quite verbose, exit 32 if severity &quot;FAILURE&quot;
 was encountered, do not abort prematurely but forcibly go on
 until the end of commands. <br>
 $ xorriso ... \ <br>
@@ -6569,5 +6588,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Sep 16 17:15:28 CEST 2018 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Jan 10 20:44:38 CET 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

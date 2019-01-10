@@ -647,7 +647,13 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.5.1 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.5.0:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+Appended GPT partitions were not covered by the protective MBR partition
+</LI>
+<LI>
+Multi-session emulation spoiled GPT production "GPT partitions ... overlap".
+Regression towards 1.4.8
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
