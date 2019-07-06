@@ -77,6 +77,10 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -ecma119_map "unmapped"|"stripped"|"uppercase"|"lowercase"
                  Choose conversion of file names if neither Rock Ridge
                  nor Joliet is present in the loaded ISO session.
+  -iso_nowtime "dynamic"|timestring
+                 Choose use of current time or a fixed point in time for
+                 timestamps where libisofs would normally use the current
+                 (i.e. dynamic) time.
   -disk_dev_ino "on"|"ino_only"|"off"
                  Enable or disable recording of disk file dev_t and ino_t
                  and their use in file comparison.

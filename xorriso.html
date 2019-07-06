@@ -654,6 +654,10 @@ Appended GPT partitions were not covered by the protective MBR partition
 Multi-session emulation spoiled GPT production "GPT partitions ... overlap".
 Regression towards 1.4.8
 </LI>
+<LI>
+libburn did not inquire the drive's readiness to do Stream Recording.
+Some few drives throw write errors when stream recording begins.
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -661,8 +665,16 @@ Regression towards 1.4.8
 </DD>
 <DD>Enhancements towards stable version 1.5.0:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+Enabled GPT type GUIDs with -append_partition,
+-boot_image any iso_mbr_part_type=, and -as mkisofs -iso_mbr_part_type
+</LI>
+<LI>
+Made libisoburn and GNU xorriso ready for building out-of-source.
+Thanks Ross Burton.
+</LI>
 <!-- 
+<LI>- none yet -</LI>
  -->
 </UL>
 

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Thu Jan 10 20:44:38 2019 -->
+<!-- CreationDate: Sat Jul  6 15:40:41 2019 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1700,16 +1700,26 @@ other APM partitions emerge.</p>
 
 
 <p style="margin-left:11%;"><b>-iso_mbr_part_type</b>
-&quot;default&quot;|number</p>
+&quot;default&quot;|number|type_guid</p>
 
 <p style="margin-left:22%;">Set the partition type of the
-MBR partition which represents the ISO or at least protects
-it. Number may be 0x00 to 0xff. The text &quot;default&quot;
+MBR or GPT partition which represents the ISO or at least
+protects it. <br>
+Number may be 0x00 to 0xff. The text &quot;default&quot;
 re-enables the default types of the various occasions
-to create an ISO MBR partition. <br>
-This is without effect if no such partition emerges by other
-settings or if the partition type is prescribed mandatorily
-like 0xee for GPT protective MBR or 0x96 for CHRP.</p>
+to create an ISO MBR partition. This is without effect if no
+such partition emerges by other settings or if the partition
+type is prescribed mandatorily like 0xee for GPT protective
+MBR or 0x96 for CHRP. <br>
+If instead a type_guid is given by a 32-digit hex
+string like a2a0d0ebe5b9334487c068b6b72699c7 or by a
+structured text like
+EBD0A0A2-B9E5-4433-87C0-68B6B72699C7,
+then it will be used as partition type if the ISO filesystem
+appears as partition in GPT. In MBR,
+C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+will be mapped to 0xef. Any other GUID will be mapped to
+0x83.</p>
 
 
 <p style="margin-left:11%;"><b>--protective-msdos-label</b></p>
@@ -1820,8 +1830,18 @@ The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
 &quot;Linux&quot;, or a hexadecimal number between 0x00 and
 0xff. Not all those numbers will yield usable results. For a
 list of codes search the Internet for &quot;Partition
-Types&quot; or run fdisk command &quot;L&quot;. This code
-matters only with MBR, not with GPT. <br>
+Types&quot; or run fdisk command &quot;L&quot;. If the
+partition appears in GPT then type_code 0xef is mapped to
+the EFI System Partition Type GUID. All others get mapped to
+Basic Data Type GUID. <br>
+type_code may also be a type GUID as plain hex string like
+a2a0d0ebe5b9334487c068b6b72699c7 or as structured text like
+EBD0A0A2-B9E5-4433-87C0-68B6B72699C7.
+It will be used if the partition is mentioned in GPT. In
+MBR,
+C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+will be mapped to 0xef. Any other GUID will be mapped to
+0x83. <br>
 If some other command causes the production of GPT, then the
 appended partitions will be mentioned there too, even if not
 -appended_part_as_gpt is given.</p>
@@ -2703,7 +2723,9 @@ then it is used as time value to set the default of
 --gpt_disk_guid defaults to
 &quot;modification-date&quot;. The default of
 --set_all_file_dates is then
-&quot;set_to_mtime&quot;. <br>
+&quot;set_to_mtime&quot;. Further the &quot;now&quot; time
+for ISO nodes without disk source is then set to the
+SOURCE_DATE_EPOCH value. <br>
 Startup files and program options can override the effect of
 SOURCE_DATE_EPOCH.</p>
 
@@ -2782,7 +2804,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2011 - 2018 Thomas Schmitt <br>
+2011 - 2019 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -2803,5 +2825,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Jan 10 20:44:38 CET 2019 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Jul  6 15:40:41 CEST 2019 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
