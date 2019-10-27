@@ -1,4 +1,4 @@
-GNU xorriso 1.5.0 : RockRidge filesystem manipulator, libburnia project.
+GNU xorriso 1.5.2 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
@@ -115,7 +115,8 @@ Options:
   -isohybrid-gpt-hfsplus      Mark El Torito boot image as HFS+ in GPT
   -isohybrid-apm-hfsplus      Mark El Torito boot image as HFS+ in APM
   -part_like_isohybrid        Mark in MBR, GPT, APM without -isohybrid-mbr
-  -iso_mbr_part_type          Set type byte of ISO partition in MBR
+  -iso_mbr_part_type          Set type byte or GUID of ISO partition in MBR
+                              or type GUID if a GPT ISO partition emerges.
   --gpt_disk_guid GUID        Set GPT disk GUID or choose automatic GUID
   -G FILE, -generic-boot FILE Set generic boot image name
   --embedded-boot FILE        Alias of -G
@@ -143,7 +144,8 @@ Options:
   -chrp-boot                  Alias of -chrp-boot-part
   -prep-boot-part DISKFILE    Set data source for MBR partition type 0x41
   -append_partition NUMBER TYPE FILE
-                              Append FILE after image. TYPE is hex: 0x..
+                              Append FILE after image. TYPE is hex: 0x.. or
+                              a GUID to be used if -appended_part_as_gpt.
   -appended_part_as_gpt       mark appended partitions in GPT instead of MBR.
   -appended_part_as_apm       mark appended partitions in APM.
   --modification-date=YYYYMMDDhhmmsscc

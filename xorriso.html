@@ -127,7 +127,8 @@ File content may get zisofs or gzip compressed or filtered by external
 processes.
 </LI>
 <LI>
-Can activate ISOLINUX and GRUB boot images by El Torito boot record and MBR.
+Can activate ISOLINUX and GRUB boot equipment by El Torito boot record,
+MBR code for BIOS, or EFI System Partition.
 </LI>
 <LI>
 Writes result as completely new image or as add-on session
@@ -200,7 +201,7 @@ libburnia git: libisoburn/frontend/xorriso-tcltk
 You will probably have to give it x-permission after download. Some browsers
 insist in adding &quot;.htm&quot; to the file name.
 <BR>
-Further you need xorriso >= 1.5.0, Tcl, Tk >= 8.4,
+Further you need xorriso >= 1.5.2, Tcl, Tk >= 8.4,
 Tcl/Tk package &quot;BWidget&quot;.
 </P>
 
@@ -506,14 +507,14 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.5.0.tar.gz">xorriso-1.5.0.tar.gz</A>
-(2625 KiB).
+<DD><A HREF="xorriso-1.5.2.tar.gz">xorriso-1.5.2.tar.gz</A>
+(2670 KiB).
 </DD>
-<DD>(Released 15 Sep 2018)</DD>
-<DD><A HREF="xorriso-1.5.0.tar.gz.sig">xorriso-1.5.0.tar.gz.sig</A></DD>
+<DD>(Released 26 Oct 2019)</DD>
+<DD><A HREF="xorriso-1.5.2.tar.gz.sig">xorriso-1.5.2.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.5.0.tar.gz.sig xorriso-1.5.0.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.5.2.tar.gz.sig xorriso-1.5.2.tar.gz</KBD>
 <BR>
 which should confirm
 <KBD>gpg: Good signature from "Thomas Schmitt &lt;scdbackup@gmx.net&gt;"</KBD>
@@ -528,7 +529,7 @@ after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.5.0.tar.gz
+as xorriso/xorriso-1.5.2.tar.gz
 </DD>
 </DL>
 </DD>
@@ -563,21 +564,40 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards previous stable version xorriso-1.4.8:
+Bug fixes towards previous stable version xorriso-1.5.0:
 <UL>
 <LI>
-Reading beyond array end for HFS+ production caused SIGSEGV with
-FreeBSD 11 CLANG -O2. Thanks ASX of GhostBSD.
+libburn did not inquire the drive's readiness to do Stream Recording.
+Some few drives throw write errors when stream recording begins.
 </LI>
 <LI>
-Multi-session emulation was not recognized with non-zero partition offset
+Appended GPT partitions were not covered by the protective MBR partition
 </LI>
 <LI>
-SIGSEGV could happen if a track ended by reaching its fixed size
-while the track source still was willing to deliver bytes
+Multi-session emulation spoiled GPT production "GPT partitions ... overlap".
+Regression towards 1.4.8
 </LI>
 <LI>
-Device file comparison parameters were recorded wrong with Linux sg
+-disk_pattern on -add ./ -- mistook "./" for the root directory.
+Thanks JBThiel.
+</LI>
+<LI>
+-disk_pattern on -add "" -- yielded SIGSEGV
+</LI>
+<LI>
+-osirrox "concat_split_on" worked only together with -split_size
+larger than 0. Thanks William Willems.
+</LI>
+<LI>
+Multi-session emulation spoiled GPT production.
+"GPT partitions ... overlap". Regression towards 1.4.8
+</LI>
+<LI>
+Appending partitions 5 to 8 caused damaged the ISO filesystems
+if not for SUN disk label
+</LI>
+<LI>
+SIGSEGV happened if --grub2-boot-info was given without -b
 </LI>
 <!--
 <LI>- none -</LI>
@@ -586,12 +606,16 @@ Device file comparison parameters were recorded wrong with Linux sg
 </P>
 
 <P>
-Enhancements towards previous stable version xorriso-1.4.8:
+Enhancements towards previous stable version xorriso-1.5.0:
 <UL>
-<LI>New -xattr mode "any" to process all xattr namespaces of local filesystem
+<LI>
+Enabled GPT type GUIDs with -append_partition,
+-boot_image any iso_mbr_part_type=, and -as mkisofs -iso_mbr_part_type
 </LI>
-<LI>New -as mkisofs option --xattr-any</LI>
-<LI>New -as mkisofs options -uid and -gid</LI>
+<LI>
+Made libisoburn and GNU xorriso ready for building out-of-source.
+Thanks Ross Burton.
+</LI>
 <!--
 <LI>- none -</LI>
 -->
@@ -614,16 +638,16 @@ libburnia project and the legal intentions of
 <A HREF="http://www.fsf.org/"> FSF </A> match completely.
 </DT>
 <DD>&nbsp;</DD>
-<DT>libburn-1.5.0</DT>
+<DT>libburn-1.5.2</DT>
 <DD>reads and writes data from and to CD, DVD, BD.</DD>
 <DD>(founded by Derek Foreman and Ben Jansens,
 developed and maintained since August 2006 by
 Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.5.0</DT>
+<DT>libisofs-1.5.2</DT>
 <DD>operates on ISO 9660 filesystem images.</DD>
 <DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
 from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
-<DT>libisoburn-1.5.0</DT>
+<DT>libisoburn-1.5.2</DT>
 <DD>coordinates libburn and libisofs, emulates multi-session where needed,
 and hosts the original source code of program xorriso.</DD>
 <DD>It provides the complete functionality of xorriso via
@@ -644,35 +668,18 @@ cdrecord and mkisofs.</DT>
 
 <P>
 <DL>
-<DT><H3>Development snapshot, version 1.5.1 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.5.0:
+<DT><H3>Development snapshot, version 1.5.3 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.5.2:
 <UL>
-<LI>
-Appended GPT partitions were not covered by the protective MBR partition
-</LI>
-<LI>
-Multi-session emulation spoiled GPT production "GPT partitions ... overlap".
-Regression towards 1.4.8
-</LI>
-<LI>
-libburn did not inquire the drive's readiness to do Stream Recording.
-Some few drives throw write errors when stream recording begins.
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.5.0:
+<DD>Enhancements towards stable version 1.5.2:
 <UL>
-<LI>
-Enabled GPT type GUIDs with -append_partition,
--boot_image any iso_mbr_part_type=, and -as mkisofs -iso_mbr_part_type
-</LI>
-<LI>
-Made libisoburn and GNU xorriso ready for building out-of-source.
-Thanks Ross Burton.
-</LI>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -682,13 +689,13 @@ Thanks Ross Burton.
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.5.1</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.5.1 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.5.1 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.5.1 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.5.1)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.5.1)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.5.1)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.5.3</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.5.3 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.5.3 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.5.3 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.5.3)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.5.3)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.5.3)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -698,7 +705,7 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.5.1.tar.gz">xorriso-1.5.1.tar.gz</A>
+<A HREF="xorriso-1.5.3.tar.gz">xorriso-1.5.3.tar.gz</A>
 (2625 KiB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
@@ -793,7 +800,7 @@ scdbackup, multi volume CD/DVD/BD backup</A></DD>
 <BR>
 Legal statement: This website does not serve any commercial purpose.
 <BR><BR>
-Copyright &copy; 2008 - 2018 Thomas Schmitt.
+Copyright &copy; 2008 - 2019 Thomas Schmitt.
 <BR>
 This text is freely distributable. It shall only be modified in sync with
 the factual properties of xorriso and its public storage locations.

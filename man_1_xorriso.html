@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Sep 15 16:14:56 2018 -->
+<!-- CreationDate: Sat Oct 26 20:22:45 2019 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -751,6 +751,74 @@ An empty address string &quot;&quot; gives up the current
 output drive without acquiring a new one. No writing is
 possible without an output drive.</p>
 
+<p style="margin-left:11%;"><b>-drive_class</b>
+&quot;harmless&quot;|&quot;banned&quot;|&quot;caution&quot;|&quot;clear_list&quot;
+disk_pattern</p>
+
+<p style="margin-left:22%;">Add a drive path pattern to one
+of the safety lists or make those lists empty. There are
+three lists defined which get tested in the following
+sequence: <br>
+If a drive address path matches the &quot;harmless&quot;
+list then the drive will be accepted. If it is not a MMC
+device then the prefix &quot;stdio:&quot; will be prepended
+automatically. This list is empty by default. <br>
+Else if the path matches the &quot;banned&quot; list then
+the drive will not be accepted by <b>xorriso</b> but rather
+lead to a FAILURE event. This list is empty by default. <br>
+Else if the path matches the &quot;caution&quot; list and if
+it is not a MMC device, then its address must have the
+prefix &quot;stdio:&quot; or it will be rejected. This list
+has by default one entry: &quot;/dev&quot;. <br>
+If a drive path matches no list then it is considered
+&quot;harmless&quot;. By default these are all paths which
+do not begin with directory &quot;/dev&quot;. <br>
+A path matches a list if one of its parent paths or itself
+matches a list entry. Address prefix &quot;stdio:&quot; or
+&quot;mmc:&quot; will be ignored when testing for matches.
+<br>
+By pseudo-class &quot;clear_list&quot; and
+pseudo-patterns &quot;banned&quot;,
+&quot;caution&quot;, &quot;harmless&quot;, or
+&quot;all&quot;, the lists may be made empty. <br>
+E.g.: -drive_class clear_list banned <br>
+One will normally define the -drive_class lists in one
+of the <b>xorriso</b> Startup Files. <br>
+Note: This is not a security feature but rather a bumper for
+the superuser to prevent inadverted mishaps. For reliably
+blocking access to a device file you have to deny its
+rw-permissions in the filesystem.</p>
+
+<p style="margin-left:11%;"><b>-drive_access</b>
+&quot;exclusive&quot;|&quot;shared&quot;:&quot;unrestricted&quot;|&quot;readonly&quot;</p>
+
+<p style="margin-left:22%;">Control whether device file
+locking mechanisms shall be used when acquiring a drive, and
+whether status or content of the medium in the drive may be
+altered. Useful and most harmless are the setting
+&quot;shared:readonly&quot; and the default setting
+&quot;exclusive:unrestricted&quot;. <br>
+&quot;exclusive&quot; enables tests and locks when acquiring
+the drive. It depends on the operating system which locking
+mechanisms get applied, if any. On GNU/Linux it is
+open(O_EXCL). On FreeBSD it is flock(LOCK_EX). <br>
+&quot;shared&quot; disables the use of these mechanisms to
+become able to acquire drives which are mounted, or opened
+by some process, or guarded by /dev/pktcdvd*. <br>
+&quot;unrestricted&quot; enables all technically appropriate
+operations on an acquired drive.
+&quot;shared:unrestricted&quot; risks to get own burn runs
+spoiled by other processes or to vice versa spoil activities
+of such processes. So use &quot;exclusive:unrestricted&quot;
+unless you know for sure that &quot;shared&quot; is safe.
+<br>
+&quot;readonly&quot; disables operations which might
+surprise a co-user of the drive. For -outdev
+these are formatting, blanking, writing, ejecting. For
+-indev this is ejecting. Be aware that even reading
+and drive status inquiries can disturb an ongoing burn run
+on CD-R[W] and DVD-R[W].</p>
+
 <p style="margin-left:11%;"><b>-scsi_dev_family</b>
 &quot;default&quot;|&quot;sr&quot;|&quot;scd&quot;|&quot;sg&quot;</p>
 
@@ -886,44 +954,6 @@ In both cases, the ISO sessions should be self contained,
 i.e. not add-on sessions to an ISO image outside their
 track or partition.</p>
 
-<p style="margin-left:11%;"><b>-drive_class</b>
-&quot;harmless&quot;|&quot;banned&quot;|&quot;caution&quot;|&quot;clear_list&quot;
-disk_pattern</p>
-
-<p style="margin-left:22%;">Add a drive path pattern to one
-of the safety lists or make those lists empty. There are
-three lists defined which get tested in the following
-sequence: <br>
-If a drive address path matches the &quot;harmless&quot;
-list then the drive will be accepted. If it is not a MMC
-device then the prefix &quot;stdio:&quot; will be prepended
-automatically. This list is empty by default. <br>
-Else if the path matches the &quot;banned&quot; list then
-the drive will not be accepted by <b>xorriso</b> but rather
-lead to a FAILURE event. This list is empty by default. <br>
-Else if the path matches the &quot;caution&quot; list and if
-it is not a MMC device, then its address must have the
-prefix &quot;stdio:&quot; or it will be rejected. This list
-has by default one entry: &quot;/dev&quot;. <br>
-If a drive path matches no list then it is considered
-&quot;harmless&quot;. By default these are all paths which
-do not begin with directory &quot;/dev&quot;. <br>
-A path matches a list if one of its parent paths or itself
-matches a list entry. Address prefix &quot;stdio:&quot; or
-&quot;mmc:&quot; will be ignored when testing for matches.
-<br>
-By pseudo-class &quot;clear_list&quot; and
-pseudo-patterns &quot;banned&quot;,
-&quot;caution&quot;, &quot;harmless&quot;, or
-&quot;all&quot;, the lists may be made empty. <br>
-E.g.: -drive_class clear_list banned <br>
-One will normally define the -drive_class lists in one
-of the <b>xorriso</b> Startup Files. <br>
-Note: This is not a security feature but rather a bumper for
-the superuser to prevent inadverted mishaps. For reliably
-blocking access to a device file you have to deny its
-rw-permissions in the filesystem.</p>
-
 <p style="margin-left:11%;"><b>-read_fs</b>
 &quot;any&quot;|&quot;norock&quot;|&quot;nojoliet&quot;|&quot;ecma119&quot;</p>
 
@@ -1044,7 +1074,7 @@ xattr. <br>
 Modes &quot;on&quot; and &quot;user&quot; read and write
 only attributes from namespace &quot;user&quot;. <br>
 Mode &quot;any&quot; processes attributes of all namespaces.
-This might need adminstrator privileges, even if the owner
+This might need administrator privileges, even if the owner
 of the disk file tries to read or write the attributes. <br>
 Note that xattr from namespace &quot;isofs.&quot; are never
 read from disk or restored to disk. Further it is not
@@ -1124,6 +1154,17 @@ compatible to default GNU/Linux mount behavior. <br>
 Mode &quot;uppercase&quot; is like &quot;stripped&quot; but
 maps lowercase letters to uppercase, if any occur despite
 the prescriptions of ECMA-119.</p>
+
+<p style="margin-left:11%;"><b>-iso_nowtime</b>
+&quot;dynamic&quot;|timestring</p>
+
+<p style="margin-left:22%;">Choose whether to use the
+current time (&quot;dynamic&quot;) or a fixed time point for
+timestamps of ISO 9660 nodes without a disk source file and
+as default for superblock timestamps. <br>
+If a timestring is given, then it is used for such
+timestamps. For the formats of timestrings see command
+<b>-alter_date</b>.</p>
 
 <p style="margin-left:11%;"><b>-disk_dev_ino</b>
 &quot;on&quot;|&quot;ino_only&quot;|&quot;off&quot;</p>
@@ -1800,7 +1841,7 @@ While command -split_size is set larger than 0 such a
 directory with split file pieces will be recognized and
 handled like a regular file by commands -compare* ,
 -update*, and in overwrite situations. There are
--ossirox parameters &quot;concat_split_on&quot; and
+-osirrox parameters &quot;concat_split_on&quot; and
 &quot;concat_split_off&quot; which control the handling when
 files get restored to disk. <br>
 In order to be recognizable, the names of the part files
@@ -3510,7 +3551,7 @@ same as -indev. The Source component is ignored. <br>
 works only for -boot_image bootspecs which announce El
 Torito boot image paths: bin_path=, efi_path=. The number
 gives the partition number as used with the corresponding
-option -append_partition. <br>
+command -append_partition. <br>
 The component Interval consists of two byte address numbers
 separated by a &quot;-&quot; character. E.g.
 &quot;0-429&quot; means to read bytes 0 to 429. <br>
@@ -3736,13 +3777,22 @@ Gaps between GPT and APM partitions will not be filled by
 more partitions. Appended partitions get mentioned in APM if
 other APM partitions emerge. <b><br> -boot_image any iso_mbr_part_type=</b>number sets the
 partition type of the MBR partition which represents the ISO
-or at least protects it. Number may be 0x00 to 0xff. The
-text &quot;default&quot; re-enables the default types
-of the various occasions to create an ISO MBR partition.
-<br>
-This is without effect if no such partition emerges by other
-settings or if the partition type is prescribed mandatorily
-like 0xee for GPT protective MBR or 0x96 for CHRP. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
+or at least protects it. <br>
+Number may be 0x00 to 0xff. The text &quot;default&quot;
+re-enables the default types of the various occasions
+to create an ISO MBR partition. This is without effect if no
+such partition emerges by other settings or if the partition
+type is prescribed mandatorily like 0xee for GPT protective
+MBR or 0x96 for CHRP. <br>
+If instead a type_guid is given by a 32-digit hex
+string like a2a0d0ebe5b9334487c068b6b72699c7 or by a
+structured text like
+EBD0A0A2-B9E5-4433-87C0-68B6B72699C7,
+then it will be used as partition type if the ISO filesystem
+appears as partition in GPT. In MBR,
+C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+will be mapped to 0xef. Any other GUID will be mapped to
+0x83. <b><br> grub2_mbr=</b>disk_path works like &quot;any&quot;
 system_area= with additional patching for modern GRUB MBRs.
 The content start address of the first boot image is
 converted to a count of 512 byte blocks, and an offset of 4
@@ -3929,8 +3979,17 @@ would be the most natural choice. <br>
 The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
 &quot;Linux&quot;, or a hexadecimal number between 0x00 and
 0xff. Not all those numbers will yield usable results. For a
-list of codes search the Internet for &quot;Partition
-Types&quot; or run fdisk command &quot;L&quot;. <br>
+list of MBR partition type codes search the Internet for
+&quot;Partition Types&quot; or run fdisk command
+&quot;L&quot;. <br>
+type_code may also be a type GUID as plain hex string like
+a2a0d0ebe5b9334487c068b6b72699c7 or as structured text like
+EBD0A0A2-B9E5-4433-87C0-68B6B72699C7.
+It will be used if the partition is mentioned in GPT. In
+MBR,
+C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+will be mapped to 0xef. Any other GUID will be mapped to
+0x83. <br>
 If some other command causes the production of GPT, then the
 appended partitions will be mentioned there too. <br>
 The disk_path must provide the necessary data bytes at
@@ -4989,7 +5048,15 @@ but stem from a suspicious neighborhood. <br>
 &quot;md5_match&quot; and &quot;md5_mismatch&quot; regions
 overlap with regions of other quality. The former is a
 strong confirmation for quality, the latter only tells that
-one or more blocks of the region must be wrong. <b><br> slow_limit=threshold</b> sets the time threshold for a
+one or more blocks of the region must be wrong. <br>
+By default bad_limit is set higher than md5_mismatch, so
+that mismatches are classified as quality class
+&quot;0&quot; rather than &quot;-&quot;. This means
+that the sectors of a MD5 mismatch range are recorded in the
+sector_map as successfully read, if the drive handed them
+out at all. Set &quot;bad_limit=md5_mismatch&quot; to let
+the sector_map record the whole mismatching range as yet not
+retrieved. <b><br> slow_limit=threshold</b> sets the time threshold for a
 single read chunk to be considered slow. This may be a
 fractional number like 0.1 or 1.5. <b><br> async_chunks=number</b> enables asynchronous MD5 processing
 if number is 2 or larger. In this case the given number of
@@ -5085,8 +5152,9 @@ program was started with leafname &quot;osirrox&quot;. On
 GNU/Linux it tries to avoid using drives which are mounted
 or in use by other libburn programs. Option
 &quot;o_excl_off&quot; on GNU/Linux enables access to such
-drives. Drives which get acquired while
-&quot;o_excl_off&quot; will refuse to get blanked,
+drives by the equivalent of -drive_access
+&quot;shared:readonly&quot;. I.e. drives which get acquired
+while &quot;o_excl_off&quot; will refuse to get blanked,
 formatted, written, or ejected. But be aware that even
 harmless inquiries can spoil ongoing burns of CD-R[W]
 and DVD-R[W]. <br>
@@ -5751,7 +5819,7 @@ is the volume ID.</p>
 &quot;on&quot;|&quot;off&quot;</p>
 
 <p style="margin-left:22%;">Mode &quot;on&quot; enables
-very verbous logging of SCSI commands and drive replies.
+very verbose logging of SCSI commands and drive replies.
 Logging messages get printed to stderr, not to any of the
 <b>xorriso</b> output channels. <br>
 A special property of this command is that the first
@@ -6200,23 +6268,34 @@ The first session is written like this: <br>
 $ xorriso -as mkisofs prepared_for_iso/tree1 | \ <br>
 xorriso -as cdrecord -v dev=/dev/sr0 blank=fast
 -multi -eject - <br>
-Follow-up sessions are written like this: <br>
-$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
+Follow-up sessions are written like this (the run of
+dd is only to give demons a chance to spoil it): <br>
 $ m=$(xorriso -as cdrecord dev=/dev/sr0 -msinfo)
 <br>
+$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
 $ xorriso -as mkisofs -M /dev/sr0 -C $m
 prepared_for_iso/tree2 | \ <br>
 xorriso -as cdrecord -v dev=/dev/sr0
 -waiti -multi -eject - <br>
-Always eject the drive tray between sessions. The old
-sessions get read via /dev/sr0. Its device driver might not
-be aware of the changed content before it loads the medium
-again. In this case the previous session would not be loaded
-and the new session would contain only the newly added
-files. <br>
-For the same reason do not let <b>xorriso</b> -as
-cdrecord load the medium, but rather do this manually or by
-a program that reads from /dev/sr0. <br>
+Always eject the drive tray between sessions. <br>
+The run of xorriso -as mkisofs will read old sessions
+via the CD-ROM driver of /dev/sr0. This driver might
+not be aware of the changed content as long as the medium is
+not loaded again. In this case the previous session would
+not be properly assessed by xorriso and the new session
+would contain only the newly added files. <br>
+Some systems have not enough patience with automatic tray
+loading and some demons may interfere with a first
+CD-ROM driver read attempt from a freshly loaded
+medium. <br>
+When loading the tray manually, wait 10 seconds after the
+drive has stopped blinking. <br>
+A safe automatic way seems to be a separate run of xorriso
+for loading the tray with proper waiting, and a subsequent
+run of dd which shall offer itself to any problems caused by
+demons assessing the changed drive status. If this does not
+help, insert a run of &quot;sleep 10&quot; between xorriso
+and dd. <br>
 This example works for multi-session media only. Add
 cdrskin option --grow_overwriteable_iso to all
 -as cdrecord runs in order to enable
@@ -6253,7 +6332,7 @@ though.</p>
 
 <p style="margin-left:11%; margin-top: 1em"><b>Adjust thresholds for verbosity, exit value and program abort</b>
 <br>
-Be quite verbous, exit 32 if severity &quot;FAILURE&quot;
+Be quite verbose, exit 32 if severity &quot;FAILURE&quot;
 was encountered, do not abort prematurely but forcibly go on
 until the end of commands. <br>
 $ xorriso ... \ <br>
@@ -6462,8 +6541,9 @@ seconds since january 1st 1970. If it contains a number,
 then it is used as time value to set the default of
 -volume date &quot;uuid&quot;, sets -boot_image
 &quot;any&quot; &quot;gpt_disk_guid=&quot; to
-&quot;volume_date_uuid&quot;, and -volume_date
-&quot;all_file_dates&quot; to &quot;set_to_mtime&quot;, <br>
+&quot;volume_date_uuid&quot;, -volume_date
+&quot;all_file_dates&quot; to &quot;set_to_mtime&quot;, and
+-iso_nowtime to &quot;=$SOURCE_DATE_EPOCH&quot;. <br>
 Startup files and program options can override the effect of
 SOURCE_DATE_EPOCH.</p>
 
@@ -6547,7 +6627,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2018 Thomas Schmitt <br>
+2007 - 2019 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6569,5 +6649,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Sep 15 16:14:56 CEST 2018 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Oct 26 20:22:45 CEST 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

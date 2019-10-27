@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Sep 15 16:14:57 2018 -->
+<!-- CreationDate: Sat Oct 26 20:22:45 2019 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -218,12 +218,7 @@ readers will have to use as superblock address on the
 intended medium. <br>
 Both values can be inquired from optical media by help of
 burn programs and cdrecord option -msinfo. xorriso
-itself can obtain it in its cdrecord emulation. Do not let
-it load the drive, but rather do this manually or by a
-program like dd which reads a few bytes. Only then it is
-sure that the device driver knows the true readable size of
-the medium. <br>
-dd if=/dev/... count=1 &gt;/dev/null 2&gt;&amp;1 <br>
+itself can obtain it in its cdrecord emulation. <br>
 values=$(xorriso -as cdrecord dev=/dev/...
 -msinfo) <br>
 echo $values <br>
@@ -959,7 +954,7 @@ systems when extracting files from the ISO image.</p>
 
 <p style="margin-left:22%;">Enable recording and loading of
 GNU/Linux or FreeBSD extended attributes in all namespaces.
-This might need adminstrator privileges, even if the owner
+This might need administrator privileges, even if the owner
 of the disk file tries to read the attributes.</p>
 
 <table width="100%" border="0" rules="none" frame="void"
@@ -1705,16 +1700,26 @@ other APM partitions emerge.</p>
 
 
 <p style="margin-left:11%;"><b>-iso_mbr_part_type</b>
-&quot;default&quot;|number</p>
+&quot;default&quot;|number|type_guid</p>
 
 <p style="margin-left:22%;">Set the partition type of the
-MBR partition which represents the ISO or at least protects
-it. Number may be 0x00 to 0xff. The text &quot;default&quot;
+MBR or GPT partition which represents the ISO or at least
+protects it. <br>
+Number may be 0x00 to 0xff. The text &quot;default&quot;
 re-enables the default types of the various occasions
-to create an ISO MBR partition. <br>
-This is without effect if no such partition emerges by other
-settings or if the partition type is prescribed mandatorily
-like 0xee for GPT protective MBR or 0x96 for CHRP.</p>
+to create an ISO MBR partition. This is without effect if no
+such partition emerges by other settings or if the partition
+type is prescribed mandatorily like 0xee for GPT protective
+MBR or 0x96 for CHRP. <br>
+If instead a type_guid is given by a 32-digit hex
+string like a2a0d0ebe5b9334487c068b6b72699c7 or by a
+structured text like
+EBD0A0A2-B9E5-4433-87C0-68B6B72699C7,
+then it will be used as partition type if the ISO filesystem
+appears as partition in GPT. In MBR,
+C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+will be mapped to 0xef. Any other GUID will be mapped to
+0x83.</p>
 
 
 <p style="margin-left:11%;"><b>--protective-msdos-label</b></p>
@@ -1825,8 +1830,18 @@ The type_code may be &quot;FAT12&quot;, &quot;FAT16&quot;,
 &quot;Linux&quot;, or a hexadecimal number between 0x00 and
 0xff. Not all those numbers will yield usable results. For a
 list of codes search the Internet for &quot;Partition
-Types&quot; or run fdisk command &quot;L&quot;. This code
-matters only with MBR, not with GPT. <br>
+Types&quot; or run fdisk command &quot;L&quot;. If the
+partition appears in GPT then type_code 0xef is mapped to
+the EFI System Partition Type GUID. All others get mapped to
+Basic Data Type GUID. <br>
+type_code may also be a type GUID as plain hex string like
+a2a0d0ebe5b9334487c068b6b72699c7 or as structured text like
+EBD0A0A2-B9E5-4433-87C0-68B6B72699C7.
+It will be used if the partition is mentioned in GPT. In
+MBR,
+C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+will be mapped to 0xef. Any other GUID will be mapped to
+0x83. <br>
 If some other command causes the production of GPT, then the
 appended partitions will be mentioned there too, even if not
 -appended_part_as_gpt is given.</p>
@@ -2347,24 +2362,35 @@ $ xorrisofs -graft-points \ <br>
 /tree1=prepared_for_iso/tree1 \ <br>
 | xorriso -as cdrecord -v dev=/dev/sr0
 blank=fast -multi -eject - <br>
-Follow-up sessions are written like this: <br>
-$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
+Follow-up sessions are written like this (the run of
+dd is only to give demons a chance to spoil it): <br>
 $ m=$(xorriso -as cdrecord dev=/dev/sr0 -msinfo)
 <br>
+$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
 $ xorrisofs -M /dev/sr0 -C $m
 -graft-points \ <br>
 /tree2=prepared_for_iso/tree2 \ <br>
 | xorriso -as cdrecord -v dev=/dev/sr0
 -waiti -multi -eject - <br>
-Always eject the drive tray between sessions. The old
-sessions get read via /dev/sr0. Its device driver might not
-be aware of the changed content before it loads the medium
-again. In this case the previous session would not be loaded
-and the new session would contain only the newly added
-files. <br>
-For the same reason do not let xorriso -as cdrecord
-load the medium, but rather do this manually or by a program
-that reads from /dev/sr0.</p>
+Always eject the drive tray between sessions. <br>
+The run of xorriso -as mkisofs will read old sessions
+via the CD-ROM driver of /dev/sr0. This driver might
+not be aware of the changed content as long as the medium is
+not loaded again. In this case the previous session would
+not be properly assessed by xorriso and the new session
+would contain only the newly added files. <br>
+Some systems have not enough patience with automatic tray
+loading and some demons may interfere with a first
+CD-ROM driver read attempt from a freshly loaded
+medium. <br>
+When loading the tray manually, wait 10 seconds after the
+drive has stopped blinking. <br>
+A safe automatic way seems to be a separate run of xorriso
+for loading the tray with proper waiting, and a subsequent
+run of dd which shall offer itself to any problems caused by
+demons assessing the changed drive status. If this does not
+help, insert a run of &quot;sleep 10&quot; between xorriso
+and dd.</p>
 
 <p style="margin-left:11%; margin-top: 1em"><b>Let xorrisofs work underneath growisofs</b> <br>
 growisofs expects an ISO formatter program which understands
@@ -2411,12 +2437,12 @@ several times on the same medium, whenever an update of the
 two disk trees to the medium is desired. Begin with a blank
 medium and update it until he run fails gracefully due to
 lack of remaining space on the old one. <br>
-Do not let xorriso -as cdrecord load the medium, but
-rather do this manually or by a program that reads from
-/dev/sr0. <br>
-$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
+Always eject the drive tray between sessions. A run of dd
+shall give demons a chance to spoil the first read on
+freshly loaded media. <br>
 $ msinfo=$(xorriso -as cdrecord dev=/dev/sr0
 -msinfo) <br>
+$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
 $ load_opts= <br>
 $ test -n &quot;$msinfo&quot; &amp;&amp;
 load_opts=&quot;-M /dev/sr0 -C $msinfo&quot;
@@ -2505,12 +2531,12 @@ blank=as_needed \ <br>
 <p style="margin-left:11%; margin-top: 1em">With the second
 session, option -old-root refers to /session1
 and the new -root is /session2. <br>
-Do not let xorriso -as cdrecord load the medium, but
-rather do this manually or by a program that reads from
-/dev/sr0. <br>
-$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
+Always eject the drive tray between sessions. A run of dd
+shall give demons a chance to spoil the first read on
+freshly loaded media. <br>
 $ msinfo=$(xorriso -as cdrecord dev=/dev/sr0
 -msinfo) <br>
+$ dd if=/dev/sr0 count=1 &gt;/dev/null 2&gt;&amp;1 <br>
 $ load_opts= <br>
 $ test -n &quot;$msinfo&quot; &amp;&amp;
 load_opts=&quot;-M /dev/sr0 -C $msinfo&quot;
@@ -2697,7 +2723,9 @@ then it is used as time value to set the default of
 --gpt_disk_guid defaults to
 &quot;modification-date&quot;. The default of
 --set_all_file_dates is then
-&quot;set_to_mtime&quot;. <br>
+&quot;set_to_mtime&quot;. Further the &quot;now&quot; time
+for ISO nodes without disk source is then set to the
+SOURCE_DATE_EPOCH value. <br>
 Startup files and program options can override the effect of
 SOURCE_DATE_EPOCH.</p>
 
@@ -2776,7 +2804,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2011 - 2018 Thomas Schmitt <br>
+2011 - 2019 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -2797,5 +2825,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Sep 15 16:14:57 CEST 2018 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Oct 26 20:22:45 CEST 2019 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
