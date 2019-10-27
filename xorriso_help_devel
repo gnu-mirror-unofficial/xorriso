@@ -27,13 +27,16 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -drive_class "harmless"|"banned"|"risky"|"clear_list" disk_pattern
                  Add a drive path pattern to one of the safety lists or make
                  those lists empty. Defaulty entry in "risky" is "/dev".
-  -grow_blindly "off"|predicted_nwa
-                 Switch between modifying and blind growing.
+  -drive_access "exclusive"|"shared":"unrestricted"|"readonly"
+                 Enable or disable device file locking mechanisms.
+                 Enable or disable status and content changes of drive.
   -scsi_dev_family "default"|"sr"|"scd"|"sg"
                  Linux specific: Choose device file type.
   -read_speed number["k/s"|"m/s"|"[x]CD"|"[x]DVD"|"[x]BD"]
                  Set the read speed. Default is "none" = do not set speed
                  before reading.
+  -grow_blindly "off"|predicted_nwa
+                 Switch between modifying and blind growing.
   -load "session"|"track"|"lba"|"sbsector"|"volid"|"auto" id
                  Load a particular (outdated) ISO session from a -dev or
                  -indev which hosts more than one session.

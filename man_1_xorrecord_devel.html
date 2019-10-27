@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Jul  6 15:40:41 2019 -->
+<!-- CreationDate: Sun Oct 27 17:53:53 2019 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -796,6 +796,19 @@ interpretation of startup files. See section FILES
 below.</p>
 
 
+<p style="margin-left:11%;"><b>--drive_not_exclusive</b></p>
+
+<p style="margin-left:22%;">This option disables the use of
+device file locking mechanisms when acquiring the drive. On
+GNU/Linux the locking is done by open(O_EXCL), on FreeBSD by
+flock(LOCK_EX). <br>
+Be aware that it can cause problems if you use a drive which
+is mounted, or opened by some other process, or guarded by
+/dev/pktcdvd*. Make sure that other users of the drive do
+not cause drive activities while a xorrecord burn run is
+going on.</p>
+
+
 <p style="margin-left:11%;"><b>drive_scsi_dev_family=sr|scd|sg|default</b></p>
 
 <p style="margin-left:22%;">GNU/Linux specific: <br>
@@ -1169,7 +1182,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2011 - 2018 Thomas Schmitt <br>
+2011 - 2019 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -1190,5 +1203,5 @@ founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Sat Jul  6 15:40:41 CEST 2019 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Sun Oct 27 17:53:53 CET 2019 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>

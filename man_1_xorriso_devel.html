@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Jul  6 15:40:40 2019 -->
+<!-- CreationDate: Sun Oct 27 17:53:53 2019 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -751,6 +751,74 @@ An empty address string &quot;&quot; gives up the current
 output drive without acquiring a new one. No writing is
 possible without an output drive.</p>
 
+<p style="margin-left:11%;"><b>-drive_class</b>
+&quot;harmless&quot;|&quot;banned&quot;|&quot;caution&quot;|&quot;clear_list&quot;
+disk_pattern</p>
+
+<p style="margin-left:22%;">Add a drive path pattern to one
+of the safety lists or make those lists empty. There are
+three lists defined which get tested in the following
+sequence: <br>
+If a drive address path matches the &quot;harmless&quot;
+list then the drive will be accepted. If it is not a MMC
+device then the prefix &quot;stdio:&quot; will be prepended
+automatically. This list is empty by default. <br>
+Else if the path matches the &quot;banned&quot; list then
+the drive will not be accepted by <b>xorriso</b> but rather
+lead to a FAILURE event. This list is empty by default. <br>
+Else if the path matches the &quot;caution&quot; list and if
+it is not a MMC device, then its address must have the
+prefix &quot;stdio:&quot; or it will be rejected. This list
+has by default one entry: &quot;/dev&quot;. <br>
+If a drive path matches no list then it is considered
+&quot;harmless&quot;. By default these are all paths which
+do not begin with directory &quot;/dev&quot;. <br>
+A path matches a list if one of its parent paths or itself
+matches a list entry. Address prefix &quot;stdio:&quot; or
+&quot;mmc:&quot; will be ignored when testing for matches.
+<br>
+By pseudo-class &quot;clear_list&quot; and
+pseudo-patterns &quot;banned&quot;,
+&quot;caution&quot;, &quot;harmless&quot;, or
+&quot;all&quot;, the lists may be made empty. <br>
+E.g.: -drive_class clear_list banned <br>
+One will normally define the -drive_class lists in one
+of the <b>xorriso</b> Startup Files. <br>
+Note: This is not a security feature but rather a bumper for
+the superuser to prevent inadverted mishaps. For reliably
+blocking access to a device file you have to deny its
+rw-permissions in the filesystem.</p>
+
+<p style="margin-left:11%;"><b>-drive_access</b>
+&quot;exclusive&quot;|&quot;shared&quot;:&quot;unrestricted&quot;|&quot;readonly&quot;</p>
+
+<p style="margin-left:22%;">Control whether device file
+locking mechanisms shall be used when acquiring a drive, and
+whether status or content of the medium in the drive may be
+altered. Useful and most harmless are the setting
+&quot;shared:readonly&quot; and the default setting
+&quot;exclusive:unrestricted&quot;. <br>
+&quot;exclusive&quot; enables tests and locks when acquiring
+the drive. It depends on the operating system which locking
+mechanisms get applied, if any. On GNU/Linux it is
+open(O_EXCL). On FreeBSD it is flock(LOCK_EX). <br>
+&quot;shared&quot; disables the use of these mechanisms to
+become able to acquire drives which are mounted, or opened
+by some process, or guarded by /dev/pktcdvd*. <br>
+&quot;unrestricted&quot; enables all technically appropriate
+operations on an acquired drive.
+&quot;shared:unrestricted&quot; risks to get own burn runs
+spoiled by other processes or to vice versa spoil activities
+of such processes. So use &quot;exclusive:unrestricted&quot;
+unless you know for sure that &quot;shared&quot; is safe.
+<br>
+&quot;readonly&quot; disables operations which might
+surprise a co-user of the drive. For -outdev
+these are formatting, blanking, writing, ejecting. For
+-indev this is ejecting. Be aware that even reading
+and drive status inquiries can disturb an ongoing burn run
+on CD-R[W] and DVD-R[W].</p>
+
 <p style="margin-left:11%;"><b>-scsi_dev_family</b>
 &quot;default&quot;|&quot;sr&quot;|&quot;scd&quot;|&quot;sg&quot;</p>
 
@@ -885,44 +953,6 @@ you will have to employ a loop device instead.) <br>
 In both cases, the ISO sessions should be self contained,
 i.e. not add-on sessions to an ISO image outside their
 track or partition.</p>
-
-<p style="margin-left:11%;"><b>-drive_class</b>
-&quot;harmless&quot;|&quot;banned&quot;|&quot;caution&quot;|&quot;clear_list&quot;
-disk_pattern</p>
-
-<p style="margin-left:22%;">Add a drive path pattern to one
-of the safety lists or make those lists empty. There are
-three lists defined which get tested in the following
-sequence: <br>
-If a drive address path matches the &quot;harmless&quot;
-list then the drive will be accepted. If it is not a MMC
-device then the prefix &quot;stdio:&quot; will be prepended
-automatically. This list is empty by default. <br>
-Else if the path matches the &quot;banned&quot; list then
-the drive will not be accepted by <b>xorriso</b> but rather
-lead to a FAILURE event. This list is empty by default. <br>
-Else if the path matches the &quot;caution&quot; list and if
-it is not a MMC device, then its address must have the
-prefix &quot;stdio:&quot; or it will be rejected. This list
-has by default one entry: &quot;/dev&quot;. <br>
-If a drive path matches no list then it is considered
-&quot;harmless&quot;. By default these are all paths which
-do not begin with directory &quot;/dev&quot;. <br>
-A path matches a list if one of its parent paths or itself
-matches a list entry. Address prefix &quot;stdio:&quot; or
-&quot;mmc:&quot; will be ignored when testing for matches.
-<br>
-By pseudo-class &quot;clear_list&quot; and
-pseudo-patterns &quot;banned&quot;,
-&quot;caution&quot;, &quot;harmless&quot;, or
-&quot;all&quot;, the lists may be made empty. <br>
-E.g.: -drive_class clear_list banned <br>
-One will normally define the -drive_class lists in one
-of the <b>xorriso</b> Startup Files. <br>
-Note: This is not a security feature but rather a bumper for
-the superuser to prevent inadverted mishaps. For reliably
-blocking access to a device file you have to deny its
-rw-permissions in the filesystem.</p>
 
 <p style="margin-left:11%;"><b>-read_fs</b>
 &quot;any&quot;|&quot;norock&quot;|&quot;nojoliet&quot;|&quot;ecma119&quot;</p>
@@ -1133,7 +1163,7 @@ current time (&quot;dynamic&quot;) or a fixed time point for
 timestamps of ISO 9660 nodes without a disk source file and
 as default for superblock timestamps. <br>
 If a timestring is given, then it is used for such
-timestamps. For the formats of time strings see command
+timestamps. For the formats of timestrings see command
 <b>-alter_date</b>.</p>
 
 <p style="margin-left:11%;"><b>-disk_dev_ino</b>
@@ -1811,7 +1841,7 @@ While command -split_size is set larger than 0 such a
 directory with split file pieces will be recognized and
 handled like a regular file by commands -compare* ,
 -update*, and in overwrite situations. There are
--ossirox parameters &quot;concat_split_on&quot; and
+-osirrox parameters &quot;concat_split_on&quot; and
 &quot;concat_split_off&quot; which control the handling when
 files get restored to disk. <br>
 In order to be recognizable, the names of the part files
@@ -5122,8 +5152,9 @@ program was started with leafname &quot;osirrox&quot;. On
 GNU/Linux it tries to avoid using drives which are mounted
 or in use by other libburn programs. Option
 &quot;o_excl_off&quot; on GNU/Linux enables access to such
-drives. Drives which get acquired while
-&quot;o_excl_off&quot; will refuse to get blanked,
+drives by the equivalent of -drive_access
+&quot;shared:readonly&quot;. I.e. drives which get acquired
+while &quot;o_excl_off&quot; will refuse to get blanked,
 formatted, written, or ejected. But be aware that even
 harmless inquiries can spoil ongoing burns of CD-R[W]
 and DVD-R[W]. <br>
@@ -6618,5 +6649,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Jul  6 15:40:40 CEST 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Oct 27 17:53:53 CET 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
