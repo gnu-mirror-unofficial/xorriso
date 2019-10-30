@@ -49,7 +49,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -rom_toc_scan "on"|"force"|"off"[:"emul_on"|"emul_off"]
                 [:"emul_wide"|"emul_narrow"]
                  Enable scanning for ISO sessions on read-only drives/media
-                 and on overwriteable media with emulated TOC.
+                 and on overwritable media with emulated TOC.
   -calm_drive "in"|"out"|"all"|"on"|"off"
                  Reduce drive noise until it gets actually used again.
   -assert_volid pattern severity
@@ -242,7 +242,7 @@ For brevity the list delimiter is referred as "--" throughout this text.
 
   -list_delimiter text   Set the list delimiter to be used instead of "--"
                  It has to be a single word, must not be empty, not longer
-                 than 80 characters, may mot contain quotation marks.
+                 than 80 characters, may not contain quotation marks.
 
 Manipulation commands:
 disk_path is a path to an object in the local filesystem tree.
@@ -604,7 +604,7 @@ Compatibility emulation (option list may be ended by list delimiter --):
   -as cdrecord [-help|-v|dev=|speed=|blank=|fs=|-eject|-atip|padsize=|-multi]
                path|-
               Perform some cdrecord gestures, eventually write at most one
-              data track to blank, appendable or overwriteable media.
+              data track to blank, appendable or overwritable media.
   -pacifier "xorriso"|"cdrecord"|"mkisofs"
               Choose format of UPDATE pacifier during write operations.
 

@@ -99,7 +99,7 @@ Both conditional dependencies can be avoided by running
     ./configure --prefix=/usr --disable-libreadline
     make clean ; make
 Never omit the "make clean" command after switching enabling of libreadline.
-If you want to explictely allow only the use of libedit, then do
+If you want to explicitly allow only the use of libedit, then do
     ./configure --prefix=/usr --disable-libreadline --enable-libedit
 
 Other deliberate dependency reduction options of ./configure are:
@@ -342,7 +342,7 @@ Tag_id distinguishes the following tag types
   "libisofs_checksum_tag_v1"            Session end tag
 
 A relocated superblock may appear at LBA 0 of an image which was produced for
-being stored in a disk file or on overwriteable media (e.g. DVD+RW, BD-RE).
+being stored in a disk file or on overwritable media (e.g. DVD+RW, BD-RE).
 xorriso records the first session at LBA 32. A follow-up session
 begins at the next block address which is divisible by 32 and higher than the
 address of the previous session's end tag. Normally no session starts after the
@@ -366,7 +366,7 @@ are accessed via libisoburn, which is closely related to xorriso.
 
 libisoburn provides several services:
 - Encapsulation of coordination between libisofs and libburn.
-- Emulation of ISO 9660 multi-session on overwriteable media
+- Emulation of ISO 9660 multi-session on overwritable media
   or random access files.
 - Implementation of the xorriso API.
 

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Oct 27 17:53:53 2019 -->
+<!-- CreationDate: Wed Oct 30 14:31:41 2019 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -99,7 +99,7 @@ Can check media for damages and copy readable blocks to
 disk. <br>
 Can attach MD5 checksums to each data file and the whole
 session. <br>
-Scans for optical drives, blanks re-useable optical
+Scans for optical drives, blanks re-usable optical
 media. <br>
 Reads its instructions from command line arguments, dialog,
 and files. <br>
@@ -162,7 +162,7 @@ referred as <b>growing</b>. <br>
 The multi-session model of the MMC standard does not
 apply to all media types. But program growisofs by Andy
 Polyakov showed how to extend this functionality to
-overwriteable media or disk files which carry valid ISO 9660
+overwritable media or disk files which carry valid ISO 9660
 filesystems.</p>
 
 <p style="margin-left:11%; margin-top: 1em"><b>xorriso</b>
@@ -207,7 +207,7 @@ Similar to multi-session media are DVD-R DL and
 minimally blanked DVD-RW. They record only a single
 session of which the size must be known in advance.
 <b>xorriso</b> will write onto them only if command
--close is set to &quot;on&quot;. <b><br> Overwriteable media</b> are DVD-RAM, DVD+RW,
+-close is set to &quot;on&quot;. <b><br> Overwritable media</b> are DVD-RAM, DVD+RW,
 BD-RE, and formatted DVD-RW. They offer random
 write access but do not provide information about their
 session history. If they contain one or more ISO 9660
@@ -217,7 +217,7 @@ Else only a single overall session will be visible. <br>
 DVD-RW media can be formatted by -format
 &quot;full&quot;. They can be made unformatted by
 -blank &quot;deformat&quot;. <br>
-Regular files and block devices are handled as overwriteable
+Regular files and block devices are handled as overwritable
 media. Pipes and other writeable file types are handled as
 blank multi-session media.</p>
 
@@ -227,14 +227,14 @@ capabilities. <b><br> Blank</b> media can be written from scratch. They contain 
 ISO image suitable for <b>xorriso</b>. <br>
 Blank is the state of newly purchased optical media. With
 used CD-RW and DVD-RW it can be achieved by
-action -blank &quot;as_needed&quot;. Overwriteable
+action -blank &quot;as_needed&quot;. Overwritable
 media are considered blank if they are new or if they have
 been marked as blank by <b>xorriso</b>. Action -blank
 &quot;as_needed&quot; can be used to do this marking on
-overwriteable media, or to apply mandatory formatting to new
+overwritable media, or to apply mandatory formatting to new
 media if necessary. <b><br> Appendable</b> media accept further sessions. Either they
 are MMC multi-session media in appendable state, or
-they are overwriteable media which contain an ISO image
+they are overwritable media which contain an ISO image
 suitable for <b>xorriso</b>. <br>
 Appendable is the state after writing a session with command
 -close off. <b><br> Closed</b> media cannot be written. They may contain an ISO
@@ -244,9 +244,9 @@ multi-session media which were written with command
 -close on. If the drive is read-only hardware
 then it will probably show any media as closed CD-ROM
 or DVD-ROM. <br>
-Overwriteable media assume this state in such
-read-only drives or if they contain unrecognizable
-data in the first 32 data blocks. <br>
+Overwritable media assume this state in such read-only
+drives or if they contain unrecognizable data in the first
+32 data blocks. <br>
 Read-only drives may or may not show session histories
 of multi-session media. Often only the first and the
 last session are visible. Sometimes not even that. Command
@@ -325,7 +325,7 @@ all are suitable for newly created images.</p>
 
 <p style="margin-left:11%; margin-top: 1em">All drive file
 objects have to offer rw-permission to the user of
-<b>xorriso</b>. Even those which will not be useable for
+<b>xorriso</b>. Even those which will not be usable for
 reading an ISO image. <br>
 With any type of drive object, the data are considered to be
 organized in blocks of 2 KiB. Access happens in terms of
@@ -446,7 +446,7 @@ adjusted according to the needs of the intended boot
 firmware and the involved boot loaders, e.g. GRUB2 or
 ISOLINUX. A MBR contains boot code and a partition table.
 The new MBR of a follow-up session can get in effect
-only on overwriteable media. <br>
+only on overwritable media. <br>
 MBR is read by PC-BIOS when booting from USB stick or
 hard disk, and by PowerPC CHRP or PReP when booting. An MBR
 partition with type 0xee indicates the presence of GPT. <br>
@@ -1242,8 +1242,7 @@ tell the actual media type but show any media as ROM (e.g.
 as DVD-ROM). The session history of MMC
 multi-session media might be truncated to first and
 last session or even be completely false. (The emulated
-history of overwriteable media is not affected by this.)
-<br>
+history of overwritable media is not affected by this.) <br>
 To have in case of failure a chance of getting the session
 history and especially the address of the last session,
 there is a scan for ISO 9660 filesystem headers which might
@@ -1259,11 +1258,11 @@ may still find that session from a scanned table of content.
 Setting &quot;force&quot; handles any media like a ROM
 medium with setting &quot;on&quot;. <br>
 On the other hand the emulation of session history on
-overwriteable media can hamper reading of partly damaged
+overwritable media can hamper reading of partly damaged
 media. Setting &quot;off:emul_off&quot; disables the
 elsewise trustworthy table-of-content scan for
 those media. <br>
-The table-of-content scan on overwriteable media
+The table-of-content scan on overwritable media
 normally searches only up to the end of the session that is
 pointed to by the superblock at block 0. Setting
 &quot;on:emul_wide&quot; lets the scan continue up to the
@@ -1304,7 +1303,7 @@ effective access permissions. This implies to try opening
 those files for writing, which otherwise will happen only
 later and only if actual writing is desired. <br>
 The test result is used for classifying the pseudo drives as
-overwriteable, read-only, write-only, or
+overwritable, read-only, write-only, or
 uselessly empty. This may lead to earlier detection of
 severe problems, and may avoid some less severe error
 events. <br>
@@ -2693,18 +2692,18 @@ then this command leads to a FAILURE event. Defined modes
 are: <br>
 as_needed, fast, all, deformat, deformat_quickest <br>
 &quot;as_needed&quot; cares for used CD-RW,
-DVD-RW and for used overwriteable media by applying
+DVD-RW and for used overwritable media by applying
 -blank &quot;fast&quot;. It applies -format
 &quot;full&quot; to yet unformatted DVD-RAM and
 BD-RE. Other media in blank state are gracefully
 ignored. Media which cannot be made ready for writing from
 scratch cause a FAILURE event. <br>
 &quot;fast&quot; makes CD-RW and unformatted
-DVD-RW re-usable, or invalidates overwriteable
+DVD-RW re-usable, or invalidates overwritable
 ISO images. &quot;all&quot; might work more thoroughly and
 need more time. <br>
-&quot;deformat&quot; converts overwriteable DVD-RW
-into unformatted ones. <br>
+&quot;deformat&quot; converts overwritable DVD-RW into
+unformatted ones. <br>
 &quot;deformat_quickest&quot; is a faster way to deformat or
 blank DVD-RW but produces media which are only
 suitable for a single session. Some drives announce this
@@ -2724,7 +2723,7 @@ succeed if the drive is willing to do it.</p>
 <p style="margin-left:11%;"><b>-format</b> mode</p>
 
 <p style="margin-left:22%;">Convert unformatted
-DVD-RW into overwriteable ones,
+DVD-RW into overwritable ones,
 &quot;de-ice&quot; DVD+RW, format newly purchased
 BD-RE or BD-R, re-format DVD-RAM or
 BD-RE. <br>
@@ -3020,7 +3019,7 @@ be changed by subsequent &quot;aaip_susp_1_10_off&quot;.
 unofficial extension of RRIP rather than as official
 extension under SUSP-1.12. <br>
 &quot;no_emul_toc&quot; saves 64 kB with the first session
-on overwriteable media but makes the image incapable of
+on overwritable media but makes the image incapable of
 displaying its session history. <br>
 &quot;iso_9660_1999&quot; causes the production of an
 additional directory tree compliant to ISO 9660:1999. It can
@@ -3493,7 +3492,7 @@ image. The same effect is achieved by -padding mode
 published specifications many BIOSes will load an El Torito
 record from the first session on media and not from the last
 one, which gets mounted by default. This makes no problems
-with overwriteable media, because they appear to inadverted
+with overwritable media, because they appear to inadverted
 readers as one single session. <br>
 But with multi-session media CD-R[W],
 DVD-R[W], DVD+R, it implies that the whole bootable
@@ -3504,8 +3503,8 @@ If a boot image from ISOLINUX or GRUB is known to be present
 on media then it is advised to patch it when a
 follow-up session gets written. But one should not
 rely on the capability to influence the bootability of the
-existing sessions, unless one can assume overwriteable
-media. <br>
+existing sessions, unless one can assume overwritable media.
+<br>
 Normally the boot images are data files inside the ISO
 filesystem. By special path
 &quot;--interval:appended_partition_NNN:all::&quot;
@@ -4429,10 +4428,10 @@ session history of the medium, not the ISO image directory
 tree.</p> </td></tr>
 </table>
 
-<p style="margin-left:22%;">In case of overwriteable media
+<p style="margin-left:22%;">In case of overwritable media
 holding a valid ISO image, it may happen that only a single
 session gets shown. But if the first session on the
-overwriteable media was written by <b>xorriso</b> then a
+overwritable media was written by <b>xorriso</b> then a
 complete session history can be emulated. <br>
 A drive which is incapable of writing may show any media as
 CD-ROM or DVD-ROM with only one or two sessions
@@ -5412,7 +5411,7 @@ parameter &quot;on&quot;, e.g. -acl &quot;on&quot;.
 Explicit parameters are expected by --stdio_sync
 and --scdbackup_tag. <br>
 The capability to preserve multi-session history on
-overwriteable media gets disabled by default. It can be
+overwritable media gets disabled by default. It can be
 enabled by using --emul-toc with the first
 session. See -compliance no_emul_toc. <br>
 --sort-weight gets as parameters a number
@@ -5484,7 +5483,7 @@ It ignores most other options of cdrecord and cdrskin but
 refuses on -audio, -scanbus, and on blanking
 modes unknown to <b>xorriso</b>. <br>
 The scope is only a single data track per session to be
-written to blank, overwriteable, or appendable media. The
+written to blank, overwritable, or appendable media. The
 medium gets closed if closing is applicable and not option
 -multi is present. <br>
 If an input drive was acquired, then it is given up. This is
@@ -5495,7 +5494,7 @@ If a track source is given, then an automatic -commit
 happens at the end of the &quot;cdrecord&quot; option list.
 <br>
 --grow_overwriteable_iso enables emulation of
-multi-session on overwriteable media. To enable
+multi-session on overwritable media. To enable
 emulation of a TOC, the first session needs -C 0,32
 with -as mkisofs (but no -M) and
 --grow_overwriteable_iso write_start_address=32s
@@ -6299,7 +6298,7 @@ and dd. <br>
 This example works for multi-session media only. Add
 cdrskin option --grow_overwriteable_iso to all
 -as cdrecord runs in order to enable
-multi-session emulation on overwriteable media.</p>
+multi-session emulation on overwritable media.</p>
 
 <p style="margin-left:11%; margin-top: 1em"><b>Let xorriso work underneath growisofs</b> <br>
 growisofs expects an ISO formatter program which understands
@@ -6327,7 +6326,7 @@ $ growisofs -Z /dev/dvd -- outdev -
 $ growisofs -M /dev/dvd -- outdev -
 -update_r /my/files /files <br>
 growisofs has excellent burn capabilities with DVD and BD.
-It does not emulate session history on overwriteable media,
+It does not emulate session history on overwritable media,
 though.</p>
 
 <p style="margin-left:11%; margin-top: 1em"><b>Adjust thresholds for verbosity, exit value and program abort</b>
@@ -6403,7 +6402,7 @@ FreeBSD or NetBSD it is possible to access the session trees
 which represent the older backup versions. With CD media,
 GNU/Linux mount accepts session numbers directly by its
 option &quot;session=&quot;. <br>
-Multi-session media and most overwriteable media
+Multi-session media and most overwritable media
 written by <b>xorriso</b> can tell the sbsectors of their
 sessions by <b>xorriso</b> command -toc. Used after
 -commit the following command prints the matching
@@ -6649,5 +6648,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sun Oct 27 17:53:53 CET 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Oct 30 14:31:41 CET 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

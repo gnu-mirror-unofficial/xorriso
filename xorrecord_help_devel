@@ -45,5 +45,5 @@ Options:
 	-help		print this text to stderr and exit emulation
 Actually this is the integrated ISO RockRidge filesystem manipulator xorriso
 lending its libburn capabilities to a very limited cdrecord emulation. Only
-a single data track can be burnt to blank, appendable or overwriteable media.
+a single data track can be burnt to blank, appendable or overwritable media.
 A much more elaborate cdrecord emulator is cdrskin from the same project.

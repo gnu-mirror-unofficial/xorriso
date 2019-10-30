@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sun Oct 27 17:53:53 2019 -->
+<!-- CreationDate: Wed Oct 30 14:31:41 2019 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -299,7 +299,7 @@ the program with non-zero exit value.</p>
 <p style="margin-left:11%; margin-top: 1em">A burn run
 requires exactly one track source address argument, which
 tells from where to read the data which shall be put into
-the upcomming session. The medium state must be either blank
+the upcoming session. The medium state must be either blank
 or appendable. <br>
 Track source may be &quot;-&quot; for standard input
 or the address of a readable file of any type except
@@ -376,7 +376,7 @@ unformatted DVD-RW.</p></td></tr>
 <p style="margin-left:22%;">deformat</p>
 
 <p style="margin-left:32%;">Like blank=all but with the
-additional ability to blank overwriteable DVD-RW. This
+additional ability to blank overwritable DVD-RW. This
 will destroy their formatting and make them sequentially
 recordable. <br>
 (Note: blank=deformat is not an original cdrecord
@@ -387,7 +387,7 @@ options)</p>
 <p style="margin-left:32%;">Like blank=deformat but
 blanking DVD-RW only minimally. This is faster than
 full blanking but yields media incapable of writing tracks
-of unpredicatable size. Multi-session will not be
+of unpredictable size. Multi-session will not be
 possible either. <br>
 (Note: blank=deformat_quickest is not an original cdrecord
 option.)</p>
@@ -462,7 +462,7 @@ filesystem formatter program. mkisofs, genisoimage, and
 xorrisofs expect particular info about the situation which
 can be retrieved by <b>xorrecord</b> option -msinfo.
 <br>
-With overwriteable DVD or BD media, -multi cannot mark
+With overwritable DVD or BD media, -multi cannot mark
 the end of the session. So when adding a new session, this
 end has to be determined from the payload. Currently only
 ISO-9660 filesystems can be used that way. See option
@@ -833,7 +833,7 @@ nevertheless get used as /dev/sg*.</p>
 <p style="margin-left:11%;"><b>--grow_overwriteable_iso</b></p>
 
 <p style="margin-left:22%;">Enable emulation of
-multi-session writing on overwriteable media which
+multi-session writing on overwritable media which
 contain an ISO 9660 filesystem. This emulation is learned
 from growisofs -M but adapted to the usage model of
 <br>
@@ -848,10 +848,10 @@ media and to achieve similar results if ISO 9660 filesystem
 images are to be written. This option implies option
 -isosize and therefore demands that the track source
 is a ISO 9660 filesystem image. <br>
-With overwriteable media and no option blank=fast|all
-present it expands an eventual ISO 9660 filesystem on media.
-It is assumed that this image&rsquo;s inner size description
-points to the end of the valuable data. Overwriteable media
+With overwritable media and no option blank=fast|all present
+it expands an eventual ISO 9660 filesystem on media. It is
+assumed that this image&rsquo;s inner size description
+points to the end of the valuable data. Overwritable media
 with a recognizable ISO 9660 size will be regarded as
 appendable rather than as blank. I.e. options -msinfo
 and -toc will work. -toc will always show a
@@ -1203,5 +1203,5 @@ founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Sun Oct 27 17:53:53 CET 2019 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Wed Oct 30 14:31:41 CET 2019 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>
