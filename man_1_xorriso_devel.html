@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Wed Oct 30 14:31:41 2019 -->
+<!-- CreationDate: Tue Nov 26 19:57:39 2019 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -4017,17 +4017,22 @@ file contains checksums and symbolic file addresses. The
 reference tags instead of the content bytes of the listed
 files. <br>
 Input for this process are the normal arguments for a
-<b>xorriso</b> session on a blank -outdev, and a .md5
-file which lists those data files which may be listed in the
-.jigdo file and externally referenced in the .template file.
-Each designated file is represented in the .md5 file by a
-single text line: <br>
-MD5 as 32 hex digits, 2 blanks, size as 12 decimal digits or
-blanks, 2 blanks, symbolic file address <br>
-The file address in an .md5 line has to bear the same
-basename as the disk_path of the file which it shall match.
-The directory path of the file address is decisive for
-To=From mapping, not for file recognition. After To=From
+<b>xorriso</b> session on a blank -outdev, and a
+checksum file which lists those data files which may be
+listed in the .jigdo file and externally referenced in the
+.template file. Each designated file is represented in the
+checksum file by a single text line: <br>
+Checksum as hex digits, 2 blanks, size as 12 decimal digits
+or blanks, 2 blanks, symbolic file address <br>
+The kind of checksum is chosen by -jigdo
+&quot;checksum_algorithm&quot; with values &quot;md5&quot;
+(32 hex digits) or &quot;sha256&quot; (64 hex digits). It
+will also be used for the file address lines in the .jigdo
+file. The default is &quot;md5&quot;. <br>
+The file address in a checksum file line has to bear the
+same basename as the disk_path of the file which it shall
+match. The directory path of the file address is decisive
+for To=From mapping, not for file recognition. After To=From
 mapping, the file address gets written into the .jigdo file.
 Jigdo restore tools will convert these addresses into really
 reachable data source addresses from which they can read.
@@ -4043,31 +4048,42 @@ names are the corresponding genisoimage options. They are
 accepted as parameter names as well. Especially they are
 recognized by the -as mkisofs emulation command. <br>
 Parameter <b>clear</b> with any value empties the whole
-list. No .jigdo and .template file will be produced. <b><br> template_path</b> sets the disk_path for the .template file
+list. No .jigdo and .template file will be produced. <b><br> checksum_algorithm</b> chooses the checksum algorithm which
+shall be used for the data file entries in the .jigdo file
+and is expected in the checksum file. Permissible are
+&quot;md5&quot; or &quot;sha256&quot;. Default is
+&quot;md5&quot;. <br>
+Alias: -jigdo-checksum-algorithm <b><br> template_path</b> sets the disk_path for the .template file
 with the holed and compressed ISO image copy. <br>
 Alias: -jigdo-template <b><br> jigdo_path</b> sets the disk_path for the .jigdo file with
 the checksums and download addresses for filling the holes
 in .template. <br>
-Alias: -jigdo-jigdo <b><br> md5_path</b> sets the disk_path where to find the .md5 input
-file. <br>
+Alias: -jigdo-jigdo <b><br> checksum_path</b> sets the disk_path where to find the
+checksum file with symbolic file addresses and checksums
+according to <b>checksum_algorithm</b>. <br>
+Alias: md5_path <br>
+Alias: -checksum-list <br>
 Alias: -md5-list <b><br> min_size</b> sets the minimum size for a data file to be
 listed in the .jigdo file and being a hole in the .template
 file. <br>
 Alias: -jigdo-min-file-size <b><br> exclude</b> adds a regular expression pattern which will get
 compared with the absolute disk_path of any data file. A
 match causes the file to stay in .template in any case. <br>
-Alias: -jigdo-exclude <b><br> demand_md5</b> adds a regular expression pattern which will
-get compared with the absolute disk_path of any data file
-that was not found in the .md5 list. A match causes a MISHAP
-event. <br>
+Alias: -jigdo-exclude <b><br> demand_checksum</b> adds a regular expression pattern which
+will get compared with the absolute disk_path of any data
+file that was not found in the checksum list file as of
+&quot;checksum_path&quot;. A match causes a MISHAP event.
+<br>
+Alias: demand_md5 <br>
+Alias: -jigdo-force-checksum <br>
 Alias: -jigdo-force-md5 <b><br> mapping</b> adds a string pair of the form To=From to the
 parameter list. If a data file gets listed in the .jigdo
 file, then it is referred by the file address from its line
-in the .md5 file. This file address gets checked whether it
-begins with the From string. If so, then this string will be
-replaced by the To string and a &rsquo;:&rsquo; character,
-before it goes into the .jigdo file. The From string should
-end by a &rsquo;/&rsquo; character. <br>
+in the checksum file. This file address gets checked whether
+it begins with the From string. If so, then this string will
+be replaced by the To string and a &rsquo;:&rsquo;
+character, before it goes into the .jigdo file. The From
+string should end by a &rsquo;/&rsquo; character. <br>
 Alias: -jigdo-map <b><br> compression</b> chooses one of &quot;bzip2&quot; or
 &quot;gzip&quot; for the compression of the template file.
 The jigdo file is put out uncompressed. <br>
@@ -6648,5 +6664,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Oct 30 14:31:41 CET 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue Nov 26 19:57:39 CET 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

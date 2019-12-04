@@ -609,6 +609,9 @@ SIGSEGV happened if --grub2-boot-info was given without -b
 Enhancements towards previous stable version xorriso-1.5.0:
 <UL>
 <LI>
+New command -drive_access, new -as cdrecord option --drive_not_exclusive
+</LI>
+<LI>
 Enabled GPT type GUIDs with -append_partition,
 -boot_image any iso_mbr_part_type=, and -as mkisofs -iso_mbr_part_type
 </LI>
@@ -679,7 +682,16 @@ cdrecord and mkisofs.</DT>
 </DD>
 <DD>Enhancements towards stable version 1.5.2:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+Switched to usage of libjte-2.0.0
+</LI>
+<LI>
+New -jigdo parameters "checksum_algorithm", "demand_checksum", "-checksum-list"
+</LI>
+<LI>
+New -as mkisofs options -jigdo-checksum-algorithm, -checksum-list,
+-jigdo-force-checksum
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -706,7 +718,7 @@ installation see README)
 </DD>
 <DD>
 <A HREF="xorriso-1.5.3.tar.gz">xorriso-1.5.3.tar.gz</A>
-(2625 KiB).
+(2650 KiB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of
@@ -735,7 +747,7 @@ versions for dynamic linking. Only release versions are safe for that.
 But after the run of <KBD>./bootstrap</KBD>, only
 vanilla tools like make and gcc are needed.
 </DT>
-<DT>GNU xorriso contains a copy of libjte-1.0.0 from package jigit
+<DT>GNU xorriso contains a copy of libjte-1.0.0 or 2.0.0 from package jigit
 which produces jigdo and template file together with the emerging ISO image.
 (By Free Software Foundation, Steve McIntyre, George Danchev,
 Thomas Schmitt)
@@ -745,6 +757,11 @@ and libisoburn get built.</DD>
 <DD>Download: <KBD><B>wget http://www.einval.com/~steve/software/JTE/download/jigit_1.17.orig.tar.gz</B>
 </KBD></DD>
 <DD>Install: <KBD><B>tar xzf jigit_1.17.orig.tar.gz ; cd jigit-1.17 ; make ; make install</B>
+</KBD></DD>
+<DD>or</DD>
+<DD>Download: <KBD><B>wget https://www.einval.com/~steve/software/JTE/download/jigit-1.22.tar.xz</B>
+</KBD></DD>
+<DD>Install: <KBD><B>unxz &lt;jigit-1.22.tar.xz | tar xf - ; cd jigit-1.22 ; make ; make install</B>
 </KBD></DD>
 
 <DD>&nbsp;</DD>
@@ -778,7 +795,9 @@ with DVD media and how to emulate multi-session on overwritable media.
 <A HREF="http://www.gnu.org">Dedicated to the GNU Operating System</A><BR>
 
 Enjoying free hosting by<BR>
+<!-- 
 <A HREF="http://www.webframe.org">www.webframe.org</A><BR>
+-->
 <A HREF="http://sourceforge.net">sourceforge.net</A><BR>
 
 </FONT></CENTER>
@@ -787,11 +806,11 @@ Enjoying free hosting by<BR>
 <HR>
 <DL>
 <DT>Links to related free software projects of Thomas Schmitt:</DT>
-<DD><A HREF=http://scdbackup.webframe.org/cdrskin_eng.html>
+<DD><A HREF=http://scdbackup.sourceforge.net/cdrskin_eng.html>
 cdrskin, a cdrecord emulator</A></DD>
-<DD><A HREF=http://scdbackup.webframe.org/main_eng.html>
+<DD><A HREF=http://scdbackup.sourceforge.net/main_eng.html>
 scdbackup, multi volume CD/DVD/BD backup</A></DD>
-<DL><DD><A HREF=http://scdbackup.sourceforge.net/main_eng.html> 
+<DL><DD><A HREF=http://scdbackup.webframe.org/main_eng.html> 
 (a second source of above)</A></DD></DL>
 </DL>
 

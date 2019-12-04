@@ -84,11 +84,16 @@ Options:
   -jigdo-jigdo FILE           Produce a jigdo .jigdo file as well as the .iso
   -jigdo-template FILE        Produce a jigdo .template file as well as the .iso
   -jigdo-min-file-size SIZE   Minimum size for a file to be listed in the jigdo file
-  -jigdo-force-md5 PATTERN    Pattern(s) where files MUST match an externally-supplied MD5sum
+  -jigdo-force-checksum PTRN  Pattern(s) where files MUST match an externally-supplied checksum
+  -jigdo-force-md5 PATTERN    Outdated alias of -jigdo-force-checksum
   -jigdo-exclude PATTERN      Pattern(s) to exclude from the jigdo file
   -jigdo-map PATTERN1=PATTERN2
                               Pattern(s) to map paths (e.g. Debian=/mirror/debian)
-  -md5-list FILE              File containing MD5 sums of the files that should be checked
+  -checksum-list FILE         File containing checksums of the files that should be checked
+  -md5-list FILE              Outdated alias of -checksum-list
+  -jigdo-checksum-algorithm ALGORITHM
+                              Choose algorithm for file matching checksums: md5, sha256
+                              Expected in the -checksum-list FILE, written into .jigdo file.
   -jigdo-template-compress ALGORITHM
                               Choose to use gzip or bzip2 compression for template data; default is gzip
   -checksum_algorithm_iso alg1,alg2,...

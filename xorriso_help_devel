@@ -132,6 +132,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Opportunity to omit Rock Ridge info. (Do not do it !)
   -jigdo "clear"|"template_path"|"jigdo_path"|"md5_path"
          |"min_size"|"checksum_iso"|"checksum_template"
+         |"checksum_path"|"demand_checksum"|"checksum_algorithm"
          |"compression"|"exclude"|"demand_md5"|"mapping"
          |"checksum_iso"|"checksum_template"
          value
