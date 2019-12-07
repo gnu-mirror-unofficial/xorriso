@@ -263,6 +263,23 @@ Prefix "mmc:" causes a path to be accepted only if it is a real optical drive
 which is accessible by generic SCSI/MMC commands.
 
 
+                         xorriso-dd-target
+
+GNU xorriso comes with a script named 
+  xorriso-dd-target/xorriso-dd-target
+which uses the util-linux program lsblk to find suitable hard-disk-like
+target devices for copying hard-disk bootable ISO images onto them. Such images
+are offered by GNU/Linux distributions for installing their system.
+
+xorriso-dd-target gets installed only if ./configure detects to run on a
+GNU/Linux system. It refuses to start on non-Linux kernels or if program lsblk
+is not found in /usr/sbin, /sbin, /usr/bin, /bin.
+
+For introduction, examples, and details see in the build directory
+  man xorriso-dd-target/xorriso-dd-target.1
+  info xorriso-dd-target/xorriso-dd-target.info
+
+
                               Testing
 
 For automated and manual tests of xorriso's functionality see file
@@ -516,6 +533,9 @@ GNU xorriso contains libjte out of source package jigit >= 1.17
 Copyright (C) 2000-2007 Free Software Foundation, Inc.
               2004-2011 Steve McIntyre
               2010-2011 George Danchev, Thomas Schmitt
+
+GNU xorriso contains xorriso-dd-target
+Copyright (C) 2019      Nio Wiklund alias sudodus, Thomas Schmitt
 
 ------------------------------------------------------------------------------
 
