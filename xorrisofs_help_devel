@@ -176,3 +176,5 @@ Options:
   --no_rc                     Do not execute startup files
   -v, -verbose                Verbose
   -version                    Print the current version
+
+Report any bugs to bug-xorriso@gnu.org or in private to scdbackup@gmx.net .

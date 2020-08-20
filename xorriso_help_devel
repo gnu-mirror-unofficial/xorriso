@@ -98,6 +98,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -blank ["force:"]"fast"|"all"|"deformat"|"deformat_quickest"
                  Blank medium or invalidate ISO image on medium.
                  Prefix "force:" overrides medium evaluation.
+  -truncate_overwritable entity id adjust
+                 Activate an older session on overwritable medium. Adjust
+                 its size to some value not smaller than original old size.
   -close_damaged "as_needed"|"force"
                  Close track and session of damaged medium.
   -format "as_needed"|"full"|"fast"|"by_index_#"|"by_size_#"
@@ -542,6 +545,7 @@ Restore commands which copy file objects from ISO image to disk filesystem:
            [:"auto_chmod_on"|"auto_chmod_off"]
            [:"sort_lba_on"|"sort_lba_off"]
            [:"strict_acl_on"|"strict_acl_off"]
+           [:"check_md5_on"|"check_md5_off"|"check_md5_force"]
                  By default "off" the inverse operation of xorriso from ISO
                  image to disk filesystem is disabled. "on" allows xorriso
                  to create, overwrite, delete files in the disk filesystem.
@@ -730,5 +734,7 @@ Empty input resumes output until the next prompt. Other input may be:
   @@    suppresses further result output but continues the action
   @@@   aborts the current action
   other aborts the current action and executes input as new command
+
+Report any bugs to bug-xorriso@gnu.org or in private to scdbackup@gmx.net .
 
 

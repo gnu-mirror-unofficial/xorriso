@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Dec  7 22:33:41 2019 -->
+<!-- CreationDate: Thu Aug 20 12:24:01 2020 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1095,6 +1095,9 @@ MD5 of a file will be used to avoid content reading from the
 image. Only the disk file content will be read and compared
 with that MD5. This can save much time if
 -disk_dev_ino &quot;on&quot; is not suitable. <br>
+Commands which copy whole data files from ISO to hard disk
+will verify the copied data stream by the recorded MD5, if
+-osirrox &quot;check_md5_on&quot; is set. <br>
 At image generation time they are computed for each file
 which gets its data written into the new session. The
 checksums of files which have their data in older sessions
@@ -2826,6 +2829,63 @@ surpass the built-in limits. These are &quot;1x&quot;,
 &quot;52xCD&quot;, &quot;24xDVD&quot;,
 &quot;20xBD&quot;.</p>
 
+<p style="margin-left:11%;"><b>-list_profiles</b>
+&quot;in&quot;|&quot;out&quot;|&quot;all&quot;</p>
+
+<p style="margin-left:22%;">Put out a list of media types
+supported by -indev, -outdev, or both,
+respectively. The currently recognized type is marked by
+text &quot;(current)&quot;.</p>
+
+
+<p style="margin-left:11%;"><b>-truncate_overwritable</b>
+entity id adjust</p>
+
+<p style="margin-left:22%;">On overwritable medium copy the
+volume descriptors of an existing session to the overall
+descriptors at LBA 0 ff. This makes all sessions
+<b>inaccessible</b> which are younger than the activated
+one. A reason to do this would be read errors in the younger
+sessions and the wish to re-write or skip them. <br>
+This operation is only allowed if no changes to the loaded
+filesystem are pending. If an -indev is acquired then
+it is released before the write operation begins and
+re-acquired only in case of success. <br>
+The parameters &quot;entity&quot; and &quot;id&quot; have
+the same meaning as with command -load. They choose
+the existing ISO session which shall become the youngest
+accessible session. Available entity names are
+&quot;session&quot;, &quot;track&quot;, &quot;lba&quot;,
+&quot;sbsector&quot;, &quot;volid&quot;. &quot;auto&quot;
+makes few sense. id is a number or search text as
+appropriate for the given entity. <br>
+Parameter &quot;adjust&quot; controls the claimed size of
+the activated session. Text &quot;new&quot; means the size
+of the newly activated session as it was before this
+command. I.e. the space of the then inaccessible younger
+sessions will be re-used when appending more sessions.
+<br>
+&quot;old&quot; means the size up to the end of the
+previously youngest session. I.e. &quot;old&quot; will not
+free the space of the then inaccessible younger sessions for
+re-use. <br>
+A number preceded by &quot;+&quot; gives the number of bytes
+to be added to &quot;new&quot;. A number without
+&quot;+&quot; gives the overall number of bytes. In any case
+the result may not be smaller than &quot;new&quot;. Numbers
+may have a unit suffix: &quot;d&quot;=512,
+&quot;k&quot;=1024, &quot;s&quot;=2048, &quot;m&quot;=1024k,
+&quot;g&quot;=1024m. <br>
+Examples: <br>
+Activate session 4 and enable overwriting of the blocks of
+younger sessions: <br>
+-truncate_overwritable session 4 new <br>
+Activate session 4 and claim the blocks of younger sessions
+as useless part of session 4: <br>
+-truncate_overwritable session 4 old <br>
+Let session 4 claim additional 500 MiB as useless data: <br>
+-truncate_overwritable session 4 +500m</p>
+
 <p style="margin-left:11%;"><b>-close_damaged</b>
 &quot;as_needed&quot;|&quot;force&quot;</p>
 
@@ -2846,14 +2906,6 @@ the close operation even with media which appear undamaged.
 No image changes are allowed to be pending before this
 command is performed. After closing was attempted, both
 drives are given up.</p>
-
-<p style="margin-left:11%;"><b>-list_profiles</b>
-&quot;in&quot;|&quot;out&quot;|&quot;all&quot;</p>
-
-<p style="margin-left:22%;">Put out a list of media types
-supported by -indev, -outdev, or both,
-respectively. The currently recognized type is marked by
-text &quot;(current)&quot;.</p>
 
 <p style="margin-left:11%;">&nbsp;<BR><A NAME="SetWrite"></A><b>Settings for result writing:</b><BR></p>
 
@@ -2909,7 +2961,13 @@ letters. Therefore, file names from the iso_rr name tree may
 collide in the HFS+ name tree. In this case they get changed
 by adding underscore characters and counting numbers. In
 case of very long names, it might be necessary to map them
-to &quot;MANGLED_...&quot;.</p>
+to &quot;MANGLED_...&quot;. <br>
+WARNING: <br>
+The HFS+ implementation in libisofs has a limit of
+125,829,120 bytes for the size of the overall directory
+tree. This suffices for about 300,000 files of normal name
+length. If the limit gets exceeded, a FAILURE event will be
+issued and the ISO production will not happen.</p>
 
 <p style="margin-left:11%;"><b>-rockridge</b>
 &quot;on&quot;|&quot;off&quot;</p>
@@ -3206,7 +3264,8 @@ written with the next -commit. This should be the ISO
 bibliographic records. Permissible are up to 37 characters.
 This setting gets overridden by image loading.</p>
 
-<p style="margin-left:11%;"><b>-preparer_id</b></p>
+<p style="margin-left:11%;"><b>-preparer_id</b>
+text</p>
 
 <p style="margin-left:22%;">Set the preparer ID string to
 be written with the next -commit. This may identify
@@ -4539,7 +4598,7 @@ consumption of 2048 byte blocks by next -commit. This
 can last a while as a -commit gets prepared and only
 in last moment is revoked by this command. The result
 depends on several settings and also on the kind of output
-device. If no -jidgo options are set and not command
+device. If no -jigdo options are set and not command
 -as &quot;mkisofs&quot; was used, then -padding
 (300 kB by default) is not counted as part of the image
 size. <br>
@@ -5122,62 +5181,67 @@ Access permissions of files in the ISO image do not restrict
 restoring. The directory permissions on disk have to allow
 rwx. <b><br> -osirrox</b> setting[:option:...]</p>
 
-<p style="margin-left:22%;">Setting &quot;off&quot;
-disables disk filesystem manipulations. This is the default
-unless the program was started with leafname
-&quot;osirrox&quot;. Elsewise the capability to restore
-files can be enabled explicitly by -osirrox
-&quot;on&quot;. It can be irrevocably disabled by
--osirrox &quot;banned&quot;. <br>
-The setting &quot;blocked&quot; is like &quot;off&quot;. But
-it can only be revoked by setting &quot;unblock&quot;, which
-elsewise is like &quot;on&quot;. This can be used to curb
-command scripts which might use &quot;on&quot; undesiredly.
-<br>
-To enable restoring of special files by
-&quot;device_files&quot; is potentially dangerous. The
-meaning of the number st_rdev (see man 2 stat) depends much
-on the operating system. Best is to restore device files
-only to the same system from where they were copied. If not
-enabled, device files in the ISO image are ignored during
-restore operations. <br>
+<p style="margin-left:22%;">Setting <b>off</b> disables
+disk filesystem manipulations. This is the default unless
+the program was started with leafname <b>osirrox</b>.
+Elsewise the capability to restore files can be enabled
+explicitly by -osirrox <b>on</b>. It can be
+irrevocably disabled by -osirrox <b>banned</b>. <br>
+The setting <b>blocked</b> is like <b>off</b>. But it can
+only be revoked by setting <b>unblock</b>, which elsewise is
+like <b>on</b>. This can be used to curb command scripts
+which might use <b>on</b> undesiredly. <br>
+To enable restoring of special files by <b>device_files</b>
+is potentially dangerous. The meaning of the number st_rdev
+(see man 2 stat) depends much on the operating system. Best
+is to restore device files only to the same system from
+where they were copied. If not enabled, device files in the
+ISO image are ignored during restore operations. <br>
 Due to a bug of previous versions, device files from
 previous sessions might have been altered to major=0,
 minor=1. So this combination does not get restored. <br>
-Option &quot;concat_split_on&quot; is default. It enables
+Option <b>concat_split_on</b> is default. It enables
 restoring of split file directories as data files if the
 directory contains a complete collection of -cut_out
-part files. With option &quot;concat_split_off&quot; such
+part files. With option <b>concat_split_off</b> such
 directories are handled like any other ISO image directory.
 <br>
-Option &quot;auto_chmod_off&quot; is default. If
-&quot;auto_chmod_on&quot; is set then access restrictions
-for disk directories get circumvented if those directories
-are owned by the effective user who runs <b>xorriso</b>.
-This happens by temporarily granting rwx permission to the
-owner. <br>
-Option &quot;sort_lba_on&quot; may improve read performance
-with optical drives. It can restore large numbers of hard
-links without exhausting -temp_mem_limit. It does not
+Option <b>auto_chmod_off</b> is default. If
+<b>auto_chmod_on</b> is set then access restrictions for
+disk directories get circumvented if those directories are
+owned by the effective user who runs <b>xorriso</b>. This
+happens by temporarily granting rwx permission to the owner.
+<br>
+Option <b>sort_lba_on</b> may improve read performance with
+optical drives. It can restore large numbers of hard links
+without exhausting -temp_mem_limit. It does not
 preserve directory mtime and it needs -osirrox option
 auto_chmod_on in order to extract directories which offer no
-write permission. Default is &quot;sort_lba_off&quot;. <br>
-Option &quot;o_excl_on&quot; is the default unless the
-program was started with leafname &quot;osirrox&quot;. On
-GNU/Linux it tries to avoid using drives which are mounted
-or in use by other libburn programs. Option
-&quot;o_excl_off&quot; on GNU/Linux enables access to such
-drives by the equivalent of -drive_access
-&quot;shared:readonly&quot;. I.e. drives which get acquired
-while &quot;o_excl_off&quot; will refuse to get blanked,
-formatted, written, or ejected. But be aware that even
-harmless inquiries can spoil ongoing burns of CD-R[W]
-and DVD-R[W]. <br>
-Option &quot;strict_acl_off&quot; is default. It tolerates
-on FreeBSD the presence of directory &quot;default&quot;
-ACLs in the ISO image. With &quot;strict_acl_on&quot; these
-GNU/Linux ACLs cause on FreeBSD a FAILURE event during
-restore with -acl &quot;on&quot;.</p>
+write permission. Default is <b>sort_lba_off</b>. <br>
+Option <b>o_excl_on</b> is the default unless the program
+was started with leafname &quot;osirrox&quot;. On GNU/Linux
+it tries to avoid using drives which are mounted or in use
+by other libburn programs. Option <b>o_excl_off</b> on
+GNU/Linux enables access to such drives by the equivalent of
+-drive_access &quot;shared:readonly&quot;. I.e. drives
+which get acquired while <b>o_excl_off</b> will refuse to
+get blanked, formatted, written, or ejected. But be aware
+that even harmless inquiries can spoil ongoing burns of
+CD-R[W] and DVD-R[W]. <br>
+Option <b>strict_acl_off</b> is default. It tolerates on
+FreeBSD the presence of directory &quot;default&quot; ACLs
+in the ISO image. With <b>strict_acl_on</b> these GNU/Linux
+ACLs cause on FreeBSD a FAILURE event during restore with
+-acl &quot;on&quot;. <br>
+Option <b>check_md5_off</b> disables MD5 checking during
+copy to disk. The default option <b>check_md5_on</b> enables
+it if -md5 is &quot;on&quot;. If a data file with
+recorded MD5 is copied as a whole to the disk filesystem,
+then the MD5 of the copied content gets computed and
+compared with the recorded MD5. A mismatch causes an error
+message of severity SORRY. Option <b>check_md5_force</b>
+causes an error message if -md5 is &quot;on&quot; but
+no MD5 is recorded for the data file.</p>
 
 <p style="margin-left:11%;"><b>-extract</b>
 iso_rr_path disk_path</p>
@@ -6642,7 +6706,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2019 Thomas Schmitt <br>
+2007 - 2020 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6664,5 +6728,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Dec  7 22:33:41 CET 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Aug 20 12:24:01 CEST 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

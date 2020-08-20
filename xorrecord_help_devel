@@ -46,4 +46,6 @@ Options:
 Actually this is the integrated ISO RockRidge filesystem manipulator xorriso
 lending its libburn capabilities to a very limited cdrecord emulation. Only
 a single data track can be burnt to blank, appendable or overwritable media.
-A much more elaborate cdrecord emulator is cdrskin from the same project.
+A much more elaborate cdrecord emulator is cdrskin from the libburn package.
+
+Report any bugs to bug-xorriso@gnu.org or in private to scdbackup@gmx.net .

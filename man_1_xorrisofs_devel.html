@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Dec  7 22:33:41 2019 -->
+<!-- CreationDate: Thu Aug 20 12:24:01 2020 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1069,7 +1069,13 @@ letters. Therefore, file names from the iso_rr name tree may
 collide in the HFS+ name tree. In this case they get changed
 by adding underscore characters and counting numbers. In
 case of very long names, it might be necessary to map them
-to &quot;MANGLED_...&quot;.</p>
+to &quot;MANGLED_...&quot;. <br>
+WARNING: <br>
+The HFS+ implementation in libisofs has a limit of
+125,829,120 bytes for the size of the overall directory
+tree. This suffices for about 300,000 files of normal name
+length. If the limit gets exceeded, a FAILURE event will be
+issued and the ISO production will not happen.</p>
 
 
 <p style="margin-left:11%;"><b>-hfsplus-serial-no</b></p>
@@ -2855,5 +2861,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Dec  7 22:33:41 CET 2019 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Thu Aug 20 12:24:01 CEST 2020 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
