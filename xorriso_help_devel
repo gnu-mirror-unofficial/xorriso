@@ -32,9 +32,10 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Enable or disable status and content changes of drive.
   -scsi_dev_family "default"|"sr"|"scd"|"sg"
                  Linux specific: Choose device file type.
-  -read_speed number["k/s"|"m/s"|"[x]CD"|"[x]DVD"|"[x]BD"]
+  -read_speed number["k/s"|"[x]CD"|"[x]DVD"|"[x]BD"]|keyword
                  Set the read speed. Default is "none" = do not set speed
-                 before reading.
+                 before reading. Prefix "soft_force:" enables slowdown by
+                 software.
   -grow_blindly "off"|predicted_nwa
                  Switch between modifying and blind growing.
   -load "session"|"track"|"lba"|"sbsector"|"volid"|"auto" id

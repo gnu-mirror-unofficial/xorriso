@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Thu Aug 20 12:24:01 2020 -->
+<!-- CreationDate: Thu Sep 24 12:03:37 2020 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -895,7 +895,30 @@ Read speed &quot;max&quot; cannot become lower than 52xCD,
 24xDVD, or 20xBD, depending on the medium type. <br>
 MMC drives usually activate their own idea of speed and take
 the speed value given by the burn program only as hint for
-their own decision.</p>
+their own decision. Friendly drives adjust their constant
+angular velocity so that the desired speed is reached at the
+outer rim of the medium. But often there is only the choice
+between very slow and very loud. <br>
+Sometimes no speed setting is obeyed at all, but speed is
+adjusted to the demand frequency of the reading program. So
+xorriso offers to set an additional software enforced limit
+by prefix &quot;soft_force:&quot;. The program will take
+care not to read faster than the soft_force speed. This may
+be combined with setting the drive speed to a higher value.
+Setting &quot;soft_force:0&quot; disables this feature. <br>
+&quot;soft_force:&quot; tries to correct in subsequent
+waiting periods lost or surplus time of up to 0.25 seconds.
+This smoothens the overall data stream but also enables
+short times of higher speed to compensate short times of low
+speed. Prefix &quot;soft_corr:&quot; sets this hindsight
+span by giving a number of microseconds. Not more than 1
+billion = 1000 seconds. Very short times can cause speed
+deviations, because systematic inaccuracies of the waiting
+function cannot be compensated. <br>
+Examples (combinable): <br>
+-read_speed 6xBD <br>
+-read_speed soft_force:4xBD -read_speed
+soft_corr:100000</p>
 
 <p style="margin-left:11%;"><b>-load</b> entity
 id</p>
@@ -3803,9 +3826,11 @@ the first 512 bytes from an ISOLINUX isohybrid ISO image.
 <br>
 In this case, El Torito boot images (dir=, bin_path=,
 efi_path=) may be augmented by <b>isolinux partition_entry=gpt_basdat</b> or <b>isolinux partition_entry=gpt_hfsplus</b>, and by <b>isolinux partition_entry=apm_hfsplus</b>. The boot image will then be
-mentioned in GPT as Basic Data or GPT HFS+ partition, and in
-APM as HFS+ partition. The first three GPT partitions will
-also be marked by MBR partitions. <br>
+mentioned in an invalid GPT as Basic Data or GPT HFS+
+partition, and in a valid APM as HFS+ partition. The first
+three GPT partitions will also be marked by MBR partitions.
+The MBR partition of type 0xEF is what actually is used by
+EFI firmware for booting from USB stick. <br>
 In multi-session situations the existing System Area
 is preserved by default. In in this case, the special
 disk_path &quot;.&quot; prevents reading of a disk file but
@@ -6728,5 +6753,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Aug 20 12:24:01 CEST 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Sep 24 12:03:37 CEST 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
