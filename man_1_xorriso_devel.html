@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Thu Sep 24 12:03:37 2020 -->
+<!-- CreationDate: Wed Sep 30 21:17:33 2020 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -5098,7 +5098,21 @@ Abort may be delayed by the drive gnawing on the last single
 read operation. Value -1 means unlimited time. <b><br> item_limit=number</b> gives the number of report list items
 after which to abort. Value -1 means unlimited item
 number. <b><br> data_to=disk_path</b> copies the valid blocks to the given
-file. <b><br> event=severity</b> sets the given severity for a problem
+file, which must support random access writing, unless
+disk_path is &quot;-&quot; which means standard
+output. <br>
+In the latter case, patch_lba0= settings other than
+&quot;off&quot; yield failure. Further the usual result
+messages of -check_media get redirected to the info
+channel. But beware of result messages from other commands.
+Beware of -*dev &quot;-&quot; which redirect
+standard output to standard error. Keep the run simple: <br>
+xorriso -indev /dev/sr0 -check_media
+data_to=- -- | md5sum <br>
+xorriso -outdev /dev/sr0 -check_media
+data_to=- use=outdev \ <br>
+what=disc min_lba=0 max_lba=999999 -- |
+sha256sum <b><br> event=severity</b> sets the given severity for a problem
 event which shall be issued at the end of a check run if
 data blocks were unreadable or failed to match recorded MD5
 checksums. Severity &quot;ALL&quot; disables this event.
@@ -6753,5 +6767,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Thu Sep 24 12:03:37 CEST 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Sep 30 21:17:33 CEST 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
