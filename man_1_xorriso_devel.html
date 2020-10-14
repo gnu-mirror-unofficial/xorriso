@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Wed Sep 30 21:17:33 2020 -->
+<!-- CreationDate: Wed Oct 14 23:10:58 2020 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -3341,24 +3341,59 @@ files when the new ISO tree gets written to media.</p>
 files when the new ISO tree gets written to media.</p>
 
 <p style="margin-left:11%;"><b>-zisofs</b>
-option[:options]</p>
+parameter[:parameters]</p>
 
 <p style="margin-left:22%;">Set global parameters for
 zisofs compression. This data format is recognized and
 transparently uncompressed by some Linux kernels. It is to
 be applied via command -set_filter with built-in
-filter &quot;--zisofs&quot;. Parameters are:
-<br>
+filter &quot;--zisofs&quot;. <br>
+Note: This command is only permitted while no
+--zisofs filters are applied to any files. <br>
+Parameters are: <br>
 &quot;level=&quot;[0-9] zlib compression: 0=none,
 1=fast,..., 9=slow <br>
-&quot;block_size=&quot;32k|64k|128k size of compression
-blocks <br>
+&quot;block_size=&quot;32k|64k|128k sets the size of version
+1 compression blocks. <br>
 &quot;by_magic=on&quot; enables an expensive test at image
 generation time which checks files from disk whether they
 already are zisofs compressed, e.g. by program mkzftree.
 <br>
+&quot;version_2=&quot;off|as_needed|on enables the use of
+experimental version zisofs2 which can encode files of size
+4 GiB or larger. The Linux kernel (as of 5.9) does not yet
+know this format and will complain like <br>
+isofs: Unknown ZF compression algorithm: PZ <br>
+The files will then appear in their compressed form with
+zisofs2 header, block pointer list, and compressed data.
+<br>
+zisofs2 is recognized by xorriso in files from loaded images
+and gets equipped with --zisofs-decode
+filters, unless restrictions on the number of block pointers
+prevent this. <br>
+Mode &quot;off&quot; restricts compression to files smaller
+than 4 GiB uncompressed size. Mode &quot;as_needed&quot;
+uses zisofs2 for larger files. Mode &quot;on&quot; uses
+zisofs2 for all zisofs compressed files. <br>
+&quot;block_size_v2=&quot;32k|64k|128k|256k|512k|1m sets the
+size of compression blocks for zisofs2. <br>
+&quot;max_bpt=&quot;1k|...|128g sets the limit for the
+overall allocated block pointer memory. Block pointers
+occupy virtual memory while a file gets uncompressed and
+while a file, which shall be compressed, waits for ISO
+filesystem creation. <br>
+One pointer occupies 8 bytes of memory and governs
+block_size or block_size_v2 uncompressed bytes. I.e. with
+block size 128k, 1m of block pointer memory suffices for 16g
+of uncompressed file size. <br>
+&quot;max_bpt_f=&quot;1k|...|128g sets the limit for the
+memory size of the block pointer list of a single file.
+max_bpt_f is never larger than max_bpt. If either is set to
+violate this rule, the other gets set to the same value.
+<br>
 &quot;default&quot; same as
-&quot;level=6:block_size=32k:by_magic=off&quot;</p>
+&quot;level=6:block_size=32k:by_magic=off:
+version_2=off:block_size_v2=128k:max_bpt=256m:max_bpt_f=256m&quot;.</p>
 
 <p style="margin-left:11%;"><b>-speed</b>
 code|number[k|m|c|d|b]</p>
@@ -4986,6 +5021,14 @@ image:&rsquo;iso_rr_path&rsquo; for ISO image file objects.
 cout:&rsquo;disk_path offset count&rsquo; for -cut_out
 files. <br>
 extf:&rsquo;filter_name&rsquo; for external filters. <br>
+--zisofs:algorithm:block_size for zisofs
+compression filters. <br>
+--zisofs-decode:algorithm:block_size for
+zisofs uncompression filters. <br>
+--gzip for internal gzip compression filters.
+<br>
+--gunzip for internal gzip uncompression
+filters. <br>
 Example: <br>
 &rsquo;/abc/xyz.gz&rsquo; &lt; extf:&rsquo;gzip&rsquo; &lt;
 disk:&rsquo;/home/me/x&rsquo;</p>
@@ -6767,5 +6810,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Sep 30 21:17:33 CEST 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Oct 14 23:10:58 CEST 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
