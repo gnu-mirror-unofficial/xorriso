@@ -429,8 +429,8 @@ compressed content is detected with a file in the ISO image.
                  Set global zisofs parameters:
                    level=0|...|9 , block_size=32k|64k|128k , by_magic=on|off
                    version_2=off|as_needed|on , block_size_v2=32k|...|1024k
-                   max_bpt=1k...128g , max_bpt_f=1k...128g
-
+                   max_bpt=1k...128g , max_bpt_f=1k...128g , bpt_target=num
+                   bpt_free_ratio=-1|[0.0...1.0] , susp_z2=off|on
 Write-to-media commands:
   -rollback      Discard the manipulated ISO image and reload it.
 

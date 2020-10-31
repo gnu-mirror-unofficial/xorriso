@@ -676,7 +676,10 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.5.3 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.5.2:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+-report_system_area as_mkisofs misrepresented GPT with appended
+partition and forced boot flag as -part_like_isohybrid
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -707,10 +710,14 @@ New -read_speed prefixes "soft_force:" and "soft_corr:"
 New -check_media option data_to="-" for standard output
 </LI>
 <LI>
-New -zisofs parameters version_2=, block_size_v2=, max_bpt=, max_bpt_f=
+New -zisofs parameters version_2=, block_size_v2=, max_bpt=, max_bpt_f=,
+bpt_target=, bpt_free_ratio=, by_magic=v2, susp_z2=
 </LI>
 <LI>
-New -as mkisofs option --zisofs-version-2
+New -as mkisofs option --zisofs-version-2, --zisofs2-susp-z2, --zisofs2-susp-zf
+</LI>
+<LI>
+Enabled recognition of zisofs by magic without zlib support
 </LI>
 <!-- 
 <LI>- none yet -</LI>

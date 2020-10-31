@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Wed Oct 14 23:10:58 2020 -->
+<!-- CreationDate: Sat Oct 31 20:53:16 2020 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -3358,11 +3358,13 @@ Parameters are: <br>
 &quot;by_magic=on&quot; enables an expensive test at image
 generation time which checks files from disk whether they
 already are zisofs compressed, e.g. by program mkzftree.
-<br>
-&quot;version_2=&quot;off|as_needed|on enables the use of
-experimental version zisofs2 which can encode files of size
-4 GiB or larger. The Linux kernel (as of 5.9) does not yet
-know this format and will complain like <br>
+&quot;by_magic=v2&quot; enables processing of already
+zisofs2 compressed files additionally to those of zisofs
+version 1. &quot;by_magic=off&quot; disables both. <br>
+&quot;version_2=&quot;off|as_needed|on controls compression
+by experimental version zisofs2 which can encode files of
+size 4 GiB or larger. The Linux kernel (as of 5.9) does not
+yet know this format and will complain like <br>
 isofs: Unknown ZF compression algorithm: PZ <br>
 The files will then appear in their compressed form with
 zisofs2 header, block pointer list, and compressed data.
@@ -3375,25 +3377,61 @@ Mode &quot;off&quot; restricts compression to files smaller
 than 4 GiB uncompressed size. Mode &quot;as_needed&quot;
 uses zisofs2 for larger files. Mode &quot;on&quot; uses
 zisofs2 for all zisofs compressed files. <br>
+&quot;susp_z2=&quot;off|on controls production of SUSP
+entries &quot;Z2&quot; instead of &quot;ZF&quot; with
+zisofs2 compressed files. Unaware Linux kernels are supposed
+to silently ignore &quot;Z2&quot; entries. <br>
 &quot;block_size_v2=&quot;32k|64k|128k|256k|512k|1m sets the
 size of compression blocks for zisofs2. <br>
-&quot;max_bpt=&quot;1k|...|128g sets the limit for the
-overall allocated block pointer memory. Block pointers
-occupy virtual memory while a file gets uncompressed and
-while a file, which shall be compressed, waits for ISO
-filesystem creation. <br>
+&quot;bpt_target=&quot;-1|&gt;0 sets a number of block
+pointers per file, which is considered low enough to justify
+a reduction of block size. If this number is larger than 0,
+then block sizes smaller than the settings of block_size= or
+block_size_v2= are tried whether they yield not more block
+pointers than the given number. If so, the smallest suitable
+block size is applied. <br>
+The inavoidable final block pointer counts. E.g. a file of
+55 KiB has 3 block pointers if block size is 32k, and 2
+block pointers with block size 64k. <br>
+bpt_target=-1 disables this automatic block size
+adjustment. <br>
+&quot;max_bpt=&quot;1k...128g sets the limit for the overall
+allocated block pointer memory. Block pointers occupy
+virtual memory while a file gets uncompressed and while a
+file, which shall be compressed, waits for ISO filesystem
+creation. <br>
 One pointer occupies 8 bytes of memory and governs
 block_size or block_size_v2 uncompressed bytes. I.e. with
-block size 128k, 1m of block pointer memory suffices for 16g
-of uncompressed file size. <br>
-&quot;max_bpt_f=&quot;1k|...|128g sets the limit for the
+block size 128k, 1m of block pointer memory suffices for at
+most 16g of uncompressed file size. Each file consumes one
+end block pointer, independently of the file size. Partially
+filled end blocks may further reduce the effective payload.
+<br>
+In case of overflow of the max_bpt limit while adding
+compression filters the program tries to go on by discarding
+all buffered block pointers of previously added
+--zisofs filters. From then on all newly added
+filters will discard their block pointers immediately after
+being added. Discarded block pointers cause an additional
+read and compression run of the input file during the
+production of the ISO filesystem. <br>
+&quot;max_bpt_f=&quot;1k...128g sets the limit for the
 memory size of the block pointer list of a single file.
 max_bpt_f is never larger than max_bpt. If either is set to
-violate this rule, the other gets set to the same value.
-<br>
-&quot;default&quot; same as
+violate this rule, the other gets set to the same value. If
+both values are the same before a change by max_bpt= or
+max_bpt_f=, then both limits stick together unless the limit
+is decreased by max_bpt_f=. <br>
+&quot;bpt_free_ratio=&quot;-1|0.0...1.0 sets a
+threshold for switching to block pointer discarding during
+compression. If less than the given fraction of the
+max_bpt_f= memory is free, then block pointers of
+compression filters get discarded immediately after being
+added. Value -1 disables this feature. <br>
+&quot;default&quot; is the same as
 &quot;level=6:block_size=32k:by_magic=off:
-version_2=off:block_size_v2=128k:max_bpt=256m:max_bpt_f=256m&quot;.</p>
+version_2=off:block_size_v2=128k:susp_z2=off:max_bpt=256m:max_bpt_f=256m:
+bpt_free_ratio=-1&quot;.</p>
 
 <p style="margin-left:11%;"><b>-speed</b>
 code|number[k|m|c|d|b]</p>
@@ -6810,5 +6848,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Oct 14 23:10:58 CEST 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Oct 31 20:53:16 CET 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

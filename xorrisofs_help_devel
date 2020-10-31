@@ -168,6 +168,8 @@ Options:
   -z, -transparent-compression
                               Enable transparent compression of files
   --zisofs-version-2          Enable processing of zisofs version 2 files
+  --zisofs2-susp-z2           Produce Z2 entries for zisofs version 2
+  --zisofs2-susp-zf           Produce ZF entries for zisofs version 2
   -root DIR                   Set root directory for all new files and directories
   -old-root DIR               Set root directory in previous session that is searched for files
   --old-root-no-md5           Do not record and use MD5 with -old-root
