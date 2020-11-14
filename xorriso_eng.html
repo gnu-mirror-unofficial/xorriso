@@ -680,6 +680,10 @@ cdrecord and mkisofs.</DT>
 -report_system_area as_mkisofs misrepresented GPT with appended
 partition and forced boot flag as -part_like_isohybrid
 </LI>
+<LI>
+Boot catalog could get a wrong name if cat_path= is explicitely given but
+not containing a slash character
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -718,6 +722,9 @@ New -as mkisofs option --zisofs-version-2, --zisofs2-susp-z2, --zisofs2-susp-zf
 </LI>
 <LI>
 Enabled recognition of zisofs by magic without zlib support
+</LI>
+<LI>
+New -osirrox option sparse= controls extraction into sparse files
 </LI>
 <!-- 
 <LI>- none yet -</LI>
@@ -844,7 +851,7 @@ scdbackup, multi volume CD/DVD/BD backup</A></DD>
 <BR>
 Legal statement: This website does not serve any commercial purpose.
 <BR><BR>
-Copyright &copy; 2008 - 2019 Thomas Schmitt.
+Copyright &copy; 2008 - 2020 Thomas Schmitt.
 <BR>
 This text is freely distributable. It shall only be modified in sync with
 the factual properties of xorriso and its public storage locations.

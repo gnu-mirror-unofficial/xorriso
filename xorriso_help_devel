@@ -549,6 +549,7 @@ Restore commands which copy file objects from ISO image to disk filesystem:
            [:"sort_lba_on"|"sort_lba_off"]
            [:"strict_acl_on"|"strict_acl_off"]
            [:"check_md5_on"|"check_md5_off"|"check_md5_force"]
+           [:"sparse=off"|"sparse="number]
                  By default "off" the inverse operation of xorriso from ISO
                  image to disk filesystem is disabled. "on" allows xorriso
                  to create, overwrite, delete files in the disk filesystem.

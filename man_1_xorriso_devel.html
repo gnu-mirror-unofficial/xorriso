@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Oct 31 20:53:16 2020 -->
+<!-- CreationDate: Sat Nov 14 09:37:00 2020 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -5361,7 +5361,22 @@ then the MD5 of the copied content gets computed and
 compared with the recorded MD5. A mismatch causes an error
 message of severity SORRY. Option <b>check_md5_force</b>
 causes an error message if -md5 is &quot;on&quot; but
-no MD5 is recorded for the data file.</p>
+no MD5 is recorded for the data file. <br>
+Option <b>sparse=</b> controls production of sparse files
+during extraction of files from the ISO filesystem. Default
+is <b>sparse=off</b>. <br>
+A positive number like in <b>sparse=1m</b> sets the minimum
+requirement for the length of a sequence of 0-bytes
+which shall be represented by a gap. This saves disk space
+if the disk filesystem supports sparse files. A gap gets
+created by help of lseek(2) if a sequence of read buffers,
+which contain only 0-bytes, bears at least the minimum
+amount of bytes. Expect read buffers to be in the size range
+of 32k or 64k. <br>
+Command -paste_in creates gaps only if the writing
+begins at or after the end of the existing disk file. So the
+sequence of -paste_in commands matters. Command
+-concat does not create sparse files.</p>
 
 <p style="margin-left:11%;"><b>-extract</b>
 iso_rr_path disk_path</p>
@@ -6848,5 +6863,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Oct 31 20:53:16 CET 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Nov 14 09:37:00 CET 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>
