@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-http://www.gnu.org/software/xorriso/xorriso-1.5.3.tar.gz
+http://www.gnu.org/software/xorriso/xorriso-1.5.5.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -49,10 +49,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.5.3.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.5.5.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.5.3.tar.gz
-    cd xorriso-1.5.3
+    tar xzf xorriso-1.5.5.tar.gz
+    cd xorriso-1.5.5
 
 Within that directory execute:
 
@@ -395,9 +395,9 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-1.5.2 :
-- libburn.so.4  , version libburn-1.5.2 or higher
-- libisofs.so.6 , version libisofs-1.5.2 or higher
+Dynamic library and compile time header requirements for libisoburn-1.5.4 :
+- libburn.so.4  , version libburn-1.5.4 or higher
+- libisofs.so.6 , version libisofs-1.5.4 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
@@ -521,7 +521,7 @@ By Mario Danic           <mario.danic@gmail.com>,  libburn, libisofs
    Vreixo Formoso        <metalpain2002@yahoo.es>, libisofs, libisoburn
    Thomas Schmitt        <scdbackup@gmx.net>,      libburn, libisofs,
                                                    libisoburn, xorriso
-Copyright (C) 2006-2019 Mario Danic, Vreixo Formoso, Thomas Schmitt.
+Copyright (C) 2006-2021 Mario Danic, Vreixo Formoso, Thomas Schmitt.
 
 libburnia-project.org is inspired by and in libburn still containing parts
 of old
@@ -535,12 +535,12 @@ Copyright (C) 2000-2007 Free Software Foundation, Inc.
               2010-2011 George Danchev, Thomas Schmitt
 
 GNU xorriso contains xorriso-dd-target
-Copyright (C) 2019      Nio Wiklund alias sudodus, Thomas Schmitt
+Copyright (C) 2019-2021 Nio Wiklund alias sudodus, Thomas Schmitt
 
 ------------------------------------------------------------------------------
 
 This text itself is
-Copyright (c) 2007 - 2019 Thomas Schmitt <scdbackup@gmx.net>
+Copyright (c) 2007 - 2021 Thomas Schmitt <scdbackup@gmx.net>
 and is freely distributable.
 It shall only be modified in sync with the technical properties of xorriso.
 If you make use of the license to derive modified versions of xorriso

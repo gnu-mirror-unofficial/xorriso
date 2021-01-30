@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Nov 14 09:37:00 2020 -->
+<!-- CreationDate: Sat Jan 30 21:20:10 2021 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1167,19 +1167,33 @@ being recorded or restored.</p>
 &quot;stripped&quot;|&quot;unmapped&quot;|&quot;lowercase&quot;|&quot;uppercase&quot;</p>
 
 <p style="margin-left:22%;">Choose the conversion of file
-names from the loaded session if neither a Rock Ridge name
-nor a Joliet name was read from the session. <br>
+names when a session gets loaded, if they stem neither from
+a Rock Ridge name nor from a Joliet name. <br>
 Mode &quot;stripped&quot; is the default. It shows the names
 as found in the ISO but removes trailing &quot;;1&quot; or
 &quot;.;1&quot; if present. <br>
 Mode &quot;unmapped&quot; shows names as found without
-removing characters. <br>
+removing characters. Warning: Multi-session converts
+&quot;xyz;1&quot; to &quot;xyz_1&quot; and maybe adds new
+&quot;;1&quot;. <br>
 Mode &quot;lowercase&quot; is like &quot;stripped&quot; but
 also maps uppercase letters to lowercase letters. This is
 compatible to default GNU/Linux mount behavior. <br>
 Mode &quot;uppercase&quot; is like &quot;stripped&quot; but
 maps lowercase letters to uppercase, if any occur despite
 the prescriptions of ECMA-119.</p>
+
+<p style="margin-left:11%;"><b>-joliet_map</b>
+&quot;stripped&quot;|&quot;unmapped&quot;</p>
+
+<p style="margin-left:22%;">Choose the conversion of file
+names when a session gets loaded from a Joliet tree. <br>
+Mode &quot;stripped&quot; is the default. It removes
+trailing &quot;;1&quot; or &quot;.;1&quot; if present. <br>
+Mode &quot;unmapped&quot; shows names as found without
+removing characters. Warning: Multi-session converts
+&quot;xyz;1&quot; to &quot;xyz_1&quot; and maybe adds new
+&quot;;1&quot;.</p>
 
 <p style="margin-left:11%;"><b>-iso_nowtime</b>
 &quot;dynamic&quot;|timestring</p>
@@ -4145,7 +4159,10 @@ It will be used if the partition is mentioned in GPT. In
 MBR,
 C12A7328-F81F-11D2-BA4B-00A0C93EC93B
 will be mapped to 0xef. Any other GUID will be mapped to
-0x83. <br>
+0x83. In APM,
+48465300-0000-11AA-AA11-00306543ECAC
+will be mapped to partition type &quot;Apple_HFS&quot;, any
+other to &quot;Data&quot;. <br>
 If some other command causes the production of GPT, then the
 appended partitions will be mentioned there too. <br>
 The disk_path must provide the necessary data bytes at
@@ -5509,6 +5526,48 @@ used as arguments with the program start. Example: <br>
 parameters in all modes are the iso_rr_paths of data files.
 Their content gets concatenated in the copy.</p>
 
+
+<p style="margin-left:11%;"><b>-extract_boot_images</b>
+disk_path</p>
+
+<p style="margin-left:22%;">Copy boot equipment to disk,
+which is not necessarily represented as data files in the
+ISO filesystem. The data get written into various files in a
+disk directory, which may already exist or of which the
+parent must exist so that it can get created. <br>
+Files may be missing if their corresponding information is
+not present in the ISO filesystem. Existing files do not get
+overwritten but rather cause a failure event. <br>
+The same data may appear in different files. E.g. the El
+Torito boot image for EFI is often the same data as the EFI
+partition in MBR or GPT. <br>
+File &quot;eltorito_catalog.img&quot; contains the El Torito
+Boot Catalog. <br>
+Files &quot;eltorito_img*_*.img&quot; contain El Torito Boot
+images. The first &quot;*&quot; gives the image number, the
+second &quot;*&quot; gives the type: &quot;bios&quot;,
+&quot;mac&quot;, &quot;ppc&quot;, &quot;uefi&quot;, or a hex
+number. <br>
+File &quot;mbr_code_isohybrid.img&quot; contains the
+ISOLINUX MBR template. <br>
+File &quot;mbr_code_grub2.img&quot; contains the GRUB2 MBR
+template. <br>
+File &quot;systemarea.img&quot; contains the whole 32 KiB of
+System Area if not all zero. <br>
+Files &quot;mbr_part*_efi.img&quot; contain EFI partition
+images from the MBR partition table. The &quot;*&quot; text
+part gives the partition number. <br>
+Files &quot;mbr_part*_prep.img&quot; contain PReP partition
+images. <br>
+Files &quot;gpt_part*_efi.img&quot; contain EFI partition
+images from GPT. <br>
+Files &quot;gpt_part*_hfsplus.img&quot; contain HFS+
+partition images from GPT. To avoid extracting the whole
+HFS+ aspect of hybrid ISO filesystems, the partition image
+is extracted only if it has less than half of the size of
+the ISO filesystem or if the partition is outside the ISO
+filesystem.</p>
+
 <p style="margin-left:11%;"><b>-mount</b> drive
 entity id path</p>
 
@@ -6841,7 +6900,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2020 Thomas Schmitt <br>
+2007 - 2021 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6863,5 +6922,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Nov 14 09:37:00 CET 2020 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Jan 30 21:20:10 CET 2021 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

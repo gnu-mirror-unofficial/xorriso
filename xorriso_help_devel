@@ -81,6 +81,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -ecma119_map "unmapped"|"stripped"|"uppercase"|"lowercase"
                  Choose conversion of file names if neither Rock Ridge
                  nor Joliet is present in the loaded ISO session.
+  -joliet_map "unmapped"|"stripped"
+                 Choose conversion of file names if the Joliet tree is read
+                 when loading the ISO session.
   -iso_nowtime "dynamic"|timestring
                  Choose use of current time or a fixed point in time for
                  timestamps where libisofs would normally use the current
@@ -565,6 +568,9 @@ Restore commands which copy file objects from ISO image to disk filesystem:
   -extract_cut iso_rr_path byte_offset byte_count disk_path
                  Copy a byte interval from iso_rr_path to disk_path.
                  This is governed in part by -check_media_defaults.
+  -extract_boot_images disk_path
+                 Copy boot images into files in directory disk_path with
+                 names which tell the role inside the ISO.
   -cpx iso_rr_path [***] disk_path
                  Copy leaf file objects from ISO image to disk filesystem.
   -cpax iso_rr_path [***] disk_path

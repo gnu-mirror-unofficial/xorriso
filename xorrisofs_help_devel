@@ -1,4 +1,4 @@
-xorriso 1.5.3 : RockRidge filesystem manipulator, libburnia project.
+xorriso 1.5.5 : RockRidge filesystem manipulator, libburnia project.
 
 Usage: xorriso -as mkisofs [options] file...
 Note: This is not mkisofs. See xorriso -help, xorriso -version, man xorrisofs
