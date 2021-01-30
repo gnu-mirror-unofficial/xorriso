@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-http://www.gnu.org/software/xorriso/xorriso-1.5.2.tar.gz
+http://www.gnu.org/software/xorriso/xorriso-1.5.4.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -49,10 +49,10 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.5.2.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.5.4.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.5.2.tar.gz
-    cd xorriso-1.5.2
+    tar xzf xorriso-1.5.4.tar.gz
+    cd xorriso-1.5.4
 
 Within that directory execute:
 
@@ -99,7 +99,7 @@ Both conditional dependencies can be avoided by running
     ./configure --prefix=/usr --disable-libreadline
     make clean ; make
 Never omit the "make clean" command after switching enabling of libreadline.
-If you want to explictely allow only the use of libedit, then do
+If you want to explicitly allow only the use of libedit, then do
     ./configure --prefix=/usr --disable-libreadline --enable-libedit
 
 Other deliberate dependency reduction options of ./configure are:
@@ -263,6 +263,23 @@ Prefix "mmc:" causes a path to be accepted only if it is a real optical drive
 which is accessible by generic SCSI/MMC commands.
 
 
+                         xorriso-dd-target
+
+GNU xorriso comes with a script named 
+  xorriso-dd-target/xorriso-dd-target
+which uses the util-linux program lsblk to find suitable hard-disk-like
+target devices for copying hard-disk bootable ISO images onto them. Such images
+are offered by GNU/Linux distributions for installing their system.
+
+xorriso-dd-target gets installed only if ./configure detects to run on a
+GNU/Linux system. It refuses to start on non-Linux kernels or if program lsblk
+is not found in /usr/sbin, /sbin, /usr/bin, /bin.
+
+For introduction, examples, and details see in the build directory
+  man xorriso-dd-target/xorriso-dd-target.1
+  info xorriso-dd-target/xorriso-dd-target.info
+
+
                               Testing
 
 For automated and manual tests of xorriso's functionality see file
@@ -342,7 +359,7 @@ Tag_id distinguishes the following tag types
   "libisofs_checksum_tag_v1"            Session end tag
 
 A relocated superblock may appear at LBA 0 of an image which was produced for
-being stored in a disk file or on overwriteable media (e.g. DVD+RW, BD-RE).
+being stored in a disk file or on overwritable media (e.g. DVD+RW, BD-RE).
 xorriso records the first session at LBA 32. A follow-up session
 begins at the next block address which is divisible by 32 and higher than the
 address of the previous session's end tag. Normally no session starts after the
@@ -366,7 +383,7 @@ are accessed via libisoburn, which is closely related to xorriso.
 
 libisoburn provides several services:
 - Encapsulation of coordination between libisofs and libburn.
-- Emulation of ISO 9660 multi-session on overwriteable media
+- Emulation of ISO 9660 multi-session on overwritable media
   or random access files.
 - Implementation of the xorriso API.
 
@@ -378,9 +395,9 @@ and a matching dynamically linked xorriso binary.
 This binary is very lean but depends on properly installed libraries of
 suitable revision.
 
-Dynamic library and compile time header requirements for libisoburn-1.5.2 :
-- libburn.so.4  , version libburn-1.5.2 or higher
-- libisofs.so.6 , version libisofs-1.5.2 or higher
+Dynamic library and compile time header requirements for libisoburn-1.5.4 :
+- libburn.so.4  , version libburn-1.5.4 or higher
+- libisofs.so.6 , version libisofs-1.5.4 or higher
 libisoburn and xorriso will not start with libraries which are older than their
 headers seen at compile time. So compile in the oldest possible installation
 setup unless you have reason to enforce a newer bug fix level.
@@ -504,7 +521,7 @@ By Mario Danic           <mario.danic@gmail.com>,  libburn, libisofs
    Vreixo Formoso        <metalpain2002@yahoo.es>, libisofs, libisoburn
    Thomas Schmitt        <scdbackup@gmx.net>,      libburn, libisofs,
                                                    libisoburn, xorriso
-Copyright (C) 2006-2019 Mario Danic, Vreixo Formoso, Thomas Schmitt.
+Copyright (C) 2006-2021 Mario Danic, Vreixo Formoso, Thomas Schmitt.
 
 libburnia-project.org is inspired by and in libburn still containing parts
 of old
@@ -517,10 +534,13 @@ Copyright (C) 2000-2007 Free Software Foundation, Inc.
               2004-2011 Steve McIntyre
               2010-2011 George Danchev, Thomas Schmitt
 
+GNU xorriso contains xorriso-dd-target
+Copyright (C) 2019-2021 Nio Wiklund alias sudodus, Thomas Schmitt
+
 ------------------------------------------------------------------------------
 
 This text itself is
-Copyright (c) 2007 - 2019 Thomas Schmitt <scdbackup@gmx.net>
+Copyright (c) 2007 - 2021 Thomas Schmitt <scdbackup@gmx.net>
 and is freely distributable.
 It shall only be modified in sync with the technical properties of xorriso.
 If you make use of the license to derive modified versions of xorriso

@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Oct 26 20:22:45 2019 -->
+<!-- CreationDate: Sat Jan 30 15:30:50 2021 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -99,7 +99,7 @@ Can check media for damages and copy readable blocks to
 disk. <br>
 Can attach MD5 checksums to each data file and the whole
 session. <br>
-Scans for optical drives, blanks re-useable optical
+Scans for optical drives, blanks re-usable optical
 media. <br>
 Reads its instructions from command line arguments, dialog,
 and files. <br>
@@ -162,7 +162,7 @@ referred as <b>growing</b>. <br>
 The multi-session model of the MMC standard does not
 apply to all media types. But program growisofs by Andy
 Polyakov showed how to extend this functionality to
-overwriteable media or disk files which carry valid ISO 9660
+overwritable media or disk files which carry valid ISO 9660
 filesystems.</p>
 
 <p style="margin-left:11%; margin-top: 1em"><b>xorriso</b>
@@ -207,7 +207,7 @@ Similar to multi-session media are DVD-R DL and
 minimally blanked DVD-RW. They record only a single
 session of which the size must be known in advance.
 <b>xorriso</b> will write onto them only if command
--close is set to &quot;on&quot;. <b><br> Overwriteable media</b> are DVD-RAM, DVD+RW,
+-close is set to &quot;on&quot;. <b><br> Overwritable media</b> are DVD-RAM, DVD+RW,
 BD-RE, and formatted DVD-RW. They offer random
 write access but do not provide information about their
 session history. If they contain one or more ISO 9660
@@ -217,7 +217,7 @@ Else only a single overall session will be visible. <br>
 DVD-RW media can be formatted by -format
 &quot;full&quot;. They can be made unformatted by
 -blank &quot;deformat&quot;. <br>
-Regular files and block devices are handled as overwriteable
+Regular files and block devices are handled as overwritable
 media. Pipes and other writeable file types are handled as
 blank multi-session media.</p>
 
@@ -227,14 +227,14 @@ capabilities. <b><br> Blank</b> media can be written from scratch. They contain 
 ISO image suitable for <b>xorriso</b>. <br>
 Blank is the state of newly purchased optical media. With
 used CD-RW and DVD-RW it can be achieved by
-action -blank &quot;as_needed&quot;. Overwriteable
+action -blank &quot;as_needed&quot;. Overwritable
 media are considered blank if they are new or if they have
 been marked as blank by <b>xorriso</b>. Action -blank
 &quot;as_needed&quot; can be used to do this marking on
-overwriteable media, or to apply mandatory formatting to new
+overwritable media, or to apply mandatory formatting to new
 media if necessary. <b><br> Appendable</b> media accept further sessions. Either they
 are MMC multi-session media in appendable state, or
-they are overwriteable media which contain an ISO image
+they are overwritable media which contain an ISO image
 suitable for <b>xorriso</b>. <br>
 Appendable is the state after writing a session with command
 -close off. <b><br> Closed</b> media cannot be written. They may contain an ISO
@@ -244,9 +244,9 @@ multi-session media which were written with command
 -close on. If the drive is read-only hardware
 then it will probably show any media as closed CD-ROM
 or DVD-ROM. <br>
-Overwriteable media assume this state in such
-read-only drives or if they contain unrecognizable
-data in the first 32 data blocks. <br>
+Overwritable media assume this state in such read-only
+drives or if they contain unrecognizable data in the first
+32 data blocks. <br>
 Read-only drives may or may not show session histories
 of multi-session media. Often only the first and the
 last session are visible. Sometimes not even that. Command
@@ -325,7 +325,7 @@ all are suitable for newly created images.</p>
 
 <p style="margin-left:11%; margin-top: 1em">All drive file
 objects have to offer rw-permission to the user of
-<b>xorriso</b>. Even those which will not be useable for
+<b>xorriso</b>. Even those which will not be usable for
 reading an ISO image. <br>
 With any type of drive object, the data are considered to be
 organized in blocks of 2 KiB. Access happens in terms of
@@ -446,7 +446,7 @@ adjusted according to the needs of the intended boot
 firmware and the involved boot loaders, e.g. GRUB2 or
 ISOLINUX. A MBR contains boot code and a partition table.
 The new MBR of a follow-up session can get in effect
-only on overwriteable media. <br>
+only on overwritable media. <br>
 MBR is read by PC-BIOS when booting from USB stick or
 hard disk, and by PowerPC CHRP or PReP when booting. An MBR
 partition with type 0xee indicates the presence of GPT. <br>
@@ -895,7 +895,30 @@ Read speed &quot;max&quot; cannot become lower than 52xCD,
 24xDVD, or 20xBD, depending on the medium type. <br>
 MMC drives usually activate their own idea of speed and take
 the speed value given by the burn program only as hint for
-their own decision.</p>
+their own decision. Friendly drives adjust their constant
+angular velocity so that the desired speed is reached at the
+outer rim of the medium. But often there is only the choice
+between very slow and very loud. <br>
+Sometimes no speed setting is obeyed at all, but speed is
+adjusted to the demand frequency of the reading program. So
+xorriso offers to set an additional software enforced limit
+by prefix &quot;soft_force:&quot;. The program will take
+care not to read faster than the soft_force speed. This may
+be combined with setting the drive speed to a higher value.
+Setting &quot;soft_force:0&quot; disables this feature. <br>
+&quot;soft_force:&quot; tries to correct in subsequent
+waiting periods lost or surplus time of up to 0.25 seconds.
+This smoothens the overall data stream but also enables
+short times of higher speed to compensate short times of low
+speed. Prefix &quot;soft_corr:&quot; sets this hindsight
+span by giving a number of microseconds. Not more than 1
+billion = 1000 seconds. Very short times can cause speed
+deviations, because systematic inaccuracies of the waiting
+function cannot be compensated. <br>
+Examples (combinable): <br>
+-read_speed 6xBD <br>
+-read_speed soft_force:4xBD -read_speed
+soft_corr:100000</p>
 
 <p style="margin-left:11%;"><b>-load</b> entity
 id</p>
@@ -1095,6 +1118,9 @@ MD5 of a file will be used to avoid content reading from the
 image. Only the disk file content will be read and compared
 with that MD5. This can save much time if
 -disk_dev_ino &quot;on&quot; is not suitable. <br>
+Commands which copy whole data files from ISO to hard disk
+will verify the copied data stream by the recorded MD5, if
+-osirrox &quot;check_md5_on&quot; is set. <br>
 At image generation time they are computed for each file
 which gets its data written into the new session. The
 checksums of files which have their data in older sessions
@@ -1141,19 +1167,33 @@ being recorded or restored.</p>
 &quot;stripped&quot;|&quot;unmapped&quot;|&quot;lowercase&quot;|&quot;uppercase&quot;</p>
 
 <p style="margin-left:22%;">Choose the conversion of file
-names from the loaded session if neither a Rock Ridge name
-nor a Joliet name was read from the session. <br>
+names when a session gets loaded, if they stem neither from
+a Rock Ridge name nor from a Joliet name. <br>
 Mode &quot;stripped&quot; is the default. It shows the names
 as found in the ISO but removes trailing &quot;;1&quot; or
 &quot;.;1&quot; if present. <br>
 Mode &quot;unmapped&quot; shows names as found without
-removing characters. <br>
+removing characters. Warning: Multi-session converts
+&quot;xyz;1&quot; to &quot;xyz_1&quot; and maybe adds new
+&quot;;1&quot;. <br>
 Mode &quot;lowercase&quot; is like &quot;stripped&quot; but
 also maps uppercase letters to lowercase letters. This is
 compatible to default GNU/Linux mount behavior. <br>
 Mode &quot;uppercase&quot; is like &quot;stripped&quot; but
 maps lowercase letters to uppercase, if any occur despite
 the prescriptions of ECMA-119.</p>
+
+<p style="margin-left:11%;"><b>-joliet_map</b>
+&quot;stripped&quot;|&quot;unmapped&quot;</p>
+
+<p style="margin-left:22%;">Choose the conversion of file
+names when a session gets loaded from a Joliet tree. <br>
+Mode &quot;stripped&quot; is the default. It removes
+trailing &quot;;1&quot; or &quot;.;1&quot; if present. <br>
+Mode &quot;unmapped&quot; shows names as found without
+removing characters. Warning: Multi-session converts
+&quot;xyz;1&quot; to &quot;xyz_1&quot; and maybe adds new
+&quot;;1&quot;.</p>
 
 <p style="margin-left:11%;"><b>-iso_nowtime</b>
 &quot;dynamic&quot;|timestring</p>
@@ -1242,8 +1282,7 @@ tell the actual media type but show any media as ROM (e.g.
 as DVD-ROM). The session history of MMC
 multi-session media might be truncated to first and
 last session or even be completely false. (The emulated
-history of overwriteable media is not affected by this.)
-<br>
+history of overwritable media is not affected by this.) <br>
 To have in case of failure a chance of getting the session
 history and especially the address of the last session,
 there is a scan for ISO 9660 filesystem headers which might
@@ -1259,11 +1298,11 @@ may still find that session from a scanned table of content.
 Setting &quot;force&quot; handles any media like a ROM
 medium with setting &quot;on&quot;. <br>
 On the other hand the emulation of session history on
-overwriteable media can hamper reading of partly damaged
+overwritable media can hamper reading of partly damaged
 media. Setting &quot;off:emul_off&quot; disables the
 elsewise trustworthy table-of-content scan for
 those media. <br>
-The table-of-content scan on overwriteable media
+The table-of-content scan on overwritable media
 normally searches only up to the end of the session that is
 pointed to by the superblock at block 0. Setting
 &quot;on:emul_wide&quot; lets the scan continue up to the
@@ -1304,7 +1343,7 @@ effective access permissions. This implies to try opening
 those files for writing, which otherwise will happen only
 later and only if actual writing is desired. <br>
 The test result is used for classifying the pseudo drives as
-overwriteable, read-only, write-only, or
+overwritable, read-only, write-only, or
 uselessly empty. This may lead to earlier detection of
 severe problems, and may avoid some less severe error
 events. <br>
@@ -2693,18 +2732,18 @@ then this command leads to a FAILURE event. Defined modes
 are: <br>
 as_needed, fast, all, deformat, deformat_quickest <br>
 &quot;as_needed&quot; cares for used CD-RW,
-DVD-RW and for used overwriteable media by applying
+DVD-RW and for used overwritable media by applying
 -blank &quot;fast&quot;. It applies -format
 &quot;full&quot; to yet unformatted DVD-RAM and
 BD-RE. Other media in blank state are gracefully
 ignored. Media which cannot be made ready for writing from
 scratch cause a FAILURE event. <br>
 &quot;fast&quot; makes CD-RW and unformatted
-DVD-RW re-usable, or invalidates overwriteable
+DVD-RW re-usable, or invalidates overwritable
 ISO images. &quot;all&quot; might work more thoroughly and
 need more time. <br>
-&quot;deformat&quot; converts overwriteable DVD-RW
-into unformatted ones. <br>
+&quot;deformat&quot; converts overwritable DVD-RW into
+unformatted ones. <br>
 &quot;deformat_quickest&quot; is a faster way to deformat or
 blank DVD-RW but produces media which are only
 suitable for a single session. Some drives announce this
@@ -2724,7 +2763,7 @@ succeed if the drive is willing to do it.</p>
 <p style="margin-left:11%;"><b>-format</b> mode</p>
 
 <p style="margin-left:22%;">Convert unformatted
-DVD-RW into overwriteable ones,
+DVD-RW into overwritable ones,
 &quot;de-ice&quot; DVD+RW, format newly purchased
 BD-RE or BD-R, re-format DVD-RAM or
 BD-RE. <br>
@@ -2827,6 +2866,63 @@ surpass the built-in limits. These are &quot;1x&quot;,
 &quot;52xCD&quot;, &quot;24xDVD&quot;,
 &quot;20xBD&quot;.</p>
 
+<p style="margin-left:11%;"><b>-list_profiles</b>
+&quot;in&quot;|&quot;out&quot;|&quot;all&quot;</p>
+
+<p style="margin-left:22%;">Put out a list of media types
+supported by -indev, -outdev, or both,
+respectively. The currently recognized type is marked by
+text &quot;(current)&quot;.</p>
+
+
+<p style="margin-left:11%;"><b>-truncate_overwritable</b>
+entity id adjust</p>
+
+<p style="margin-left:22%;">On overwritable medium copy the
+volume descriptors of an existing session to the overall
+descriptors at LBA 0 ff. This makes all sessions
+<b>inaccessible</b> which are younger than the activated
+one. A reason to do this would be read errors in the younger
+sessions and the wish to re-write or skip them. <br>
+This operation is only allowed if no changes to the loaded
+filesystem are pending. If an -indev is acquired then
+it is released before the write operation begins and
+re-acquired only in case of success. <br>
+The parameters &quot;entity&quot; and &quot;id&quot; have
+the same meaning as with command -load. They choose
+the existing ISO session which shall become the youngest
+accessible session. Available entity names are
+&quot;session&quot;, &quot;track&quot;, &quot;lba&quot;,
+&quot;sbsector&quot;, &quot;volid&quot;. &quot;auto&quot;
+makes few sense. id is a number or search text as
+appropriate for the given entity. <br>
+Parameter &quot;adjust&quot; controls the claimed size of
+the activated session. Text &quot;new&quot; means the size
+of the newly activated session as it was before this
+command. I.e. the space of the then inaccessible younger
+sessions will be re-used when appending more sessions.
+<br>
+&quot;old&quot; means the size up to the end of the
+previously youngest session. I.e. &quot;old&quot; will not
+free the space of the then inaccessible younger sessions for
+re-use. <br>
+A number preceded by &quot;+&quot; gives the number of bytes
+to be added to &quot;new&quot;. A number without
+&quot;+&quot; gives the overall number of bytes. In any case
+the result may not be smaller than &quot;new&quot;. Numbers
+may have a unit suffix: &quot;d&quot;=512,
+&quot;k&quot;=1024, &quot;s&quot;=2048, &quot;m&quot;=1024k,
+&quot;g&quot;=1024m. <br>
+Examples: <br>
+Activate session 4 and enable overwriting of the blocks of
+younger sessions: <br>
+-truncate_overwritable session 4 new <br>
+Activate session 4 and claim the blocks of younger sessions
+as useless part of session 4: <br>
+-truncate_overwritable session 4 old <br>
+Let session 4 claim additional 500 MiB as useless data: <br>
+-truncate_overwritable session 4 +500m</p>
+
 <p style="margin-left:11%;"><b>-close_damaged</b>
 &quot;as_needed&quot;|&quot;force&quot;</p>
 
@@ -2847,14 +2943,6 @@ the close operation even with media which appear undamaged.
 No image changes are allowed to be pending before this
 command is performed. After closing was attempted, both
 drives are given up.</p>
-
-<p style="margin-left:11%;"><b>-list_profiles</b>
-&quot;in&quot;|&quot;out&quot;|&quot;all&quot;</p>
-
-<p style="margin-left:22%;">Put out a list of media types
-supported by -indev, -outdev, or both,
-respectively. The currently recognized type is marked by
-text &quot;(current)&quot;.</p>
 
 <p style="margin-left:11%;">&nbsp;<BR><A NAME="SetWrite"></A><b>Settings for result writing:</b><BR></p>
 
@@ -2910,7 +2998,13 @@ letters. Therefore, file names from the iso_rr name tree may
 collide in the HFS+ name tree. In this case they get changed
 by adding underscore characters and counting numbers. In
 case of very long names, it might be necessary to map them
-to &quot;MANGLED_...&quot;.</p>
+to &quot;MANGLED_...&quot;. <br>
+WARNING: <br>
+The HFS+ implementation in libisofs has a limit of
+125,829,120 bytes for the size of the overall directory
+tree. This suffices for about 300,000 files of normal name
+length. If the limit gets exceeded, a FAILURE event will be
+issued and the ISO production will not happen.</p>
 
 <p style="margin-left:11%;"><b>-rockridge</b>
 &quot;on&quot;|&quot;off&quot;</p>
@@ -3020,7 +3114,7 @@ be changed by subsequent &quot;aaip_susp_1_10_off&quot;.
 unofficial extension of RRIP rather than as official
 extension under SUSP-1.12. <br>
 &quot;no_emul_toc&quot; saves 64 kB with the first session
-on overwriteable media but makes the image incapable of
+on overwritable media but makes the image incapable of
 displaying its session history. <br>
 &quot;iso_9660_1999&quot; causes the production of an
 additional directory tree compliant to ISO 9660:1999. It can
@@ -3207,7 +3301,8 @@ written with the next -commit. This should be the ISO
 bibliographic records. Permissible are up to 37 characters.
 This setting gets overridden by image loading.</p>
 
-<p style="margin-left:11%;"><b>-preparer_id</b></p>
+<p style="margin-left:11%;"><b>-preparer_id</b>
+text</p>
 
 <p style="margin-left:22%;">Set the preparer ID string to
 be written with the next -commit. This may identify
@@ -3260,24 +3355,97 @@ files when the new ISO tree gets written to media.</p>
 files when the new ISO tree gets written to media.</p>
 
 <p style="margin-left:11%;"><b>-zisofs</b>
-option[:options]</p>
+parameter[:parameters]</p>
 
 <p style="margin-left:22%;">Set global parameters for
 zisofs compression. This data format is recognized and
 transparently uncompressed by some Linux kernels. It is to
 be applied via command -set_filter with built-in
-filter &quot;--zisofs&quot;. Parameters are:
-<br>
+filter &quot;--zisofs&quot;. <br>
+Note: This command is only permitted while no
+--zisofs filters are applied to any files. <br>
+Parameters are: <br>
 &quot;level=&quot;[0-9] zlib compression: 0=none,
 1=fast,..., 9=slow <br>
-&quot;block_size=&quot;32k|64k|128k size of compression
-blocks <br>
+&quot;block_size=&quot;32k|64k|128k sets the size of version
+1 compression blocks. <br>
 &quot;by_magic=on&quot; enables an expensive test at image
 generation time which checks files from disk whether they
 already are zisofs compressed, e.g. by program mkzftree.
+&quot;by_magic=v2&quot; enables processing of already
+zisofs2 compressed files additionally to those of zisofs
+version 1. &quot;by_magic=off&quot; disables both. <br>
+&quot;version_2=&quot;off|as_needed|on controls compression
+by experimental version zisofs2 which can encode files of
+size 4 GiB or larger. The Linux kernel (as of 5.9) does not
+yet know this format and will complain like <br>
+isofs: Unknown ZF compression algorithm: PZ <br>
+The files will then appear in their compressed form with
+zisofs2 header, block pointer list, and compressed data.
 <br>
-&quot;default&quot; same as
-&quot;level=6:block_size=32k:by_magic=off&quot;</p>
+zisofs2 is recognized by xorriso in files from loaded images
+and gets equipped with --zisofs-decode
+filters, unless restrictions on the number of block pointers
+prevent this. <br>
+Mode &quot;off&quot; restricts compression to files smaller
+than 4 GiB uncompressed size. Mode &quot;as_needed&quot;
+uses zisofs2 for larger files. Mode &quot;on&quot; uses
+zisofs2 for all zisofs compressed files. <br>
+&quot;susp_z2=&quot;off|on controls production of SUSP
+entries &quot;Z2&quot; instead of &quot;ZF&quot; with
+zisofs2 compressed files. Unaware Linux kernels are supposed
+to silently ignore &quot;Z2&quot; entries. <br>
+&quot;block_size_v2=&quot;32k|64k|128k|256k|512k|1m sets the
+size of compression blocks for zisofs2. <br>
+&quot;bpt_target=&quot;-1|&gt;0 sets a number of block
+pointers per file, which is considered low enough to justify
+a reduction of block size. If this number is larger than 0,
+then block sizes smaller than the settings of block_size= or
+block_size_v2= are tried whether they yield not more block
+pointers than the given number. If so, the smallest suitable
+block size is applied. <br>
+The inavoidable final block pointer counts. E.g. a file of
+55 KiB has 3 block pointers if block size is 32k, and 2
+block pointers with block size 64k. <br>
+bpt_target=-1 disables this automatic block size
+adjustment. <br>
+&quot;max_bpt=&quot;1k...128g sets the limit for the overall
+allocated block pointer memory. Block pointers occupy
+virtual memory while a file gets uncompressed and while a
+file, which shall be compressed, waits for ISO filesystem
+creation. <br>
+One pointer occupies 8 bytes of memory and governs
+block_size or block_size_v2 uncompressed bytes. I.e. with
+block size 128k, 1m of block pointer memory suffices for at
+most 16g of uncompressed file size. Each file consumes one
+end block pointer, independently of the file size. Partially
+filled end blocks may further reduce the effective payload.
+<br>
+In case of overflow of the max_bpt limit while adding
+compression filters the program tries to go on by discarding
+all buffered block pointers of previously added
+--zisofs filters. From then on all newly added
+filters will discard their block pointers immediately after
+being added. Discarded block pointers cause an additional
+read and compression run of the input file during the
+production of the ISO filesystem. <br>
+&quot;max_bpt_f=&quot;1k...128g sets the limit for the
+memory size of the block pointer list of a single file.
+max_bpt_f is never larger than max_bpt. If either is set to
+violate this rule, the other gets set to the same value. If
+both values are the same before a change by max_bpt= or
+max_bpt_f=, then both limits stick together unless the limit
+is decreased by max_bpt_f=. <br>
+&quot;bpt_free_ratio=&quot;-1|0.0...1.0 sets a
+threshold for switching to block pointer discarding during
+compression. If less than the given fraction of the
+max_bpt_f= memory is free, then block pointers of
+compression filters get discarded immediately after being
+added. Value -1 disables this feature. <br>
+&quot;default&quot; is the same as
+&quot;level=6:block_size=32k:by_magic=off:
+version_2=off:block_size_v2=128k:susp_z2=off:max_bpt=256m:max_bpt_f=256m:
+bpt_free_ratio=-1&quot;.</p>
 
 <p style="margin-left:11%;"><b>-speed</b>
 code|number[k|m|c|d|b]</p>
@@ -3493,7 +3661,7 @@ image. The same effect is achieved by -padding mode
 published specifications many BIOSes will load an El Torito
 record from the first session on media and not from the last
 one, which gets mounted by default. This makes no problems
-with overwriteable media, because they appear to inadverted
+with overwritable media, because they appear to inadverted
 readers as one single session. <br>
 But with multi-session media CD-R[W],
 DVD-R[W], DVD+R, it implies that the whole bootable
@@ -3504,8 +3672,8 @@ If a boot image from ISOLINUX or GRUB is known to be present
 on media then it is advised to patch it when a
 follow-up session gets written. But one should not
 rely on the capability to influence the bootability of the
-existing sessions, unless one can assume overwriteable
-media. <br>
+existing sessions, unless one can assume overwritable media.
+<br>
 Normally the boot images are data files inside the ISO
 filesystem. By special path
 &quot;--interval:appended_partition_NNN:all::&quot;
@@ -3745,9 +3913,11 @@ the first 512 bytes from an ISOLINUX isohybrid ISO image.
 <br>
 In this case, El Torito boot images (dir=, bin_path=,
 efi_path=) may be augmented by <b>isolinux partition_entry=gpt_basdat</b> or <b>isolinux partition_entry=gpt_hfsplus</b>, and by <b>isolinux partition_entry=apm_hfsplus</b>. The boot image will then be
-mentioned in GPT as Basic Data or GPT HFS+ partition, and in
-APM as HFS+ partition. The first three GPT partitions will
-also be marked by MBR partitions. <br>
+mentioned in an invalid GPT as Basic Data or GPT HFS+
+partition, and in a valid APM as HFS+ partition. The first
+three GPT partitions will also be marked by MBR partitions.
+The MBR partition of type 0xEF is what actually is used by
+EFI firmware for booting from USB stick. <br>
 In multi-session situations the existing System Area
 is preserved by default. In in this case, the special
 disk_path &quot;.&quot; prevents reading of a disk file but
@@ -3989,7 +4159,10 @@ It will be used if the partition is mentioned in GPT. In
 MBR,
 C12A7328-F81F-11D2-BA4B-00A0C93EC93B
 will be mapped to 0xef. Any other GUID will be mapped to
-0x83. <br>
+0x83. In APM,
+48465300-0000-11AA-AA11-00306543ECAC
+will be mapped to partition type &quot;Apple_HFS&quot;, any
+other to &quot;Data&quot;. <br>
 If some other command causes the production of GPT, then the
 appended partitions will be mentioned there too. <br>
 The disk_path must provide the necessary data bytes at
@@ -4018,17 +4191,22 @@ file contains checksums and symbolic file addresses. The
 reference tags instead of the content bytes of the listed
 files. <br>
 Input for this process are the normal arguments for a
-<b>xorriso</b> session on a blank -outdev, and a .md5
-file which lists those data files which may be listed in the
-.jigdo file and externally referenced in the .template file.
-Each designated file is represented in the .md5 file by a
-single text line: <br>
-MD5 as 32 hex digits, 2 blanks, size as 12 decimal digits or
-blanks, 2 blanks, symbolic file address <br>
-The file address in an .md5 line has to bear the same
-basename as the disk_path of the file which it shall match.
-The directory path of the file address is decisive for
-To=From mapping, not for file recognition. After To=From
+<b>xorriso</b> session on a blank -outdev, and a
+checksum file which lists those data files which may be
+listed in the .jigdo file and externally referenced in the
+.template file. Each designated file is represented in the
+checksum file by a single text line: <br>
+Checksum as hex digits, 2 blanks, size as 12 decimal digits
+or blanks, 2 blanks, symbolic file address <br>
+The kind of checksum is chosen by -jigdo
+&quot;checksum_algorithm&quot; with values &quot;md5&quot;
+(32 hex digits) or &quot;sha256&quot; (64 hex digits). It
+will also be used for the file address lines in the .jigdo
+file. The default is &quot;md5&quot;. <br>
+The file address in a checksum file line has to bear the
+same basename as the disk_path of the file which it shall
+match. The directory path of the file address is decisive
+for To=From mapping, not for file recognition. After To=From
 mapping, the file address gets written into the .jigdo file.
 Jigdo restore tools will convert these addresses into really
 reachable data source addresses from which they can read.
@@ -4044,31 +4222,42 @@ names are the corresponding genisoimage options. They are
 accepted as parameter names as well. Especially they are
 recognized by the -as mkisofs emulation command. <br>
 Parameter <b>clear</b> with any value empties the whole
-list. No .jigdo and .template file will be produced. <b><br> template_path</b> sets the disk_path for the .template file
+list. No .jigdo and .template file will be produced. <b><br> checksum_algorithm</b> chooses the checksum algorithm which
+shall be used for the data file entries in the .jigdo file
+and is expected in the checksum file. Permissible are
+&quot;md5&quot; or &quot;sha256&quot;. Default is
+&quot;md5&quot;. <br>
+Alias: -jigdo-checksum-algorithm <b><br> template_path</b> sets the disk_path for the .template file
 with the holed and compressed ISO image copy. <br>
 Alias: -jigdo-template <b><br> jigdo_path</b> sets the disk_path for the .jigdo file with
 the checksums and download addresses for filling the holes
 in .template. <br>
-Alias: -jigdo-jigdo <b><br> md5_path</b> sets the disk_path where to find the .md5 input
-file. <br>
+Alias: -jigdo-jigdo <b><br> checksum_path</b> sets the disk_path where to find the
+checksum file with symbolic file addresses and checksums
+according to <b>checksum_algorithm</b>. <br>
+Alias: md5_path <br>
+Alias: -checksum-list <br>
 Alias: -md5-list <b><br> min_size</b> sets the minimum size for a data file to be
 listed in the .jigdo file and being a hole in the .template
 file. <br>
 Alias: -jigdo-min-file-size <b><br> exclude</b> adds a regular expression pattern which will get
 compared with the absolute disk_path of any data file. A
 match causes the file to stay in .template in any case. <br>
-Alias: -jigdo-exclude <b><br> demand_md5</b> adds a regular expression pattern which will
-get compared with the absolute disk_path of any data file
-that was not found in the .md5 list. A match causes a MISHAP
-event. <br>
+Alias: -jigdo-exclude <b><br> demand_checksum</b> adds a regular expression pattern which
+will get compared with the absolute disk_path of any data
+file that was not found in the checksum list file as of
+&quot;checksum_path&quot;. A match causes a MISHAP event.
+<br>
+Alias: demand_md5 <br>
+Alias: -jigdo-force-checksum <br>
 Alias: -jigdo-force-md5 <b><br> mapping</b> adds a string pair of the form To=From to the
 parameter list. If a data file gets listed in the .jigdo
 file, then it is referred by the file address from its line
-in the .md5 file. This file address gets checked whether it
-begins with the From string. If so, then this string will be
-replaced by the To string and a &rsquo;:&rsquo; character,
-before it goes into the .jigdo file. The From string should
-end by a &rsquo;/&rsquo; character. <br>
+in the checksum file. This file address gets checked whether
+it begins with the From string. If so, then this string will
+be replaced by the To string and a &rsquo;:&rsquo;
+character, before it goes into the .jigdo file. The From
+string should end by a &rsquo;/&rsquo; character. <br>
 Alias: -jigdo-map <b><br> compression</b> chooses one of &quot;bzip2&quot; or
 &quot;gzip&quot; for the compression of the template file.
 The jigdo file is put out uncompressed. <br>
@@ -4429,10 +4618,10 @@ session history of the medium, not the ISO image directory
 tree.</p> </td></tr>
 </table>
 
-<p style="margin-left:22%;">In case of overwriteable media
+<p style="margin-left:22%;">In case of overwritable media
 holding a valid ISO image, it may happen that only a single
 session gets shown. But if the first session on the
-overwriteable media was written by <b>xorriso</b> then a
+overwritable media was written by <b>xorriso</b> then a
 complete session history can be emulated. <br>
 A drive which is incapable of writing may show any media as
 CD-ROM or DVD-ROM with only one or two sessions
@@ -4524,7 +4713,7 @@ consumption of 2048 byte blocks by next -commit. This
 can last a while as a -commit gets prepared and only
 in last moment is revoked by this command. The result
 depends on several settings and also on the kind of output
-device. If no -jidgo options are set and not command
+device. If no -jigdo options are set and not command
 -as &quot;mkisofs&quot; was used, then -padding
 (300 kB by default) is not counted as part of the image
 size. <br>
@@ -4887,6 +5076,14 @@ image:&rsquo;iso_rr_path&rsquo; for ISO image file objects.
 cout:&rsquo;disk_path offset count&rsquo; for -cut_out
 files. <br>
 extf:&rsquo;filter_name&rsquo; for external filters. <br>
+--zisofs:algorithm:block_size for zisofs
+compression filters. <br>
+--zisofs-decode:algorithm:block_size for
+zisofs uncompression filters. <br>
+--gzip for internal gzip compression filters.
+<br>
+--gunzip for internal gzip uncompression
+filters. <br>
 Example: <br>
 &rsquo;/abc/xyz.gz&rsquo; &lt; extf:&rsquo;gzip&rsquo; &lt;
 disk:&rsquo;/home/me/x&rsquo;</p>
@@ -4999,7 +5196,21 @@ Abort may be delayed by the drive gnawing on the last single
 read operation. Value -1 means unlimited time. <b><br> item_limit=number</b> gives the number of report list items
 after which to abort. Value -1 means unlimited item
 number. <b><br> data_to=disk_path</b> copies the valid blocks to the given
-file. <b><br> event=severity</b> sets the given severity for a problem
+file, which must support random access writing, unless
+disk_path is &quot;-&quot; which means standard
+output. <br>
+In the latter case, patch_lba0= settings other than
+&quot;off&quot; yield failure. Further the usual result
+messages of -check_media get redirected to the info
+channel. But beware of result messages from other commands.
+Beware of -*dev &quot;-&quot; which redirect
+standard output to standard error. Keep the run simple: <br>
+xorriso -indev /dev/sr0 -check_media
+data_to=- -- | md5sum <br>
+xorriso -outdev /dev/sr0 -check_media
+data_to=- use=outdev \ <br>
+what=disc min_lba=0 max_lba=999999 -- |
+sha256sum <b><br> event=severity</b> sets the given severity for a problem
 event which shall be issued at the end of a check run if
 data blocks were unreadable or failed to match recorded MD5
 checksums. Severity &quot;ALL&quot; disables this event.
@@ -5107,62 +5318,82 @@ Access permissions of files in the ISO image do not restrict
 restoring. The directory permissions on disk have to allow
 rwx. <b><br> -osirrox</b> setting[:option:...]</p>
 
-<p style="margin-left:22%;">Setting &quot;off&quot;
-disables disk filesystem manipulations. This is the default
-unless the program was started with leafname
-&quot;osirrox&quot;. Elsewise the capability to restore
-files can be enabled explicitly by -osirrox
-&quot;on&quot;. It can be irrevocably disabled by
--osirrox &quot;banned&quot;. <br>
-The setting &quot;blocked&quot; is like &quot;off&quot;. But
-it can only be revoked by setting &quot;unblock&quot;, which
-elsewise is like &quot;on&quot;. This can be used to curb
-command scripts which might use &quot;on&quot; undesiredly.
-<br>
-To enable restoring of special files by
-&quot;device_files&quot; is potentially dangerous. The
-meaning of the number st_rdev (see man 2 stat) depends much
-on the operating system. Best is to restore device files
-only to the same system from where they were copied. If not
-enabled, device files in the ISO image are ignored during
-restore operations. <br>
+<p style="margin-left:22%;">Setting <b>off</b> disables
+disk filesystem manipulations. This is the default unless
+the program was started with leafname <b>osirrox</b>.
+Elsewise the capability to restore files can be enabled
+explicitly by -osirrox <b>on</b>. It can be
+irrevocably disabled by -osirrox <b>banned</b>. <br>
+The setting <b>blocked</b> is like <b>off</b>. But it can
+only be revoked by setting <b>unblock</b>, which elsewise is
+like <b>on</b>. This can be used to curb command scripts
+which might use <b>on</b> undesiredly. <br>
+To enable restoring of special files by <b>device_files</b>
+is potentially dangerous. The meaning of the number st_rdev
+(see man 2 stat) depends much on the operating system. Best
+is to restore device files only to the same system from
+where they were copied. If not enabled, device files in the
+ISO image are ignored during restore operations. <br>
 Due to a bug of previous versions, device files from
 previous sessions might have been altered to major=0,
 minor=1. So this combination does not get restored. <br>
-Option &quot;concat_split_on&quot; is default. It enables
+Option <b>concat_split_on</b> is default. It enables
 restoring of split file directories as data files if the
 directory contains a complete collection of -cut_out
-part files. With option &quot;concat_split_off&quot; such
+part files. With option <b>concat_split_off</b> such
 directories are handled like any other ISO image directory.
 <br>
-Option &quot;auto_chmod_off&quot; is default. If
-&quot;auto_chmod_on&quot; is set then access restrictions
-for disk directories get circumvented if those directories
-are owned by the effective user who runs <b>xorriso</b>.
-This happens by temporarily granting rwx permission to the
-owner. <br>
-Option &quot;sort_lba_on&quot; may improve read performance
-with optical drives. It can restore large numbers of hard
-links without exhausting -temp_mem_limit. It does not
+Option <b>auto_chmod_off</b> is default. If
+<b>auto_chmod_on</b> is set then access restrictions for
+disk directories get circumvented if those directories are
+owned by the effective user who runs <b>xorriso</b>. This
+happens by temporarily granting rwx permission to the owner.
+<br>
+Option <b>sort_lba_on</b> may improve read performance with
+optical drives. It can restore large numbers of hard links
+without exhausting -temp_mem_limit. It does not
 preserve directory mtime and it needs -osirrox option
 auto_chmod_on in order to extract directories which offer no
-write permission. Default is &quot;sort_lba_off&quot;. <br>
-Option &quot;o_excl_on&quot; is the default unless the
-program was started with leafname &quot;osirrox&quot;. On
-GNU/Linux it tries to avoid using drives which are mounted
-or in use by other libburn programs. Option
-&quot;o_excl_off&quot; on GNU/Linux enables access to such
-drives by the equivalent of -drive_access
-&quot;shared:readonly&quot;. I.e. drives which get acquired
-while &quot;o_excl_off&quot; will refuse to get blanked,
-formatted, written, or ejected. But be aware that even
-harmless inquiries can spoil ongoing burns of CD-R[W]
-and DVD-R[W]. <br>
-Option &quot;strict_acl_off&quot; is default. It tolerates
-on FreeBSD the presence of directory &quot;default&quot;
-ACLs in the ISO image. With &quot;strict_acl_on&quot; these
-GNU/Linux ACLs cause on FreeBSD a FAILURE event during
-restore with -acl &quot;on&quot;.</p>
+write permission. Default is <b>sort_lba_off</b>. <br>
+Option <b>o_excl_on</b> is the default unless the program
+was started with leafname &quot;osirrox&quot;. On GNU/Linux
+it tries to avoid using drives which are mounted or in use
+by other libburn programs. Option <b>o_excl_off</b> on
+GNU/Linux enables access to such drives by the equivalent of
+-drive_access &quot;shared:readonly&quot;. I.e. drives
+which get acquired while <b>o_excl_off</b> will refuse to
+get blanked, formatted, written, or ejected. But be aware
+that even harmless inquiries can spoil ongoing burns of
+CD-R[W] and DVD-R[W]. <br>
+Option <b>strict_acl_off</b> is default. It tolerates on
+FreeBSD the presence of directory &quot;default&quot; ACLs
+in the ISO image. With <b>strict_acl_on</b> these GNU/Linux
+ACLs cause on FreeBSD a FAILURE event during restore with
+-acl &quot;on&quot;. <br>
+Option <b>check_md5_off</b> disables MD5 checking during
+copy to disk. The default option <b>check_md5_on</b> enables
+it if -md5 is &quot;on&quot;. If a data file with
+recorded MD5 is copied as a whole to the disk filesystem,
+then the MD5 of the copied content gets computed and
+compared with the recorded MD5. A mismatch causes an error
+message of severity SORRY. Option <b>check_md5_force</b>
+causes an error message if -md5 is &quot;on&quot; but
+no MD5 is recorded for the data file. <br>
+Option <b>sparse=</b> controls production of sparse files
+during extraction of files from the ISO filesystem. Default
+is <b>sparse=off</b>. <br>
+A positive number like in <b>sparse=1m</b> sets the minimum
+requirement for the length of a sequence of 0-bytes
+which shall be represented by a gap. This saves disk space
+if the disk filesystem supports sparse files. A gap gets
+created by help of lseek(2) if a sequence of read buffers,
+which contain only 0-bytes, bears at least the minimum
+amount of bytes. Expect read buffers to be in the size range
+of 32k or 64k. <br>
+Command -paste_in creates gaps only if the writing
+begins at or after the end of the existing disk file. So the
+sequence of -paste_in commands matters. Command
+-concat does not create sparse files.</p>
 
 <p style="margin-left:11%;"><b>-extract</b>
 iso_rr_path disk_path</p>
@@ -5295,6 +5526,48 @@ used as arguments with the program start. Example: <br>
 parameters in all modes are the iso_rr_paths of data files.
 Their content gets concatenated in the copy.</p>
 
+
+<p style="margin-left:11%;"><b>-extract_boot_images</b>
+disk_path</p>
+
+<p style="margin-left:22%;">Copy boot equipment to disk,
+which is not necessarily represented as data files in the
+ISO filesystem. The data get written into various files in a
+disk directory, which may already exist or of which the
+parent must exist so that it can get created. <br>
+Files may be missing if their corresponding information is
+not present in the ISO filesystem. Existing files do not get
+overwritten but rather cause a failure event. <br>
+The same data may appear in different files. E.g. the El
+Torito boot image for EFI is often the same data as the EFI
+partition in MBR or GPT. <br>
+File &quot;eltorito_catalog.img&quot; contains the El Torito
+Boot Catalog. <br>
+Files &quot;eltorito_img*_*.img&quot; contain El Torito Boot
+images. The first &quot;*&quot; gives the image number, the
+second &quot;*&quot; gives the type: &quot;bios&quot;,
+&quot;mac&quot;, &quot;ppc&quot;, &quot;uefi&quot;, or a hex
+number. <br>
+File &quot;mbr_code_isohybrid.img&quot; contains the
+ISOLINUX MBR template. <br>
+File &quot;mbr_code_grub2.img&quot; contains the GRUB2 MBR
+template. <br>
+File &quot;systemarea.img&quot; contains the whole 32 KiB of
+System Area if not all zero. <br>
+Files &quot;mbr_part*_efi.img&quot; contain EFI partition
+images from the MBR partition table. The &quot;*&quot; text
+part gives the partition number. <br>
+Files &quot;mbr_part*_prep.img&quot; contain PReP partition
+images. <br>
+Files &quot;gpt_part*_efi.img&quot; contain EFI partition
+images from GPT. <br>
+Files &quot;gpt_part*_hfsplus.img&quot; contain HFS+
+partition images from GPT. To avoid extracting the whole
+HFS+ aspect of hybrid ISO filesystems, the partition image
+is extracted only if it has less than half of the size of
+the ISO filesystem or if the partition is outside the ISO
+filesystem.</p>
+
 <p style="margin-left:11%;"><b>-mount</b> drive
 entity id path</p>
 
@@ -5412,7 +5685,7 @@ parameter &quot;on&quot;, e.g. -acl &quot;on&quot;.
 Explicit parameters are expected by --stdio_sync
 and --scdbackup_tag. <br>
 The capability to preserve multi-session history on
-overwriteable media gets disabled by default. It can be
+overwritable media gets disabled by default. It can be
 enabled by using --emul-toc with the first
 session. See -compliance no_emul_toc. <br>
 --sort-weight gets as parameters a number
@@ -5484,7 +5757,7 @@ It ignores most other options of cdrecord and cdrskin but
 refuses on -audio, -scanbus, and on blanking
 modes unknown to <b>xorriso</b>. <br>
 The scope is only a single data track per session to be
-written to blank, overwriteable, or appendable media. The
+written to blank, overwritable, or appendable media. The
 medium gets closed if closing is applicable and not option
 -multi is present. <br>
 If an input drive was acquired, then it is given up. This is
@@ -5495,7 +5768,7 @@ If a track source is given, then an automatic -commit
 happens at the end of the &quot;cdrecord&quot; option list.
 <br>
 --grow_overwriteable_iso enables emulation of
-multi-session on overwriteable media. To enable
+multi-session on overwritable media. To enable
 emulation of a TOC, the first session needs -C 0,32
 with -as mkisofs (but no -M) and
 --grow_overwriteable_iso write_start_address=32s
@@ -6299,7 +6572,7 @@ and dd. <br>
 This example works for multi-session media only. Add
 cdrskin option --grow_overwriteable_iso to all
 -as cdrecord runs in order to enable
-multi-session emulation on overwriteable media.</p>
+multi-session emulation on overwritable media.</p>
 
 <p style="margin-left:11%; margin-top: 1em"><b>Let xorriso work underneath growisofs</b> <br>
 growisofs expects an ISO formatter program which understands
@@ -6327,7 +6600,7 @@ $ growisofs -Z /dev/dvd -- outdev -
 $ growisofs -M /dev/dvd -- outdev -
 -update_r /my/files /files <br>
 growisofs has excellent burn capabilities with DVD and BD.
-It does not emulate session history on overwriteable media,
+It does not emulate session history on overwritable media,
 though.</p>
 
 <p style="margin-left:11%; margin-top: 1em"><b>Adjust thresholds for verbosity, exit value and program abort</b>
@@ -6403,7 +6676,7 @@ FreeBSD or NetBSD it is possible to access the session trees
 which represent the older backup versions. With CD media,
 GNU/Linux mount accepts session numbers directly by its
 option &quot;session=&quot;. <br>
-Multi-session media and most overwriteable media
+Multi-session media and most overwritable media
 written by <b>xorriso</b> can tell the sbsectors of their
 sessions by <b>xorriso</b> command -toc. Used after
 -commit the following command prints the matching
@@ -6627,7 +6900,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2007 - 2019 Thomas Schmitt <br>
+2007 - 2021 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of <b>xorriso</b>. If you make use of the license to derive
@@ -6649,5 +6922,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Oct 26 20:22:45 CEST 2019 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Jan 30 15:30:50 CET 2021 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

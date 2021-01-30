@@ -32,9 +32,10 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Enable or disable status and content changes of drive.
   -scsi_dev_family "default"|"sr"|"scd"|"sg"
                  Linux specific: Choose device file type.
-  -read_speed number["k/s"|"m/s"|"[x]CD"|"[x]DVD"|"[x]BD"]
+  -read_speed number["k/s"|"[x]CD"|"[x]DVD"|"[x]BD"]|keyword
                  Set the read speed. Default is "none" = do not set speed
-                 before reading.
+                 before reading. Prefix "soft_force:" enables slowdown by
+                 software.
   -grow_blindly "off"|predicted_nwa
                  Switch between modifying and blind growing.
   -load "session"|"track"|"lba"|"sbsector"|"volid"|"auto" id
@@ -49,7 +50,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -rom_toc_scan "on"|"force"|"off"[:"emul_on"|"emul_off"]
                 [:"emul_wide"|"emul_narrow"]
                  Enable scanning for ISO sessions on read-only drives/media
-                 and on overwriteable media with emulated TOC.
+                 and on overwritable media with emulated TOC.
   -calm_drive "in"|"out"|"all"|"on"|"off"
                  Reduce drive noise until it gets actually used again.
   -assert_volid pattern severity
@@ -80,6 +81,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -ecma119_map "unmapped"|"stripped"|"uppercase"|"lowercase"
                  Choose conversion of file names if neither Rock Ridge
                  nor Joliet is present in the loaded ISO session.
+  -joliet_map "unmapped"|"stripped"
+                 Choose conversion of file names if the Joliet tree is read
+                 when loading the ISO session.
   -iso_nowtime "dynamic"|timestring
                  Choose use of current time or a fixed point in time for
                  timestamps where libisofs would normally use the current
@@ -98,6 +102,9 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
   -blank ["force:"]"fast"|"all"|"deformat"|"deformat_quickest"
                  Blank medium or invalidate ISO image on medium.
                  Prefix "force:" overrides medium evaluation.
+  -truncate_overwritable entity id adjust
+                 Activate an older session on overwritable medium. Adjust
+                 its size to some value not smaller than original old size.
   -close_damaged "as_needed"|"force"
                  Close track and session of damaged medium.
   -format "as_needed"|"full"|"fast"|"by_index_#"|"by_size_#"
@@ -132,6 +139,7 @@ E.g. /dev/sr0 , /tmp/pseudo_drive , stdio:/dev/sdc
                  Opportunity to omit Rock Ridge info. (Do not do it !)
   -jigdo "clear"|"template_path"|"jigdo_path"|"md5_path"
          |"min_size"|"checksum_iso"|"checksum_template"
+         |"checksum_path"|"demand_checksum"|"checksum_algorithm"
          |"compression"|"exclude"|"demand_md5"|"mapping"
          |"checksum_iso"|"checksum_template"
          value
@@ -242,7 +250,7 @@ For brevity the list delimiter is referred as "--" throughout this text.
 
   -list_delimiter text   Set the list delimiter to be used instead of "--"
                  It has to be a single word, must not be empty, not longer
-                 than 80 characters, may mot contain quotation marks.
+                 than 80 characters, may not contain quotation marks.
 
 Manipulation commands:
 disk_path is a path to an object in the local filesystem tree.
@@ -423,7 +431,9 @@ compressed content is detected with a file in the ISO image.
   -zisofs option[:options]
                  Set global zisofs parameters:
                    level=0|...|9 , block_size=32k|64k|128k , by_magic=on|off
-
+                   version_2=off|as_needed|on , block_size_v2=32k|...|1024k
+                   max_bpt=1k...128g , max_bpt_f=1k...128g , bpt_target=num
+                   bpt_free_ratio=-1|[0.0...1.0] , susp_z2=off|on
 Write-to-media commands:
   -rollback      Discard the manipulated ISO image and reload it.
 
@@ -541,6 +551,8 @@ Restore commands which copy file objects from ISO image to disk filesystem:
            [:"auto_chmod_on"|"auto_chmod_off"]
            [:"sort_lba_on"|"sort_lba_off"]
            [:"strict_acl_on"|"strict_acl_off"]
+           [:"check_md5_on"|"check_md5_off"|"check_md5_force"]
+           [:"sparse=off"|"sparse="number]
                  By default "off" the inverse operation of xorriso from ISO
                  image to disk filesystem is disabled. "on" allows xorriso
                  to create, overwrite, delete files in the disk filesystem.
@@ -556,6 +568,9 @@ Restore commands which copy file objects from ISO image to disk filesystem:
   -extract_cut iso_rr_path byte_offset byte_count disk_path
                  Copy a byte interval from iso_rr_path to disk_path.
                  This is governed in part by -check_media_defaults.
+  -extract_boot_images disk_path
+                 Copy boot images into files in directory disk_path with
+                 names which tell the role inside the ISO.
   -cpx iso_rr_path [***] disk_path
                  Copy leaf file objects from ISO image to disk filesystem.
   -cpax iso_rr_path [***] disk_path
@@ -604,7 +619,7 @@ Compatibility emulation (option list may be ended by list delimiter --):
   -as cdrecord [-help|-v|dev=|speed=|blank=|fs=|-eject|-atip|padsize=|-multi]
                path|-
               Perform some cdrecord gestures, eventually write at most one
-              data track to blank, appendable or overwriteable media.
+              data track to blank, appendable or overwritable media.
   -pacifier "xorriso"|"cdrecord"|"mkisofs"
               Choose format of UPDATE pacifier during write operations.
 
@@ -729,5 +744,9 @@ Empty input resumes output until the next prompt. Other input may be:
   @@    suppresses further result output but continues the action
   @@@   aborts the current action
   other aborts the current action and executes input as new command
+
+Report bugs to: bug-xorriso@gnu.org , or in private to: scdbackup@gmx.net .
+xorriso home page: <https://www.gnu.org/software/xorriso/>
+General help using GNU software: <https://www.gnu.org/gethelp/>
 
 

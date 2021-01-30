@@ -201,7 +201,7 @@ libburnia git: libisoburn/frontend/xorriso-tcltk
 You will probably have to give it x-permission after download. Some browsers
 insist in adding &quot;.htm&quot; to the file name.
 <BR>
-Further you need xorriso >= 1.5.2, Tcl, Tk >= 8.4,
+Further you need xorriso >= 1.5.4, Tcl, Tk >= 8.4,
 Tcl/Tk package &quot;BWidget&quot;.
 </P>
 
@@ -507,14 +507,14 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.5.2.tar.gz">xorriso-1.5.2.tar.gz</A>
-(2670 KiB).
+<DD><A HREF="xorriso-1.5.4.tar.gz">xorriso-1.5.4.tar.gz</A>
+(2720 KiB).
 </DD>
-<DD>(Released 26 Oct 2019)</DD>
-<DD><A HREF="xorriso-1.5.2.tar.gz.sig">xorriso-1.5.2.tar.gz.sig</A></DD>
+<DD>(Released 30 Jan 2021)</DD>
+<DD><A HREF="xorriso-1.5.4.tar.gz.sig">xorriso-1.5.4.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.5.2.tar.gz.sig xorriso-1.5.2.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.5.4.tar.gz.sig xorriso-1.5.4.tar.gz</KBD>
 <BR>
 which should confirm
 <KBD>gpg: Good signature from "Thomas Schmitt &lt;scdbackup@gmx.net&gt;"</KBD>
@@ -529,7 +529,7 @@ after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.5.2.tar.gz
+as xorriso/xorriso-1.5.4.tar.gz
 </DD>
 </DL>
 </DD>
@@ -564,117 +564,7 @@ describes the cdrecord emulation</DD>
 <HR>
 
 <P>
-Bug fixes towards previous stable version xorriso-1.5.0:
-<UL>
-<LI>
-libburn did not inquire the drive's readiness to do Stream Recording.
-Some few drives throw write errors when stream recording begins.
-</LI>
-<LI>
-Appended GPT partitions were not covered by the protective MBR partition
-</LI>
-<LI>
-Multi-session emulation spoiled GPT production "GPT partitions ... overlap".
-Regression towards 1.4.8
-</LI>
-<LI>
--disk_pattern on -add ./ -- mistook "./" for the root directory.
-Thanks JBThiel.
-</LI>
-<LI>
--disk_pattern on -add "" -- yielded SIGSEGV
-</LI>
-<LI>
--osirrox "concat_split_on" worked only together with -split_size
-larger than 0. Thanks William Willems.
-</LI>
-<LI>
-Multi-session emulation spoiled GPT production.
-"GPT partitions ... overlap". Regression towards 1.4.8
-</LI>
-<LI>
-Appending partitions 5 to 8 caused damaged the ISO filesystems
-if not for SUN disk label
-</LI>
-<LI>
-SIGSEGV happened if --grub2-boot-info was given without -b
-</LI>
-<!--
-<LI>- none -</LI>
--->
-</UL>
-</P>
-
-<P>
-Enhancements towards previous stable version xorriso-1.5.0:
-<UL>
-<LI>
-New command -drive_access, new -as cdrecord option --drive_not_exclusive
-</LI>
-<LI>
-Enabled GPT type GUIDs with -append_partition,
--boot_image any iso_mbr_part_type=, and -as mkisofs -iso_mbr_part_type
-</LI>
-<LI>
-Made libisoburn and GNU xorriso ready for building out-of-source.
-Thanks Ross Burton.
-</LI>
-<!--
-<LI>- none -</LI>
--->
-</UL>
-</P>
-
-<HR>
-
-<P>
-<H3>
-Software copies included in GNU xorriso:
-</H3>
-<DL>
-<DT>
-GNU xorriso is feature-wise equivalent to the dynamic compilation of
-<A HREF="http://libburnia-project.org/"> libburnia </A>
-libraries, libjte, and libburnia program xorriso.
-It restricts itself to a technical form where the legal commitments of the
-libburnia project and the legal intentions of
-<A HREF="http://www.fsf.org/"> FSF </A> match completely.
-</DT>
-<DD>&nbsp;</DD>
-<DT>libburn-1.5.2</DT>
-<DD>reads and writes data from and to CD, DVD, BD.</DD>
-<DD>(founded by Derek Foreman and Ben Jansens,
-developed and maintained since August 2006 by
-Thomas Schmitt from team of libburnia-project.org)</DD>
-<DT>libisofs-1.5.2</DT>
-<DD>operates on ISO 9660 filesystem images.</DD>
-<DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
-from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
-<DT>libisoburn-1.5.2</DT>
-<DD>coordinates libburn and libisofs, emulates multi-session where needed,
-and hosts the original source code of program xorriso.</DD>
-<DD>It provides the complete functionality of xorriso via
-a C language API.</DD>
-<DD>(By Vreixo Formoso and Thomas Schmitt
-from team of libburnia-project.org</DD>
-<DD>The helper script xorriso-dd-target is developed in cooperation with
-Nio Wiklund alias sudodus.)</DD>
-<DT>libjte-1.0.0</DT>
-<DD>produces jigdo and template file together with the emerging ISO image.</DD>
-<DD>(By Free Software Foundation, Steve McIntyre, George Danchev,
-Thomas Schmitt)</DD>
-<DD>&nbsp;</DD>
-<DT>The source code of this software is independent of 
-cdrecord and mkisofs.</DT>
-</DL>
-</P>
-
-<HR>
-
-<P>
-<DL>
-<DT><H3>Development snapshot, version 1.5.3 :</H3></DT>
-<DD>Bug fixes towards xorriso-1.5.2:
+Bug fixes towards previous stable version xorriso-1.5.2:
 <UL>
 <LI>
 -report_system_area as_mkisofs misrepresented GPT with appended
@@ -684,12 +574,34 @@ partition and forced boot flag as -part_like_isohybrid
 Boot catalog could get a wrong name if cat_path= is explicitely given but
 not containing a slash character
 </LI>
-<!-- 
-<LI>- none yet -</LI>
- -->
+<LI>
+Big-Endian MIPS Volume Header boot file size was rounded up to full 2048.
+Thanks René Rebe.
+</LI>
+<LI>
+El Torito production failed if no catalog path is given and the
+first boot image path contains no slash
+</LI>
+<LI>
+zisofs production was wrong on big-endian machines
+</LI>
+<LI>
+Apple Partition Map entries wrote uninitialized data
+</LI>
+<LI>
+Appended APM partitions without HFS+ production had start and size 1
+</LI>
+<LI>
+On GNU/Linux early SCSI commands were not logged
+</LI>
+<!--
+<LI>- none -</LI>
+-->
 </UL>
-</DD>
-<DD>Enhancements towards stable version 1.5.2:
+</P>
+
+<P>
+Enhancements towards previous stable version xorriso-1.5.2:
 <UL>
 <LI>
 Switched to usage of libjte-2.0.0
@@ -718,7 +630,7 @@ New -zisofs parameters version_2=, block_size_v2=, max_bpt=, max_bpt_f=,
 bpt_target=, bpt_free_ratio=, by_magic=v2, susp_z2=
 </LI>
 <LI>
-New -as mkisofs option --zisofs-version-2, --zisofs2-susp-z2, --zisofs2-susp-zf
+New -as mkisofs options --zisofs-version-2, --zisofs2-susp-z2, --zisofs2-susp-zf
 </LI>
 <LI>
 Enabled recognition of zisofs by magic without zlib support
@@ -726,6 +638,78 @@ Enabled recognition of zisofs by magic without zlib support
 <LI>
 New -osirrox option sparse= controls extraction into sparse files
 </LI>
+<LI>
+New command -joliet_map
+</LI>
+<LI>
+New command -extract_boot_images
+</LI>
+<!--
+<LI>- none -</LI>
+-->
+</UL>
+</P>
+
+<HR>
+
+<P>
+<H3>
+Software copies included in GNU xorriso:
+</H3>
+<DL>
+<DT>
+GNU xorriso is feature-wise equivalent to the dynamic compilation of
+<A HREF="http://libburnia-project.org/"> libburnia </A>
+libraries, libjte, and libburnia program xorriso.
+It restricts itself to a technical form where the legal commitments of the
+libburnia project and the legal intentions of
+<A HREF="http://www.fsf.org/"> FSF </A> match completely.
+</DT>
+<DD>&nbsp;</DD>
+<DT>libburn-1.5.4</DT>
+<DD>reads and writes data from and to CD, DVD, BD.</DD>
+<DD>(founded by Derek Foreman and Ben Jansens,
+developed and maintained since August 2006 by
+Thomas Schmitt from team of libburnia-project.org)</DD>
+<DT>libisofs-1.5.4</DT>
+<DD>operates on ISO 9660 filesystem images.</DD>
+<DD>(By Vreixo Formoso, Mario Danic and Thomas Schmitt
+from team of libburnia-project.org. HFS+ code by Vladimir Serbinenko.)</DD>
+<DT>libisoburn-1.5.4</DT>
+<DD>coordinates libburn and libisofs, emulates multi-session where needed,
+and hosts the original source code of program xorriso.</DD>
+<DD>It provides the complete functionality of xorriso via
+a C language API.</DD>
+<DD>(By Vreixo Formoso and Thomas Schmitt
+from team of libburnia-project.org</DD>
+<DD>The helper script xorriso-dd-target is developed in cooperation with
+Nio Wiklund alias sudodus.)</DD>
+<DT>libjte-1.0.0</DT>
+<DD>produces jigdo and template file together with the emerging ISO image.</DD>
+<DD>(By Free Software Foundation, Steve McIntyre, George Danchev,
+Thomas Schmitt)</DD>
+<DD>&nbsp;</DD>
+<DT>The source code of this software is independent of 
+cdrecord and mkisofs.</DT>
+</DL>
+</P>
+
+<HR>
+
+<P>
+<DL>
+<DT><H3>Development snapshot, version 1.5.5 :</H3></DT>
+<DD>Bug fixes towards xorriso-1.5.4:
+<UL>
+<LI>- none yet -</LI>
+<!-- 
+<LI>- none yet -</LI>
+ -->
+</UL>
+</DD>
+<DD>Enhancements towards stable version 1.5.4:
+<UL>
+<LI>- none yet -</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -735,13 +719,13 @@ New -osirrox option sparse= controls extraction into sparse files
 
 
 <DD>&nbsp;</DD>
-<DD><A HREF="README_xorriso_devel">README 1.5.3</A>
-<DD><A HREF="xorriso_help_devel">xorriso-1.5.3 -help</A></DD>
-<DD><A HREF="xorrisofs_help_devel">xorriso-1.5.3 -as mkisofs -help</A></DD>
-<DD><A HREF="xorrecord_help_devel">xorriso-1.5.3 -as cdrecord -help</A></DD>
-<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.5.3)</A></DD>
-<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.5.3)</A></DD>
-<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.5.3)</A></DD>
+<DD><A HREF="README_xorriso_devel">README 1.5.5</A>
+<DD><A HREF="xorriso_help_devel">xorriso-1.5.5 -help</A></DD>
+<DD><A HREF="xorrisofs_help_devel">xorriso-1.5.5 -as mkisofs -help</A></DD>
+<DD><A HREF="xorrecord_help_devel">xorriso-1.5.5 -as cdrecord -help</A></DD>
+<DD><A HREF="man_1_xorriso_devel.html">man xorriso (as of 1.5.5)</A></DD>
+<DD><A HREF="man_1_xorrisofs_devel.html">man xorrisofs (as of 1.5.5)</A></DD>
+<DD><A HREF="man_1_xorrecord_devel.html">man xorrecord (as of 1.5.5)</A></DD>
 <DD>&nbsp;</DD>
 <DT>If you want to distribute development versions of xorriso, then use
 this tarball which produces static linking between xorriso and the
@@ -751,8 +735,8 @@ libburnia libraries.
 installation see README)
 </DD>
 <DD>
-<A HREF="xorriso-1.5.3.tar.gz">xorriso-1.5.3.tar.gz</A>
-(2650 KiB).
+<A HREF="xorriso-1.5.5.tar.gz">xorriso-1.5.5.tar.gz</A>
+(2720 KiB).
 </DD>
 <DT>A dynamically linked development version of xorriso can be obtained
 from repositories of
@@ -851,7 +835,7 @@ scdbackup, multi volume CD/DVD/BD backup</A></DD>
 <BR>
 Legal statement: This website does not serve any commercial purpose.
 <BR><BR>
-Copyright &copy; 2008 - 2020 Thomas Schmitt.
+Copyright &copy; 2008 - 2021 Thomas Schmitt.
 <BR>
 This text is freely distributable. It shall only be modified in sync with
 the factual properties of xorriso and its public storage locations.

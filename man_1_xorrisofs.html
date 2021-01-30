@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Oct 26 20:22:45 2019 -->
+<!-- CreationDate: Sat Jan 30 15:30:50 2021 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -186,7 +186,7 @@ they are missing then a new image is composed from scratch.
 
 <p style="margin-left:22%;">Set the path from which to load
 the existing ISO image directory tree on which to base the
-upcomming directory tree as add-on session. The path
+upcoming directory tree as add-on session. The path
 must lead to a random-access readable file object. On
 GNU/Linux: regular data files or block device files. <br>
 A special kind of pseudo disk_path has the form
@@ -345,6 +345,39 @@ in uncompressed form.</p></td></tr>
 <p style="margin-left:11%;"><b>-transparent-compression</b></p>
 
 <p style="margin-left:22%;">Alias of -z.</p>
+
+
+<p style="margin-left:11%;"><b>--zisofs-version-2</b></p>
+
+<p style="margin-left:22%;">Enable the recognition and
+proper processing of experimental zisofs version 2
+compressed files. The Linux kernel (as of 5.9) does not yet
+know this format and will complain like <br>
+isofs: Unknown ZF compression algorithm: PZ <br>
+This complaint can be prevented by option
+--zisofs2-susp-z2 . <br>
+The files will be shown by unaware kernels as they were
+submitted to xorriso, i.e. with zisofs2 header, block
+pointer list, and compressed data. <br>
+--zisofs-version-2 also enables
+-z.</p>
+
+
+<p style="margin-left:11%;"><b>--zisofs2-susp-z2</b></p>
+
+<p style="margin-left:22%;">Enable the production of SUSP
+entries &quot;Z2&quot; instead of &quot;ZF&quot; with
+zisofs2 compressed files. Unaware Linux kernels silently
+ignore &quot;Z2&quot; entries.</p>
+
+
+<p style="margin-left:11%;"><b>--zisofs2-susp-zf</b></p>
+
+<p style="margin-left:22%;">Enable the production of SUSP
+entries &quot;ZF&quot; instead of &quot;Z2&quot; with
+zisofs2 compressed files. Unaware Linux kernels complain
+about zisofs2 &quot;ZF&quot; by &quot;Unknown ZF compression
+algorithm&quot; and thus leave a mark in the system log.</p>
 
 <p style="margin-left:11%;"><b>-root</b>
 iso_rr_path</p>
@@ -1069,7 +1102,13 @@ letters. Therefore, file names from the iso_rr name tree may
 collide in the HFS+ name tree. In this case they get changed
 by adding underscore characters and counting numbers. In
 case of very long names, it might be necessary to map them
-to &quot;MANGLED_...&quot;.</p>
+to &quot;MANGLED_...&quot;. <br>
+WARNING: <br>
+The HFS+ implementation in libisofs has a limit of
+125,829,120 bytes for the size of the overall directory
+tree. This suffices for about 300,000 files of normal name
+length. If the limit gets exceeded, a FAILURE event will be
+issued and the ISO production will not happen.</p>
 
 
 <p style="margin-left:11%;"><b>-hfsplus-serial-no</b></p>
@@ -1651,17 +1690,19 @@ option -G.</p>
 <p style="margin-left:11%;"><b>-isohybrid-gpt-basdat</b></p>
 
 <p style="margin-left:22%;">Mark the current El Torito boot
-image (see options -b and -e) in GPT as
-partition of type Basic Data. This works only with
--isohybrid-mbr and has the same impact on the
-system area as -efi-boot-part. It cannot
-be combined with -efi-boot-part or
+image (see options -b and -e) in an actually
+invalid GPT as partition of type Basic Data. This works only
+with -isohybrid-mbr and has the same impact on
+the system area as -efi-boot-part. It
+cannot be combined with -efi-boot-part or
 -hfsplus. <br>
 The first three boot images which are marked by GPT will
-also show up as partition entries of type 0xef in MBR. The
-MBR partition for PC-BIOS gets type 0x00 rather than
-0x17 in this case. Often the further MBR entries are the
-ones which actually get used by EFI.</p>
+also show up as partition entries in MBR. The MBR partition
+of type 0xEF is what actually is used by EFI firmware for
+booting from USB stick. The MBR partition for PC-BIOS
+gets type 0x00 rather than 0x17 in this case. Often the
+further MBR entries are the ones which actually get used by
+EFI.</p>
 
 
 <p style="margin-left:11%;"><b>-isohybrid-gpt-hfsplus</b></p>
@@ -1727,7 +1768,8 @@ will be mapped to 0xef. Any other GUID will be mapped to
 <p style="margin-left:22%;">Patch the System Area by a
 simple PC-DOS partition table where partition 1 claims
 the range of the ISO image but leaves the first block
-unclaimed.</p>
+unclaimed. This is mutally exclusive to option
+-isohybrid-mbr.</p>
 
 
 <p style="margin-left:11%;"><b>--mbr-force-bootable</b></p>
@@ -1841,7 +1883,10 @@ It will be used if the partition is mentioned in GPT. In
 MBR,
 C12A7328-F81F-11D2-BA4B-00A0C93EC93B
 will be mapped to 0xef. Any other GUID will be mapped to
-0x83. <br>
+0x83. In APM,
+48465300-0000-11AA-AA11-00306543ECAC
+will be mapped to partition type &quot;Apple_HFS&quot;, any
+other to &quot;Data&quot;. <br>
 If some other command causes the production of GPT, then the
 appended partitions will be mentioned there too, even if not
 -appended_part_as_gpt is given.</p>
@@ -2090,23 +2135,38 @@ contains checksums and symbolic file addresses. The
 reference tags instead of the content bytes of the listed
 files. <br>
 Input for this process are the normal arguments for a
-<b>xorrisofs</b> session with no image loaded, and a .md5
-file which lists those data files which may be listed in the
-.jigdo file and externally referenced in the .template file.
-Each designated file is represented in the .md5 file by a
-single text line: <br>
-MD5 as 32 hex digits, 2 blanks, size as 12 decimal digits or
-blanks, 2 blanks, symbolic file address <br>
-The file address in an .md5 line has to bear the same
-basename as the disk_path of the file which it shall match.
-The directory path of the file address is decisive for
-To=From mapping, not for file recognition. After To=From
+<b>xorrisofs</b> session with no image loaded, and a
+checksum file which lists those data files which may be
+listed in the .jigdo file and externally referenced in the
+.template file. Each designated file is represented in the
+checksum file by a single text line: <br>
+Checksum as hex digits, 2 blanks, size as 12 decimal digits
+or blanks, 2 blanks, symbolic file address <br>
+The kind of checksum is chosen by -jigdo
+&quot;checksum_algorithm&quot; with values &quot;md5&quot;
+(32 hex digits) or &quot;sha256&quot; (64 hex digits). It
+will also be used for the file address lines in the .jigdo
+file. <br>
+The default is &quot;md5&quot;. <br>
+The file address in a checksum file line has to bear the
+same basename as the disk_path of the file which it shall
+match. The directory path of the file address is decisive
+for To=From mapping, not for file recognition. After To=From
 mapping, the file address gets written into the .jigdo file.
 Jigdo restore tools will convert these addresses into really
 reachable data source addresses from which they can read.
 <br>
 If the list of jigdo parameters is not empty, then padding
-will be counted as part of the ISO image. <b><br> -jigdo-jigdo</b> disk_path</p>
+will be counted as part of the ISO image. <b><br> -jigdo-checksum-algorithm</b>
+&quot;md5&quot;|&quot;sha256&quot;</p>
+
+<p style="margin-left:22%;">Set the checksum algorithm
+which shall be used for the data file entries in the .jigdo
+file and is expected in the checksum file. Default is
+&quot;md5&quot;.</p>
+
+<p style="margin-left:11%;"><b>-jigdo-jigdo</b>
+disk_path</p>
 
 <p style="margin-left:22%;">Set the disk_path for the
 .jigdo file with the checksums and download addresses for
@@ -2130,15 +2190,22 @@ or a number with appended letter &quot;k&quot;,
 &quot;m&quot;, &quot;g&quot; to count KiB (1024 bytes), MiB
 (1024 KiB), or GiB (1024 MiB).</p>
 
-<p style="margin-left:11%;"><b>-jigdo-force-md5</b>
+
+<p style="margin-left:11%;"><b>-jigdo-force-checksum</b>
 disk_path_pattern</p>
 
 <p style="margin-left:22%;">adds a regular expression
 pattern which will get compared with the absolute disk_path
-of any data file that was not found in the .md5 list. A
+of any data file that was not found in the checksum file. A
 match causes a MISHAP event, which normally does not abort
 the program run but finally causes a non-zero exit
 value of the program.</p>
+
+<p style="margin-left:11%;"><b>-jigdo-force-md5</b>
+disk_path_pattern</p>
+
+<p style="margin-left:22%;">Outdated alias of
+-jigdo-force-checksum.</p>
 
 <p style="margin-left:11%;"><b>-jigdo-exclude</b>
 disk_path_pattern</p>
@@ -2154,18 +2221,26 @@ To=From</p>
 <p style="margin-left:22%;">Add a string pair of the form
 To=From to the parameter list. If a data file gets listed in
 the .jigdo file, then it is referred by the file address
-from its line in the .md5 file. This file address gets
+from its line in the checksum file. This file address gets
 checked whether it begins with the From string. If so, then
 this string will be replaced by the To string and a
 &rsquo;:&rsquo; character, before it goes into the .jigdo
 file. The From string should end by a &rsquo;/&rsquo;
 character.</p>
 
-<p style="margin-left:11%;"><b>-md5-list</b>
+<p style="margin-left:11%;"><b>-checksum-list</b>
 disk_path</p>
 
 <p style="margin-left:22%;">Set the disk_path where to find
-the .md5 input file.</p>
+the checksum file file with symbolic file addresses and
+checksums according to
+-jigdo-checksum-algorithm.</p>
+
+<p style="margin-left:11%;"><b>-md5-list</b>
+disk_path</p>
+
+<p style="margin-left:22%;">Outdated alias of
+-checksum-list.</p>
 
 
 <p style="margin-left:11%;"><b>-jigdo-template-compress</b>
@@ -2356,7 +2431,7 @@ This example works for multi-session media only:
 CD-R[W], DVD-R[W], DVD+R, BD-R. Add
 cdrskin option --grow_overwriteable_iso to all
 -as cdrecord runs in order to enable
-multi-session emulation on overwriteable media. <br>
+multi-session emulation on overwritable media. <br>
 The first session is written like this: <br>
 $ xorrisofs -graft-points \ <br>
 /tree1=prepared_for_iso/tree1 \ <br>
@@ -2487,7 +2562,7 @@ possible to access the session trees which represent the
 older backup versions. With CD media, GNU/Linux mount
 accepts session numbers directly by its option
 &quot;session=&quot;. <br>
-Multi-session media and most overwriteable media
+Multi-session media and most overwritable media
 written by xorriso can tell the sbsectors of their sessions
 by xorriso option -toc: <br>
 $ xorriso -dev /dev/sr0 -toc <br>
@@ -2804,7 +2879,7 @@ for libburnia-project.org</p>
 
 
 <p style="margin-left:11%; margin-top: 1em">Copyright (c)
-2011 - 2019 Thomas Schmitt <br>
+2011 - 2021 Thomas Schmitt <br>
 Permission is granted to distribute this text freely. It
 shall only be modified in sync with the technical properties
 of xorriso. If you make use of the license to derive
@@ -2825,5 +2900,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Oct 26 20:22:45 CEST 2019 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Sat Jan 30 15:30:50 CET 2021 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>
