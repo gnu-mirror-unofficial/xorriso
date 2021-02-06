@@ -4,7 +4,7 @@
 GNU xorriso. By Thomas Schmitt <scdbackup@gmx.net>
 Derived from and supported by libburnia-project.org, published via:
 http://www.gnu.org/software/xorriso/xorriso_eng.html
-http://www.gnu.org/software/xorriso/xorriso-1.5.4.tar.gz
+http://www.gnu.org/software/xorriso/xorriso-1.5.4.pl01.tar.gz
 Provided under GPL version 3 or later. No warranty.
 ------------------------------------------------------------------------------
 
@@ -49,9 +49,9 @@ Optional at compile time are:
 If they were present at compile time, then the optional libraries have to
 be present at runtime, too.
 
-Obtain xorriso-1.5.4.tar.gz, take it to a directory of your choice and do:
+Obtain xorriso-1.5.4.pl01.tar.gz, take it to a directory of your choice and do:
 
-    tar xzf xorriso-1.5.4.tar.gz
+    tar xzf xorriso-1.5.4.pl01.tar.gz
     cd xorriso-1.5.4
 
 Within that directory execute:

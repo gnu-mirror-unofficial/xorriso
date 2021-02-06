@@ -507,14 +507,14 @@ files or trees to disk:
 <P>
 <DL>
 <DT><H3>Download as source code (see README):</H3></DT>
-<DD><A HREF="xorriso-1.5.4.tar.gz">xorriso-1.5.4.tar.gz</A>
+<DD><A HREF="xorriso-1.5.4.pl01.tar.gz">xorriso-1.5.4.pl01.tar.gz</A>
 (2720 KiB).
 </DD>
-<DD>(Released 30 Jan 2021)</DD>
-<DD><A HREF="xorriso-1.5.4.tar.gz.sig">xorriso-1.5.4.tar.gz.sig</A></DD>
+<DD>(Released 06 Feb 2021)</DD>
+<DD><A HREF="xorriso-1.5.4.pl01.tar.gz.sig">xorriso-1.5.4.pl01.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.5.4.tar.gz.sig xorriso-1.5.4.tar.gz</KBD>
+<KBD>gpg --verify xorriso-1.5.4.pl01.tar.gz.sig xorriso-1.5.4.pl01.tar.gz</KBD>
 <BR>
 which should confirm
 <KBD>gpg: Good signature from "Thomas Schmitt &lt;scdbackup@gmx.net&gt;"</KBD>
@@ -529,7 +529,7 @@ after <KBD>gpg --keyserver keys.gnupg.net --recv-keys ABC0A854</KBD>
 <DD>
 Also on <A HREF="http://www.gnu.org/prep/ftp.html">
 mirrors of ftp://ftp.gnu.org/gnu/ </A>
-as xorriso/xorriso-1.5.4.tar.gz
+as xorriso/xorriso-1.5.4.pl01.tar.gz
 </DD>
 </DL>
 </DD>
@@ -597,6 +597,17 @@ On GNU/Linux early SCSI commands were not logged
 <!--
 <LI>- none -</LI>
 -->
+</UL>
+</P>
+
+<P>
+Bug fixes towards deprecated version xorriso-1.5.4:
+<UL>
+<LI>
+Large amounts of AAIP data or many long file names could cause with
+zisofs an unreadable filesystem after the warning "Calculated and written
+ECMA-119 tree end differ"
+</LI>
 </UL>
 </P>
 
@@ -701,16 +712,17 @@ cdrecord and mkisofs.</DT>
 <DT><H3>Development snapshot, version 1.5.5 :</H3></DT>
 <DD>Bug fixes towards xorriso-1.5.4:
 <UL>
-<LI>Large amounts of AAIP data or many long file names could cause with
-  zisofs an unreadable filesystem after the warning "Calculated and
-  written ECMA-119 tree end differ"
+<LI>
+Large amounts of AAIP data or many long file names could cause with
+zisofs an unreadable filesystem after the warning "Calculated and written
+ECMA-119 tree end differ"
 </LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
 </UL>
 </DD>
-<DD>Enhancements towards stable version 1.5.4:
+<DD>Enhancements towards stable version 1.5.4.pl01:
 <UL>
 <LI>- none yet -</LI>
 <!-- 
