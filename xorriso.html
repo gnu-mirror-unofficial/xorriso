@@ -514,7 +514,7 @@ files or trees to disk:
 <DD><A HREF="xorriso-1.5.4.pl02.tar.gz.sig">xorriso-1.5.4.pl02.tar.gz.sig</A></DD>
 <DD>
 (detached GPG signature for verification by
-<KBD>gpg --verify xorriso-1.5.4.pl02.tar.gz.sig xorriso-1.5.4.pl02.tar.gz</KBD>
+<KBD>gpg --with-fingerprint --verify xorriso-1.5.4.pl02.tar.gz.sig xorriso-1.5.4.pl02.tar.gz</KBD>
 <BR>
 which should confirm
 <KBD>gpg: Good signature from "Thomas Schmitt &lt;scdbackup@gmx.net&gt;"</KBD>
@@ -717,6 +717,9 @@ Large amounts of AAIP data or many long file names could cause with
 zisofs an unreadable filesystem after the warning "Calculated and written
 ECMA-119 tree end differ"
 </LI>
+<LI>
+False -status failure with -boot_image --interval:appended_partition
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -724,7 +727,12 @@ ECMA-119 tree end differ"
 </DD>
 <DD>Enhancements towards stable version 1.5.4.pl02:
 <UL>
-<LI>- none yet -</LI>
+<LI>
+New -boot_image settings gpt_iso_bootable= and gpt_iso_not_ro=
+</LI>
+<LI>
+New -as mkisofs options --gpt-iso-bootable and --gpt-iso-not-ro
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->

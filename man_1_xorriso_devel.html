@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Wed Feb  3 12:54:48 2021 -->
+<!-- CreationDate: Tue May 25 22:04:23 2021 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -4075,7 +4075,19 @@ block of the ISO image. <br>
 If no bootable MBR is indicated and a partition gets created
 by -append_partition, then
 mbr_force_bootable=&quot;on&quot; causes a bootflag like it
-would do with a bootable MBR. <b><br> mips_path=</b>iso_rr_path declares a data file in the image
+would do with a bootable MBR. <b><br> gpt_iso_bootable=</b>on causes bit 2 of the GPT partition
+flags to be set for the ISO 9660 partition if such a GPT
+partition emerges. This bit is specified as &quot;Legacy
+BIOS bootable&quot; but its true significance is unclear.
+Some GPT-aware BIOS might want to see it in some
+partition. Mode &quot;off&quot; revokes this setting.
+<b><br> gpt_iso_not_ro=</b>on causes bit 60 of the GPT partition
+flags to be not set for the ISO 9660 partition if such a GPT
+partition emerges. This bit is specified as
+&quot;Read-only&quot; and thus appropriate. But it is
+unusual in GPT disk partitions. Mode &quot;off&quot; revokes
+this setting and causes the read-only bit to be set.
+<b><br> mips_path=</b>iso_rr_path declares a data file in the image
 to be a MIPS Big Endian boot file and causes production of a
 MIPS Big Endian Volume Header. This is mutually exclusive
 with production of other boot blocks like MBR. It will
@@ -6922,5 +6934,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Wed Feb  3 12:54:48 CET 2021 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Tue May 25 22:04:23 CEST 2021 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

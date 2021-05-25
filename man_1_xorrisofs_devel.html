@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Wed Feb  3 12:54:48 2021 -->
+<!-- CreationDate: Tue May 25 22:04:24 2021 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1790,6 +1790,23 @@ partition gets created by -append_partition, then
 bootflag like it would do with e.g.
 --protective-msdos-label.</p>
 
+<p style="margin-left:11%;"><b>--gpt-iso-bootable</b></p>
+
+<p style="margin-left:22%;">Set bit 2 of the GPT partition
+flags for the ISO 9660 partition if such a GPT partition
+emerges. This bit is specified as &quot;Legacy BIOS
+bootable&quot; but its true significance is unclear. Some
+GPT-aware BIOS might want to see it in some
+partition.</p>
+
+<p style="margin-left:11%;"><b>--gpt-iso-not-ro</b></p>
+
+<p style="margin-left:22%;">Do not set bit 60 of the GPT
+partition flags for the ISO 9660 partition if such a GPT
+partition emerges. This bit is specified as
+&quot;Read-only&quot; and thus appropriate. But it is
+unusual in GPT disk partitions.</p>
+
 <p style="margin-left:11%;"><b>-partition_offset</b>
 2kb_block_adr</p>
 
@@ -2900,5 +2917,5 @@ filesystem code and related knowledge. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Wed Feb  3 12:54:48 CET 2021 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrisofs.1 on Tue May 25 22:04:24 CEST 2021 by man_xorrisofs_to_html.sh )</CENTER></FONT></body>
 </html>

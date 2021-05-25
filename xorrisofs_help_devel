@@ -127,6 +127,8 @@ Options:
   --embedded-boot FILE        Alias of -G
   --protective-msdos-label    Patch System Area by partition table
   --mbr-force-bootable        Enforce existence of bootable flag in MBR
+  --gpt-iso-bootable          Set Legacy BIOS bootable flag in ISO partition
+  --gpt-iso-not-ro            Do not set Read-only flag in ISO partition
   -partition_offset LBA       Make image mountable by first partition, too
   -partition_sec_hd NUMBER    Define number of sectors per head
   -partition_hd_cyl NUMBER    Define number of heads per cylinder
