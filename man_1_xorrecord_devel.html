@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Tue May 25 22:04:24 2021 -->
+<!-- CreationDate: Sat Sep  4 09:59:02 2021 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -887,13 +887,28 @@ for all byte addresses below that number. Any number below
 
 <p style="margin-left:11%;"><b>dvd_obs=&quot;default&quot;|&quot;32k&quot;|&quot;64k&quot;</b></p>
 
-<p style="margin-left:22%;">Linux specific: Set the number
-of bytes to be transmitted with each write operation to DVD
-or BD media. Tracks get padded up to the next multiple of
-this write size. A number of 64 KB may improve throughput
-with bus systems which show latency problems. The default
-depends on media type, option stream_recording=, and on
-compile time options.</p>
+<p style="margin-left:22%;">Set the number of bytes to be
+transmitted with each write operation to DVD or BD media.
+With most write types, tracks get padded up to the next
+multiple of this write size (see option
+--obs_pad). A number of 64 KB may improve
+throughput with bus systems which show latency problems. The
+default depends on media type, option stream_recording=, and
+on compile time options.</p>
+
+<p style="margin-left:11%;"><b>--obs_pad</b></p>
+
+<p style="margin-left:22%;">Pad the data of last write
+operation of a DVD-R[W] DAO session or stdio:
+pseudo-drive up to the full size of an output chunk.
+This padding has to be applied automatically to the other
+DVD and BD media types, where it causes e.g. ISO images to
+have trailing unclaimed blocks. <br>
+Use this option if there is the suspicion that DAO sessions
+abort with your kernel and/or DVD drive, if their size is
+not a multiple of 16 blocks. <br>
+This option may also get enabled at compile time of
+libburn.</p>
 
 
 <p style="margin-left:11%;"><b>modesty_on_drive=parameter[:parameters]</b></p>
@@ -1203,5 +1218,5 @@ founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Tue May 25 22:04:24 CEST 2021 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Sat Sep  4 09:59:02 CEST 2021 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>
