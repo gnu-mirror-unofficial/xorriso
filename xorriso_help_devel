@@ -464,8 +464,9 @@ Write-to-media commands:
                     [:"min_usec="number][:"max_usec"=number]
                     [:"timeout_sec="number]
                  Keep drive buffer hungry to ease concurrent burn run.
-  -dvd_obs "default"|"32k"|"64k"
-                 Set number of bytes per DVD/BD write operation.
+  -dvd_obs "default"|"32k"|"64k"|"obs_pad"|"bdr_obs_exempt"
+                 Set number of bytes per DVD/BD write operation or control
+                 end alignment padding with DAO DVD-R[W] or BD-R.
   -use_immed_bit "on"|"off"|"default"
                  Control whether long running SCSI commands shall run
                  asynchronously with progress messages.

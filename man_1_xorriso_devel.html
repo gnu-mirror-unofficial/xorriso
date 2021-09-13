@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Sep  4 09:59:02 2021 -->
+<!-- CreationDate: Mon Sep 13 17:18:53 2021 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -1706,13 +1706,15 @@ code[:code[...]]</p>
 <p style="margin-left:22%;">Control the behavior of the
 exclusion lists. <br>
 Exclusion processing happens before disk_paths get mapped to
-the ISO image and before disk files get compared with image
-files. The absolute disk path of the source is matched
-against the -not_paths list. The leafname of the disk
-path is matched against the patterns in the -not_leaf
-list. If a match is detected then the disk path will not be
-regarded as an existing file and not be added to the ISO
-image. <br>
+the ISO image, before disk files get compared with image
+files, and before image files get extracted to disk files.
+<br>
+The absolute disk paths involved in such an action are
+matched against the -not_paths list. The leafnames of
+disk paths are matched against the patterns in the
+-not_leaf list. If a match is detected then the disk
+path will not be regarded as an existing file and not be
+added to the ISO image. <br>
 Several codes are defined. The _on/_off settings persist
 until they are revoked by their_off/_on counterparts. <br>
 &quot;erase&quot; empties the lists which were accumulated
@@ -1748,6 +1750,14 @@ of excluded absolute disk paths. If a given path is
 relative, then the current -cdx is prepended to form
 an absolute path. Pattern matching, if enabled, happens at
 definition time and not when exclusion checks are made. <br>
+Keep in mind that there may be alternative paths to the same
+disk file. The exclusion tests are done literally, so that
+they do not keep files from getting into the ISO filesystem
+by other paths. Accordingly an exclusion does not prevent a
+disk file from being overwritten by file extraction via an
+alternative not excluded path. So the exlusions need to be
+coordinated with the actual disk_path parameters given with
+commands. <br>
 (Do not forget to end the list of disk_paths by
 &quot;--&quot;)</p>
 
@@ -3499,14 +3509,31 @@ and directory entries are written and writing of file
 content blocks begins.</p>
 
 <p style="margin-left:11%;"><b>-dvd_obs</b>
-&quot;default&quot;|&quot;32k&quot;|&quot;64k&quot;</p>
+&quot;default&quot;|&quot;32k&quot;|&quot;64k&quot;|&quot;obs_pad&quot;|&quot;bdr_obs_exempt&quot;</p>
 
 <p style="margin-left:22%;">GNU/Linux specific: Set the
 number of bytes to be transmitted with each write operation
 to DVD or BD media. A number of 64 KB may improve throughput
 with bus systems which show latency problems. The default
 depends on media type, on command -stream_recording ,
-and on compile time options.</p>
+and on compile time options. <br>
+On all systems: &quot;obs_pad&quot; pads the data of the
+last write operation of a DVD-R[W] DAO session or
+BD-R session up to the full size of an output chunk.
+This padding has to be applied automatically to the other
+DVD and BD media types, where it causes e.g. ISO images to
+have trailing unclaimed blocks. Whether it is applied
+automatically to BD-R depends on
+&quot;bdr_obs_exempt&quot;. &quot;obs_pad&quot; can be
+disabled by &quot;no_obs_pad&quot;. <br>
+&quot;bdr_obs_exempt&quot; exempts BD-R media from
+automatic unconditional transaction end padding, provided
+that this padding is not requested by &quot;obs_pad&quot;
+and that no stream_recording is requested.
+&quot;bdr_obs_exempt&quot; can be disabled by
+&quot;no_obs_exempt&quot;. <br>
+This is a new feature introduced with version 1.5.6. It
+might become default in later versions.</p>
 
 <p style="margin-left:11%;"><b>-modesty_on_drive</b>
 parameter[:parameters]</p>
@@ -5327,11 +5354,20 @@ ego osirrox is able to extract file objects from ISO images
 and to create, overwrite, or delete file objects on disk.
 <br>
 Disk file exclusions by -not_mgt, -not_leaf,
--not_paths apply. If disk file objects already exist
-then the settings of -overwrite and -reassure
-apply. But -overwrite &quot;on&quot; only triggers the
-behavior of -overwrite &quot;nondir&quot;. I.e.
-directories cannot be deleted. <br>
+-not_paths apply. The exclusion tests are made with
+the paths and names for the disk files. If exclusion of
+paths or names in the ISO image is desired, then use image
+manipulation commands like -rm or -find ...
+-exec rm before extraction, and end the program by
+-rollback_end . <br>
+Excluded disk_path parameters of extraction commands cause
+SORRY events. Implicitely given paths in trees under
+disk_path parameters are excluded silently. <br>
+If disk file objects already exist then the settings of
+-overwrite and -reassure apply. But
+-overwrite &quot;on&quot; only triggers the behavior
+of -overwrite &quot;nondir&quot;. I.e. directories
+cannot be deleted. <br>
 Access permissions of files in the ISO image do not restrict
 restoring. The directory permissions on disk have to allow
 rwx. <b><br> -osirrox</b> setting[:option:...]</p>
@@ -6940,5 +6976,5 @@ Ben Jansens who once founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Sat Sep  4 09:59:02 CEST 2021 by man_xorriso_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorriso.1 on Mon Sep 13 17:18:53 CEST 2021 by man_xorriso_to_html.sh )</CENTER></FONT></body>
 </html>

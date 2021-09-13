@@ -718,6 +718,9 @@ False -status failure with -boot_image --interval:appended_partition
 <LI>
 -no_rc prevented pre-scanning of arguments for stdio output and others.
 </LI>
+<LI>
+-not_leaf and -not_paths were not applied to -extract and alike
+</LI>
 <!-- 
 <LI>- none yet -</LI>
  -->
@@ -733,6 +736,12 @@ New -as mkisofs options --gpt-iso-bootable and --gpt-iso-not-ro
 </LI>
 <LI>
 New -as cdrecord option --obs_pad. Automatic no_emul_toc with -as cdrecord.
+</LI>
+<LI>
+New parameters "obs_pad" and "bdr_obs_exempt" for -dvd_obs
+</LI>
+<LI>
+New -as cdrecord option --bdr_obs_exempt
 </LI>
 <!-- 
 <LI>- none yet -</LI>

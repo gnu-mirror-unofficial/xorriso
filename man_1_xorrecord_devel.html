@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.22.2 -->
-<!-- CreationDate: Sat Sep  4 09:59:02 2021 -->
+<!-- CreationDate: Mon Sep 13 17:18:54 2021 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -898,17 +898,30 @@ on compile time options.</p>
 
 <p style="margin-left:11%;"><b>--obs_pad</b></p>
 
-<p style="margin-left:22%;">Pad the data of last write
-operation of a DVD-R[W] DAO session or stdio:
-pseudo-drive up to the full size of an output chunk.
-This padding has to be applied automatically to the other
-DVD and BD media types, where it causes e.g. ISO images to
-have trailing unclaimed blocks. <br>
-Use this option if there is the suspicion that DAO sessions
-abort with your kernel and/or DVD drive, if their size is
-not a multiple of 16 blocks. <br>
+<p style="margin-left:22%;">Pad the data of the last write
+operation of a DVD-R[W] DAO session, or BD-R
+session, or stdio: pseudo-drive session up to the full
+size of an output chunk. This padding has to be applied
+automatically to the other DVD and BD media types, where it
+causes e.g. ISO images to have trailing unclaimed blocks.
+Whether it is applied automatically to BD-R depends on
+option --bdr_obs_exempt. <br>
+Use this option if there is the suspicion that
+DVD-R[W] DAO or BD-R sessions abort with your
+kernel and/or DVD drive, if their size is not a multiple of
+16 blocks. <br>
 This option may also get enabled at compile time of
 libburn.</p>
+
+
+<p style="margin-left:11%;"><b>--bdr_obs_exempt</b></p>
+
+<p style="margin-left:22%;">Exempt BD-R media from
+automatic unconditional transaction end padding, provided
+that this padding is not requested by --obs_pad
+and that no stream_recording is requested. <br>
+This is a new feature introduced with version 1.5.6. It
+might become default in later versions.</p>
 
 
 <p style="margin-left:11%;"><b>modesty_on_drive=parameter[:parameters]</b></p>
@@ -1218,5 +1231,5 @@ founded libburn. <br>
 Compliments towards Joerg Schilling whose cdrtools served me
 for ten years.</p>
 <hr>
-<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Sat Sep  4 09:59:02 CEST 2021 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
+<BR><HR><FONT SIZE=-1><CENTER>(HTML generated from xorrecord.1 on Mon Sep 13 17:18:54 CEST 2021 by man_xorrecord_to_html.sh )</CENTER></FONT></body>
 </html>
